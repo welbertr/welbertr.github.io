@@ -1,137 +1,24 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agendamento</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      line-height: 1.6;
-      color: #333;
-      background-color: #fff;
-      text-align: left;
-      font-size: 14px;
-    }
-    h2 {
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 5px;
-      font-size: 18px;
-      margin-top: 30px;
-    }
-    p, ul, li {
-      font-size: 14px;
-    }
-    .contato {
-      margin-top: 40px;
-      padding: 20px;
-      border: 2px solid black;
-      text-align: center;
-      background-color: #f9f9f9;
-    }
-    .contato a {
-      color: black;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .contato a:hover {
-      text-decoration: underline;
-    }
-    .language-toggle {
-      text-align: right;
-      margin-bottom: 20px;
-    }
-    .language-toggle button {
-      background-color: transparent;
-      color: black;
-      border: none;
-      padding: 8px 16px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      position: relative;
-    }
-    .language-toggle button::before {
-      content: "|";
-      display: inline-block;
-      margin-right: 8px;
-      font-size: 18px;
-      font-weight: bold;
-      line-height: 1;
-    }
-    .language-toggle button:hover {
-      background-color: transparent;
-    }
-  </style>
-</head>
-<body>  
-  <div class="language-toggle">
-    <button onclick="toggleLanguage()">English</button>
-  </div>  
-
-  <div id="content-pt">
-    <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
-    <h2>Orçamento</h2>
-    <p>Envie um direct com:</p>
-    <ul>
-      <li>Imagem de referência ou flash</li>
-      <li>Local do corpo</li>
-      <li>Tamanho aproximado (em cm)</li>
-    </ul>
-    <p>Com esses dados, poderei fornecer os valores.</p>
-
-    <h2>Agendamento e Sinal</h2>
-    <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
-
-    <h2>Lista de Espera</h2>
-    <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
-    <p>Para agendar, é preciso um sinal de R$100,00. Em caso de cancelamento sem aviso prévio, haverá uma multa de 20% do valor total para o reagendamento, sujeito à disponibilidade.</p>
-
-    <h2>No Dia da Sessão</h2>
-    <ul>
-      <li>Alimente-se bem e hidrate-se</li>
-      <li>Evite álcool na véspera</li>
-      <li>Use roupas que facilitem o acesso à área</li>
-    </ul>
-
-    <h2>Cuidados Pós-Tatuagem</h2>
-    <ul>
-      <li>Lave com sabão neutro e água fria</li>
-      <li>Aplique a pomada ou creme cicatrizante indicado</li>
-      <li>Evite sol, mar, piscinas e sauna nas primeiras semanas</li>
-      <li>Evite musculação e outros exercícios físicos de maior impacto</li>
-      <li>Não coce ou retire as casquinhas</li>
-    </ul>
-
-    <p>Qualquer dúvida, estou à disposição :)</p>
-  </div>  
-
-  <div id="content-en" style="display: none;">
-    <p>To make the booking process easier, please follow the guidelines below:</p>
-    <h2>Price Estimate</h2>
-    <p>Send me a direct message with:</p>
+<h2>Price Estimate</h2>
+    <p>Send me a direct message with the following details:</p>
     <ul>
       <li>Reference image or flash</li>
       <li>Body location</li>
       <li>Approximate size</li>
     </ul>
-    <p>With this information, I can provide a price estimate.</p>
+    <p>This information will help me provide an accurate price estimate.</p>
     
     <h2>Booking and Deposit</h2>
-    <p>A 30% deposit is required to secure your appointment. This amount will be deducted from the total tattoo cost. The deposit is non-refundable. If you cancel on the day of the session, a rescheduling fee of 10% of the total tattoo cost will be charged.</p>
+    <p>A 30% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel on the day of your session, a 10% rescheduling fee will be charged based on the total tattoo cost.</p>
     
     <h2>Waitlist</h2>
-    <p>When I open my schedule for other states or countries, I start the pricing and booking process for those locations. Once dates are confirmed, I notify clients on the list in advance, ensuring priority in choosing their appointment time.</p>
-    <p>To book, a deposit of 50% of the total price is required. Due to limited availability, cancellations without prior notice will result in a 20% fee of the total price for rescheduling, subject to availability.</p>
+    <p>When I open my schedule for other states or countries, I begin the booking process for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
+    <p>To confirm your appointment, a 50% deposit is required. Due to limited availability, cancellations without notice will incur a 20% rescheduling fee, depending on availability.</p>
     
-    <h2>On the Day of the Session</h2>
+    <h2>On the Day of Your Session</h2>
     <ul>
       <li>Eat well and stay hydrated</li>
       <li>Avoid alcohol the day before</li>
-      <li>Wear clothing that allows easy access to the area</li>
+      <li>Wear clothing that allows easy access to the tattoo area</li>
     </ul>
     
     <h2>Post-Tattoo Care</h2>
@@ -143,31 +30,4 @@
       <li>Do not scratch or remove scabs</li>
     </ul>
     
-    <p>If you have any questions, feel free to reach out :)</p>
-  </div>  
-
-  <div class="contato">
-    <p><strong>Contato | Contact</strong></p>
-    <p>E-mail: <a href="mailto:Welbertc.rodriguess@gmail.com">Welbertc.rodriguess@gmail.com</a></p>
-    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">31920022832</a></p>
-  </div>  
-
-  <script>
-    function toggleLanguage() {
-      var contentPt = document.getElementById("content-pt");
-      var contentEn = document.getElementById("content-en");
-      var button = document.querySelector(".language-toggle button");
-
-      if (contentPt.style.display === "none") {
-        contentPt.style.display = "block";
-        contentEn.style.display = "none";
-        button.textContent = "English";
-      } else {
-        contentPt.style.display = "none";
-        contentEn.style.display = "block";
-        button.textContent = "Português";
-      }
-    }
-  </script>
-</body>
-</html>
+    <p>If you have any questions, feel free to reach out! :)</p>
