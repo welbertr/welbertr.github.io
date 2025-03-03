@@ -3,11 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agendamento e Preço</title>
+  <title>Agendamento</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fff;
+      text-align: left;
+      font-size: 14px;
+    }
+    h2 {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+      font-size: 18px;
+      margin-top: 30px;
+    }
+    p, ul, li {
+      font-size: 14px;
+    }
+    .contato {
+      margin-top: 40px;
+      padding: 20px;
+      border: 2px solid black;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+    .contato a {
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .contato a:hover {
+      text-decoration: underline;
+    }
+    .language-toggle {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+    .language-toggle button {
+      background-color: transparent;
+      color: black;
+      border: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+    }
+    .language-toggle button::before {
+      content: "|";
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1;
+    }
+    .language-toggle button:hover {
+      background-color: transparent;
+    }
+  </style>
 </head>
-<body>
+<body>  
+  <div class="language-toggle">
+    <button onclick="toggleLanguage()">English</button>
+  </div>  
 
   <div id="content-pt">
+    <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
+    <h2>Orçamento</h2>
+    <p>Envie um direct com:</p>
+    <ul>
+      <li>Imagem de referência ou flash</li>
+      <li>Local do corpo</li>
+      <li>Tamanho aproximado (em cm)</li>
+    </ul>
+    <p>Com esses dados, poderei fornecer os valores.</p>
+
     <h2>Agendamento e Sinal</h2>
     <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
 
@@ -30,24 +105,35 @@
       <li>Evite musculação e outros exercícios físicos de maior impacto</li>
       <li>Não coce ou retire as casquinhas</li>
     </ul>
-    <p>Qualquer dúvida, estou à disposição :)</p>
-  </div>
 
-  <div id="content-en" style="display:none;">
+    <p>Qualquer dúvida, estou à disposição :)</p>
+  </div>  
+
+  <div id="content-en" style="display: none;">
+    <p>To facilitate your appointment, please follow the guidelines below:</p>
+    <h2>Price Estimate</h2>
+    <p>Send me a direct message with:</p>
+    <ul>
+      <li>Reference image or flash</li>
+      <li>Body location</li>
+      <li>Approximate size</li>
+    </ul>
+    <p>Once I have this information, I can provide you with an estimate.</p>
+    
     <h2>Booking and Deposit</h2>
     <p>A deposit of 30% of the total price is required to confirm your appointment. This amount will be deducted from the total tattoo cost. The deposit is non-refundable. If you cancel on the day of the session, a rescheduling fee of 10% of the total tattoo cost will be charged.</p>
-
+    
     <h2>Waitlist</h2>
     <p>When I open my schedule for other states or countries, I start the pricing and booking process for those locations. Once dates are confirmed, I notify clients on the list in advance, ensuring priority in choosing their appointment time.</p>
     <p>To book, a deposit of 50% of the total price is required. Due to limited availability, cancellations without prior notice will result in a 20% fee of the total price for rescheduling, subject to availability.</p>
-
+    
     <h2>On the Day of the Session</h2>
     <ul>
       <li>Eat well and stay hydrated</li>
       <li>Avoid alcohol the day before</li>
       <li>Wear clothing that allows easy access to the area</li>
     </ul>
-
+    
     <h2>Post-Tattoo Care</h2>
     <ul>
       <li>Wash with neutral soap and cold water</li>
@@ -56,31 +142,32 @@
       <li>Avoid weightlifting and high-impact exercises</li>
       <li>Do not scratch or remove scabs</li>
     </ul>
+    
     <p>If you have any questions, feel free to reach out :)</p>
-  </div>
+  </div>  
 
-  <button onclick="toggleLanguage()">English</button>
+  <div class="contato">
+    <p><strong>Contato | Contact</strong></p>
+    <p>E-mail: <a href="mailto:Welbertc.rodriguess@gmail.com">Welbertc.rodriguess@gmail.com</a></p>
+    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">31920022832</a></p>
+  </div>  
 
   <script>
     function toggleLanguage() {
-      var ptContent = document.getElementById('content-pt');
-      var enContent = document.getElementById('content-en');
-      
-      if (ptContent.style.display === 'none') {
-        ptContent.style.display = 'block';
-        enContent.style.display = 'none';
+      var contentPt = document.getElementById("content-pt");
+      var contentEn = document.getElementById("content-en");
+      var button = document.querySelector(".language-toggle button");
+
+      if (contentPt.style.display === "none") {
+        contentPt.style.display = "block";
+        contentEn.style.display = "none";
+        button.textContent = "English";
       } else {
-        ptContent.style.display = 'none';
-        enContent.style.display = 'block';
+        contentPt.style.display = "none";
+        contentEn.style.display = "block";
+        button.textContent = "Português";
       }
     }
   </script>
-
-  <footer>
-    <p>**Contato | Contact</p>
-    <p>Email: <a href="mailto:Welbertc.rodriguess@gmail.com">Welbertc.rodriguess@gmail.com</a></p>
-    <p>WhatsApp: <a href="https://wa.me/5531920022832">31920022832</a></p>
-  </footer>
-
 </body>
 </html>
