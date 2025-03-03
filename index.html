@@ -14,12 +14,12 @@
       color: #333;
       background-color: #fff;
       text-align: left;
-      font-size: 14px; /* Fonte reduzida */
+      font-size: 14px;
     }
     h2 {
       border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
-      font-size: 18px; /* Título reduzido */
+      font-size: 18px;
       margin-top: 30px;
     }
     p, ul, li {
@@ -44,7 +44,7 @@
       text-align: right;
       margin-bottom: 20px;
     }
-    /* Estilo do botão semelhante ao "contato" */
+    /* Estilo do botão com a barra vertical antes do texto */
     .language-toggle button {
       background-color: #f9f9f9;
       color: black;
@@ -53,9 +53,16 @@
       font-size: 14px;
       font-weight: bold;
       cursor: pointer;
+      position: relative; /* Para podermos usar ::before */
+    }
+    .language-toggle button::before {
+      content: "|";
+      display: inline-block;
+      margin-right: 8px; 
+      font-weight: normal; 
     }
     .language-toggle button:hover {
-      background-color: #eaeaea; /* Pequeno destaque no hover */
+      background-color: #eaeaea;
     }
   </style>
 </head>
