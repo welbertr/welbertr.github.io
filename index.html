@@ -21,20 +21,20 @@
       border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
       font-size: 18px;
-      margin-top: 40px; /* Aumentado de 30px para 40px */
+      margin-top: 40px;
     }
     p, ul, li {
       font-size: 14px;
-      text-align: justify; /* Texto justificado */
-      hyphens: auto; /* Quebra de palavras em inglês */
+      text-align: left; /* Alterado de justify para left */
+      hyphens: auto;
     }
     .contato {
-      margin-top: 60px; /* Aumentado de 40px para 60px */
+      margin-top: 60px;
       padding: 20px;
-      border: 1px solid rgba(0, 0, 0, 0.1); /* Borda mais sutil */
+      border: 1px solid rgba(0, 0, 0, 0.1);
       text-align: center;
       background-color: #f9f9f9;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra ultra-sutil */
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
     .contato a {
       color: black;
@@ -57,7 +57,7 @@
       font-weight: bold;
       cursor: pointer;
       position: relative;
-      transition: opacity 0.3s ease; /* Transição suave */
+      transition: opacity 0.3s ease;
     }
     .language-toggle button::before {
       content: "|";
@@ -68,16 +68,22 @@
       line-height: 1;
     }
     .language-toggle button:hover {
-      opacity: 0.8; /* Efeito de hover sutil */
+      opacity: 0.8;
+    }
+    .hidden {
+      display: none;
+    }
+    .visible {
+      display: block;
     }
   </style>
 </head>
 <body>  
   <div class="language-toggle">
-    <button onclick="toggleLanguage()">English</button>
+    <button onclick="toggleLanguage()" aria-label="Alternar idioma">English</button>
   </div>  
 
-  <div id="content-pt">
+  <div id="content-pt" class="visible">
     <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
     <h2>Orçamento</h2>
     <p>Envie um direct com:</p>
@@ -114,7 +120,7 @@
     <p>Qualquer dúvida, estou à disposição :)</p>
   </div>  
 
-  <div id="content-en" style="display: none;">
+  <div id="content-en" class="hidden" aria-hidden="true">
     <p>To make the booking process easier, please follow the guidelines below:</p>
     <h2>Pricing</h2>
     <p>Send me a direct message with the following details:</p>
@@ -163,13 +169,17 @@
       var contentEn = document.getElementById("content-en");
       var button = document.querySelector(".language-toggle button");
 
-      if (contentPt.style.display === "none") {
-        contentPt.style.display = "block";
-        contentEn.style.display = "none";
+      if (contentPt.classList.contains("hidden")) {
+        contentPt.classList.remove("hidden");
+        contentPt.setAttribute("aria-hidden", "false");
+        contentEn.classList.add("hidden");
+        contentEn.setAttribute("aria-hidden", "true");
         button.textContent = "English";
       } else {
-        contentPt.style.display = "none";
-        contentEn.style.display = "block";
+        contentPt.classList.add("hidden");
+        contentPt.setAttribute("aria-hidden", "true");
+        contentEn.classList.remove("hidden");
+        contentEn.setAttribute("aria-hidden", "false");
         button.textContent = "Português";
       }
     }
