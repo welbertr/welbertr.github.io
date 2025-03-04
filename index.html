@@ -4,44 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welbert Tattoo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Inter', sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      line-height: 1.6;
-      color: #333;
-      background-color: #fff;
+      font-family: 'Playfair Display', serif;
+      max-width: 620px;
+      margin: 50px auto;
+      padding: 24px;
+      line-height: 1.75;
+      color: #3d3d3d;
+      background-color: #f4f1ec;
       text-align: left;
-      font-size: 14px;
+      font-size: 15px;
     }
     h2 {
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 5px;
-      font-size: 18px;
+      font-family: 'Inter', sans-serif;
+      border-bottom: 2px solid #c7b299;
+      padding-bottom: 6px;
+      font-size: 20px;
       margin-top: 40px;
+      font-weight: 700;
     }
     p, ul, li {
-      font-size: 14px;
+      font-size: 15px;
       text-align: justify;
       hyphens: auto;
     }
+    /* Layout da galeria */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
       margin: 20px 0;
     }
     .gallery img {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     }
     .gallery img:hover {
-      transform: scale(1.02);
+      transform: scale(1.03);
+      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
     }
     .lightbox {
       display: none;
@@ -50,26 +55,28 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
       justify-content: center;
       align-items: center;
       z-index: 1000;
     }
     .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 8px;
+      max-width: 85%;
+      max-height: 85%;
+      border-radius: 10px;
     }
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       border: none;
-      padding: 10px;
+      padding: 12px;
       cursor: pointer;
       border-radius: 50%;
       font-size: 18px;
+      transition: opacity 0.3s ease;
     }
     .close-btn {
       top: 20px;
@@ -77,91 +84,63 @@
       transform: none;
     }
     .prev-btn {
-      left: 10px;
+      left: 15px;
     }
     .next-btn {
-      right: 10px;
+      right: 15px;
+    }
+    .close-btn:hover, .prev-btn:hover, .next-btn:hover {
+      opacity: 0.7;
     }
     .contato {
-      margin-top: 80px;
-      padding: 30px;
-      border: 2px solid #0077b6;
+      margin-top: 60px;
+      padding: 28px;
+      border: 2px solid #3d3d3d;
       text-align: center;
-      background-color: #f0f0f0;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      background-color: #eae4dc;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
       border-radius: 8px;
     }
     .contato p {
-      margin: 10px 0;
+      margin: 12px 0;
       text-align: center;
     }
     .contato a {
-      color: black;
+      color: #3d3d3d;
       text-decoration: none;
       font-weight: bold;
     }
     .contato a:hover {
       text-decoration: underline;
     }
+    /* Botões no topo */
     .top-controls {
       text-align: right;
       margin-bottom: 20px;
     }
     .top-controls button {
-      background: linear-gradient(90deg, #0077b6, #00b4d8);
-      color: white;
-      border: none;
-      padding: 8px 16px;
+      font-family: 'Inter', sans-serif;
+      background: none;
+      color: #3d3d3d;
+      border: 2px solid #3d3d3d;
+      padding: 6px 12px;
       font-size: 14px;
       font-weight: bold;
       cursor: pointer;
-      transition: opacity 0.3s ease;
-      margin-left: 10px;
-      border-radius: 4px;
+      border-radius: 6px;
+      transition: background 0.3s ease, color 0.3s ease;
+      margin-left: 8px;
     }
-    .top-controls button.active {
-      border-bottom: 2px solid #0077b6;
-    }
-    .cta {
-      text-align: center;
-      margin: 20px 0;
-    }
-    .cta a {
-      background: linear-gradient(90deg, #0077b6, #00b4d8);
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 4px;
-    }
-    .tab {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-    }
-    .tab button {
-      background: #f0f0f0;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-weight: bold;
-      margin: 0 5px;
-      border-radius: 4px;
-    }
-    .tab button.active {
-      border-bottom: 2px solid #0077b6;
+    .top-controls button:hover {
+      background: #3d3d3d;
+      color: #f4f1ec;
     }
   </style>
 </head>
 <body>
-  <!-- CTA no topo -->
-  <div class="cta">
-    <a href="https://wa.me/5531920022832" target="_blank">Agendar agora</a>
-  </div>
-
   <!-- Controles de idioma e galeria/info -->
   <div class="top-controls">
-    <button id="gallery-toggle-btn" onclick="toggleSection('gallery')">INFORMAÇÕES</button>
+    <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFORMAÇÕES</button>
     <button id="lang-btn" onclick="toggleLanguage()">EN</button>
   </div>
 
@@ -173,14 +152,10 @@
 
   <!-- Seção de Informações (inicialmente oculta) -->
   <div id="info-section" style="display: none;">
-    <!-- Abas para Orçamento e Agendamento -->
-    <div class="tab">
-      <button class="tablinks active" onclick="openTab(event, 'Orcamento')">Orçamento</button>
-      <button class="tablinks" onclick="openTab(event, 'Agendamento')">Agendamento</button>
-    </div>
-
-    <!-- Conteúdo de Orçamento -->
-    <div id="Orcamento" class="tabcontent">
+    <!-- Conteúdo de Agendamento (em Português) -->
+    <div id="content-pt">
+      <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
+      <h2>Orçamento</h2>
       <p>Envie um direct com:</p>
       <ul>
         <li>Imagem de referência ou flash</li>
@@ -188,15 +163,10 @@
         <li>Tamanho aproximado (em cm)</li>
       </ul>
       <p>Com esses dados, poderei fornecer os valores.</p>
-    </div>
 
-    <!-- Conteúdo de Agendamento -->
-    <div id="Agendamento" class="tabcontent" style="display: none;">
+      <h2>Agendamento e Sinal</h2>
       <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
-    </div>
 
-    <!-- Restante do conteúdo -->
-    <div id="content-pt">
       <h2>Lista de Espera</h2>
       <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
       
@@ -219,8 +189,21 @@
       <p>Qualquer dúvida, estou à disposição :)</p>
     </div>
 
-    <!-- Conteúdo em Inglês -->
+    <!-- Conteúdo de Agendamento (em Inglês) -->
     <div id="content-en" style="display: none;">
+      <p>To make the booking process easier, please follow the guidelines below:</p>
+      <h2>Pricing</h2>
+      <p>Send me a direct message with the following details:</p>
+      <ul>
+        <li>Reference image or flash design</li>
+        <li>Body placement</li>
+        <li>Approximate size (in cm)</li>
+      </ul>
+      <p>With this information, I can provide a price estimate.</p>
+
+      <h2>Booking and Deposit</h2>
+      <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
+
       <h2>Waitlist</h2>
       <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
       
@@ -244,7 +227,7 @@
     </div>
   </div>
 
-  <!-- Seção de Contato -->
+  <!-- Seção de Contato (sempre visível no final) -->
   <div class="contato">
     <p><strong>Contato | Contact</strong></p>
     <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
@@ -345,35 +328,25 @@
     }
 
     // Função para alternar entre Galeria e Página de Informações
-    function toggleSection(section) {
+    function toggleGalleryInfo() {
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info-section");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const langBtn = document.getElementById("lang-btn");
 
-      if (section === "gallery") {
-        gallerySection.style.display = "block";
-        infoSection.style.display = "none";
-        galleryToggleBtn.textContent = langBtn.textContent === "EN" ? texts.pt.info : texts.en.info;
-        localStorage.setItem("section", "gallery");
-      } else {
+      if (gallerySection.style.display !== "none") {
+        // Se a galeria estiver visível, oculta e mostra as informações
         gallerySection.style.display = "none";
         infoSection.style.display = "block";
         galleryToggleBtn.textContent = langBtn.textContent === "EN" ? texts.pt.gallery : texts.en.gallery;
         localStorage.setItem("section", "info");
+      } else {
+        // Se as informações estiverem visíveis, volta para a galeria
+        gallerySection.style.display = "block";
+        infoSection.style.display = "none";
+        galleryToggleBtn.textContent = langBtn.textContent === "EN" ? texts.pt.info : texts.en.info;
+        localStorage.setItem("section", "gallery");
       }
-    }
-
-    // Função para abrir abas
-    function openTab(evt, tabName) {
-      const tabcontent = document.querySelectorAll(".tabcontent");
-      const tablinks = document.querySelectorAll(".tablinks");
-
-      tabcontent.forEach(tab => tab.style.display = "none");
-      tablinks.forEach(tab => tab.classList.remove("active"));
-
-      document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.classList.add("active");
     }
 
     // Função para carregar o estado salvo ao iniciar a página
@@ -386,7 +359,7 @@
       }
 
       if (section === "info") {
-        toggleSection("info");
+        toggleGalleryInfo();
       }
     }
 
