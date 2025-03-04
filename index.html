@@ -140,8 +140,8 @@
     <button id="lang-btn" onclick="toggleLanguage()">PT</button>
   </div>
 
-  <!-- Seção da Galeria (visível por padrão) -->
-  <div id="gallery-section">
+  <!-- Seção da Galeria (inicialmente oculta) -->
+  <div id="gallery-section" style="display: none;">
     <p style="text-align: center;">Entre em contato para confirmar disponibilidade.</p>
     <div class="gallery"></div>
   </div>
@@ -316,6 +316,10 @@
         galleryToggleBtn.textContent = "INFORMAÇÕES";
       }
     }
+
+    // Inicialmente, a galeria e as informações estão ocultas
+    document.getElementById("gallery-section").style.display = "none";
+    document.getElementById("gallery-info").style.display = "none";
   </script>
 </body>
 </html>
