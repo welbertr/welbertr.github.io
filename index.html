@@ -142,7 +142,7 @@
 
   <!-- Seção da Galeria (visível por padrão) -->
   <div id="gallery-section">
-    <p style="text-align: center;">Entre em contato para confirmar disponibilidade.</p>
+    <p id="availability-text" style="text-align: center;">Entre em contato para confirmar disponibilidade.</p>
     <div class="gallery"></div>
   </div>
 
@@ -284,15 +284,23 @@
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
       const langBtn = document.getElementById("lang-btn");
-      
+      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
+      const availabilityText = document.getElementById("availability-text");
+
       if (contentPt.style.display === "none") {
+        // Traduzir para português
         contentPt.style.display = "block";
         contentEn.style.display = "none";
         langBtn.textContent = "PT";
+        galleryToggleBtn.textContent = "DESENHOS";
+        availabilityText.textContent = "Entre em contato para confirmar disponibilidade.";
       } else {
+        // Traduzir para inglês
         contentPt.style.display = "none";
         contentEn.style.display = "block";
         langBtn.textContent = "EN";
+        galleryToggleBtn.textContent = "DESIGNS";
+        availabilityText.textContent = "Contact us to confirm availability.";
       }
     }
 
@@ -301,17 +309,18 @@
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info-section");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      
+      const langBtn = document.getElementById("lang-btn");
+
       if (gallerySection.style.display !== "none") {
         // Se a galeria estiver visível, oculta e mostra as informações
         gallerySection.style.display = "none";
         infoSection.style.display = "block";
-        galleryToggleBtn.textContent = "DESENHOS";
+        galleryToggleBtn.textContent = langBtn.textContent === "PT" ? "DESENHOS" : "DESIGNS";
       } else {
         // Se as informações estiverem visíveis, volta para a galeria
         gallerySection.style.display = "block";
         infoSection.style.display = "none";
-        galleryToggleBtn.textContent = "INFORMAÇÕES";
+        galleryToggleBtn.textContent = langBtn.textContent === "PT" ? "INFORMAÇÕES" : "INFORMATION";
       }
     }
   </script>
