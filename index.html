@@ -292,15 +292,17 @@
         contentPt.style.display = "block";
         contentEn.style.display = "none";
         langBtn.textContent = "PT";
-        galleryToggleBtn.textContent = "DESENHOS";
+        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "INFORMAÇÕES" : "DESENHOS";
         availabilityText.textContent = "Entre em contato para confirmar disponibilidade.";
+        localStorage.setItem("language", "pt");
       } else {
         // Traduzir para inglês
         contentPt.style.display = "none";
         contentEn.style.display = "block";
         langBtn.textContent = "EN";
-        galleryToggleBtn.textContent = "DESIGNS";
+        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "INFORMATION" : "DESIGNS";
         availabilityText.textContent = "Contact us to confirm availability.";
+        localStorage.setItem("language", "en");
       }
     }
 
@@ -315,14 +317,35 @@
         // Se a galeria estiver visível, oculta e mostra as informações
         gallerySection.style.display = "none";
         infoSection.style.display = "block";
-        galleryToggleBtn.textContent = langBtn.textContent === "PT" ? "DESENHOS" : "DESIGNS";
+        galleryToggleBtn.textContent = langBtn.textContent === "PT" ? "INFORMAÇÕES" : "INFORMATION";
+        localStorage.setItem("section", "info");
       } else {
         // Se as informações estiverem visíveis, volta para a galeria
         gallerySection.style.display = "block";
         infoSection.style.display = "none";
-        galleryToggleBtn.textContent = langBtn.textContent === "PT" ? "INFORMAÇÕES" : "INFORMATION";
+        galleryToggleBtn.textContent = langBtn.textContent === "PT" ? "DESENHOS" : "DESIGNS";
+        localStorage.setItem("section", "gallery");
       }
     }
+
+    // Função para carregar o estado salvo ao iniciar a página
+    function loadState() {
+      const language = localStorage.getItem("language") || "pt";
+      const section = localStorage.getItem("section") || "gallery";
+
+      // Aplicar o idioma salvo
+      if (language === "en") {
+        toggleLanguage();
+      }
+
+      // Aplicar a seção salva
+      if (section === "info") {
+        toggleGalleryInfo();
+      }
+    }
+
+    // Carregar o estado ao iniciar a página
+    loadState();
   </script>
 </body>
 </html>
