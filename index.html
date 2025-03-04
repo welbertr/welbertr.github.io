@@ -21,17 +21,20 @@
       border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
       font-size: 18px;
-      margin-top: 30px;
+      margin-top: 40px; /* Aumentado de 30px para 40px */
     }
     p, ul, li {
       font-size: 14px;
+      text-align: justify; /* Texto justificado */
+      hyphens: auto; /* Quebra de palavras em inglês */
     }
     .contato {
-      margin-top: 40px;
+      margin-top: 60px; /* Aumentado de 40px para 60px */
       padding: 20px;
-      border: 2px solid black;
+      border: 1px solid rgba(0, 0, 0, 0.1); /* Borda mais sutil */
       text-align: center;
       background-color: #f9f9f9;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra ultra-sutil */
     }
     .contato a {
       color: black;
@@ -54,6 +57,7 @@
       font-weight: bold;
       cursor: pointer;
       position: relative;
+      transition: opacity 0.3s ease; /* Transição suave */
     }
     .language-toggle button::before {
       content: "|";
@@ -64,7 +68,7 @@
       line-height: 1;
     }
     .language-toggle button:hover {
-      background-color: transparent;
+      opacity: 0.8; /* Efeito de hover sutil */
     }
   </style>
 </head>
@@ -117,7 +121,7 @@
     <ul>
       <li>Reference image or flash design</li>
       <li>Body placement</li>
-      <li>Approximate size</li>
+      <li>Approximate size (in cm)</li>
     </ul>
     <p>With this information, I can provide a price estimate.</p>
 
@@ -140,7 +144,7 @@
       <li>Wash the tattoo with mild soap and cold water</li>
       <li>Apply the recommended healing ointment or cream</li>
       <li>Avoid sun exposure, swimming pools, saunas, and the ocean for the first few weeks</li>
-      <li>Avoid intense physical activities like weightlifting</li>
+      <li>Avoid strenuous exercises (e.g., weightlifting)</li>
       <li>Do not scratch or pick at the scabs</li>
     </ul>
 
@@ -150,7 +154,7 @@
   <div class="contato">
     <p><strong>Contato | Contact</strong></p>
     <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
-    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832</a></p>
+    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832 📩</a></p>
   </div>  
 
   <script>
