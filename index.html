@@ -232,7 +232,7 @@
     const gallery = document.querySelector('.gallery');
     for (let i = totalImages; i >= 1; i--) {
       const img = document.createElement('img');
-      img.src = `desenho${i}.jpg`;
+      img.src = `images/desenho${i}.jpg`;
       img.alt = `Desenho ${i}`;
       img.onclick = () => openLightbox(i);
       gallery.appendChild(img);
