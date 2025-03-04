@@ -118,7 +118,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: opacity 0.3s ease;
-      margin-left: 0; /* Removido o margin-left para ajustar o espaçamento */
+      margin-left: 0;
     }
     .top-controls button#lang-btn::before {
       content: "|";
@@ -140,89 +140,87 @@
     <button id="lang-btn" onclick="toggleLanguage()">PT</button>
   </div>
 
-  <!-- Seção da Galeria (inicialmente oculta) -->
-  <div id="gallery-section" style="display: none;">
+  <!-- Seção da Galeria (visível por padrão) -->
+  <div id="gallery-section">
     <p style="text-align: center;">Entre em contato para confirmar disponibilidade.</p>
     <div class="gallery"></div>
   </div>
 
-  <!-- Seção de Informações da Galeria (inicialmente oculta) -->
-  <div id="gallery-info" style="display: none;">
-    <!-- Título e frase removidos -->
-  </div>
+  <!-- Seção de Informações (inicialmente oculta) -->
+  <div id="info-section" style="display: none;">
+    <!-- Conteúdo de Agendamento (em Português) -->
+    <div id="content-pt">
+      <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
+      <h2>Orçamento</h2>
+      <p>Envie um direct com:</p>
+      <ul>
+        <li>Imagem de referência ou flash</li>
+        <li>Local do corpo</li>
+        <li>Tamanho aproximado (em cm)</li>
+      </ul>
+      <p>Com esses dados, poderei fornecer os valores.</p>
 
-  <!-- Conteúdo de Agendamento (em Português) -->
-  <div id="content-pt">
-    <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
-    <h2>Orçamento</h2>
-    <p>Envie um direct com:</p>
-    <ul>
-      <li>Imagem de referência ou flash</li>
-      <li>Local do corpo</li>
-      <li>Tamanho aproximado (em cm)</li>
-    </ul>
-    <p>Com esses dados, poderei fornecer os valores.</p>
+      <h2>Agendamento e Sinal</h2>
+      <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
 
-    <h2>Agendamento e Sinal</h2>
-    <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
+      <h2>Lista de Espera</h2>
+      <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
+      
+      <h2>No Dia da Sessão</h2>
+      <ul>
+        <li>Alimente-se bem e hidrate-se</li>
+        <li>Evite álcool na véspera</li>
+        <li>Use roupas que facilitem o acesso à área</li>
+      </ul>
 
-    <h2>Lista de Espera</h2>
-    <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
-    
-    <h2>No Dia da Sessão</h2>
-    <ul>
-      <li>Alimente-se bem e hidrate-se</li>
-      <li>Evite álcool na véspera</li>
-      <li>Use roupas que facilitem o acesso à área</li>
-    </ul>
+      <h2>Cuidados Pós-Tatuagem</h2>
+      <ul>
+        <li>Lave com sabão neutro e água fria</li>
+        <li>Aplique a pomada ou creme cicatrizante indicado</li>
+        <li>Evite sol, mar, piscinas e sauna nas primeiras semanas</li>
+        <li>Evite musculação e outros exercícios físicos de maior impacto</li>
+        <li>Não coce ou retire as casquinhas</li>
+      </ul>
 
-    <h2>Cuidados Pós-Tatuagem</h2>
-    <ul>
-      <li>Lave com sabão neutro e água fria</li>
-      <li>Aplique a pomada ou creme cicatrizante indicado</li>
-      <li>Evite sol, mar, piscinas e sauna nas primeiras semanas</li>
-      <li>Evite musculação e outros exercícios físicos de maior impacto</li>
-      <li>Não coce ou retire as casquinhas</li>
-    </ul>
+      <p>Qualquer dúvida, estou à disposição :)</p>
+    </div>
 
-    <p>Qualquer dúvida, estou à disposição :)</p>
-  </div>
+    <!-- Conteúdo de Agendamento (em Inglês) -->
+    <div id="content-en" style="display: none;">
+      <p>To make the booking process easier, please follow the guidelines below:</p>
+      <h2>Pricing</h2>
+      <p>Send me a direct message with the following details:</p>
+      <ul>
+        <li>Reference image or flash design</li>
+        <li>Body placement</li>
+        <li>Approximate size (in cm)</li>
+      </ul>
+      <p>With this information, I can provide a price estimate.</p>
 
-  <!-- Conteúdo de Agendamento (em Inglês) -->
-  <div id="content-en" style="display: none;">
-    <p>To make the booking process easier, please follow the guidelines below:</p>
-    <h2>Pricing</h2>
-    <p>Send me a direct message with the following details:</p>
-    <ul>
-      <li>Reference image or flash design</li>
-      <li>Body placement</li>
-      <li>Approximate size (in cm)</li>
-    </ul>
-    <p>With this information, I can provide a price estimate.</p>
+      <h2>Booking and Deposit</h2>
+      <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
 
-    <h2>Booking and Deposit</h2>
-    <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
+      <h2>Waitlist</h2>
+      <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
+      
+      <h2>On the Day of Your Session</h2>
+      <ul>
+        <li>Eat well and stay hydrated</li>
+        <li>Avoid alcohol the day before</li>
+        <li>Wear comfortable clothing that allows easy access to the tattoo area</li>
+      </ul>
 
-    <h2>Waitlist</h2>
-    <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
-    
-    <h2>On the Day of Your Session</h2>
-    <ul>
-      <li>Eat well and stay hydrated</li>
-      <li>Avoid alcohol the day before</li>
-      <li>Wear comfortable clothing that allows easy access to the tattoo area</li>
-    </ul>
+      <h2>Aftercare Instructions</h2>
+      <ul>
+        <li>Wash the tattoo with mild soap and cold water</li>
+        <li>Apply the recommended healing ointment or cream</li>
+        <li>Avoid sun exposure, swimming pools, saunas, and the ocean for the first few weeks</li>
+        <li>Avoid strenuous exercises (e.g., weightlifting)</li>
+        <li>Do not scratch or pick at the scabs</li>
+      </ul>
 
-    <h2>Aftercare Instructions</h2>
-    <ul>
-      <li>Wash the tattoo with mild soap and cold water</li>
-      <li>Apply the recommended healing ointment or cream</li>
-      <li>Avoid sun exposure, swimming pools, saunas, and the ocean for the first few weeks</li>
-      <li>Avoid strenuous exercises (e.g., weightlifting)</li>
-      <li>Do not scratch or pick at the scabs</li>
-    </ul>
-
-    <p>If you have any questions, feel free to reach out! :)</p>
+      <p>If you have any questions, feel free to reach out! :)</p>
+    </div>
   </div>
 
   <!-- Seção de Contato (sempre visível no final) -->
@@ -298,28 +296,24 @@
       }
     }
 
-    // Função para alternar entre Galeria e Página de Informações da Galeria
+    // Função para alternar entre Galeria e Página de Informações
     function toggleGalleryInfo() {
       const gallerySection = document.getElementById("gallery-section");
-      const galleryInfo = document.getElementById("gallery-info");
+      const infoSection = document.getElementById("info-section");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       
       if (gallerySection.style.display !== "none") {
         // Se a galeria estiver visível, oculta e mostra as informações
         gallerySection.style.display = "none";
-        galleryInfo.style.display = "block";
+        infoSection.style.display = "block";
         galleryToggleBtn.textContent = "DESENHOS";
       } else {
         // Se as informações estiverem visíveis, volta para a galeria
         gallerySection.style.display = "block";
-        galleryInfo.style.display = "none";
+        infoSection.style.display = "none";
         galleryToggleBtn.textContent = "INFORMAÇÕES";
       }
     }
-
-    // Inicialmente, a galeria e as informações estão ocultas
-    document.getElementById("gallery-section").style.display = "none";
-    document.getElementById("gallery-info").style.display = "none";
   </script>
 </body>
 </html>
