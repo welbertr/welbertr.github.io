@@ -163,7 +163,7 @@
 
   <!-- Seção da Galeria (visível por padrão) -->
   <div id="gallery-section">
-    <p id="availability-text" style="text-align: center;">Entre em contato para confirmar disponibilidade.</p>
+    <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <div class="gallery"></div>
   </div>
 
@@ -212,9 +212,8 @@
           <li>Evite musculação e outros exercícios físicos de maior impacto</li>
           <li>Não coce ou retire as casquinhas</li>
         </ul>
+        <p>Qualquer dúvida, estou à disposição :)</p>
       </div>
-
-      <p>Qualquer dúvida, estou à disposição :)</p>
     </div>
 
     <!-- Conteúdo de Agendamento (em Inglês) -->
@@ -260,9 +259,8 @@
           <li>Avoid strenuous exercises (e.g., weightlifting)</li>
           <li>Do not scratch or pick at the scabs</li>
         </ul>
+        <p>If you have any questions, feel free to reach out! :)</p>
       </div>
-
-      <p>If you have any questions, feel free to reach out! :)</p>
     </div>
   </div>
 
@@ -336,7 +334,7 @@
         contentEn.style.display = "none";
         langBtn.textContent = "EN";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
-        availabilityText.textContent = "Entre em contato para confirmar disponibilidade.";
+        availabilityText.textContent = "Consulte disponibilidade.";
         localStorage.setItem("language", "pt");
       } else {
         // Traduzir para inglês
@@ -344,7 +342,7 @@
         contentEn.style.display = "block";
         langBtn.textContent = "PT";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
-        availabilityText.textContent = "Contact us to confirm availability.";
+        availabilityText.textContent = "Check availability.";
         localStorage.setItem("language", "en");
       }
     }
