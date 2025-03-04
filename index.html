@@ -21,20 +21,34 @@
       border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
       font-size: 18px;
-      margin-top: 40px;
+      margin-top: 40px; /* Aumentado de 30px para 40px */
     }
     p, ul, li {
       font-size: 14px;
-      text-align: justify;
-      hyphens: auto;
+      text-align: justify; /* Texto justificado */
+      hyphens: auto; /* Quebra de palavras em inglês */
     }
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .contato {
+      margin-top: 60px; /* Aumentado de 40px para 60px */
+      padding: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.1); /* Borda mais sutil */
+      text-align: center;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra ultra-sutil */
+    }
+    .contato a {
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .contato a:hover {
+      text-decoration: underline;
+    }
+    .language-toggle {
+      text-align: right;
       margin-bottom: 20px;
     }
-    .toggle-button {
+    .language-toggle button {
       background-color: transparent;
       color: black;
       border: none;
@@ -42,18 +56,25 @@
       font-size: 14px;
       font-weight: bold;
       cursor: pointer;
-      transition: opacity 0.3s ease;
+      position: relative;
+      transition: opacity 0.3s ease; /* Transição suave */
     }
-    .toggle-button:hover {
-      opacity: 0.8;
+    .language-toggle button::before {
+      content: "|";
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1;
+    }
+    .language-toggle button:hover {
+      opacity: 0.8; /* Efeito de hover sutil */
     }
   </style>
 </head>
 <body>  
-
-  <div class="top-bar">
-    <button class="toggle-button" onclick="toggleGalleryInfo()">Informações</button>
-    <button class="toggle-button" onclick="toggleLanguage()">English</button>
+  <div class="language-toggle">
+    <button onclick="toggleLanguage()">English</button>
   </div>  
 
   <div id="content-pt">
@@ -140,7 +161,7 @@
     function toggleLanguage() {
       var contentPt = document.getElementById("content-pt");
       var contentEn = document.getElementById("content-en");
-      var button = document.querySelector(".top-bar button:nth-child(2)");
+      var button = document.querySelector(".language-toggle button");
 
       if (contentPt.style.display === "none") {
         contentPt.style.display = "block";
@@ -151,10 +172,6 @@
         contentEn.style.display = "block";
         button.textContent = "Português";
       }
-    }
-
-    function toggleGalleryInfo() {
-      alert("Aqui será implementada a alternância entre Galeria e Informações.");
     }
   </script>
 </body>
