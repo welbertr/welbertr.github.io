@@ -28,9 +28,10 @@
       text-align: justify;
       hyphens: auto;
     }
+    /* Layout da galeria em grade: 3 imagens por linha */
     .gallery {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin: 20px 0;
     }
@@ -103,11 +104,12 @@
     .contato a:hover {
       text-decoration: underline;
     }
-    .language-toggle {
+    /* Área de controles no topo */
+    .top-controls {
       text-align: right;
       margin-bottom: 20px;
     }
-    .language-toggle button {
+    .top-controls button {
       background-color: transparent;
       color: black;
       border: none;
@@ -116,8 +118,9 @@
       font-weight: bold;
       cursor: pointer;
       transition: opacity 0.3s ease;
+      margin-left: 8px;
     }
-    .language-toggle button::before {
+    .top-controls button::before {
       content: "|";
       display: inline-block;
       margin-right: 8px;
@@ -125,19 +128,30 @@
       font-weight: bold;
       line-height: 1;
     }
-    .language-toggle button:hover {
+    .top-controls button:hover {
       opacity: 0.8;
     }
   </style>
 </head>
 <body>
-  <div class="language-toggle">
-    <button onclick="toggleLanguage()">EN</button>
+  <!-- Controles de idioma e galeria/info -->
+  <div class="top-controls">
+    <button id="lang-btn" onclick="toggleLanguage()">EN</button>
+    <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFO</button>
   </div>
 
-  <!-- Galeria -->
-  <h2 id="gallery-title">Galeria</h2>
-  <div class="gallery"></div>
+  <!-- Seção da Galeria (visível por padrão) -->
+  <div id="gallery-section">
+    <p style="text-align: center; font-weight: bold;">Consultar disponibilidade.</p>
+    <h2 id="gallery-title">Galeria</h2>
+    <div class="gallery"></div>
+  </div>
+
+  <!-- Seção de Informações da Galeria (inicialmente oculta) -->
+  <div id="gallery-info" style="display: none;">
+    <h2>Informações</h2>
+    <p>Verifique as datas e horários disponíveis para os desenhos. Entre em contato para confirmar a disponibilidade.</p>
+  </div>
 
   <!-- Conteúdo de Agendamento (em Português) -->
   <div id="content-pt">
@@ -213,6 +227,7 @@
     <p>If you have any questions, feel free to reach out! :)</p>
   </div>
 
+  <!-- Seção de Contato (sempre visível no final) -->
   <div class="contato">
     <p><strong>Contato | Contact</strong></p>
     <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
@@ -240,13 +255,13 @@
     // Inverte o array para exibir em ordem decrescente
     imagensValidas.reverse();
 
-    const gallery = document.querySelector('.gallery');
+    const galleryContainer = document.querySelector('.gallery');
     imagensValidas.forEach(num => {
       const img = document.createElement('img');
       img.src = `images/desenho${num}.jpg`;
       img.alt = `Desenho ${num}`;
       img.onclick = () => openLightbox(num);
-      gallery.appendChild(img);
+      galleryContainer.appendChild(img);
     });
 
     let currentIndex = 0;
@@ -272,19 +287,35 @@
     function toggleLanguage() {
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
-      const button = document.querySelector(".language-toggle button");
-      const galleryTitle = document.getElementById("gallery-title");
+      const langBtn = document.getElementById("lang-btn");
       
       if (contentPt.style.display === "none") {
         contentPt.style.display = "block";
         contentEn.style.display = "none";
-        galleryTitle.style.display = "block";
-        button.textContent = "EN";
+        langBtn.textContent = "EN";
       } else {
         contentPt.style.display = "none";
         contentEn.style.display = "block";
-        galleryTitle.style.display = "none";
-        button.textContent = "PT";
+        langBtn.textContent = "PT";
+      }
+    }
+
+    // Função para alternar entre Galeria e Página de Informações da Galeria
+    function toggleGalleryInfo() {
+      const gallerySection = document.getElementById("gallery-section");
+      const galleryInfo = document.getElementById("gallery-info");
+      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
+      
+      if (gallerySection.style.display !== "none") {
+        // Se a galeria estiver visível, oculta e mostra as informações
+        gallerySection.style.display = "none";
+        galleryInfo.style.display = "block";
+        galleryToggleBtn.textContent = "DESENHOS";
+      } else {
+        // Se as informações estiverem visíveis, volta para a galeria
+        gallerySection.style.display = "block";
+        galleryInfo.style.display = "none";
+        galleryToggleBtn.textContent = "INFO";
       }
     }
   </script>
