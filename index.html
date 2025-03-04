@@ -148,7 +148,7 @@
 <body>
   <!-- Controles de idioma e galeria/info -->
   <div class="top-controls">
-    <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFORMAÇÕES</button>
+    <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFO</button>
     <button id="lang-btn" onclick="toggleLanguage()">EN</button>
   </div>
 
@@ -304,7 +304,7 @@
         contentPt.style.display = "block";
         contentEn.style.display = "none";
         langBtn.textContent = "EN";
-        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFORMAÇÕES";
+        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
         availabilityText.textContent = "Entre em contato para confirmar disponibilidade.";
         localStorage.setItem("language", "pt");
       } else {
@@ -312,7 +312,7 @@
         contentPt.style.display = "none";
         contentEn.style.display = "block";
         langBtn.textContent = "PT";
-        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFORMATION";
+        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
         availabilityText.textContent = "Contact us to confirm availability.";
         localStorage.setItem("language", "en");
       }
@@ -335,7 +335,7 @@
         // Se as informações estiverem visíveis, volta para a galeria
         gallerySection.style.display = "block";
         infoSection.style.display = "none";
-        galleryToggleBtn.textContent = langBtn.textContent === "EN" ? "INFORMAÇÕES" : "INFORMATION";
+        galleryToggleBtn.textContent = langBtn.textContent === "EN" ? "INFO" : "INFO";
         localStorage.setItem("section", "gallery");
       }
     }
