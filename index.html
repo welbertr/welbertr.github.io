@@ -21,24 +21,20 @@
       border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
       font-size: 18px;
-      margin-top: 40px;
+      margin-top: 40px; /* Aumentado de 30px para 40px */
     }
     p, ul, li {
       font-size: 14px;
-      text-align: left;
-      hyphens: auto;
+      text-align: justify; /* Texto justificado */
+      hyphens: auto; /* Quebra de palavras em inglês */
     }
     .contato {
-      margin-top: 60px;
+      margin-top: 60px; /* Aumentado de 40px para 60px */
       padding: 20px;
-      border: 2px solid rgba(0, 0, 0, 0.2); /* Borda mais grossa */
+      border: 1px solid rgba(0, 0, 0, 0.1); /* Borda mais sutil */
       text-align: center;
       background-color: #f9f9f9;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      border-radius: 8px; /* Bordas arredondadas */
-    }
-    .contato p {
-      margin: 0; /* Remove margens padrão dos parágrafos */
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra ultra-sutil */
     }
     .contato a {
       color: black;
@@ -61,7 +57,7 @@
       font-weight: bold;
       cursor: pointer;
       position: relative;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease; /* Transição suave */
     }
     .language-toggle button::before {
       content: "|";
@@ -72,22 +68,16 @@
       line-height: 1;
     }
     .language-toggle button:hover {
-      opacity: 0.8;
-    }
-    .hidden {
-      display: none;
-    }
-    .visible {
-      display: block;
+      opacity: 0.8; /* Efeito de hover sutil */
     }
   </style>
 </head>
 <body>  
   <div class="language-toggle">
-    <button onclick="toggleLanguage()" aria-label="Alternar idioma">English</button>
+    <button onclick="toggleLanguage()">English</button>
   </div>  
 
-  <div id="content-pt" class="visible">
+  <div id="content-pt">
     <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
     <h2>Orçamento</h2>
     <p>Envie um direct com:</p>
@@ -124,7 +114,7 @@
     <p>Qualquer dúvida, estou à disposição :)</p>
   </div>  
 
-  <div id="content-en" class="hidden" aria-hidden="true">
+  <div id="content-en" style="display: none;">
     <p>To make the booking process easier, please follow the guidelines below:</p>
     <h2>Pricing</h2>
     <p>Send me a direct message with the following details:</p>
@@ -164,7 +154,7 @@
   <div class="contato">
     <p><strong>Contato | Contact</strong></p>
     <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
-    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832</a></p> <!-- Emoji removido -->
+    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832 📩</a></p>
   </div>  
 
   <script>
@@ -173,17 +163,13 @@
       var contentEn = document.getElementById("content-en");
       var button = document.querySelector(".language-toggle button");
 
-      if (contentPt.classList.contains("hidden")) {
-        contentPt.classList.remove("hidden");
-        contentPt.setAttribute("aria-hidden", "false");
-        contentEn.classList.add("hidden");
-        contentEn.setAttribute("aria-hidden", "true");
+      if (contentPt.style.display === "none") {
+        contentPt.style.display = "block";
+        contentEn.style.display = "none";
         button.textContent = "English";
       } else {
-        contentPt.classList.add("hidden");
-        contentPt.setAttribute("aria-hidden", "true");
-        contentEn.classList.remove("hidden");
-        contentEn.setAttribute("aria-hidden", "false");
+        contentPt.style.display = "none";
+        contentEn.style.display = "block";
         button.textContent = "Português";
       }
     }
