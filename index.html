@@ -79,7 +79,7 @@
 </head>
 <body>  
   <div class="language-toggle">
-    <button onclick="toggleLanguage()">English</button>
+    <button onclick="toggleLanguage()">|EN</button>
   </div>  
 
   <div id="content-pt">
@@ -157,7 +157,7 @@
   <div class="contato">
     <p><strong>Contato | Contact</strong></p>
     <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
-    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832</a></p> <!-- Emoji removido -->
+    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832</a></p>
   </div>  
 
   <script>
@@ -169,11 +169,11 @@
       if (contentPt.style.display === "none") {
         contentPt.style.display = "block";
         contentEn.style.display = "none";
-        button.textContent = "English";
+        button.textContent = "|EN";
       } else {
         contentPt.style.display = "none";
         contentEn.style.display = "block";
-        button.textContent = "Português";
+        button.textContent = "|PT";
       }
     }
   </script>
