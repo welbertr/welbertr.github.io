@@ -227,20 +227,31 @@
   </div>
 
   <script>
-    // Criação da galeria com imagens em ordem decrescente
-    const totalImages = 75;
-    const gallery = document.querySelector('.gallery');
-    for (let i = totalImages; i >= 1; i--) {
-      const img = document.createElement('img');
-      img.src = `images/desenho${i}.jpg`;
-      img.alt = `Desenho ${i}`;
-      img.onclick = () => openLightbox(i);
-      gallery.appendChild(img);
-    }
+    // Array com os números das imagens que realmente existem
+    const imagensValidas = [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 
+      15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 
+      27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 
+      38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 
+      49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 
+      60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
+      71, 72, 73, 74, 75
+    ];
+    // Inverte o array para exibir em ordem decrescente
+    imagensValidas.reverse();
 
-    let currentIndex = 1;
-    function openLightbox(index) {
-      currentIndex = index;
+    const gallery = document.querySelector('.gallery');
+    imagensValidas.forEach(num => {
+      const img = document.createElement('img');
+      img.src = `images/desenho${num}.jpg`;
+      img.alt = `Desenho ${num}`;
+      img.onclick = () => openLightbox(num);
+      gallery.appendChild(img);
+    });
+
+    let currentIndex = 0;
+    function openLightbox(num) {
+      currentIndex = imagensValidas.indexOf(num);
       document.getElementById("lightbox").style.display = "flex";
       updateLightboxImage();
     }
@@ -249,12 +260,12 @@
     }
     function changeImage(direction) {
       currentIndex += direction;
-      if (currentIndex < 1) currentIndex = totalImages;
-      if (currentIndex > totalImages) currentIndex = 1;
+      if (currentIndex < 0) currentIndex = imagensValidas.length - 1;
+      if (currentIndex >= imagensValidas.length) currentIndex = 0;
       updateLightboxImage();
     }
     function updateLightboxImage() {
-      document.getElementById("lightbox-img").src = `desenho${currentIndex}.jpg`;
+      document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
     }
 
     // Função para alternar idioma
