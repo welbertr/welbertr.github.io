@@ -53,6 +53,7 @@
       background: rgba(0, 0, 0, 0.8);
       justify-content: center;
       align-items: center;
+      z-index: 1000;
     }
     .lightbox img {
       max-width: 90%;
@@ -114,7 +115,6 @@
       font-size: 14px;
       font-weight: bold;
       cursor: pointer;
-      position: relative;
       transition: opacity 0.3s ease;
     }
     .language-toggle button::before {
@@ -139,7 +139,7 @@
   <h2 id="gallery-title">Galeria</h2>
   <div class="gallery"></div>
 
-  <!-- Conteúdo de Agendamento -->
+  <!-- Conteúdo de Agendamento (em Português) -->
   <div id="content-pt">
     <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
     <h2>Orçamento</h2>
@@ -172,11 +172,12 @@
       <li>Evite musculação e outros exercícios físicos de maior impacto</li>
       <li>Não coce ou retire as casquinhas</li>
     </ul>
-    <p>Qualquer dúvida, estou à disposição :)</p>
-  </div>  
 
+    <p>Qualquer dúvida, estou à disposição :)</p>
+  </div>
+
+  <!-- Conteúdo de Agendamento (em Inglês) -->
   <div id="content-en" style="display: none;">
-    <h2 id="gallery-title-en" style="display: none;">Gallery</h2>
     <p>To make the booking process easier, please follow the guidelines below:</p>
     <h2>Pricing</h2>
     <p>Send me a direct message with the following details:</p>
@@ -208,6 +209,7 @@
       <li>Avoid strenuous exercises (e.g., weightlifting)</li>
       <li>Do not scratch or pick at the scabs</li>
     </ul>
+
     <p>If you have any questions, feel free to reach out! :)</p>
   </div>
 
@@ -225,10 +227,9 @@
   </div>
 
   <script>
-    // Galeria
+    // Criação da galeria com imagens em ordem decrescente
     const totalImages = 75;
     const gallery = document.querySelector('.gallery');
-    
     for (let i = totalImages; i >= 1; i--) {
       const img = document.createElement('img');
       img.src = `desenho${i}.jpg`;
@@ -238,47 +239,40 @@
     }
 
     let currentIndex = 1;
-
     function openLightbox(index) {
       currentIndex = index;
       document.getElementById("lightbox").style.display = "flex";
       updateLightboxImage();
     }
-
     function closeLightbox() {
       document.getElementById("lightbox").style.display = "none";
     }
-
     function changeImage(direction) {
       currentIndex += direction;
       if (currentIndex < 1) currentIndex = totalImages;
       if (currentIndex > totalImages) currentIndex = 1;
       updateLightboxImage();
     }
-
     function updateLightboxImage() {
       document.getElementById("lightbox-img").src = `desenho${currentIndex}.jpg`;
     }
 
-    // Idioma
+    // Função para alternar idioma
     function toggleLanguage() {
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
       const button = document.querySelector(".language-toggle button");
       const galleryTitle = document.getElementById("gallery-title");
-      const galleryTitleEn = document.getElementById("gallery-title-en");
-
+      
       if (contentPt.style.display === "none") {
         contentPt.style.display = "block";
         contentEn.style.display = "none";
         galleryTitle.style.display = "block";
-        galleryTitleEn.style.display = "none";
         button.textContent = "EN";
       } else {
         contentPt.style.display = "none";
         contentEn.style.display = "block";
         galleryTitle.style.display = "none";
-        galleryTitleEn.style.display = "block";
         button.textContent = "PT";
       }
     }
