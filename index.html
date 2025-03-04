@@ -28,9 +28,10 @@
       text-align: justify;
       hyphens: auto;
     }
+    /* Galeria em coluna única */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr;
       gap: 10px;
       margin: 20px 0;
     }
@@ -103,6 +104,7 @@
     .contato a:hover {
       text-decoration: underline;
     }
+    /* Área de controles no topo */
     .top-controls {
       text-align: right;
       margin-bottom: 20px;
@@ -124,60 +126,176 @@
   </style>
 </head>
 <body>
-  <!-- Controles -->
+  <!-- Controles de idioma e galeria/info -->
   <div class="top-controls">
     <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">DESENHO | INFO</button>
     <button id="lang-btn" onclick="toggleLanguage()">EN</button>
   </div>
 
-  <!-- Galeria -->
+  <!-- Seção da Galeria (visível por padrão) -->
   <div id="gallery-section">
     <p style="text-align: center;">Consultar disponibilidade.</p>
     <h2 id="gallery-title">Galeria</h2>
     <div class="gallery"></div>
   </div>
 
-  <!-- Informações da Galeria -->
+  <!-- Seção de Informações da Galeria (inicialmente oculta) -->
   <div id="gallery-info" style="display: none;">
     <h2>Informações</h2>
     <p id="gallery-info-text">Verifique as datas e horários disponíveis para os desenhos. Entre em contato para confirmar a disponibilidade.</p>
   </div>
 
-  <script>
-    let language = "pt"; 
+  <!-- Conteúdo de Agendamento (em Português) -->
+  <div id="content-pt">
+    <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
+    <h2>Orçamento</h2>
+    <p>Envie um direct com:</p>
+    <ul>
+      <li>Imagem de referência ou flash</li>
+      <li>Local do corpo</li>
+      <li>Tamanho aproximado (em cm)</li>
+    </ul>
+    <p>Com esses dados, poderei fornecer os valores.</p>
 
+    <h2>Agendamento e Sinal</h2>
+    <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
+
+    <h2>Lista de Espera</h2>
+    <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
+    
+    <h2>No Dia da Sessão</h2>
+    <ul>
+      <li>Alimente-se bem e hidrate-se</li>
+      <li>Evite álcool na véspera</li>
+      <li>Use roupas que facilitem o acesso à área</li>
+    </ul>
+
+    <h2>Cuidados Pós-Tatuagem</h2>
+    <ul>
+      <li>Lave com sabão neutro e água fria</li>
+      <li>Aplique a pomada ou creme cicatrizante indicado</li>
+      <li>Evite sol, mar, piscinas e sauna nas primeiras semanas</li>
+      <li>Evite musculação e outros exercícios físicos de maior impacto</li>
+      <li>Não coce ou retire as casquinhas</li>
+    </ul>
+
+    <p>Qualquer dúvida, estou à disposição :)</p>
+  </div>
+
+  <!-- Conteúdo de Agendamento (em Inglês) -->
+  <div id="content-en" style="display: none;">
+    <p>To make the booking process easier, please follow the guidelines below:</p>
+    <h2>Pricing</h2>
+    <p>Send me a direct message with the following details:</p>
+    <ul>
+      <li>Reference image or flash design</li>
+      <li>Body placement</li>
+      <li>Approximate size (in cm)</li>
+    </ul>
+    <p>With this information, I can provide a price estimate.</p>
+
+    <h2>Booking and Deposit</h2>
+    <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
+
+    <h2>Waitlist</h2>
+    <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
+    
+    <h2>On the Day of Your Session</h2>
+    <ul>
+      <li>Eat well and stay hydrated</li>
+      <li>Avoid alcohol the day before</li>
+      <li>Wear comfortable clothing that allows easy access to the tattoo area</li>
+    </ul>
+
+    <h2>Aftercare Instructions</h2>
+    <ul>
+      <li>Wash the tattoo with mild soap and cold water</li>
+      <li>Apply the recommended healing ointment or cream</li>
+      <li>Avoid sun exposure, swimming pools, saunas, and the ocean for the first few weeks</li>
+      <li>Avoid strenuous exercises (e.g., weightlifting)</li>
+      <li>Do not scratch or pick at the scabs</li>
+    </ul>
+
+    <p>If you have any questions, feel free to reach out! :)</p>
+  </div>
+
+  <!-- Seção de Contato (sempre visível no final) -->
+  <div class="contato">
+    <p><strong>Contato | Contact</strong></p>
+    <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
+    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832</a></p>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="close-btn" onclick="closeLightbox()">X</button>
+    <button class="prev-btn" onclick="changeImage(-1)">&#10094;</button>
+    <img id="lightbox-img">
+    <button class="next-btn" onclick="changeImage(1)">&#10095;</button>
+  </div>
+
+  <script>
+    // Criação da galeria em ordem decrescente usando os números válidos
+    const totalImages = 75; // Atualize se adicionar mais
+    const galleryContainer = document.querySelector('.gallery');
+    // Para manter flexibilidade, vamos usar um loop decrescente simples
+    for (let i = totalImages; i >= 1; i--) {
+      const img = document.createElement('img');
+      img.src = `images/desenho${i}.jpg`;
+      img.alt = `Desenho ${i}`;
+      img.onclick = () => openLightbox(i);
+      galleryContainer.appendChild(img);
+    }
+
+    let currentIndex = 0;
+    function openLightbox(num) {
+      currentIndex = totalImages - num; // Como o loop é decrescente
+      document.getElementById("lightbox").style.display = "flex";
+      updateLightboxImage();
+    }
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+    function changeImage(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = totalImages - 1;
+      if (currentIndex >= totalImages) currentIndex = 0;
+      updateLightboxImage();
+    }
+    function updateLightboxImage() {
+      // Calcula o número da imagem baseado na ordem decrescente
+      const imageNumber = totalImages - currentIndex;
+      document.getElementById("lightbox-img").src = `images/desenho${imageNumber}.jpg`;
+    }
+
+    // Variável de idioma
+    let language = "pt"; 
     function toggleLanguage() {
       language = language === "pt" ? "en" : "pt";
       document.getElementById("lang-btn").innerText = language === "pt" ? "EN" : "PT";
-
-      // Atualiza o título e o texto de informações conforme o idioma
       document.getElementById("gallery-title").innerText = language === "pt" ? "Galeria" : "Gallery";
       document.getElementById("gallery-info-text").innerText = language === "pt"
         ? "Verifique as datas e horários disponíveis para os desenhos. Entre em contato para confirmar a disponibilidade."
         : "Check the available dates and times for the designs. Contact me to confirm availability.";
-
-      // Atualiza a mensagem "Consultar disponibilidade."
       document.querySelector("#gallery-section p").innerText = language === "pt" 
         ? "Consultar disponibilidade." 
         : "Check availability.";
     }
-
     function toggleGalleryInfo() {
-      const gallery = document.getElementById("gallery-section");
-      const info = document.getElementById("gallery-info");
-      const btn = document.getElementById("gallery-toggle-btn");
-
-      if (gallery.style.display === "none") {
-        gallery.style.display = "block";
-        info.style.display = "none";
-        btn.innerText = "DESENHO | INFO";
+      const gallerySection = document.getElementById("gallery-section");
+      const galleryInfo = document.getElementById("gallery-info");
+      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
+      
+      if (gallerySection.style.display !== "none") {
+        gallerySection.style.display = "none";
+        galleryInfo.style.display = "block";
+        galleryToggleBtn.innerText = "INFO | DESENHO";
       } else {
-        gallery.style.display = "none";
-        info.style.display = "block";
-        btn.innerText = "INFO | DESENHO";
+        gallerySection.style.display = "block";
+        galleryInfo.style.display = "none";
+        galleryToggleBtn.innerText = "DESENHO | INFO";
       }
     }
   </script>
-
 </body>
 </html>
