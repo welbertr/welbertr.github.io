@@ -136,8 +136,8 @@
 <body>
   <!-- Controles de idioma e galeria/info -->
   <div class="top-controls">
-    <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">DESENHOS</button>
-    <button id="lang-btn" onclick="toggleLanguage()">PT</button>
+    <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFORMAÇÕES</button>
+    <button id="lang-btn" onclick="toggleLanguage()">EN</button>
   </div>
 
   <!-- Seção da Galeria (visível por padrão) -->
@@ -291,16 +291,16 @@
         // Traduzir para português
         contentPt.style.display = "block";
         contentEn.style.display = "none";
-        langBtn.textContent = "PT";
-        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "INFORMAÇÕES" : "DESENHOS";
+        langBtn.textContent = "EN";
+        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFORMAÇÕES";
         availabilityText.textContent = "Entre em contato para confirmar disponibilidade.";
         localStorage.setItem("language", "pt");
       } else {
         // Traduzir para inglês
         contentPt.style.display = "none";
         contentEn.style.display = "block";
-        langBtn.textContent = "EN";
-        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "INFORMATION" : "DESIGNS";
+        langBtn.textContent = "PT";
+        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFORMATION";
         availabilityText.textContent = "Contact us to confirm availability.";
         localStorage.setItem("language", "en");
       }
@@ -317,13 +317,13 @@
         // Se a galeria estiver visível, oculta e mostra as informações
         gallerySection.style.display = "none";
         infoSection.style.display = "block";
-        galleryToggleBtn.textContent = langBtn.textContent === "PT" ? "INFORMAÇÕES" : "INFORMATION";
+        galleryToggleBtn.textContent = langBtn.textContent === "EN" ? "DESENHOS" : "DESIGNS";
         localStorage.setItem("section", "info");
       } else {
         // Se as informações estiverem visíveis, volta para a galeria
         gallerySection.style.display = "block";
         infoSection.style.display = "none";
-        galleryToggleBtn.textContent = langBtn.textContent === "PT" ? "DESENHOS" : "DESIGNS";
+        galleryToggleBtn.textContent = langBtn.textContent === "EN" ? "INFORMAÇÕES" : "INFORMATION";
         localStorage.setItem("section", "gallery");
       }
     }
