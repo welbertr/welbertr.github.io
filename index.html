@@ -27,6 +27,12 @@
       cursor: pointer; /* Cursor de clique para indicar interatividade */
       display: inline-block;
     }
+    /* Estilo específico para o título de contato */
+    .contact-title {
+      text-align: center;
+      border: none; /* Remove a linha inferior */
+      padding-bottom: 0;
+    }
     p, ul, li {
       font-size: 14px; /* Tamanho da fonte menor */
       text-align: justify;
@@ -146,8 +152,9 @@
     .instagram-btn {
       background-color: transparent;
       color: black;
-      border: none;
-      padding: 8px 0;
+      border: 1px solid black; /* Contorno fino preto */
+      padding: 8px 16px;
+      border-radius: 4px; /* Bordas arredondadas */
       cursor: pointer;
       font-size: 14px;
       display: inline-block;
@@ -193,6 +200,26 @@
     .accordion-content.active {
       display: block; /* Exibe o conteúdo quando ativo */
     }
+    /* Centralização da área de contato */
+    #contato-info {
+      text-align: center;
+    }
+    /* Estilo dos parágrafos de contato */
+    #contato-info p {
+      margin: 6px 0;
+      font-size: 14px;
+    }
+    /* Negrito para os dados de e-mail e WhatsApp */
+    #contato-info a.email,
+    #contato-info a.whatsapp {
+      font-weight: bold;
+      color: black;
+      text-decoration: none;
+    }
+    #contato-info a.email:hover,
+    #contato-info a.whatsapp:hover {
+      text-decoration: underline;
+    }
     
     /* BREAKPOINTS - Responsividade */
     @media (min-width: 768px) {
@@ -200,7 +227,6 @@
         padding: 30px;
         font-size: 15px;
       }
-      /* Ajustes de contato removidos para manter o novo layout minimalista */
     }
     
     @media (min-width: 1024px) {
@@ -240,19 +266,19 @@
       .lightbox {
         background: rgba(0, 0, 0, 0.9); /* Fundo mais escuro para o lightbox */
       }
-      /* Ajustes específicos para modo escuro */
       .close-btn, .prev-btn, .next-btn {
-        background: rgba(0, 0, 0, 0.4); /* Fundo um pouco mais escuro */
-        border-color: rgba(255, 255, 255, 0.3); /* Borda clara */
+        background: rgba(0, 0, 0, 0.4);
+        border-color: rgba(255, 255, 255, 0.3);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        color: #f5f5f5; /* “X” e setas brancas para melhor contraste */
+        color: #f5f5f5;
       }
       .close-btn:hover, .prev-btn:hover, .next-btn:hover {
         background: rgba(0, 0, 0, 0.7);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
       }
       .instagram-btn {
-        color: #e0e0e0; /* Texto claro no modo escuro */
+        color: #e0e0e0;
+        border-color: #e0e0e0;
       }
       .instagram-btn:hover {
         text-decoration: underline;
@@ -371,10 +397,10 @@
   </div>
 
   <!-- Seção de Contato - novo layout -->
-  <h2 onclick="toggleContato()">CONTATO | CONTACT</h2>
+  <h2 class="contact-title" onclick="toggleContato()">CONTATO | CONTACT</h2>
   <div id="contato-info" class="accordion-content">
-    <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
-    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832</a></p>
+    <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com" class="email">Welbertc.rodrigues@gmail.com</a></p>
+    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank" class="whatsapp">+55 31 92002-2832</a></p>
     <p><a href="https://www.instagram.com/we.ro___" target="_blank" class="instagram-btn">INSTAGRAM</a></p>
   </div>
 
