@@ -118,22 +118,23 @@
     .contato a:hover {
       text-decoration: underline;
     }
-    /* Botão do Instagram */
+    /* Botão do Instagram (minimalista) */
     .instagram-btn {
-      background-color: #E1306C; /* Cor do Instagram */
-      color: white;
-      border: none;
-      padding: 10px 20px;
+      background-color: transparent;
+      color: black;
+      border: 1px solid black;
+      padding: 8px 16px;
       border-radius: 5px;
       cursor: pointer;
       font-size: 14px;
       margin-top: 10px;
       display: inline-block;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .instagram-btn:hover {
-      background-color: #C13584; /* Cor mais escura ao passar o mouse */
+      background-color: black;
+      color: white;
     }
     /* Área de controles no topo */
     .top-controls {
@@ -200,10 +201,12 @@
         background: rgba(255, 255, 255, 0.9); /* Botões mais claros no lightbox */
       }
       .instagram-btn {
-        background-color: #C13584; /* Cor do Instagram no modo escuro */
+        color: #e0e0e0; /* Texto claro no modo escuro */
+        border-color: #e0e0e0; /* Borda clara no modo escuro */
       }
       .instagram-btn:hover {
-        background-color: #E1306C; /* Cor mais clara ao passar o mouse */
+        background-color: #e0e0e0; /* Fundo claro ao passar o mouse */
+        color: #121212; /* Texto escuro ao passar o mouse */
       }
     }
   </style>
@@ -323,10 +326,10 @@
     <p><strong>Contato | Contact</strong></p>
     <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
     <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832</a></p>
-    <!-- Botão para o direct do Instagram -->
+    <!-- Botão para o direct do Instagram (minimalista) -->
     <p>
-      <a href="https://www.instagram.com/direct/?username=we.ro___" target="_blank" class="instagram-btn">
-        Conversar pelo Instagram
+      <a href="https://www.instagram.com/we.ro___" target="_blank" class="instagram-btn">
+        Direct
       </a>
     </p>
   </div>
