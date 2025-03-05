@@ -77,25 +77,32 @@
     /* Botões minimalistas do lightbox */
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
-      background: none;
-      border: none;
+      background: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente */
+      border: 1px solid rgba(255, 255, 255, 0.5); /* Borda sutil */
       color: white;
       cursor: pointer;
       opacity: 0.8;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease, background 0.3s ease;
+      border-radius: 50%; /* Botões redondos */
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .close-btn:hover, .prev-btn:hover, .next-btn:hover {
       opacity: 1;
+      background: rgba(0, 0, 0, 0.8); /* Fundo mais escuro ao passar o mouse */
     }
     .close-btn {
       top: 20px;
       right: 20px;
-      font-size: 24px; /* Tamanho reduzido do "X" */
+      font-size: 20px; /* Tamanho reduzido do "X" */
     }
     .prev-btn, .next-btn {
       top: 50%;
       transform: translateY(-50%);
-      font-size: 36px; /* Tamanho aumentado das setas */
+      font-size: 24px; /* Tamanho aumentado das setas */
     }
     .prev-btn {
       left: 20px;
@@ -206,6 +213,11 @@
       }
       .close-btn, .prev-btn, .next-btn {
         color: #e0e0e0; /* Botões mais claros no modo escuro */
+        background: rgba(255, 255, 255, 0.1); /* Fundo mais claro no modo escuro */
+        border-color: rgba(255, 255, 255, 0.3); /* Borda mais clara no modo escuro */
+      }
+      .close-btn:hover, .prev-btn:hover, .next-btn:hover {
+        background: rgba(255, 255, 255, 0.2); /* Fundo mais claro ao passar o mouse */
       }
       .instagram-btn {
         color: #e0e0e0; /* Texto claro no modo escuro */
