@@ -27,6 +27,19 @@
       background-color: #fafafa;
       text-align: left;
       font-size: 14px;
+      position: relative;
+    }
+
+    /* Nome no topo, discreto e à esquerda */
+    .top-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500; /* Igual ao botão de contato */
+      font-size: 14px;
+      text-transform: uppercase;
+      color: #666; /* Tom discreto */
+      position: absolute;
+      top: 10px;
+      left: 20px;
     }
 
     /* Títulos (h2) minimalistas */
@@ -348,6 +361,9 @@
   </style>
 </head>
 <body>
+  <!-- Nome no topo, posicionado à esquerda -->
+  <div class="top-name">WELBERT RODRIGUES</div>
+
   <!-- Controles de idioma e galeria/info -->
   <div class="top-controls">
     <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFO</button>
