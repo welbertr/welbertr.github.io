@@ -80,7 +80,6 @@
       background: none;
       border: none;
       color: white;
-      font-size: 24px;
       cursor: pointer;
       opacity: 0.8;
       transition: opacity 0.3s ease;
@@ -91,6 +90,12 @@
     .close-btn {
       top: 20px;
       right: 20px;
+      font-size: 24px; /* Tamanho reduzido do "X" */
+    }
+    .prev-btn, .next-btn {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 36px; /* Tamanho aumentado das setas */
     }
     .prev-btn {
       left: 20px;
