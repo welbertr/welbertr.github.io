@@ -74,27 +74,29 @@
       max-height: 90%;
       border-radius: 8px;
     }
+    /* Botões minimalistas do lightbox */
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.8);
+      background: none;
       border: none;
-      padding: 10px;
+      color: white;
+      font-size: 24px;
       cursor: pointer;
-      border-radius: 50%;
-      font-size: 18px;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+    .close-btn:hover, .prev-btn:hover, .next-btn:hover {
+      opacity: 1;
     }
     .close-btn {
       top: 20px;
       right: 20px;
-      transform: none;
     }
     .prev-btn {
-      left: 10px;
+      left: 20px;
     }
     .next-btn {
-      right: 10px;
+      right: 20px;
     }
     .contato {
       margin-top: 60px; /* Espaçamento reduzido */
@@ -198,7 +200,7 @@
         background: rgba(0, 0, 0, 0.9); /* Fundo mais escuro para o lightbox */
       }
       .close-btn, .prev-btn, .next-btn {
-        background: rgba(255, 255, 255, 0.9); /* Botões mais claros no lightbox */
+        color: #e0e0e0; /* Botões mais claros no modo escuro */
       }
       .instagram-btn {
         color: #e0e0e0; /* Texto claro no modo escuro */
@@ -335,10 +337,10 @@
   </div>
 
   <div class="lightbox" id="lightbox">
-    <button class="close-btn" onclick="closeLightbox()">X</button>
-    <button class="prev-btn" onclick="changeImage(-1)">&#10094;</button>
+    <button class="close-btn" onclick="closeLightbox()">✕</button>
+    <button class="prev-btn" onclick="changeImage(-1)">‹</button>
     <img id="lightbox-img">
-    <button class="next-btn" onclick="changeImage(1)">&#10095;</button>
+    <button class="next-btn" onclick="changeImage(1)">›</button>
   </div>
 
   <script>
