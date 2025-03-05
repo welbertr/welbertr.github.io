@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welbert Rodrigues</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* Estilos padrão (modo claro) */
     body {
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Inter', sans-serif;
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
@@ -16,28 +16,27 @@
       color: #333;
       background-color: #fafafa;
       text-align: left;
-      font-size: 14px; /* Fonte base: 14px */
+      font-size: 14px;
     }
     h2 {
-      font-family: 'Playfair Display', serif;
       border-bottom: 1px solid #ddd;
       padding-bottom: 8px;
-      font-size: 16px; /* Títulos maiores */
+      font-size: 18px;
       margin-top: 40px;
-      font-weight: 500;
+      font-weight: 700;
       cursor: pointer;
       display: block;
       width: 100%;
       box-sizing: border-box;
     }
-    /* Botão de contato ajustado para ficar menor (igual aos controles) */
+    /* Botão de contato (estilo semelhante aos controles) */
     .contact-title {
       display: block;
       width: 100%;
       text-align: center;
       border: none;
       padding: 8px 16px;
-      margin-top: 50px; /* Espaço extra entre final do conteúdo e o botão de contato */
+      margin-top: 50px;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
@@ -47,7 +46,6 @@
     p, ul, li {
       font-size: 14px;
       text-align: justify;
-      hyphens: auto;
       margin-bottom: 12px;
     }
     ul {
@@ -112,7 +110,6 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       color: rgba(0, 0, 0, 0.8);
       cursor: pointer;
-      opacity: 1;
       transition: opacity 0.3s ease, background 0.3s ease;
       border-radius: 50%;
       width: 40px;
@@ -129,7 +126,7 @@
       top: 20px;
       right: 20px;
       font-size: 22px;
-      font-weight: bold;
+      font-weight: 700;
       z-index: 9999;
       background: rgba(255, 255, 255, 0.9);
       border: 1px solid rgba(0, 0, 0, 0.6);
@@ -152,15 +149,15 @@
     .next-btn {
       right: 20px;
     }
-    /* Botão do Instagram ajustado */
+    /* Botão do Instagram */
     .instagram-btn {
       background-color: transparent;
-      color: black;
-      border: 1px solid black;
-      padding: 4px 8px; /* Reduzido ainda mais */
+      color: #000;
+      border: 1px solid #000;
+      padding: 4px 8px;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 10px; /* Fonte reduzida */
+      font-size: 10px;
       display: inline-block;
       text-decoration: none;
       text-transform: uppercase;
@@ -175,21 +172,20 @@
     }
     .top-controls button {
       background-color: transparent;
-      color: black;
+      color: #000;
       border: none;
       padding: 8px 16px;
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
       transition: opacity 0.3s ease;
-      margin-left: 0;
     }
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
       margin-right: 8px;
       font-size: 18px;
-      font-weight: bold;
+      font-weight: 700;
       line-height: 1;
     }
     .top-controls button:hover {
@@ -218,15 +214,15 @@
     }
     #contato-info a.email,
     #contato-info a.whatsapp {
-      font-weight: bold;
-      color: black;
+      font-weight: 700;
+      color: #000;
       text-decoration: none;
     }
     #contato-info a.email:hover,
     #contato-info a.whatsapp:hover {
       text-decoration: underline;
     }
-    /* Remoção do efeito azul de foco */
+    /* Remoção do efeito de foco */
     button:focus, a:focus {
       outline: none;
     }
@@ -234,20 +230,18 @@
     @media (min-width: 768px) {
       body {
         padding: 30px;
-        font-size: 14px;
       }
     }
     
     @media (min-width: 1024px) {
       body {
         max-width: 1200px;
-        font-size: 14px;
       }
       .gallery {
         grid-template-columns: repeat(3, 1fr);
       }
       h2 {
-        font-size: 18px;
+        font-size: 20px;
       }
     }
     
@@ -312,7 +306,6 @@
     <!-- Conteúdo de Agendamento (em Português) -->
     <div id="content-pt">
       <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
-
       <div class="accordion-section">
         <h2 onclick="toggleAccordion('orcamento-pt')">Orçamento</h2>
         <div id="orcamento-pt" class="accordion-content">
@@ -325,21 +318,18 @@
           <p>Com esses dados, poderei fornecer os valores.</p>
         </div>
       </div>
-
       <div class="accordion-section">
         <h2 onclick="toggleAccordion('agendamento-pt')">Agendamento e Sinal</h2>
         <div id="agendamento-pt" class="accordion-content">
           <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
         </div>
       </div>
-
       <div class="accordion-section">
         <h2 onclick="toggleAccordion('lista-espera-pt')">Lista de Espera</h2>
         <div id="lista-espera-pt" class="accordion-content">
           <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
         </div>
       </div>
-
       <div class="accordion-section">
         <h2 onclick="toggleAccordion('dia-sessao-pt')">No Dia da Sessão</h2>
         <div id="dia-sessao-pt" class="accordion-content">
@@ -355,7 +345,6 @@
     <!-- Conteúdo de Agendamento (em Inglês) -->
     <div id="content-en" style="display: none;">
       <p>To make the booking process easier, please follow the guidelines below:</p>
-
       <div class="accordion-section">
         <h2 onclick="toggleAccordion('pricing-en')">Pricing</h2>
         <div id="pricing-en" class="accordion-content">
@@ -368,21 +357,18 @@
           <p>With this information, I can provide a price estimate.</p>
         </div>
       </div>
-
       <div class="accordion-section">
         <h2 onclick="toggleAccordion('booking-en')">Booking and Deposit</h2>
         <div id="booking-en" class="accordion-content">
           <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
         </div>
       </div>
-
       <div class="accordion-section">
         <h2 onclick="toggleAccordion('waitlist-en')">Waitlist</h2>
         <div id="waitlist-en" class="accordion-content">
           <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
         </div>
       </div>
-
       <div class="accordion-section">
         <h2 onclick="toggleAccordion('session-day-en')">On the Day of Your Session</h2>
         <div id="session-day-en" class="accordion-content">
