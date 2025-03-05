@@ -266,6 +266,8 @@
     #contato-info {
       text-align: center;
       margin: 0 auto;
+      padding: 10px 0;
+      border-top: 1px solid #ddd;
     }
 
     #contato-info p {
@@ -322,6 +324,7 @@
       }
     }
 
+    /* Modo escuro */
     @media (prefers-color-scheme: dark) {
       body {
         color: #e0e0e0;
@@ -359,6 +362,15 @@
       }
       .instagram-btn:hover {
         text-decoration: underline;
+      }
+      /* Ajustes para a seção de contato no modo escuro */
+      #contato-info {
+        border-top: 1px solid #444;
+        color: #e0e0e0;
+      }
+      #contato-info a.email,
+      #contato-info a.whatsapp {
+        color: #e0e0e0;
       }
     }
   </style>
