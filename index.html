@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Welbert Rodrigues</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Fonte minimalista do Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap"
+    rel="stylesheet"
+  />
   <style>
     /* Estilos padrão (modo claro) */
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300; /* Peso base mais leve, para lembrar a fonte do print */
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
@@ -18,17 +23,20 @@
       text-align: left;
       font-size: 14px;
     }
+
+    /* Títulos (h2) um pouco mais fortes, mas ainda minimalistas */
     h2 {
       border-bottom: 1px solid #ddd;
       padding-bottom: 8px;
       font-size: 18px;
       margin-top: 40px;
-      font-weight: 700;
+      font-weight: 500; /* Mantém leveza, mas realça em relação ao texto */
       cursor: pointer;
       display: block;
       width: 100%;
       box-sizing: border-box;
     }
+
     /* Botão de contato (estilo semelhante aos controles) */
     .contact-title {
       display: block;
@@ -38,22 +46,27 @@
       padding: 8px 16px;
       margin-top: 50px;
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 500; /* levemente mais forte para destaque */
       cursor: pointer;
       color: #000;
       background-color: transparent;
     }
-    p, ul, li {
+
+    p,
+    ul,
+    li {
       font-size: 14px;
       text-align: justify;
       margin-bottom: 12px;
     }
+
     ul {
       padding-left: 20px;
     }
     li {
       margin-bottom: 8px;
     }
+
     /* Layout da galeria */
     .gallery {
       display: grid;
@@ -61,6 +74,7 @@
       gap: 10px;
       margin: 20px 0;
     }
+
     .gallery img {
       width: 100%;
       border-radius: 8px;
@@ -71,10 +85,12 @@
       opacity: 0;
       animation: fadeIn 0.5s ease forwards;
     }
+
     .gallery img:hover {
       transform: scale(1.02);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -85,6 +101,7 @@
         transform: translateY(0);
       }
     }
+
     .lightbox {
       display: none;
       position: fixed;
@@ -97,13 +114,17 @@
       align-items: center;
       z-index: 1000;
     }
+
     .lightbox img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 8px;
     }
+
     /* Botões do lightbox */
-    .close-btn, .prev-btn, .next-btn {
+    .close-btn,
+    .prev-btn,
+    .next-btn {
       position: absolute;
       background: rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(0, 0, 0, 0.3);
@@ -118,10 +139,14 @@
       align-items: center;
       justify-content: center;
     }
-    .close-btn:hover, .prev-btn:hover, .next-btn:hover {
+
+    .close-btn:hover,
+    .prev-btn:hover,
+    .next-btn:hover {
       background: rgba(0, 0, 0, 0.2);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     }
+
     .close-btn {
       top: 20px;
       right: 20px;
@@ -133,22 +158,27 @@
       color: rgba(0, 0, 0, 0.8);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
+
     .close-btn:hover {
       background: rgba(255, 255, 255, 1);
       border-color: rgba(0, 0, 0, 0.8);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     }
-    .prev-btn, .next-btn {
+
+    .prev-btn,
+    .next-btn {
       top: 50%;
       transform: translateY(-50%);
       font-size: 24px;
     }
+
     .prev-btn {
       left: 20px;
     }
     .next-btn {
       right: 20px;
     }
+
     /* Botão do Instagram */
     .instagram-btn {
       background-color: transparent;
@@ -162,14 +192,17 @@
       text-decoration: none;
       text-transform: uppercase;
     }
+
     .instagram-btn:hover {
       text-decoration: underline;
     }
+
     /* Controles no topo */
     .top-controls {
       text-align: right;
       margin-bottom: 20px;
     }
+
     .top-controls button {
       background-color: transparent;
       color: #000;
@@ -180,6 +213,7 @@
       cursor: pointer;
       transition: opacity 0.3s ease;
     }
+
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
@@ -188,51 +222,61 @@
       font-weight: 700;
       line-height: 1;
     }
+
     .top-controls button:hover {
       opacity: 0.8;
     }
+
     /* Acordeons */
     .accordion-content {
       display: none;
       padding: 10px 0;
     }
+
     .accordion-content.active {
       display: block;
     }
+
     .accordion-section {
       margin-bottom: 30px;
     }
+
     /* Contato */
     #contato-info {
       text-align: center;
       margin: 0 auto;
     }
+
     #contato-info p {
       margin: 6px 0;
       font-size: 14px;
       text-align: center;
     }
+
     #contato-info a.email,
     #contato-info a.whatsapp {
-      font-weight: 700;
+      font-weight: 500;
       color: #000;
       text-decoration: none;
     }
+
     #contato-info a.email:hover,
     #contato-info a.whatsapp:hover {
       text-decoration: underline;
     }
+
     /* Remoção do efeito de foco */
-    button:focus, a:focus {
+    button:focus,
+    a:focus {
       outline: none;
     }
-    
+
     @media (min-width: 768px) {
       body {
         padding: 30px;
       }
     }
-    
+
     @media (min-width: 1024px) {
       body {
         max-width: 1200px;
@@ -244,13 +288,13 @@
         font-size: 20px;
       }
     }
-    
+
     @media (min-width: 1440px) {
       .gallery {
         grid-template-columns: repeat(4, 1fr);
       }
     }
-    
+
     @media (prefers-color-scheme: dark) {
       body {
         color: #e0e0e0;
@@ -268,13 +312,17 @@
       .lightbox {
         background: rgba(0, 0, 0, 0.9);
       }
-      .close-btn, .prev-btn, .next-btn {
+      .close-btn,
+      .prev-btn,
+      .next-btn {
         background: rgba(0, 0, 0, 0.4);
         border-color: rgba(255, 255, 255, 0.3);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         color: #f5f5f5;
       }
-      .close-btn:hover, .prev-btn:hover, .next-btn:hover {
+      .close-btn:hover,
+      .prev-btn:hover,
+      .next-btn:hover {
         background: rgba(0, 0, 0, 0.7);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
       }
@@ -487,7 +535,565 @@
       const content = document.getElementById(id);
       content.classList.toggle("active");
     }
-    
+
+    function toggleContato() {
+      var contatoInfo = document.getElementById("contato-info");
+      contatoInfo.classList.toggle("active");
+    }
+
+    function loadState() {
+      const language = localStorage.getItem("language") || "pt";
+      const section = localStorage.getItem("section") || "gallery";
+
+      if (language === "en") {
+        toggleLanguage();
+      }
+      if (section === "info") {
+        toggleGalleryInfo();
+      }
+    }
+
+    loadState();
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welbert Rodrigues</title>
+  <!-- Fonte minimalista do Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* Estilos padrão (modo claro) */
+    body {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300; /* Peso base mais leve, para lembrar a fonte do print */
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fafafa;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    /* Títulos (h2) um pouco mais fortes, mas ainda minimalistas */
+    h2 {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+      font-size: 18px;
+      margin-top: 40px;
+      font-weight: 500; /* Mantém leveza, mas realça em relação ao texto */
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Botão de contato (estilo semelhante aos controles) */
+    .contact-title {
+      display: block;
+      width: 100%;
+      text-align: center;
+      border: none;
+      padding: 8px 16px;
+      margin-top: 50px;
+      font-size: 14px;
+      font-weight: 500; /* levemente mais forte para destaque */
+      cursor: pointer;
+      color: #000;
+      background-color: transparent;
+    }
+
+    p,
+    ul,
+    li {
+      font-size: 14px;
+      text-align: justify;
+      margin-bottom: 12px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+
+    /* Layout da galeria */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #fffff2;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+
+    /* Botões do lightbox */
+    .close-btn,
+    .prev-btn,
+    .next-btn {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      color: rgba(0, 0, 0, 0.8);
+      cursor: pointer;
+      transition: opacity 0.3s ease, background 0.3s ease;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-btn:hover,
+    .prev-btn:hover,
+    .next-btn:hover {
+      background: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .close-btn {
+      top: 20px;
+      right: 20px;
+      font-size: 22px;
+      font-weight: 700;
+      z-index: 9999;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.6);
+      color: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 1);
+      border-color: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .prev-btn,
+    .next-btn {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+    }
+
+    .prev-btn {
+      left: 20px;
+    }
+    .next-btn {
+      right: 20px;
+    }
+
+    /* Botão do Instagram */
+    .instagram-btn {
+      background-color: transparent;
+      color: #000;
+      border: 1px solid #000;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 10px;
+      display: inline-block;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .instagram-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Controles no topo */
+    .top-controls {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+
+    .top-controls button {
+      background-color: transparent;
+      color: #000;
+      border: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .top-controls button#lang-btn::before {
+      content: "|";
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .top-controls button:hover {
+      opacity: 0.8;
+    }
+
+    /* Acordeons */
+    .accordion-content {
+      display: none;
+      padding: 10px 0;
+    }
+
+    .accordion-content.active {
+      display: block;
+    }
+
+    .accordion-section {
+      margin-bottom: 30px;
+    }
+
+    /* Contato */
+    #contato-info {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    #contato-info p {
+      margin: 6px 0;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    #contato-info a.email,
+    #contato-info a.whatsapp {
+      font-weight: 500;
+      color: #000;
+      text-decoration: none;
+    }
+
+    #contato-info a.email:hover,
+    #contato-info a.whatsapp:hover {
+      text-decoration: underline;
+    }
+
+    /* Remoção do efeito de foco */
+    button:focus,
+    a:focus {
+      outline: none;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 30px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      body {
+        max-width: 1200px;
+      }
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      h2 {
+        font-size: 20px;
+      }
+    }
+
+    @media (min-width: 1440px) {
+      .gallery {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: #e0e0e0;
+        background-color: #121212;
+      }
+      h2 {
+        border-bottom: 1px solid #444;
+      }
+      .top-controls button {
+        color: #e0e0e0;
+      }
+      .gallery img {
+        background-color: #1e1e1e;
+      }
+      .lightbox {
+        background: rgba(0, 0, 0, 0.9);
+      }
+      .close-btn,
+      .prev-btn,
+      .next-btn {
+        background: rgba(0, 0, 0, 0.4);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        color: #f5f5f5;
+      }
+      .close-btn:hover,
+      .prev-btn:hover,
+      .next-btn:hover {
+        background: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+      }
+      .instagram-btn {
+        color: #e0e0e0;
+        border-color: #e0e0e0;
+      }
+      .instagram-btn:hover {
+        text-decoration: underline;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Controles de idioma e galeria/info -->
+  <div class="top-controls">
+    <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFO</button>
+    <button id="lang-btn" onclick="toggleLanguage()">EN</button>
+  </div>
+
+  <!-- Seção da Galeria -->
+  <div id="gallery-section">
+    <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
+    <div class="gallery"></div>
+  </div>
+
+  <!-- Seção de Informações -->
+  <div id="info-section" style="display: none;">
+    <!-- Conteúdo de Agendamento (em Português) -->
+    <div id="content-pt">
+      <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('orcamento-pt')">Orçamento</h2>
+        <div id="orcamento-pt" class="accordion-content">
+          <p>Envie um direct com:</p>
+          <ul>
+            <li>Imagem de referência ou flash</li>
+            <li>Local do corpo</li>
+            <li>Tamanho aproximado (em cm)</li>
+          </ul>
+          <p>Com esses dados, poderei fornecer os valores.</p>
+        </div>
+      </div>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('agendamento-pt')">Agendamento e Sinal</h2>
+        <div id="agendamento-pt" class="accordion-content">
+          <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
+        </div>
+      </div>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('lista-espera-pt')">Lista de Espera</h2>
+        <div id="lista-espera-pt" class="accordion-content">
+          <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
+        </div>
+      </div>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('dia-sessao-pt')">No Dia da Sessão</h2>
+        <div id="dia-sessao-pt" class="accordion-content">
+          <ul>
+            <li>Alimente-se bem e hidrate-se</li>
+            <li>Evite álcool na véspera</li>
+            <li>Use roupas que facilitem o acesso à área</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conteúdo de Agendamento (em Inglês) -->
+    <div id="content-en" style="display: none;">
+      <p>To make the booking process easier, please follow the guidelines below:</p>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('pricing-en')">Pricing</h2>
+        <div id="pricing-en" class="accordion-content">
+          <p>Send me a direct message with the following details:</p>
+          <ul>
+            <li>Reference image or flash design</li>
+            <li>Body placement</li>
+            <li>Approximate size (in cm)</li>
+          </ul>
+          <p>With this information, I can provide a price estimate.</p>
+        </div>
+      </div>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('booking-en')">Booking and Deposit</h2>
+        <div id="booking-en" class="accordion-content">
+          <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
+        </div>
+      </div>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('waitlist-en')">Waitlist</h2>
+        <div id="waitlist-en" class="accordion-content">
+          <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
+        </div>
+      </div>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('session-day-en')">On the Day of Your Session</h2>
+        <div id="session-day-en" class="accordion-content">
+          <ul>
+            <li>Eat well and stay hydrated</li>
+            <li>Avoid alcohol the day before</li>
+            <li>Wear comfortable clothing that allows easy access to the tattoo area</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção de Contato -->
+  <h2 class="contact-title" onclick="toggleContato()">CONTATO | CONTACT</h2>
+  <div id="contato-info" class="accordion-content">
+    <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com" class="email">Welbertc.rodrigues@gmail.com</a></p>
+    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank" class="whatsapp">+55 31 92002-2832</a></p>
+    <p><a href="https://www.instagram.com/we.ro___" target="_blank" class="instagram-btn">INSTAGRAM</a></p>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <button class="close-btn" onclick="closeLightbox()">&times;</button>
+    <button class="prev-btn" onclick="changeImage(-1)">&lt;</button>
+    <img id="lightbox-img" src="" alt="Imagem ampliada">
+    <button class="next-btn" onclick="changeImage(1)">&gt;</button>
+  </div>
+
+  <script>
+    // Array com os números das imagens que realmente existem (desenho15 removido)
+    const imagensValidas = [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 
+      16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 
+      27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 
+      38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 
+      49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 
+      60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
+      71, 72, 73, 74, 75, 76, 77, 78, 79,
+    ];
+    // Inverte o array para exibir em ordem decrescente
+    imagensValidas.reverse();
+
+    const galleryContainer = document.querySelector('.gallery');
+    imagensValidas.forEach(num => {
+      const img = document.createElement('img');
+      img.src = `images/desenho${num}.jpg`;
+      img.alt = `Desenho ${num}`;
+      img.onclick = () => openLightbox(num);
+      galleryContainer.appendChild(img);
+    });
+
+    let currentIndex = 0;
+    function openLightbox(num) {
+      currentIndex = imagensValidas.indexOf(num);
+      document.getElementById("lightbox").style.display = "flex";
+      updateLightboxImage();
+    }
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+    function changeImage(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = imagensValidas.length - 1;
+      if (currentIndex >= imagensValidas.length) currentIndex = 0;
+      updateLightboxImage();
+    }
+    function updateLightboxImage() {
+      document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
+    }
+
+    function toggleLanguage() {
+      const contentPt = document.getElementById("content-pt");
+      const contentEn = document.getElementById("content-en");
+      const langBtn = document.getElementById("lang-btn");
+      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
+      const availabilityText = document.getElementById("availability-text");
+
+      if (contentPt.style.display === "none") {
+        contentPt.style.display = "block";
+        contentEn.style.display = "none";
+        langBtn.textContent = "EN";
+        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
+        availabilityText.textContent = "Consulte disponibilidade.";
+        localStorage.setItem("language", "pt");
+      } else {
+        contentPt.style.display = "none";
+        contentEn.style.display = "block";
+        langBtn.textContent = "PT";
+        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
+        availabilityText.textContent = "Check availability.";
+        localStorage.setItem("language", "en");
+      }
+    }
+
+    function toggleGalleryInfo() {
+      document.getElementById("contato-info").classList.remove("active");
+      const gallerySection = document.getElementById("gallery-section");
+      const infoSection = document.getElementById("info-section");
+      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
+      const langBtn = document.getElementById("lang-btn");
+
+      if (gallerySection.style.display !== "none") {
+        gallerySection.style.display = "none";
+        infoSection.style.display = "block";
+        galleryToggleBtn.textContent = langBtn.textContent === "EN" ? "DESENHOS" : "DESIGNS";
+        localStorage.setItem("section", "info");
+      } else {
+        gallerySection.style.display = "block";
+        infoSection.style.display = "none";
+        galleryToggleBtn.textContent = langBtn.textContent === "EN" ? "INFO" : "INFO";
+        localStorage.setItem("section", "gallery");
+      }
+    }
+
+    function toggleAccordion(id) {
+      const content = document.getElementById(id);
+      content.classList.toggle("active");
+    }
+
     function toggleContato() {
       var contatoInfo = document.getElementById("contato-info");
       contatoInfo.classList.toggle("active");
