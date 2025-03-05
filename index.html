@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welbert Rodrigues</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"> <!-- Fonte Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     /* Estilos padrão (modo claro) */
     body {
-      font-family: 'Roboto', sans-serif; /* Fonte moderna e minimalista */
+      font-family: 'Roboto', sans-serif;
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
@@ -16,7 +16,7 @@
       color: #333;
       background-color: #fafafa;
       text-align: left;
-      font-size: 14px; /* Fonte base revertida para 14px */
+      font-size: 14px; /* Fonte base: 14px */
     }
     h2 {
       border-bottom: 1px solid #ddd;
@@ -29,14 +29,17 @@
       width: 100%;
       box-sizing: border-box;
     }
-    /* Título de contato mantém o mesmo estilo de h2 (tamanho anterior) */
+    /* Botão de contato: tamanho igual aos demais botões */
     .contact-title {
       display: block;
       width: 100%;
       text-align: center;
-      border: none;
+      border: none; /* Sem linha inferior */
       padding-bottom: 0;
       margin-top: 40px;
+      font-size: 14px; /* Mesmo tamanho que os controles */
+      font-weight: 500;
+      cursor: pointer;
     }
     p, ul, li {
       font-size: 14px;
@@ -98,6 +101,7 @@
       max-height: 90%;
       border-radius: 8px;
     }
+    /* Botões do lightbox */
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
       background: rgba(0, 0, 0, 0.1);
@@ -145,7 +149,7 @@
     .next-btn {
       right: 20px;
     }
-    /* Botão do Instagram (minimalista) */
+    /* Botão do Instagram */
     .instagram-btn {
       background-color: transparent;
       color: black;
@@ -161,7 +165,7 @@
     .instagram-btn:hover {
       text-decoration: underline;
     }
-    /* Área de controles no topo */
+    /* Controles no topo */
     .top-controls {
       text-align: right;
       margin-bottom: 20px;
@@ -188,7 +192,7 @@
     .top-controls button:hover {
       opacity: 0.8;
     }
-    /* Estilo para os accordions */
+    /* Acordeons */
     .accordion-content {
       display: none;
       padding: 10px 0;
@@ -197,16 +201,16 @@
       display: block;
     }
     .accordion-section {
-      margin-bottom: 30px; /* Espaçamento aumentado entre seções */
+      margin-bottom: 30px;
     }
-    /* Centralização da área de contato */
+    /* Contato */
     #contato-info {
       text-align: center;
       margin: 0 auto;
     }
     #contato-info p {
       margin: 6px 0;
-      font-size: 14px; /* Mantido o tamanho anterior para os conteúdos */
+      font-size: 14px;
       text-align: center;
     }
     #contato-info a.email,
@@ -219,10 +223,9 @@
     #contato-info a.whatsapp:hover {
       text-decoration: underline;
     }
-    /* Remoção do efeito azul padrão de foco e aplicação de um efeito sutil */
+    /* Remoção do efeito azul de foco */
     button:focus, a:focus {
       outline: none;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     }
     
     @media (min-width: 768px) {
@@ -295,13 +298,13 @@
     <button id="lang-btn" onclick="toggleLanguage()">EN</button>
   </div>
 
-  <!-- Seção da Galeria (visível por padrão) -->
+  <!-- Seção da Galeria -->
   <div id="gallery-section">
     <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <div class="gallery"></div>
   </div>
 
-  <!-- Seção de Informações (inicialmente oculta) -->
+  <!-- Seção de Informações -->
   <div id="info-section" style="display: none;">
     <!-- Conteúdo de Agendamento (em Português) -->
     <div id="content-pt">
@@ -342,20 +345,6 @@
             <li>Evite álcool na véspera</li>
             <li>Use roupas que facilitem o acesso à área</li>
           </ul>
-        </div>
-      </div>
-
-      <div class="accordion-section">
-        <h2 onclick="toggleAccordion('cuidados-pt')">Cuidados Pós-Tatuagem</h2>
-        <div id="cuidados-pt" class="accordion-content">
-          <ul>
-            <li>Lave com sabão neutro e água fria</li>
-            <li>Aplique a pomada ou creme cicatrizante indicado</li>
-            <li>Evite sol, mar, piscinas e sauna nas primeiras semanas</li>
-            <li>Evite musculação e outros exercícios físicos de maior impacto</li>
-            <li>Não coce ou retire as casquinhas</li>
-          </ul>
-          <p>Qualquer dúvida, estou à disposição :)</p>
         </div>
       </div>
     </div>
@@ -401,24 +390,10 @@
           </ul>
         </div>
       </div>
-
-      <div class="accordion-section">
-        <h2 onclick="toggleAccordion('aftercare-en')">Aftercare Instructions</h2>
-        <div id="aftercare-en" class="accordion-content">
-          <ul>
-            <li>Wash the tattoo with mild soap and cold water</li>
-            <li>Apply the recommended healing ointment or cream</li>
-            <li>Avoid sun exposure, swimming pools, saunas, and the ocean for the first few weeks</li>
-            <li>Avoid strenuous exercises (e.g., weightlifting)</li>
-            <li>Do not scratch or pick at the scabs</li>
-          </ul>
-          <p>If you have any questions, feel free to reach out! :)</p>
-        </div>
-      </div>
     </div>
   </div>
 
-  <!-- Seção de Contato - novo layout -->
+  <!-- Seção de Contato -->
   <h2 class="contact-title" onclick="toggleContato()">CONTATO | CONTACT</h2>
   <div id="contato-info" class="accordion-content">
     <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com" class="email">Welbertc.rodrigues@gmail.com</a></p>
@@ -475,7 +450,6 @@
       document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
     }
 
-    // Função para alternar idioma
     function toggleLanguage() {
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
@@ -484,7 +458,6 @@
       const availabilityText = document.getElementById("availability-text");
 
       if (contentPt.style.display === "none") {
-        // Traduzir para português
         contentPt.style.display = "block";
         contentEn.style.display = "none";
         langBtn.textContent = "EN";
@@ -492,7 +465,6 @@
         availabilityText.textContent = "Consulte disponibilidade.";
         localStorage.setItem("language", "pt");
       } else {
-        // Traduzir para inglês
         contentPt.style.display = "none";
         contentEn.style.display = "block";
         langBtn.textContent = "PT";
@@ -502,11 +474,8 @@
       }
     }
 
-    // Função para alternar entre Galeria e Página de Informações
     function toggleGalleryInfo() {
-      // Fecha a caixa de contatos, se estiver aberta
       document.getElementById("contato-info").classList.remove("active");
-
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info-section");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
@@ -525,19 +494,16 @@
       }
     }
 
-    // Função para alternar os accordions
     function toggleAccordion(id) {
       const content = document.getElementById(id);
       content.classList.toggle("active");
     }
     
-    // Função para alternar a exibição das informações de contato
     function toggleContato() {
       var contatoInfo = document.getElementById("contato-info");
       contatoInfo.classList.toggle("active");
     }
 
-    // Função para carregar o estado salvo ao iniciar a página
     function loadState() {
       const language = localStorage.getItem("language") || "pt";
       const section = localStorage.getItem("section") || "gallery";
