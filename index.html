@@ -18,7 +18,7 @@
     /* Estilos padrão (modo claro) */
     body {
       font-family: 'Outfit', sans-serif;
-      font-weight: 300; /* Peso base mais leve, para lembrar a fonte do print */
+      font-weight: 300; /* Peso base mais leve */
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
@@ -29,20 +29,20 @@
       font-size: 14px;
     }
 
-    /* Títulos (h2) um pouco mais fortes, mas ainda minimalistas */
+    /* Títulos (h2) minimalistas */
     h2 {
       border-bottom: 1px solid #ddd;
       padding-bottom: 8px;
       font-size: 18px;
       margin-top: 40px;
-      font-weight: 500; /* Mantém leveza, mas realça em relação ao texto */
+      font-weight: 500;
       cursor: pointer;
       display: block;
       width: 100%;
       box-sizing: border-box;
     }
 
-    /* Botão de contato (estilo semelhante aos controles) */
+    /* Botão de contato */
     .contact-title {
       display: block;
       width: 100%;
@@ -51,7 +51,7 @@
       padding: 8px 16px;
       margin-top: 50px;
       font-size: 14px;
-      font-weight: 500; /* levemente mais forte para destaque */
+      font-weight: 500;
       cursor: pointer;
       color: #000;
       background-color: transparent;
@@ -270,10 +270,16 @@
       text-decoration: underline;
     }
 
-    /* Customização do foco para acessibilidade */
-    button:focus,
-    a:focus {
-      outline: 2px solid #00f;
+    /* Estilos de foco para navegação via teclado */
+    button:not(:focus-visible),
+    a:not(:focus-visible) {
+      outline: none;
+      box-shadow: none;
+    }
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid #ccc; /* tom neutro de cinza */
+      outline-offset: 2px;
     }
 
     @media (min-width: 768px) {
