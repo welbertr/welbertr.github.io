@@ -77,10 +77,10 @@
     /* Botões minimalistas do lightbox (estilo atualizado) */
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
-      color: white;
+      background: rgba(0, 0, 0, 0.1); /* Fundo escuro no modo claro */
+      border: 1px solid rgba(0, 0, 0, 0.3); /* Borda escura no modo claro */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra escura no modo claro */
+      color: rgba(0, 0, 0, 0.8); /* Cor escura para ícones */
       cursor: pointer;
       opacity: 0.8;
       transition: opacity 0.3s ease, background 0.3s ease;
@@ -92,8 +92,8 @@
       justify-content: center;
     }
     .close-btn:hover, .prev-btn:hover, .next-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.2); /* Fundo mais escuro ao passar o mouse */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais intensa */
       opacity: 1;
     }
     .close-btn {
@@ -257,9 +257,9 @@
         background: rgba(0, 0, 0, 0.9); /* Fundo mais escuro para o lightbox */
       }
       .close-btn, .prev-btn, .next-btn {
-        color: #e0e0e0; /* Botões mais claros no modo escuro */
-        background: rgba(255, 255, 255, 0.1); /* Fundo mais claro no modo escuro */
-        border-color: rgba(255, 255, 255, 0.3); /* Borda mais clara no modo escuro */
+        color: #e0e0e0; /* Cor clara para ícones no modo escuro */
+        background: rgba(255, 255, 255, 0.1); /* Fundo claro semi-transparente */
+        border-color: rgba(255, 255, 255, 0.3); /* Borda clara */
         box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
       }
       .close-btn:hover, .prev-btn:hover, .next-btn:hover {
