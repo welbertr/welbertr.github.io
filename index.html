@@ -245,14 +245,17 @@
       opacity: 0.8;
     }
 
-    /* Acordeons */
+    /* Acordeons com transição suave */
     .accordion-content {
-      display: none;
-      padding: 10px 0;
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 0;
+      transition: max-height 0.3s ease, padding 0.3s ease;
     }
 
     .accordion-content.active {
-      display: block;
+      max-height: 500px; /* Ajuste conforme o conteúdo */
+      padding: 10px 0;
     }
 
     .accordion-section {
