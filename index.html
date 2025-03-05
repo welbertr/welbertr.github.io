@@ -6,56 +6,55 @@
   <title>Welbert Tattoo</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"> <!-- Fonte Roboto -->
   <style>
-    /* Estilos padrão (modo claro) */
     body {
-      font-family: 'Roboto', sans-serif; /* Fonte moderna e minimalista */
+      font-family: 'Roboto', sans-serif; /* Mantém a fonte original */
       max-width: 600px;
       margin: 40px auto;
-      padding: 80px 20px 20px; /* Aumentamos o padding-top para compensar os controles fixos */
-      line-height: 1.6;
+      padding: 20px;
+      line-height: 1.6; /* Espaçamento entre linhas ajustado */
       color: #333;
-      background-color: #fafafa;
+      background-color: #fafafa; /* Fundo neutro quase branco */
       text-align: left;
-      font-size: 14px;
+      font-size: 14px; /* Tamanho da fonte menor */
     }
     h2 {
       border-bottom: 1px solid #ddd;
-      padding-bottom: 8px;
-      font-size: 14px;
-      margin-top: 40px;
-      font-weight: 300; /* Títulos mais finos */
-      cursor: pointer;
+      padding-bottom: 8px; /* Espaçamento abaixo do título ajustado */
+      font-size: 14px; /* Tamanho menor para títulos (igual ao dos botões) */
+      margin-top: 40px; /* Espaçamento acima dos títulos ajustado */
+      font-weight: 500; /* Peso original – negrito */
+      cursor: pointer; /* Cursor de clique para indicar interatividade */
     }
     p, ul, li {
-      font-size: 14px;
+      font-size: 14px; /* Tamanho da fonte menor */
       text-align: justify;
       hyphens: auto;
-      margin-bottom: 12px;
+      margin-bottom: 12px; /* Espaçamento entre parágrafos e itens de lista ajustado */
     }
     ul {
-      padding-left: 20px;
+      padding-left: 20px; /* Espaçamento para a lista */
     }
     li {
-      margin-bottom: 8px;
+      margin-bottom: 8px; /* Espaçamento entre itens da lista ajustado */
     }
     /* Layout da galeria em grade: 2 imagens por linha */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr); /* 2 colunas */
       gap: 10px;
       margin: 20px 0;
     }
     .gallery img {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 8px; /* Bordas levemente arredondadas */
       cursor: pointer;
       transition: transform 0.2s;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      background-color: #fffff2;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+      background-color: #fffff2; /* Fundo Ivory para as imagens */
     }
     .gallery img:hover {
       transform: scale(1.02);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra um pouco mais intensa ao passar o mouse */
     }
     .lightbox {
       display: none;
@@ -73,99 +72,43 @@
       max-width: 90%;
       max-height: 90%;
       border-radius: 8px;
-      z-index: 1;
     }
-    /* Botões minimalistas do lightbox */
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
-      background: rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      color: rgba(0, 0, 0, 0.8);
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      padding: 10px;
       cursor: pointer;
-      opacity: 1;
-      transition: opacity 0.3s ease, background 0.3s ease;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .close-btn:hover, .prev-btn:hover, .next-btn:hover {
-      background: rgba(0, 0, 0, 0.2);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-      opacity: 1;
+      font-size: 18px;
     }
     .close-btn {
       top: 20px;
       right: 20px;
-      font-size: 22px;
-      font-weight: bold;
-      z-index: 9999;
-    }
-    .prev-btn, .next-btn {
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 24px;
+      transform: none;
     }
     .prev-btn {
-      left: 20px;
+      left: 10px;
     }
     .next-btn {
-      right: 20px;
+      right: 10px;
     }
-    
+    /* Área de Contato – sem borda e com clique para exibir detalhes */
     .contato {
-      margin-top: 40px;
-      padding: 15px;
-      border: 2px solid black;
+      margin-top: 60px;
       text-align: center;
-      background-color: #f5f5f5;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      border-radius: 8px;
-    }
-    .contato p {
-      margin: 6px 0;
-      text-align: center;
-      font-size: 14px;
-    }
-    .contato a {
-      color: black;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .contato a:hover {
-      text-decoration: underline;
-    }
-    /* Botão do Instagram (minimalista) */
-    .instagram-btn {
-      background-color: transparent;
-      color: black;
-      border: 1px solid black;
-      padding: 8px 16px;
-      border-radius: 5px;
       cursor: pointer;
-      font-size: 14px;
+    }
+    .contato-details {
+      display: none;
       margin-top: 10px;
-      display: inline-block;
-      text-decoration: none;
-      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    .instagram-btn:hover {
-      background-color: black;
-      color: white;
-    }
-    /* Área de controles no topo - agora fixos */
+    /* Área de controles no topo */
     .top-controls {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 10000;
       text-align: right;
-      background: transparent;
-      padding: 10px 20px;
+      margin-bottom: 20px;
     }
     .top-controls button {
       background-color: transparent;
@@ -173,7 +116,7 @@
       border: none;
       padding: 8px 16px;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 500; /* Peso original */
       cursor: pointer;
       transition: opacity 0.3s ease;
       margin-left: 0;
@@ -191,100 +134,16 @@
     }
     /* Estilo para os accordions */
     .accordion-content {
-      display: none;
+      display: none; /* Oculta o conteúdo inicialmente */
       padding: 10px 0;
     }
     .accordion-content.active {
-      display: block;
-    }
-    
-    /* BREAKPOINTS - Responsividade */
-    @media (min-width: 768px) {
-      body {
-        padding: 80px 30px 20px;
-        font-size: 15px;
-      }
-      
-      .contato {
-        max-width: 80%;
-        margin: 60px auto;
-        padding: 20px;
-      }
-    }
-    
-    @media (min-width: 1024px) {
-      body {
-        max-width: 1200px;
-        font-size: 16px;
-      }
-      
-      .gallery {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      h2 {
-        font-size: 16px;
-      }
-      
-      .contato {
-        padding: 25px;
-      }
-    }
-    
-    @media (min-width: 1440px) {
-      .gallery {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-    
-    /* Estilos para modo escuro */
-    @media (prefers-color-scheme: dark) {
-      body {
-        color: #e0e0e0;
-        background-color: #121212;
-      }
-      h2 {
-        border-bottom: 1px solid #444;
-      }
-      .contato {
-        border: 2px solid #666;
-        background-color: #1e1e1e;
-      }
-      .contato a {
-        color: #e0e0e0;
-      }
-      .top-controls button {
-        color: #e0e0e0;
-      }
-      .gallery img {
-        background-color: #1e1e1e;
-      }
-      .lightbox {
-        background: rgba(0, 0, 0, 0.9);
-      }
-      .close-btn, .prev-btn, .next-btn {
-        background: rgba(0, 0, 0, 0.4);
-        border-color: rgba(255, 255, 255, 0.3);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        color: #f5f5f5;
-      }
-      .close-btn:hover, .prev-btn:hover, .next-btn:hover {
-        background: rgba(0, 0, 0, 0.7);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-      }
-      .instagram-btn {
-        color: #e0e0e0;
-        border-color: #e0e0e0;
-      }
-      .instagram-btn:hover {
-        background-color: #e0e0e0;
-        color: #121212;
-      }
+      display: block; /* Exibe o conteúdo quando ativo */
     }
   </style>
 </head>
 <body>
-  <!-- Controles de idioma e galeria/info (fixados no topo) -->
+  <!-- Controles de idioma e galeria/info -->
   <div class="top-controls">
     <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFO</button>
     <button id="lang-btn" onclick="toggleLanguage()">EN</button>
@@ -292,7 +151,7 @@
 
   <!-- Seção da Galeria (visível por padrão) -->
   <div id="gallery-section">
-    <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
+    <p id="availability-text" style="text-align: center;">Entre em contato para confirmar disponibilidade.</p>
     <div class="gallery"></div>
   </div>
 
@@ -301,7 +160,6 @@
     <!-- Conteúdo de Agendamento (em Português) -->
     <div id="content-pt">
       <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
-
       <h2 onclick="toggleAccordion('orcamento-pt')">Orçamento</h2>
       <div id="orcamento-pt" class="accordion-content">
         <p>Envie um direct com:</p>
@@ -312,17 +170,14 @@
         </ul>
         <p>Com esses dados, poderei fornecer os valores.</p>
       </div>
-
       <h2 onclick="toggleAccordion('agendamento-pt')">Agendamento e Sinal</h2>
       <div id="agendamento-pt" class="accordion-content">
         <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
       </div>
-
       <h2 onclick="toggleAccordion('lista-espera-pt')">Lista de Espera</h2>
       <div id="lista-espera-pt" class="accordion-content">
         <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
       </div>
-
       <h2 onclick="toggleAccordion('dia-sessao-pt')">No Dia da Sessão</h2>
       <div id="dia-sessao-pt" class="accordion-content">
         <ul>
@@ -331,7 +186,6 @@
           <li>Use roupas que facilitem o acesso à área</li>
         </ul>
       </div>
-
       <h2 onclick="toggleAccordion('cuidados-pt')">Cuidados Pós-Tatuagem</h2>
       <div id="cuidados-pt" class="accordion-content">
         <ul>
@@ -341,14 +195,12 @@
           <li>Evite musculação e outros exercícios físicos de maior impacto</li>
           <li>Não coce ou retire as casquinhas</li>
         </ul>
-        <p>Qualquer dúvida, estou à disposição :)</p>
       </div>
+      <p>Qualquer dúvida, estou à disposição :)</p>
     </div>
-
     <!-- Conteúdo de Agendamento (em Inglês) -->
     <div id="content-en" style="display: none;">
       <p>To make the booking process easier, please follow the guidelines below:</p>
-
       <h2 onclick="toggleAccordion('pricing-en')">Pricing</h2>
       <div id="pricing-en" class="accordion-content">
         <p>Send me a direct message with the following details:</p>
@@ -359,17 +211,14 @@
         </ul>
         <p>With this information, I can provide a price estimate.</p>
       </div>
-
       <h2 onclick="toggleAccordion('booking-en')">Booking and Deposit</h2>
       <div id="booking-en" class="accordion-content">
         <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
       </div>
-
       <h2 onclick="toggleAccordion('waitlist-en')">Waitlist</h2>
       <div id="waitlist-en" class="accordion-content">
         <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
       </div>
-
       <h2 onclick="toggleAccordion('session-day-en')">On the Day of Your Session</h2>
       <div id="session-day-en" class="accordion-content">
         <ul>
@@ -378,7 +227,6 @@
           <li>Wear comfortable clothing that allows easy access to the tattoo area</li>
         </ul>
       </div>
-
       <h2 onclick="toggleAccordion('aftercare-en')">Aftercare Instructions</h2>
       <div id="aftercare-en" class="accordion-content">
         <ul>
@@ -388,28 +236,25 @@
           <li>Avoid strenuous exercises (e.g., weightlifting)</li>
           <li>Do not scratch or pick at the scabs</li>
         </ul>
-        <p>If you have any questions, feel free to reach out! :)</p>
       </div>
+      <p>If you have any questions, feel free to reach out! :)</p>
     </div>
   </div>
 
-  <!-- Seção de Contato (sempre visível no final) -->
-  <div class="contato">
+  <!-- Seção de Contato – ao clicar, exibe os detalhes -->
+  <div class="contato" onclick="toggleContact()">
     <p><strong>Contato | Contact</strong></p>
-    <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
-    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832</a></p>
-    <p>
-      <a href="https://www.instagram.com/we.ro___" target="_blank" class="instagram-btn">
-        Direct
-      </a>
-    </p>
+    <div class="contato-details">
+      <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832</a></p>
+    </div>
   </div>
 
   <div class="lightbox" id="lightbox">
-    <button class="close-btn" onclick="closeLightbox()">&times;</button>
-    <button class="prev-btn" onclick="changeImage(-1)">&lt;</button>
-    <img id="lightbox-img" src="" alt="Imagem ampliada">
-    <button class="next-btn" onclick="changeImage(1)">&gt;</button>
+    <button class="close-btn" onclick="closeLightbox()">X</button>
+    <button class="prev-btn" onclick="changeImage(-1)">&#10094;</button>
+    <img id="lightbox-img">
+    <button class="next-btn" onclick="changeImage(1)">&#10095;</button>
   </div>
 
   <script>
@@ -421,7 +266,7 @@
       38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 
       49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 
       60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
-      71, 72, 73, 74, 75, 76, 77, 78, 79,
+      71, 72, 73, 74, 75
     ];
     imagensValidas.reverse();
 
@@ -453,7 +298,7 @@
       document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
     }
 
-    // Função para alternar idioma
+    // Alterna idioma (pt/en)
     function toggleLanguage() {
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
@@ -467,7 +312,7 @@
         contentEn.style.display = "none";
         langBtn.textContent = "EN";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
-        availabilityText.textContent = "Consulte disponibilidade.";
+        availabilityText.textContent = "Entre em contato para confirmar disponibilidade.";
         localStorage.setItem("language", "pt");
       } else {
         // Traduz para inglês
@@ -475,12 +320,12 @@
         contentEn.style.display = "block";
         langBtn.textContent = "PT";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
-        availabilityText.textContent = "Check availability.";
+        availabilityText.textContent = "Contact us to confirm availability.";
         localStorage.setItem("language", "en");
       }
     }
 
-    // Função para alternar entre Galeria e Página de Informações
+    // Alterna entre Galeria e Página de Informações
     function toggleGalleryInfo() {
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info-section");
@@ -500,29 +345,35 @@
       }
     }
 
-    // Função para alternar os accordions
+    // Alterna os accordions
     function toggleAccordion(id) {
       const content = document.getElementById(id);
       content.classList.toggle("active");
     }
 
-    // Função para carregar o estado salvo ao iniciar a página
+    // Alterna a exibição dos dados de contato
+    function toggleContact() {
+      const details = document.querySelector('.contato-details');
+      if(details.style.display === "none" || details.style.display === "") {
+        details.style.display = "block";
+      } else {
+        details.style.display = "none";
+      }
+    }
+
+    // Carrega o estado salvo (idioma e seção) ao iniciar a página
     function loadState() {
       const language = localStorage.getItem("language") || "pt";
       const section = localStorage.getItem("section") || "gallery";
 
-      // Aplicar o idioma salvo
       if (language === "en") {
         toggleLanguage();
       }
-
-      // Aplicar a seção salva
       if (section === "info") {
         toggleGalleryInfo();
       }
     }
 
-    // Carregar o estado ao iniciar a página
     loadState();
   </script>
 </body>
