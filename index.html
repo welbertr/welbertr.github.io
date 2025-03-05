@@ -25,6 +25,7 @@
       margin-top: 40px; /* Espaçamento acima dos títulos ajustado */
       font-weight: 500; /* Peso da fonte mais suave */
       cursor: pointer; /* Cursor de clique para indicar interatividade */
+      display: inline-block;
     }
     p, ul, li {
       font-size: 14px; /* Tamanho da fonte menor */
@@ -139,46 +140,24 @@
       right: 20px;
     }
     
-    .contato {
-      margin-top: 40px; /* Espaçamento reduzido */
-      padding: 15px; /* Padding reduzido */
-      border: 2px solid black;
-      text-align: center;
-      background-color: #f5f5f5; /* Fundo neutro para a seção de contato */
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      border-radius: 8px;
-    }
-    .contato p {
-      margin: 6px 0; /* Espaçamento reduzido */
-      text-align: center;
-      font-size: 14px; /* Tamanho da fonte menor */
-    }
-    .contato a {
-      color: black;
-      text-decoration: none;
-      font-weight: 500; /* Peso da fonte mais suave */
-    }
-    .contato a:hover {
-      text-decoration: underline;
-    }
-    /* Botão do Instagram (minimalista) */
+    /* Removemos o estilo antigo da seção de contato para aplicar o novo layout */
+    
+    /* Botão do Instagram (minimalista) - novo estilo */
     .instagram-btn {
       background-color: transparent;
       color: black;
-      border: 1px solid black;
-      padding: 8px 16px;
-      border-radius: 5px;
+      border: none;
+      padding: 8px 0;
       cursor: pointer;
       font-size: 14px;
-      margin-top: 10px;
       display: inline-block;
       text-decoration: none;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      text-transform: uppercase;
     }
     .instagram-btn:hover {
-      background-color: black;
-      color: white;
+      text-decoration: underline;
     }
+    
     /* Área de controles no topo */
     .top-controls {
       text-align: right;
@@ -221,11 +200,7 @@
         padding: 30px;
         font-size: 15px;
       }
-      .contato {
-        max-width: 80%;
-        margin: 60px auto;
-        padding: 20px; /* Padding maior para tablets */
-      }
+      /* Ajustes de contato removidos para manter o novo layout minimalista */
     }
     
     @media (min-width: 1024px) {
@@ -238,9 +213,6 @@
       }
       h2 {
         font-size: 16px;
-      }
-      .contato {
-        padding: 25px; /* Padding maior para desktop */
       }
     }
     
@@ -258,13 +230,6 @@
       }
       h2 {
         border-bottom: 1px solid #444; /* Bordas mais escuras */
-      }
-      .contato {
-        border: 2px solid #666; /* Bordas mais claras */
-        background-color: #1e1e1e; /* Fundo escuro para a seção de contato */
-      }
-      .contato a {
-        color: #e0e0e0; /* Links mais claros */
       }
       .top-controls button {
         color: #e0e0e0; /* Botões mais claros */
@@ -286,18 +251,11 @@
         background: rgba(0, 0, 0, 0.7);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
       }
-      .close-btn {
-        font-size: 22px;
-        font-weight: bold;
-        z-index: 9999; /* Também no modo escuro */
-      }
       .instagram-btn {
         color: #e0e0e0; /* Texto claro no modo escuro */
-        border-color: #e0e0e0; /* Borda clara no modo escuro */
       }
       .instagram-btn:hover {
-        background-color: #e0e0e0; /* Fundo claro ao passar o mouse */
-        color: #121212; /* Texto escuro ao passar o mouse */
+        text-decoration: underline;
       }
     }
   </style>
@@ -412,17 +370,12 @@
     </div>
   </div>
 
-  <!-- Seção de Contato (sempre visível no final) -->
-  <div class="contato">
-    <p><strong>Contato | Contact</strong></p>
+  <!-- Seção de Contato - novo layout -->
+  <h2 onclick="toggleContato()">CONTATO | CONTACT</h2>
+  <div id="contato-info" class="accordion-content">
     <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
     <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832</a></p>
-    <!-- Botão para o direct do Instagram (minimalista) -->
-    <p>
-      <a href="https://www.instagram.com/we.ro___" target="_blank" class="instagram-btn">
-        Direct
-      </a>
-    </p>
+    <p><a href="https://www.instagram.com/we.ro___" target="_blank" class="instagram-btn">INSTAGRAM</a></p>
   </div>
 
   <div class="lightbox" id="lightbox">
@@ -527,6 +480,12 @@
     function toggleAccordion(id) {
       const content = document.getElementById(id);
       content.classList.toggle("active");
+    }
+    
+    // Função para alternar a exibição das informações de contato
+    function toggleContato() {
+      var contatoInfo = document.getElementById("contato-info");
+      contatoInfo.classList.toggle("active");
     }
 
     // Função para carregar o estado salvo ao iniciar a página
