@@ -6,6 +6,7 @@
   <title>Welbert Tattoo</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"> <!-- Fonte Roboto -->
   <style>
+    /* Estilos padrão (modo claro) */
     body {
       font-family: 'Roboto', sans-serif; /* Fonte moderna e minimalista */
       max-width: 600px;
@@ -151,6 +152,36 @@
     }
     .accordion-content.active {
       display: block; /* Exibe o conteúdo quando ativo */
+    }
+
+    /* Estilos para o modo escuro */
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: #e0e0e0; /* Texto mais claro */
+        background-color: #121212; /* Fundo escuro */
+      }
+      h2 {
+        border-bottom: 1px solid #444; /* Bordas mais escuras */
+      }
+      .contato {
+        border: 2px solid #666; /* Bordas mais claras */
+        background-color: #1e1e1e; /* Fundo escuro para a seção de contato */
+      }
+      .contato a {
+        color: #e0e0e0; /* Links mais claros */
+      }
+      .top-controls button {
+        color: #e0e0e0; /* Botões mais claros */
+      }
+      .gallery img {
+        background-color: #1e1e1e; /* Fundo escuro para as imagens */
+      }
+      .lightbox {
+        background: rgba(0, 0, 0, 0.9); /* Fundo mais escuro para o lightbox */
+      }
+      .close-btn, .prev-btn, .next-btn {
+        background: rgba(255, 255, 255, 0.9); /* Botões mais claros no lightbox */
+      }
     }
   </style>
 </head>
