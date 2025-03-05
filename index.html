@@ -52,10 +52,24 @@
       transition: transform 0.2s;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
       background-color: #fffff2; /* Fundo Ivory para as imagens */
+      /* Animação de fade-in e deslocamento */
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
     }
     .gallery img:hover {
       transform: scale(1.02);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra um pouco mais intensa ao passar o mouse */
+    }
+    /* Keyframes para a animação */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     .lightbox {
       display: none;
