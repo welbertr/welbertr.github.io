@@ -10,6 +10,11 @@
     rel="stylesheet"
   />
   <style>
+    /* Classe para ocultar elementos */
+    .hidden {
+      display: none !important;
+    }
+    
     /* Estilos padrão (modo claro) */
     body {
       font-family: 'Outfit', sans-serif;
@@ -265,10 +270,10 @@
       text-decoration: underline;
     }
 
-    /* Remoção do efeito de foco */
+    /* Customização do foco para acessibilidade */
     button:focus,
     a:focus {
-      outline: none;
+      outline: 2px solid #00f;
     }
 
     @media (min-width: 768px) {
@@ -350,7 +355,7 @@
   </div>
 
   <!-- Seção de Informações -->
-  <div id="info-section" style="display: none;">
+  <div id="info-section" class="hidden">
     <!-- Conteúdo de Agendamento (em Português) -->
     <div id="content-pt">
       <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
@@ -391,7 +396,7 @@
     </div>
 
     <!-- Conteúdo de Agendamento (em Inglês) -->
-    <div id="content-en" style="display: none;">
+    <div id="content-en" class="hidden">
       <p>To make the booking process easier, please follow the guidelines below:</p>
       <div class="accordion-section">
         <h2 onclick="toggleAccordion('pricing-en')">Pricing</h2>
@@ -460,13 +465,15 @@
     imagensValidas.reverse();
 
     const galleryContainer = document.querySelector('.gallery');
+    const galleryFragment = document.createDocumentFragment();
     imagensValidas.forEach(num => {
       const img = document.createElement('img');
       img.src = `images/desenho${num}.jpg`;
       img.alt = `Desenho ${num}`;
       img.onclick = () => openLightbox(num);
-      galleryContainer.appendChild(img);
+      galleryFragment.appendChild(img);
     });
+    galleryContainer.appendChild(galleryFragment);
 
     let currentIndex = 0;
     function openLightbox(num) {
@@ -493,17 +500,19 @@
       const langBtn = document.getElementById("lang-btn");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const availabilityText = document.getElementById("availability-text");
-
-      if (contentPt.style.display === "none") {
-        contentPt.style.display = "block";
-        contentEn.style.display = "none";
+      const currentLanguage = localStorage.getItem("language") || "pt";
+      if (currentLanguage === "en") {
+        // Muda para português
+        contentPt.classList.remove("hidden");
+        contentEn.classList.add("hidden");
         langBtn.textContent = "EN";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
         availabilityText.textContent = "Consulte disponibilidade.";
         localStorage.setItem("language", "pt");
       } else {
-        contentPt.style.display = "none";
-        contentEn.style.display = "block";
+        // Muda para inglês
+        contentPt.classList.add("hidden");
+        contentEn.classList.remove("hidden");
         langBtn.textContent = "PT";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
         availabilityText.textContent = "Check availability.";
@@ -512,21 +521,23 @@
     }
 
     function toggleGalleryInfo() {
+      // Fecha contato se aberto
       document.getElementById("contato-info").classList.remove("active");
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info-section");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      const langBtn = document.getElementById("lang-btn");
+      const language = localStorage.getItem("language") || "pt";
 
-      if (gallerySection.style.display !== "none") {
-        gallerySection.style.display = "none";
-        infoSection.style.display = "block";
-        galleryToggleBtn.textContent = langBtn.textContent === "EN" ? "DESENHOS" : "DESIGNS";
+      if (!gallerySection.classList.contains("hidden")) {
+        // Se galeria visível, alterna para informações
+        gallerySection.classList.add("hidden");
+        infoSection.classList.remove("hidden");
+        galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
         localStorage.setItem("section", "info");
       } else {
-        gallerySection.style.display = "block";
-        infoSection.style.display = "none";
-        galleryToggleBtn.textContent = langBtn.textContent === "EN" ? "INFO" : "INFO";
+        gallerySection.classList.remove("hidden");
+        infoSection.classList.add("hidden");
+        galleryToggleBtn.textContent = "INFO";
         localStorage.setItem("section", "gallery");
       }
     }
@@ -537,19 +548,37 @@
     }
 
     function toggleContato() {
-      var contatoInfo = document.getElementById("contato-info");
+      const contatoInfo = document.getElementById("contato-info");
       contatoInfo.classList.toggle("active");
     }
 
     function loadState() {
+      const contentPt = document.getElementById("content-pt");
+      const contentEn = document.getElementById("content-en");
+      const langBtn = document.getElementById("lang-btn");
+      const availabilityText = document.getElementById("availability-text");
+      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const language = localStorage.getItem("language") || "pt";
-      const section = localStorage.getItem("section") || "gallery";
-
       if (language === "en") {
-        toggleLanguage();
+        contentPt.classList.add("hidden");
+        contentEn.classList.remove("hidden");
+        langBtn.textContent = "PT";
+        availabilityText.textContent = "Check availability.";
+      } else {
+        contentPt.classList.remove("hidden");
+        contentEn.classList.add("hidden");
+        langBtn.textContent = "EN";
+        availabilityText.textContent = "Consulte disponibilidade.";
       }
+      const section = localStorage.getItem("section") || "gallery";
       if (section === "info") {
-        toggleGalleryInfo();
+        document.getElementById("gallery-section").classList.add("hidden");
+        document.getElementById("info-section").classList.remove("hidden");
+        galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
+      } else {
+        document.getElementById("gallery-section").classList.remove("hidden");
+        document.getElementById("info-section").classList.add("hidden");
+        galleryToggleBtn.textContent = "INFO";
       }
     }
 
