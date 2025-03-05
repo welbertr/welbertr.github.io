@@ -12,45 +12,45 @@
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
-      line-height: 1.6; /* Espaçamento entre linhas ajustado */
+      line-height: 1.6;
       color: #333;
-      background-color: #fafafa; /* Fundo neutro quase branco */
+      background-color: #fafafa;
       text-align: left;
-      font-size: 16px; /* Aumentada a fonte base para 16px */
+      font-size: 14px; /* Fonte base revertida para 14px */
     }
     h2 {
       border-bottom: 1px solid #ddd;
-      padding-bottom: 8px; /* Espaçamento abaixo do título ajustado */
-      font-size: 16px; /* Aumentada a fonte dos títulos */
-      margin-top: 40px; /* Espaçamento acima dos títulos ajustado */
-      font-weight: 500; /* Peso da fonte mais suave */
-      cursor: pointer; /* Cursor de clique para indicar interatividade */
-      display: block;   /* Exibição em bloco para estender a linha */
+      padding-bottom: 8px;
+      font-size: 16px; /* Títulos maiores */
+      margin-top: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      display: block;
       width: 100%;
       box-sizing: border-box;
     }
-    /* Estilo específico para o título de contato */
+    /* Título de contato mantém o mesmo estilo de h2 (tamanho anterior) */
     .contact-title {
       display: block;
       width: 100%;
       text-align: center;
-      border: none; /* Remove a linha inferior */
+      border: none;
       padding-bottom: 0;
       margin-top: 40px;
     }
     p, ul, li {
-      font-size: 16px; /* Aumentada a fonte dos conteúdos */
+      font-size: 14px;
       text-align: justify;
       hyphens: auto;
-      margin-bottom: 12px; /* Espaçamento entre parágrafos e itens de lista */
+      margin-bottom: 12px;
     }
     ul {
-      padding-left: 20px; /* Espaçamento para a lista */
+      padding-left: 20px;
     }
     li {
-      margin-bottom: 8px; /* Espaçamento entre itens da lista */
+      margin-bottom: 8px;
     }
-    /* Layout da galeria em grade: 2 imagens por linha (padrão para mobile e tablets) */
+    /* Layout da galeria */
     .gallery {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -59,20 +59,18 @@
     }
     .gallery img {
       width: 100%;
-      border-radius: 8px; /* Bordas levemente arredondadas */
+      border-radius: 8px;
       cursor: pointer;
       transition: transform 0.2s;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-      background-color: #fffff2; /* Fundo Ivory para as imagens */
-      /* Animação de fade-in e deslocamento */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #fffff2;
       opacity: 0;
       animation: fadeIn 0.5s ease forwards;
     }
     .gallery img:hover {
       transform: scale(1.02);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra um pouco mais intensa ao passar o mouse */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
-    /* Keyframes para a animação */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -100,13 +98,12 @@
       max-height: 90%;
       border-radius: 8px;
     }
-    /* Botões minimalistas do lightbox (estilo atualizado) */
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
-      background: rgba(0, 0, 0, 0.1); /* Fundo escuro no modo claro */
-      border: 1px solid rgba(0, 0, 0, 0.3); /* Borda escura no modo claro */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra escura no modo claro */
-      color: rgba(0, 0, 0, 0.8); /* Cor escura para ícones */
+      background: rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      color: rgba(0, 0, 0, 0.8);
       cursor: pointer;
       opacity: 1;
       transition: opacity 0.3s ease, background 0.3s ease;
@@ -118,26 +115,24 @@
       justify-content: center;
     }
     .close-btn:hover, .prev-btn:hover, .next-btn:hover {
-      background: rgba(0, 0, 0, 0.2); /* Fundo mais escuro ao passar o mouse */
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais intensa */
-      opacity: 1;
+      background: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     }
-    /* Ajustes específicos para o botão de fechar no modo claro */
     .close-btn {
       top: 20px;
       right: 20px;
       font-size: 22px;
       font-weight: bold;
       z-index: 9999;
-      background: rgba(255, 255, 255, 0.9); /* Fundo branco quase sólido */
-      border: 1px solid rgba(0, 0, 0, 0.6); /* Borda escura para contraste */
-      color: rgba(0, 0, 0, 0.8); /* Cor escura para o "X" */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.6);
+      color: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     .close-btn:hover {
-      background: rgba(255, 255, 255, 1); /* Fundo branco sólido ao passar o mouse */
-      border-color: rgba(0, 0, 0, 0.8); /* Borda mais escura ao passar o mouse */
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais intensa */
+      background: rgba(255, 255, 255, 1);
+      border-color: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     }
     .prev-btn, .next-btn {
       top: 50%;
@@ -150,18 +145,15 @@
     .next-btn {
       right: 20px;
     }
-    
-    /* Removemos o estilo antigo da seção de contato para aplicar o novo layout */
-    
-    /* Botão do Instagram (minimalista) - novo estilo */
+    /* Botão do Instagram (minimalista) */
     .instagram-btn {
       background-color: transparent;
       color: black;
-      border: 1px solid black; /* Contorno fino preto */
-      padding: 6px 12px; /* Reduzido o padding */
-      border-radius: 4px; /* Bordas arredondadas */
+      border: 1px solid black;
+      padding: 6px 12px;
+      border-radius: 4px;
       cursor: pointer;
-      font-size: 12px; /* Reduzido o tamanho da fonte */
+      font-size: 12px;
       display: inline-block;
       text-decoration: none;
       text-transform: uppercase;
@@ -169,7 +161,6 @@
     .instagram-btn:hover {
       text-decoration: underline;
     }
-    
     /* Área de controles no topo */
     .top-controls {
       text-align: right;
@@ -181,7 +172,7 @@
       border: none;
       padding: 8px 16px;
       font-size: 14px;
-      font-weight: 500; /* Peso da fonte mais suave */
+      font-weight: 500;
       cursor: pointer;
       transition: opacity 0.3s ease;
       margin-left: 0;
@@ -199,28 +190,25 @@
     }
     /* Estilo para os accordions */
     .accordion-content {
-      display: none; /* Oculta o conteúdo inicialmente */
+      display: none;
       padding: 10px 0;
     }
     .accordion-content.active {
-      display: block; /* Exibe o conteúdo quando ativo */
+      display: block;
     }
-    /* Cada seção individual de acordeon */
     .accordion-section {
-      margin-bottom: 30px; /* Aumentado o espaçamento entre seções */
+      margin-bottom: 30px; /* Espaçamento aumentado entre seções */
     }
     /* Centralização da área de contato */
     #contato-info {
       text-align: center;
       margin: 0 auto;
     }
-    /* Estilo dos parágrafos de contato */
     #contato-info p {
       margin: 6px 0;
-      font-size: 16px; /* Aumentada a fonte para os conteúdos de contato */
+      font-size: 14px; /* Mantido o tamanho anterior para os conteúdos */
       text-align: center;
     }
-    /* Negrito para os dados de e-mail e WhatsApp */
     #contato-info a.email,
     #contato-info a.whatsapp {
       font-weight: bold;
@@ -231,22 +219,26 @@
     #contato-info a.whatsapp:hover {
       text-decoration: underline;
     }
+    /* Remoção do efeito azul padrão de foco e aplicação de um efeito sutil */
+    button:focus, a:focus {
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
     
-    /* BREAKPOINTS - Responsividade */
     @media (min-width: 768px) {
       body {
         padding: 30px;
-        font-size: 15px;
+        font-size: 14px;
       }
     }
     
     @media (min-width: 1024px) {
       body {
         max-width: 1200px;
-        font-size: 16px;
+        font-size: 14px;
       }
       .gallery {
-        grid-template-columns: repeat(3, 1fr); /* 3 colunas apenas em desktop */
+        grid-template-columns: repeat(3, 1fr);
       }
       h2 {
         font-size: 18px;
@@ -255,27 +247,26 @@
     
     @media (min-width: 1440px) {
       .gallery {
-        grid-template-columns: repeat(4, 1fr); /* 4 colunas para telas muito grandes */
+        grid-template-columns: repeat(4, 1fr);
       }
     }
     
-    /* Estilos para modo escuro */
     @media (prefers-color-scheme: dark) {
       body {
-        color: #e0e0e0; /* Texto mais claro */
-        background-color: #121212; /* Fundo escuro */
+        color: #e0e0e0;
+        background-color: #121212;
       }
       h2 {
-        border-bottom: 1px solid #444; /* Bordas mais escuras */
+        border-bottom: 1px solid #444;
       }
       .top-controls button {
-        color: #e0e0e0; /* Botões mais claros */
+        color: #e0e0e0;
       }
       .gallery img {
-        background-color: #1e1e1e; /* Fundo escuro para as imagens */
+        background-color: #1e1e1e;
       }
       .lightbox {
-        background: rgba(0, 0, 0, 0.9); /* Fundo mais escuro para o lightbox */
+        background: rgba(0, 0, 0, 0.9);
       }
       .close-btn, .prev-btn, .next-btn {
         background: rgba(0, 0, 0, 0.4);
@@ -522,13 +513,11 @@
       const langBtn = document.getElementById("lang-btn");
 
       if (gallerySection.style.display !== "none") {
-        // Se a galeria estiver visível, oculta e mostra as informações
         gallerySection.style.display = "none";
         infoSection.style.display = "block";
         galleryToggleBtn.textContent = langBtn.textContent === "EN" ? "DESENHOS" : "DESIGNS";
         localStorage.setItem("section", "info");
       } else {
-        // Se as informações estiverem visíveis, volta para a galeria
         gallerySection.style.display = "block";
         infoSection.style.display = "none";
         galleryToggleBtn.textContent = langBtn.textContent === "EN" ? "INFO" : "INFO";
@@ -553,18 +542,14 @@
       const language = localStorage.getItem("language") || "pt";
       const section = localStorage.getItem("section") || "gallery";
 
-      // Aplicar o idioma salvo
       if (language === "en") {
         toggleLanguage();
       }
-
-      // Aplicar a seção salva
       if (section === "info") {
         toggleGalleryInfo();
       }
     }
 
-    // Carregar o estado ao iniciar a página
     loadState();
   </script>
 </body>
