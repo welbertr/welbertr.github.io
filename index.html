@@ -83,7 +83,6 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra escura no modo claro */
       color: rgba(0, 0, 0, 0.8); /* Cor escura para ícones */
       cursor: pointer;
-      /* Removido ou ajustado o opacity para aumentar a visibilidade */
       opacity: 1;
       transition: opacity 0.3s ease, background 0.3s ease;
       border-radius: 50%;
@@ -103,6 +102,7 @@
       right: 20px;
       font-size: 22px; /* Aumenta um pouco o tamanho do “X” */
       font-weight: bold; /* Deixa o “X” mais espesso */
+      z-index: 9999; /* Garantindo que o X fique na frente */
     }
     .prev-btn, .next-btn {
       top: 50%;
@@ -265,7 +265,6 @@
         border-color: rgba(255, 255, 255, 0.3); /* Borda clara */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         color: #f5f5f5; /* “X” e setas brancas para melhor contraste */
-        opacity: 1;
       }
       .close-btn:hover, .prev-btn:hover, .next-btn:hover {
         background: rgba(0, 0, 0, 0.7);
@@ -274,6 +273,7 @@
       .close-btn {
         font-size: 22px;
         font-weight: bold;
+        z-index: 9999; /* Também no modo escuro */
       }
       .instagram-btn {
         color: #e0e0e0; /* Texto claro no modo escuro */
