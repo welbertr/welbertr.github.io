@@ -212,6 +212,7 @@
     #contato-info p {
       margin: 6px 0;
       font-size: 14px;
+      text-align: center;
     }
     /* Negrito para os dados de e-mail e WhatsApp */
     #contato-info a.email,
@@ -486,6 +487,9 @@
 
     // Função para alternar entre Galeria e Página de Informações
     function toggleGalleryInfo() {
+      // Fecha a caixa de contatos, se estiver aberta
+      document.getElementById("contato-info").classList.remove("active");
+
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info-section");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
