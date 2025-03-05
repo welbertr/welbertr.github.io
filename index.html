@@ -60,7 +60,7 @@
       display: block;
       width: 100%;
       text-align: center;
-      border: none;
+      border: none; /* Linha removida */
       padding: 8px 16px;
       margin-top: 50px;
       font-size: 14px;
@@ -276,6 +276,7 @@
       text-align: center;
     }
 
+    /* No modo claro, os links de email/WhatsApp já estão definidos com cor #000 */
     #contato-info a.email,
     #contato-info a.whatsapp {
       font-weight: 500;
@@ -368,9 +369,19 @@
         border-top: 1px solid #444;
         color: #e0e0e0;
       }
+      /* Para os parágrafos de contato, usamos a mesma cor do .top-name */
+      #contato-info p {
+        color: #666;
+      }
+      /* Os links de email e WhatsApp permanecem brancos */
       #contato-info a.email,
       #contato-info a.whatsapp {
-        color: #e0e0e0;
+        color: #fff;
+      }
+      /* Altera a cor do botão de contato para a mesma do .top-name */
+      .contact-title {
+        color: #666;
+        border-bottom: none; /* Remove qualquer border-bottom */
       }
     }
   </style>
