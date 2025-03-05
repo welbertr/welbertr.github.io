@@ -97,12 +97,22 @@
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais intensa */
       opacity: 1;
     }
+    /* Ajustes específicos para o botão de fechar no modo claro */
     .close-btn {
       top: 20px;
       right: 20px;
-      font-size: 22px; /* Aumenta um pouco o tamanho do “X” */
-      font-weight: bold; /* Deixa o “X” mais espesso */
-      z-index: 9999; /* Garantindo que o X fique na frente */
+      font-size: 22px;
+      font-weight: bold;
+      z-index: 9999;
+      background: rgba(255, 255, 255, 0.9); /* Fundo branco quase sólido */
+      border: 1px solid rgba(0, 0, 0, 0.6); /* Borda escura para contraste */
+      color: rgba(0, 0, 0, 0.8); /* Cor escura para o "X" */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+    }
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 1); /* Fundo branco sólido ao passar o mouse */
+      border-color: rgba(0, 0, 0, 0.8); /* Borda mais escura ao passar o mouse */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais intensa */
     }
     .prev-btn, .next-btn {
       top: 50%;
@@ -193,13 +203,11 @@
     }
     
     /* BREAKPOINTS - Responsividade */
-    /* Tablet (768px+) - Mantemos 2 colunas */
     @media (min-width: 768px) {
       body {
         padding: 30px;
         font-size: 15px;
       }
-      
       .contato {
         max-width: 80%;
         margin: 60px auto;
@@ -207,27 +215,22 @@
       }
     }
     
-    /* Desktop (1024px+) - 3 colunas */
     @media (min-width: 1024px) {
       body {
         max-width: 1200px;
         font-size: 16px;
       }
-      
       .gallery {
         grid-template-columns: repeat(3, 1fr); /* 3 colunas apenas em desktop */
       }
-      
       h2 {
         font-size: 16px;
       }
-      
       .contato {
         padding: 25px; /* Padding maior para desktop */
       }
     }
     
-    /* TV/Displays grandes (opcional) */
     @media (min-width: 1440px) {
       .gallery {
         grid-template-columns: repeat(4, 1fr); /* 4 colunas para telas muito grandes */
