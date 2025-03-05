@@ -38,10 +38,10 @@
     li {
       margin-bottom: 8px; /* Espaçamento entre itens da lista ajustado */
     }
-    /* Layout da galeria em grade: 2 imagens por linha */
+    /* Layout da galeria em grade: 2 imagens por linha (padrão para mobile e tablets) */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Alterado para 2 colunas */
+      grid-template-columns: repeat(2, 1fr); /* 2 colunas */
       gap: 10px;
       margin: 20px 0;
     }
@@ -185,7 +185,7 @@
     .accordion-content.active {
       display: block; /* Exibe o conteúdo quando ativo */
     }
-
+    
     /* Estilos para o modo escuro */
     @media (prefers-color-scheme: dark) {
       body {
@@ -226,6 +226,47 @@
       .instagram-btn:hover {
         background-color: #e0e0e0; /* Fundo claro ao passar o mouse */
         color: #121212; /* Texto escuro ao passar o mouse */
+      }
+    }
+    
+    /* BREAKPOINTS - Responsividade */
+    /* Tablet (768px+) - Mantemos 2 colunas */
+    @media (min-width: 768px) {
+      body {
+        padding: 30px;
+        font-size: 15px;
+      }
+      
+      .contato {
+        max-width: 80%;
+        margin: 60px auto;
+      }
+    }
+    
+    /* Desktop (1024px+) - 3 colunas */
+    @media (min-width: 1024px) {
+      body {
+        max-width: 1200px;
+        font-size: 16px;
+      }
+      
+      .gallery {
+        grid-template-columns: repeat(3, 1fr); /* 3 colunas apenas em desktop */
+      }
+      
+      h2 {
+        font-size: 16px;
+      }
+      
+      .contato {
+        padding: 30px;
+      }
+    }
+    
+    /* TV/Displays grandes (opcional) */
+    @media (min-width: 1440px) {
+      .gallery {
+        grid-template-columns: repeat(4, 1fr); /* 4 colunas para telas muito grandes */
       }
     }
   </style>
