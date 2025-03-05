@@ -42,23 +42,16 @@
       left: 20px;
     }
 
-    /* Títulos (h2) minimalistas */
-    h2 {
+    /* Títulos (h2) para todos, exceto o botão de contato */
+    h2:not(.contact-title) {
       border-bottom: 1px solid #ddd;
       padding-bottom: 8px;
-      font-size: 18px;
-      margin-top: 40px;
-      font-weight: 500;
-      cursor: pointer;
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
     }
-
-    /* Botão de contato – remove a borda inferior */
+    
+    /* Títulos (h2) minimalistas – regra para o botão de contato */
     h2.contact-title {
       border-bottom: none !important;
-      padding-bottom: 8px; /* se desejar manter um espaçamento, mas sem linha */
+      padding-bottom: 8px; /* Mantém o espaçamento, sem linha */
       text-align: center;
       margin-top: 50px;
       font-size: 14px;
@@ -247,7 +240,7 @@
     .accordion-content {
       max-height: 0;
       overflow: hidden;
-      padding: 0 0;
+      padding: 0;
       transition: max-height 0.3s ease, padding 0.3s ease;
     }
 
@@ -329,7 +322,8 @@
         color: #e0e0e0;
         background-color: #121212;
       }
-      h2 {
+      /* Aplica borda inferior somente nos h2 que não são .contact-title */
+      h2:not(.contact-title) {
         border-bottom: 1px solid #444;
       }
       .top-controls button {
@@ -376,7 +370,7 @@
       #contato-info a.whatsapp {
         color: #fff;
       }
-      /* Altera a cor do botão de contato para a mesma do .top-name e remove qualquer border-bottom */
+      /* Altera a cor do botão de contato para a mesma do .top-name e remove a borda inferior */
       h2.contact-title {
         color: #666;
         border-bottom: none !important;
