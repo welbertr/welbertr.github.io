@@ -1,61 +1,107 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welbert Tattoo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet"> <!-- Fonte Roboto -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welbert Rodrigues</title>
+  <!-- Fonte minimalista do Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap"
+    rel="stylesheet"
+  />
   <style>
+    /* Estilos padrão (modo claro) */
     body {
-      font-family: 'Roboto', sans-serif; /* Mantém a fonte original */
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300; /* Peso base mais leve, para lembrar a fonte do print */
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
-      line-height: 1.6; /* Espaçamento entre linhas ajustado */
+      line-height: 1.6;
       color: #333;
-      background-color: #fafafa; /* Fundo neutro quase branco */
+      background-color: #fafafa;
       text-align: left;
-      font-size: 14px; /* Tamanho da fonte menor */
+      font-size: 14px;
     }
+
+    /* Títulos (h2) um pouco mais fortes, mas ainda minimalistas */
     h2 {
       border-bottom: 1px solid #ddd;
-      padding-bottom: 8px; /* Espaçamento abaixo do título ajustado */
-      font-size: 14px; /* Tamanho menor para títulos (igual ao dos botões) */
-      margin-top: 40px; /* Espaçamento acima dos títulos ajustado */
-      font-weight: 500; /* Peso original – negrito */
-      cursor: pointer; /* Cursor de clique para indicar interatividade */
+      padding-bottom: 8px;
+      font-size: 18px;
+      margin-top: 40px;
+      font-weight: 500; /* Mantém leveza, mas realça em relação ao texto */
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
     }
-    p, ul, li {
-      font-size: 14px; /* Tamanho da fonte menor */
+
+    /* Botão de contato (estilo semelhante aos controles) */
+    .contact-title {
+      display: block;
+      width: 100%;
+      text-align: center;
+      border: none;
+      padding: 8px 16px;
+      margin-top: 50px;
+      font-size: 14px;
+      font-weight: 500; /* levemente mais forte para destaque */
+      cursor: pointer;
+      color: #000;
+      background-color: transparent;
+    }
+
+    p,
+    ul,
+    li {
+      font-size: 14px;
       text-align: justify;
-      hyphens: auto;
-      margin-bottom: 12px; /* Espaçamento entre parágrafos e itens de lista ajustado */
+      margin-bottom: 12px;
     }
+
     ul {
-      padding-left: 20px; /* Espaçamento para a lista */
+      padding-left: 20px;
     }
     li {
-      margin-bottom: 8px; /* Espaçamento entre itens da lista ajustado */
+      margin-bottom: 8px;
     }
-    /* Layout da galeria em grade: 2 imagens por linha */
+
+    /* Layout da galeria */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       margin: 20px 0;
     }
+
     .gallery img {
       width: 100%;
-      border-radius: 8px; /* Bordas levemente arredondadas */
+      border-radius: 8px;
       cursor: pointer;
       transition: transform 0.2s;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-      background-color: #fffff2; /* Fundo Ivory para as imagens */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: #fffff2;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
     }
+
     .gallery img:hover {
       transform: scale(1.02);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra um pouco mais intensa ao passar o mouse */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .lightbox {
       display: none;
       position: fixed;
@@ -68,77 +114,225 @@
       align-items: center;
       z-index: 1000;
     }
+
     .lightbox img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 8px;
     }
-    .close-btn, .prev-btn, .next-btn {
+
+    /* Botões do lightbox */
+    .close-btn,
+    .prev-btn,
+    .next-btn {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.8);
-      border: none;
-      padding: 10px;
+      background: rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      color: rgba(0, 0, 0, 0.8);
       cursor: pointer;
+      transition: opacity 0.3s ease, background 0.3s ease;
       border-radius: 50%;
-      font-size: 18px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
+    .close-btn:hover,
+    .prev-btn:hover,
+    .next-btn:hover {
+      background: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
     .close-btn {
       top: 20px;
       right: 20px;
-      transform: none;
+      font-size: 22px;
+      font-weight: 700;
+      z-index: 9999;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.6);
+      color: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 1);
+      border-color: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .prev-btn,
+    .next-btn {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+    }
+
     .prev-btn {
-      left: 10px;
+      left: 20px;
     }
     .next-btn {
-      right: 10px;
+      right: 20px;
     }
-    /* Área de Contato – sem borda e com clique para exibir detalhes */
-    .contato {
-      margin-top: 60px;
-      text-align: center;
+
+    /* Botão do Instagram */
+    .instagram-btn {
+      background-color: transparent;
+      color: #000;
+      border: 1px solid #000;
+      padding: 4px 8px;
+      border-radius: 4px;
       cursor: pointer;
+      font-size: 10px;
+      display: inline-block;
+      text-decoration: none;
+      text-transform: uppercase;
     }
-    .contato-details {
-      display: none;
-      margin-top: 10px;
+
+    .instagram-btn:hover {
+      text-decoration: underline;
     }
-    /* Área de controles no topo */
+
+    /* Controles no topo */
     .top-controls {
       text-align: right;
       margin-bottom: 20px;
     }
+
     .top-controls button {
       background-color: transparent;
-      color: black;
+      color: #000;
       border: none;
       padding: 8px 16px;
       font-size: 14px;
-      font-weight: 500; /* Peso original */
+      font-weight: 500;
       cursor: pointer;
       transition: opacity 0.3s ease;
-      margin-left: 0;
     }
+
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
       margin-right: 8px;
       font-size: 18px;
-      font-weight: bold;
+      font-weight: 700;
       line-height: 1;
     }
+
     .top-controls button:hover {
       opacity: 0.8;
     }
-    /* Estilo para os accordions */
+
+    /* Acordeons */
     .accordion-content {
-      display: none; /* Oculta o conteúdo inicialmente */
+      display: none;
       padding: 10px 0;
     }
+
     .accordion-content.active {
-      display: block; /* Exibe o conteúdo quando ativo */
+      display: block;
+    }
+
+    .accordion-section {
+      margin-bottom: 30px;
+    }
+
+    /* Contato */
+    #contato-info {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    #contato-info p {
+      margin: 6px 0;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    #contato-info a.email,
+    #contato-info a.whatsapp {
+      font-weight: 500;
+      color: #000;
+      text-decoration: none;
+    }
+
+    #contato-info a.email:hover,
+    #contato-info a.whatsapp:hover {
+      text-decoration: underline;
+    }
+
+    /* Remoção do efeito de foco */
+    button:focus,
+    a:focus {
+      outline: none;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 30px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      body {
+        max-width: 1200px;
+      }
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      h2 {
+        font-size: 20px;
+      }
+    }
+
+    @media (min-width: 1440px) {
+      .gallery {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: #e0e0e0;
+        background-color: #121212;
+      }
+      h2 {
+        border-bottom: 1px solid #444;
+      }
+      .top-controls button {
+        color: #e0e0e0;
+      }
+      .gallery img {
+        background-color: #1e1e1e;
+      }
+      .lightbox {
+        background: rgba(0, 0, 0, 0.9);
+      }
+      .close-btn,
+      .prev-btn,
+      .next-btn {
+        background: rgba(0, 0, 0, 0.4);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        color: #f5f5f5;
+      }
+      .close-btn:hover,
+      .prev-btn:hover,
+      .next-btn:hover {
+        background: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+      }
+      .instagram-btn {
+        color: #e0e0e0;
+        border-color: #e0e0e0;
+      }
+      .instagram-btn:hover {
+        text-decoration: underline;
+      }
     }
   </style>
 </head>
@@ -149,112 +343,106 @@
     <button id="lang-btn" onclick="toggleLanguage()">EN</button>
   </div>
 
-  <!-- Seção da Galeria (visível por padrão) -->
+  <!-- Seção da Galeria -->
   <div id="gallery-section">
-    <p id="availability-text" style="text-align: center;">Entre em contato para confirmar disponibilidade.</p>
+    <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <div class="gallery"></div>
   </div>
 
-  <!-- Seção de Informações (inicialmente oculta) -->
+  <!-- Seção de Informações -->
   <div id="info-section" style="display: none;">
     <!-- Conteúdo de Agendamento (em Português) -->
     <div id="content-pt">
       <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
-      <h2 onclick="toggleAccordion('orcamento-pt')">Orçamento</h2>
-      <div id="orcamento-pt" class="accordion-content">
-        <p>Envie um direct com:</p>
-        <ul>
-          <li>Imagem de referência ou flash</li>
-          <li>Local do corpo</li>
-          <li>Tamanho aproximado (em cm)</li>
-        </ul>
-        <p>Com esses dados, poderei fornecer os valores.</p>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('orcamento-pt')">Orçamento</h2>
+        <div id="orcamento-pt" class="accordion-content">
+          <p>Envie um direct com:</p>
+          <ul>
+            <li>Imagem de referência ou flash</li>
+            <li>Local do corpo</li>
+            <li>Tamanho aproximado (em cm)</li>
+          </ul>
+          <p>Com esses dados, poderei fornecer os valores.</p>
+        </div>
       </div>
-      <h2 onclick="toggleAccordion('agendamento-pt')">Agendamento e Sinal</h2>
-      <div id="agendamento-pt" class="accordion-content">
-        <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('agendamento-pt')">Agendamento e Sinal</h2>
+        <div id="agendamento-pt" class="accordion-content">
+          <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
+        </div>
       </div>
-      <h2 onclick="toggleAccordion('lista-espera-pt')">Lista de Espera</h2>
-      <div id="lista-espera-pt" class="accordion-content">
-        <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('lista-espera-pt')">Lista de Espera</h2>
+        <div id="lista-espera-pt" class="accordion-content">
+          <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
+        </div>
       </div>
-      <h2 onclick="toggleAccordion('dia-sessao-pt')">No Dia da Sessão</h2>
-      <div id="dia-sessao-pt" class="accordion-content">
-        <ul>
-          <li>Alimente-se bem e hidrate-se</li>
-          <li>Evite álcool na véspera</li>
-          <li>Use roupas que facilitem o acesso à área</li>
-        </ul>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('dia-sessao-pt')">No Dia da Sessão</h2>
+        <div id="dia-sessao-pt" class="accordion-content">
+          <ul>
+            <li>Alimente-se bem e hidrate-se</li>
+            <li>Evite álcool na véspera</li>
+            <li>Use roupas que facilitem o acesso à área</li>
+          </ul>
+        </div>
       </div>
-      <h2 onclick="toggleAccordion('cuidados-pt')">Cuidados Pós-Tatuagem</h2>
-      <div id="cuidados-pt" class="accordion-content">
-        <ul>
-          <li>Lave com sabão neutro e água fria</li>
-          <li>Aplique a pomada ou creme cicatrizante indicado</li>
-          <li>Evite sol, mar, piscinas e sauna nas primeiras semanas</li>
-          <li>Evite musculação e outros exercícios físicos de maior impacto</li>
-          <li>Não coce ou retire as casquinhas</li>
-        </ul>
-      </div>
-      <p>Qualquer dúvida, estou à disposição :)</p>
     </div>
+
     <!-- Conteúdo de Agendamento (em Inglês) -->
     <div id="content-en" style="display: none;">
       <p>To make the booking process easier, please follow the guidelines below:</p>
-      <h2 onclick="toggleAccordion('pricing-en')">Pricing</h2>
-      <div id="pricing-en" class="accordion-content">
-        <p>Send me a direct message with the following details:</p>
-        <ul>
-          <li>Reference image or flash design</li>
-          <li>Body placement</li>
-          <li>Approximate size (in cm)</li>
-        </ul>
-        <p>With this information, I can provide a price estimate.</p>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('pricing-en')">Pricing</h2>
+        <div id="pricing-en" class="accordion-content">
+          <p>Send me a direct message with the following details:</p>
+          <ul>
+            <li>Reference image or flash design</li>
+            <li>Body placement</li>
+            <li>Approximate size (in cm)</li>
+          </ul>
+          <p>With this information, I can provide a price estimate.</p>
+        </div>
       </div>
-      <h2 onclick="toggleAccordion('booking-en')">Booking and Deposit</h2>
-      <div id="booking-en" class="accordion-content">
-        <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('booking-en')">Booking and Deposit</h2>
+        <div id="booking-en" class="accordion-content">
+          <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
+        </div>
       </div>
-      <h2 onclick="toggleAccordion('waitlist-en')">Waitlist</h2>
-      <div id="waitlist-en" class="accordion-content">
-        <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('waitlist-en')">Waitlist</h2>
+        <div id="waitlist-en" class="accordion-content">
+          <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
+        </div>
       </div>
-      <h2 onclick="toggleAccordion('session-day-en')">On the Day of Your Session</h2>
-      <div id="session-day-en" class="accordion-content">
-        <ul>
-          <li>Eat well and stay hydrated</li>
-          <li>Avoid alcohol the day before</li>
-          <li>Wear comfortable clothing that allows easy access to the tattoo area</li>
-        </ul>
+      <div class="accordion-section">
+        <h2 onclick="toggleAccordion('session-day-en')">On the Day of Your Session</h2>
+        <div id="session-day-en" class="accordion-content">
+          <ul>
+            <li>Eat well and stay hydrated</li>
+            <li>Avoid alcohol the day before</li>
+            <li>Wear comfortable clothing that allows easy access to the tattoo area</li>
+          </ul>
+        </div>
       </div>
-      <h2 onclick="toggleAccordion('aftercare-en')">Aftercare Instructions</h2>
-      <div id="aftercare-en" class="accordion-content">
-        <ul>
-          <li>Wash the tattoo with mild soap and cold water</li>
-          <li>Apply the recommended healing ointment or cream</li>
-          <li>Avoid sun exposure, swimming pools, saunas, and the ocean for the first few weeks</li>
-          <li>Avoid strenuous exercises (e.g., weightlifting)</li>
-          <li>Do not scratch or pick at the scabs</li>
-        </ul>
-      </div>
-      <p>If you have any questions, feel free to reach out! :)</p>
     </div>
   </div>
 
-  <!-- Seção de Contato – ao clicar, exibe os detalhes -->
-  <div class="contato" onclick="toggleContact()">
-    <p><strong>Contato | Contact</strong></p>
-    <div class="contato-details">
-      <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com">Welbertc.rodrigues@gmail.com</a></p>
-      <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank">+55 31 92002-2832</a></p>
-    </div>
+  <!-- Seção de Contato -->
+  <h2 class="contact-title" onclick="toggleContato()">CONTATO | CONTACT</h2>
+  <div id="contato-info" class="accordion-content">
+    <p>E-mail: <a href="mailto:Welbertc.rodrigues@gmail.com" class="email">Welbertc.rodrigues@gmail.com</a></p>
+    <p>WhatsApp: <a href="https://wa.me/5531920022832" target="_blank" class="whatsapp">+55 31 92002-2832</a></p>
+    <p><a href="https://www.instagram.com/we.ro___" target="_blank" class="instagram-btn">INSTAGRAM</a></p>
   </div>
 
   <div class="lightbox" id="lightbox">
-    <button class="close-btn" onclick="closeLightbox()">X</button>
-    <button class="prev-btn" onclick="changeImage(-1)">&#10094;</button>
-    <img id="lightbox-img">
-    <button class="next-btn" onclick="changeImage(1)">&#10095;</button>
+    <button class="close-btn" onclick="closeLightbox()">&times;</button>
+    <button class="prev-btn" onclick="changeImage(-1)">&lt;</button>
+    <img id="lightbox-img" src="" alt="Imagem ampliada">
+    <button class="next-btn" onclick="changeImage(1)">&gt;</button>
   </div>
 
   <script>
@@ -266,8 +454,9 @@
       38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 
       49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 
       60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
-      71, 72, 73, 74, 75
+      71, 72, 73, 74, 75, 76, 77, 78, 79,
     ];
+    // Inverte o array para exibir em ordem decrescente
     imagensValidas.reverse();
 
     const galleryContainer = document.querySelector('.gallery');
@@ -298,7 +487,6 @@
       document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
     }
 
-    // Alterna idioma (pt/en)
     function toggleLanguage() {
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
@@ -307,26 +495,24 @@
       const availabilityText = document.getElementById("availability-text");
 
       if (contentPt.style.display === "none") {
-        // Traduz para português
         contentPt.style.display = "block";
         contentEn.style.display = "none";
         langBtn.textContent = "EN";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
-        availabilityText.textContent = "Entre em contato para confirmar disponibilidade.";
+        availabilityText.textContent = "Consulte disponibilidade.";
         localStorage.setItem("language", "pt");
       } else {
-        // Traduz para inglês
         contentPt.style.display = "none";
         contentEn.style.display = "block";
         langBtn.textContent = "PT";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
-        availabilityText.textContent = "Contact us to confirm availability.";
+        availabilityText.textContent = "Check availability.";
         localStorage.setItem("language", "en");
       }
     }
 
-    // Alterna entre Galeria e Página de Informações
     function toggleGalleryInfo() {
+      document.getElementById("contato-info").classList.remove("active");
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info-section");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
@@ -345,23 +531,16 @@
       }
     }
 
-    // Alterna os accordions
     function toggleAccordion(id) {
       const content = document.getElementById(id);
       content.classList.toggle("active");
     }
 
-    // Alterna a exibição dos dados de contato
-    function toggleContact() {
-      const details = document.querySelector('.contato-details');
-      if(details.style.display === "none" || details.style.display === "") {
-        details.style.display = "block";
-      } else {
-        details.style.display = "none";
-      }
+    function toggleContato() {
+      var contatoInfo = document.getElementById("contato-info");
+      contatoInfo.classList.toggle("active");
     }
 
-    // Carrega o estado salvo (idioma e seção) ao iniciar a página
     function loadState() {
       const language = localStorage.getItem("language") || "pt";
       const section = localStorage.getItem("section") || "gallery";
