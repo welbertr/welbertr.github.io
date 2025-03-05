@@ -74,16 +74,17 @@
       max-height: 90%;
       border-radius: 8px;
     }
-    /* Botões minimalistas do lightbox */
+    /* Botões minimalistas do lightbox (estilo atualizado) */
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
-      background: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente */
-      border: 1px solid rgba(255, 255, 255, 0.5); /* Borda sutil */
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
       color: white;
       cursor: pointer;
       opacity: 0.8;
       transition: opacity 0.3s ease, background 0.3s ease;
-      border-radius: 50%; /* Botões redondos */
+      border-radius: 50%;
       width: 40px;
       height: 40px;
       display: flex;
@@ -91,18 +92,19 @@
       justify-content: center;
     }
     .close-btn:hover, .prev-btn:hover, .next-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
       opacity: 1;
-      background: rgba(0, 0, 0, 0.8); /* Fundo mais escuro ao passar o mouse */
     }
     .close-btn {
       top: 20px;
       right: 20px;
-      font-size: 20px; /* Tamanho reduzido do "X" */
+      font-size: 20px;
     }
     .prev-btn, .next-btn {
       top: 50%;
       transform: translateY(-50%);
-      font-size: 24px; /* Tamanho aumentado das setas */
+      font-size: 24px;
     }
     .prev-btn {
       left: 20px;
@@ -110,6 +112,7 @@
     .next-btn {
       right: 20px;
     }
+    
     .contato {
       margin-top: 40px; /* Espaçamento reduzido */
       padding: 15px; /* Padding reduzido */
@@ -186,49 +189,6 @@
       display: block; /* Exibe o conteúdo quando ativo */
     }
     
-    /* Estilos para o modo escuro */
-    @media (prefers-color-scheme: dark) {
-      body {
-        color: #e0e0e0; /* Texto mais claro */
-        background-color: #121212; /* Fundo escuro */
-      }
-      h2 {
-        border-bottom: 1px solid #444; /* Bordas mais escuras */
-      }
-      .contato {
-        border: 2px solid #666; /* Bordas mais claras */
-        background-color: #1e1e1e; /* Fundo escuro para a seção de contato */
-      }
-      .contato a {
-        color: #e0e0e0; /* Links mais claros */
-      }
-      .top-controls button {
-        color: #e0e0e0; /* Botões mais claros */
-      }
-      .gallery img {
-        background-color: #1e1e1e; /* Fundo escuro para as imagens */
-      }
-      .lightbox {
-        background: rgba(0, 0, 0, 0.9); /* Fundo mais escuro para o lightbox */
-      }
-      .close-btn, .prev-btn, .next-btn {
-        color: #e0e0e0; /* Botões mais claros no modo escuro */
-        background: rgba(255, 255, 255, 0.1); /* Fundo mais claro no modo escuro */
-        border-color: rgba(255, 255, 255, 0.3); /* Borda mais clara no modo escuro */
-      }
-      .close-btn:hover, .prev-btn:hover, .next-btn:hover {
-        background: rgba(255, 255, 255, 0.2); /* Fundo mais claro ao passar o mouse */
-      }
-      .instagram-btn {
-        color: #e0e0e0; /* Texto claro no modo escuro */
-        border-color: #e0e0e0; /* Borda clara no modo escuro */
-      }
-      .instagram-btn:hover {
-        background-color: #e0e0e0; /* Fundo claro ao passar o mouse */
-        color: #121212; /* Texto escuro ao passar o mouse */
-      }
-    }
-    
     /* BREAKPOINTS - Responsividade */
     /* Tablet (768px+) - Mantemos 2 colunas */
     @media (min-width: 768px) {
@@ -268,6 +228,51 @@
     @media (min-width: 1440px) {
       .gallery {
         grid-template-columns: repeat(4, 1fr); /* 4 colunas para telas muito grandes */
+      }
+    }
+    
+    /* Estilos para modo escuro */
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: #e0e0e0; /* Texto mais claro */
+        background-color: #121212; /* Fundo escuro */
+      }
+      h2 {
+        border-bottom: 1px solid #444; /* Bordas mais escuras */
+      }
+      .contato {
+        border: 2px solid #666; /* Bordas mais claras */
+        background-color: #1e1e1e; /* Fundo escuro para a seção de contato */
+      }
+      .contato a {
+        color: #e0e0e0; /* Links mais claros */
+      }
+      .top-controls button {
+        color: #e0e0e0; /* Botões mais claros */
+      }
+      .gallery img {
+        background-color: #1e1e1e; /* Fundo escuro para as imagens */
+      }
+      .lightbox {
+        background: rgba(0, 0, 0, 0.9); /* Fundo mais escuro para o lightbox */
+      }
+      .close-btn, .prev-btn, .next-btn {
+        color: #e0e0e0; /* Botões mais claros no modo escuro */
+        background: rgba(255, 255, 255, 0.1); /* Fundo mais claro no modo escuro */
+        border-color: rgba(255, 255, 255, 0.3); /* Borda mais clara no modo escuro */
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+      }
+      .close-btn:hover, .prev-btn:hover, .next-btn:hover {
+        background: rgba(255, 255, 255, 0.2); /* Fundo mais claro ao passar o mouse */
+        box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
+      }
+      .instagram-btn {
+        color: #e0e0e0; /* Texto claro no modo escuro */
+        border-color: #e0e0e0; /* Borda clara no modo escuro */
+      }
+      .instagram-btn:hover {
+        background-color: #e0e0e0; /* Fundo claro ao passar o mouse */
+        color: #121212; /* Texto escuro ao passar o mouse */
       }
     }
   </style>
@@ -396,10 +401,10 @@
   </div>
 
   <div class="lightbox" id="lightbox">
-    <button class="close-btn" onclick="closeLightbox()">✕</button>
-    <button class="prev-btn" onclick="changeImage(-1)">‹</button>
-    <img id="lightbox-img">
-    <button class="next-btn" onclick="changeImage(1)">›</button>
+    <button class="close-btn" onclick="closeLightbox()">&times;</button>
+    <button class="prev-btn" onclick="changeImage(-1)">&lt;</button>
+    <img id="lightbox-img" src="" alt="Imagem ampliada">
+    <button class="next-btn" onclick="changeImage(1)">&gt;</button>
   </div>
 
   <script>
