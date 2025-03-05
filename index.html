@@ -55,14 +55,11 @@
       box-sizing: border-box;
     }
 
-    /* Botão de contato (removendo qualquer border-bottom) */
-    .contact-title {
-      display: block;
-      width: 100%;
+    /* Botão de contato – remove a borda inferior */
+    h2.contact-title {
+      border-bottom: none !important;
+      padding-bottom: 8px; /* se desejar manter um espaçamento, mas sem linha */
       text-align: center;
-      border: none;
-      border-bottom: none; /* Garante que a linha seja removida */
-      padding: 8px 16px;
       margin-top: 50px;
       font-size: 14px;
       font-weight: 500;
@@ -380,7 +377,7 @@
         color: #fff;
       }
       /* Altera a cor do botão de contato para a mesma do .top-name e remove qualquer border-bottom */
-      .contact-title {
+      h2.contact-title {
         color: #666;
         border-bottom: none !important;
       }
