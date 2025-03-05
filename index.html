@@ -33,26 +33,35 @@
     /* Nome no topo, discreto e à esquerda */
     .top-name {
       font-family: 'Outfit', sans-serif;
-      font-weight: 500;
+      font-weight: 500; /* Igual ao botão de contato */
       font-size: 14px;
       text-transform: uppercase;
-      color: #666;
+      color: #666; /* Tom discreto */
       position: absolute;
-      top: -10px;
+      top: -10px; /* Alterado para subir mais */
       left: 20px;
     }
 
-    /* Títulos (h2) para todos, exceto o botão de contato */
-    h2:not(.contact-title) {
+    /* Títulos (h2) minimalistas */
+    h2 {
       border-bottom: 1px solid #ddd;
       padding-bottom: 8px;
+      font-size: 18px;
+      margin-top: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
     }
-    
-    /* Títulos (h2) minimalistas – regra para o botão de contato */
-    h2.contact-title {
-      border-bottom: none !important;
-      padding-bottom: 8px; /* Mantém o espaçamento, sem linha */
+
+    /* Botão de contato */
+    .contact-title {
+      display: block;
+      width: 100%;
       text-align: center;
+      border: none;
+      padding: 8px 16px;
       margin-top: 50px;
       font-size: 14px;
       font-weight: 500;
@@ -240,7 +249,7 @@
     .accordion-content {
       max-height: 0;
       overflow: hidden;
-      padding: 0;
+      padding: 0 0;
       transition: max-height 0.3s ease, padding 0.3s ease;
     }
 
@@ -257,8 +266,6 @@
     #contato-info {
       text-align: center;
       margin: 0 auto;
-      padding: 10px 0;
-      border-top: 1px solid #ddd;
     }
 
     #contato-info p {
@@ -267,7 +274,6 @@
       text-align: center;
     }
 
-    /* No modo claro, os links de email/WhatsApp já estão definidos com cor #000 */
     #contato-info a.email,
     #contato-info a.whatsapp {
       font-weight: 500;
@@ -288,7 +294,7 @@
     }
     button:focus-visible,
     a:focus-visible {
-      outline: 2px solid #ccc;
+      outline: 2px solid #ccc; /* tom neutro de cinza */
       outline-offset: 2px;
     }
 
@@ -316,14 +322,12 @@
       }
     }
 
-    /* Modo escuro */
     @media (prefers-color-scheme: dark) {
       body {
         color: #e0e0e0;
         background-color: #121212;
       }
-      /* Aplica borda inferior somente nos h2 que não são .contact-title */
-      h2:not(.contact-title) {
+      h2 {
         border-bottom: 1px solid #444;
       }
       .top-controls button {
@@ -355,25 +359,6 @@
       }
       .instagram-btn:hover {
         text-decoration: underline;
-      }
-      /* Ajustes para a seção de contato no modo escuro */
-      #contato-info {
-        border-top: 1px solid #444;
-        color: #e0e0e0;
-      }
-      /* Para os parágrafos de contato, usamos a mesma cor do .top-name */
-      #contato-info p {
-        color: #666;
-      }
-      /* Os links de email e WhatsApp permanecem brancos */
-      #contato-info a.email,
-      #contato-info a.whatsapp {
-        color: #fff;
-      }
-      /* Altera a cor do botão de contato para a mesma do .top-name e remove a borda inferior */
-      h2.contact-title {
-        color: #666;
-        border-bottom: none !important;
       }
     }
   </style>
