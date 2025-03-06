@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Welbert Rodrigues</title>
+  <!-- Pré-conexão para fontes -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Fonte minimalista do Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap"
@@ -512,6 +514,8 @@
       const img = document.createElement('img');
       img.src = `images/desenho${num}.jpg`;
       img.alt = `Desenho ${num}`;
+      // Adiciona lazy loading para melhorar a performance
+      img.loading = 'lazy';
       img.onclick = () => openLightbox(num);
       galleryFragment.appendChild(img);
     });
