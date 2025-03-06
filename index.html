@@ -392,6 +392,7 @@
 
   <!-- Seção da Galeria -->
   <div id="gallery-section">
+    <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <div class="gallery"></div>
   </div>
 
@@ -540,6 +541,7 @@
       const contentEn = document.getElementById("content-en");
       const langBtn = document.getElementById("lang-btn");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
+      const availabilityText = document.getElementById("availability-text");
       const currentLanguage = localStorage.getItem("language") || "pt";
       if (currentLanguage === "en") {
         // Muda para português
@@ -547,6 +549,7 @@
         contentEn.classList.add("hidden");
         langBtn.textContent = "EN";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
+        availabilityText.textContent = "Consulte disponibilidade.";
         localStorage.setItem("language", "pt");
       } else {
         // Muda para inglês
@@ -554,6 +557,7 @@
         contentEn.classList.remove("hidden");
         langBtn.textContent = "PT";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
+        availabilityText.textContent = "Check availability.";
         localStorage.setItem("language", "en");
       }
     }
