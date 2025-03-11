@@ -36,9 +36,9 @@
     .sticky-header {
       position: sticky;         /* Faz o topo ficar fixo ao rolar a página */
       top: 0;                   /* Fixa no topo */
-      background-color: #fafafa; /* Mesma cor do fundo para “fundir” */
-      z-index: 10;             /* Fica acima das imagens */
-      padding: 20px 20px 10px; /* Espaçamento interno */
+      background-color: #fafafa; /* Fundo do modo claro */
+      z-index: 10;              /* Fica acima das imagens */
+      padding: 20px 20px 10px;   /* Espaçamento interno */
     }
 
     /* Nome no topo, agora sem position absolute */
@@ -392,6 +392,13 @@
       #contato-info a.email,
       #contato-info a.whatsapp {
         color: #fff; /* e-mail e número em branco */
+      }
+      /* Adapta o cabeçalho fixo para o modo escuro */
+      .sticky-header {
+        background-color: #121212;
+      }
+      .custom-line {
+        border-bottom: 1px solid #444;
       }
     }
   </style>
