@@ -32,16 +32,30 @@
       position: relative;
     }
 
-    /* Nome no topo, discreto e à esquerda */
+    /* ----------------- NOVO: Cabeçalho fixo ----------------- */
+    .sticky-header {
+      position: sticky;         /* Faz o topo ficar fixo ao rolar a página */
+      top: 0;                   /* Fixa no topo */
+      background-color: #fafafa; /* Mesma cor do fundo para “fundir” */
+      z-index: 10;             /* Fica acima das imagens */
+      padding: 20px 20px 10px; /* Espaçamento interno */
+    }
+
+    /* Nome no topo, agora sem position absolute */
     .top-name {
       font-family: 'Outfit', sans-serif;
       font-weight: 500; /* Igual ao botão de contato */
       font-size: 14px;
       text-transform: uppercase;
       color: #666; /* Tom discreto */
-      position: absolute;
-      top: -10px; /* Alterado para subir mais */
-      left: 20px;
+      margin-bottom: 5px; /* Espaço abaixo do nome */
+    }
+
+    /* Linha decorativa abaixo do texto “Consulte disponibilidade.” */
+    .custom-line {
+      border: 0;
+      border-bottom: 1px solid #ddd;
+      margin: 10px 0;
     }
 
     /* Títulos (h2) minimalistas */
@@ -217,10 +231,10 @@
       text-decoration: underline;
     }
 
-    /* Controles no topo */
+    /* Controles no topo (botões INFO | EN) */
     .top-controls {
       text-align: right;
-      margin-bottom: 20px;
+      margin-bottom: 10px; /* Ajuste conforme desejar */
     }
 
     .top-controls button {
@@ -383,18 +397,24 @@
   </style>
 </head>
 <body>
-  <!-- Nome no topo, posicionado à esquerda -->
-  <div class="top-name">WELBERT RODRIGUES</div>
+  <!-- Cabeçalho fixo (sticky) -->
+  <div class="sticky-header">
+    <!-- Nome no topo -->
+    <div class="top-name">WELBERT RODRIGUES</div>
 
-  <!-- Controles de idioma e galeria/info -->
-  <div class="top-controls">
-    <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFO</button>
-    <button id="lang-btn" onclick="toggleLanguage()">EN</button>
+    <!-- Controles de idioma e galeria/info -->
+    <div class="top-controls">
+      <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFO</button>
+      <button id="lang-btn" onclick="toggleLanguage()">EN</button>
+    </div>
+
+    <!-- Texto de disponibilidade e linha abaixo -->
+    <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
+    <hr class="custom-line">
   </div>
 
   <!-- Seção da Galeria -->
   <div id="gallery-section">
-    <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <div class="gallery"></div>
   </div>
 
