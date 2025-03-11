@@ -34,21 +34,21 @@
 
     /* ----------------- NOVO: Cabeçalho fixo ----------------- */
     .sticky-header {
-      position: sticky;         /* Faz o topo ficar fixo ao rolar a página */
+      position: sticky;         /* Fica fixo ao rolar a página */
       top: 0;                   /* Fixa no topo */
       background-color: #fafafa; /* Fundo do modo claro */
-      z-index: 10;              /* Fica acima das imagens */
+      z-index: 10;              /* Fica acima dos outros elementos */
       padding: 20px 20px 10px;   /* Espaçamento interno */
     }
 
     /* Nome no topo, agora sem position absolute */
     .top-name {
       font-family: 'Outfit', sans-serif;
-      font-weight: 500; /* Igual ao botão de contato */
+      font-weight: 500;
       font-size: 14px;
       text-transform: uppercase;
-      color: #666; /* Tom discreto */
-      margin-bottom: 5px; /* Espaço abaixo do nome */
+      color: #666;
+      margin-bottom: 5px;
     }
 
     /* Linha decorativa abaixo do texto “Consulte disponibilidade.” */
@@ -234,7 +234,7 @@
     /* Controles no topo (botões INFO | EN) */
     .top-controls {
       text-align: right;
-      margin-bottom: 10px; /* Ajuste conforme desejar */
+      margin-bottom: 10px;
     }
 
     .top-controls button {
@@ -265,12 +265,12 @@
     .accordion-content {
       max-height: 0;
       overflow: hidden;
-      padding: 0 0;
+      padding: 0;
       transition: max-height 0.3s ease, padding 0.3s ease;
     }
 
     .accordion-content.active {
-      max-height: 500px; /* Ajuste conforme o conteúdo */
+      max-height: 500px;
       padding: 10px 0;
     }
 
@@ -316,7 +316,7 @@
     }
     button:focus-visible,
     a:focus-visible {
-      outline: 2px solid #ccc; /* tom neutro de cinza */
+      outline: 2px solid #ccc;
       outline-offset: 2px;
     }
 
@@ -384,14 +384,14 @@
       }
       /* Alterações para o modo escuro */
       .contact-title {
-        color: #666; /* mesma cor do nome no topo */
+        color: #666;
       }
       #contato-info .contato-label {
-        color: #666; /* rótulos "E-mail:" e "WhatsApp:" com a mesma cor do nome */
+        color: #666;
       }
       #contato-info a.email,
       #contato-info a.whatsapp {
-        color: #fff; /* e-mail e número em branco */
+        color: #fff;
       }
       /* Adapta o cabeçalho fixo para o modo escuro */
       .sticky-header {
@@ -415,7 +415,7 @@
       <button id="lang-btn" onclick="toggleLanguage()">EN</button>
     </div>
 
-    <!-- Texto de disponibilidade e linha abaixo -->
+    <!-- Texto de disponibilidade e linha decorativa (apenas para a galeria) -->
     <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <hr class="custom-line">
   </div>
@@ -602,18 +602,26 @@
       const infoSection = document.getElementById("info-section");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const language = localStorage.getItem("language") || "pt";
+      const availabilityText = document.getElementById("availability-text");
+      const customLine = document.querySelector('.custom-line');
 
       if (!gallerySection.classList.contains("hidden")) {
-        // Se galeria visível, alterna para informações
+        // Se a galeria está visível, troca para informações
         gallerySection.classList.add("hidden");
         infoSection.classList.remove("hidden");
         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
         localStorage.setItem("section", "info");
+        // Oculta o texto de disponibilidade e a linha
+        availabilityText.style.display = "none";
+        customLine.style.display = "none";
       } else {
         gallerySection.classList.remove("hidden");
         infoSection.classList.add("hidden");
         galleryToggleBtn.textContent = "INFO";
         localStorage.setItem("section", "gallery");
+        // Exibe o texto de disponibilidade e a linha
+        availabilityText.style.display = "block";
+        customLine.style.display = "block";
       }
     }
 
@@ -633,6 +641,9 @@
       const langBtn = document.getElementById("lang-btn");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const language = localStorage.getItem("language") || "pt";
+      const availabilityText = document.getElementById("availability-text");
+      const customLine = document.querySelector('.custom-line');
+      
       if (language === "en") {
         contentPt.classList.add("hidden");
         contentEn.classList.remove("hidden");
@@ -647,10 +658,14 @@
         document.getElementById("gallery-section").classList.add("hidden");
         document.getElementById("info-section").classList.remove("hidden");
         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
+        availabilityText.style.display = "none";
+        customLine.style.display = "none";
       } else {
         document.getElementById("gallery-section").classList.remove("hidden");
         document.getElementById("info-section").classList.add("hidden");
         galleryToggleBtn.textContent = "INFO";
+        availabilityText.style.display = "block";
+        customLine.style.display = "block";
       }
     }
 
