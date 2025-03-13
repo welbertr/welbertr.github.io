@@ -7,11 +7,24 @@
   <!-- Pré-conexão para fontes -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Fonte minimalista do Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
   <style>
+    /* Link de pular para o conteúdo */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px;
+      z-index: 100;
+      text-decoration: none;
+      transition: top 0.3s ease;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+    
     /* Classe para ocultar elementos */
     .hidden {
       display: none !important;
@@ -33,7 +46,7 @@
     }
 
     /* ----------------- NOVO: Cabeçalho fixo ----------------- */
-    .sticky-header {
+    header.sticky-header {
       position: sticky;         /* Fica fixo ao rolar a página */
       top: 0;                   /* Fixa no topo */
       background-color: #fafafa; /* Fundo do modo claro */
@@ -133,6 +146,14 @@
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    /* Reduz animações para usuários que preferem menos movimento */
+    @media (prefers-reduced-motion: reduce) {
+      .gallery img {
+        animation: none;
+        transition: none;
       }
     }
 
@@ -404,8 +425,11 @@
   </style>
 </head>
 <body>
-  <!-- Cabeçalho fixo (sticky) -->
-  <div class="sticky-header">
+  <!-- Link para pular para o conteúdo -->
+  <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+  
+  <!-- Cabeçalho semântico -->
+  <header class="sticky-header">
     <!-- Nome no topo -->
     <div class="top-name">WELBERT RODRIGUES</div>
 
@@ -418,104 +442,110 @@
     <!-- Texto de disponibilidade e linha decorativa (apenas para a galeria) -->
     <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <hr class="custom-line">
-  </div>
+  </header>
 
-  <!-- Seção da Galeria -->
-  <div id="gallery-section">
-    <div class="gallery"></div>
-  </div>
+  <!-- Conteúdo principal -->
+  <main id="main-content">
+    <!-- Seção da Galeria -->
+    <section id="gallery-section">
+      <div class="gallery"></div>
+    </section>
 
-  <!-- Seção de Informações -->
-  <div id="info-section" class="hidden">
-    <!-- Conteúdo de Agendamento (em Português) -->
-    <div id="content-pt">
-      <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
-      <div class="accordion-section">
-        <h2 id="btn-orcamento-pt" role="button" aria-expanded="false" aria-controls="orcamento-pt" onclick="toggleAccordion('orcamento-pt', 'btn-orcamento-pt')">Orçamento</h2>
-        <div id="orcamento-pt" class="accordion-content" role="region" aria-labelledby="btn-orcamento-pt">
-          <p>Envie um direct com:</p>
-          <ul>
-            <li>Imagem de referência ou flash</li>
-            <li>Local do corpo</li>
-            <li>Tamanho aproximado (em cm)</li>
-          </ul>
-          <p>Com esses dados, poderei fornecer os valores.</p>
+    <!-- Seção de Informações -->
+    <section id="info-section" class="hidden">
+      <!-- Conteúdo de Agendamento (em Português) -->
+      <div id="content-pt">
+        <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
+        <div class="accordion-section">
+          <h2 id="btn-orcamento-pt" role="button" aria-expanded="false" aria-controls="orcamento-pt" onclick="toggleAccordion('orcamento-pt', 'btn-orcamento-pt')">Orçamento</h2>
+          <div id="orcamento-pt" class="accordion-content" role="region" aria-labelledby="btn-orcamento-pt">
+            <p>Envie um direct com:</p>
+            <ul>
+              <li>Imagem de referência ou flash</li>
+              <li>Local do corpo</li>
+              <li>Tamanho aproximado (em cm)</li>
+            </ul>
+            <p>Com esses dados, poderei fornecer os valores.</p>
+          </div>
+        </div>
+        <div class="accordion-section">
+          <h2 id="btn-agendamento-pt" role="button" aria-expanded="false" aria-controls="agendamento-pt" onclick="toggleAccordion('agendamento-pt', 'btn-agendamento-pt')">Agendamento e Sinal</h2>
+          <div id="agendamento-pt" class="accordion-content" role="region" aria-labelledby="btn-agendamento-pt">
+            <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
+          </div>
+        </div>
+        <div class="accordion-section">
+          <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt', 'btn-lista-espera-pt')">Lista de Espera</h2>
+          <div id="lista-espera-pt" class="accordion-content" role="region" aria-labelledby="btn-lista-espera-pt">
+            <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
+          </div>
+        </div>
+        <div class="accordion-section">
+          <h2 id="btn-dia-sessao-pt" role="button" aria-expanded="false" aria-controls="dia-sessao-pt" onclick="toggleAccordion('dia-sessao-pt', 'btn-dia-sessao-pt')">No Dia da Sessão</h2>
+          <div id="dia-sessao-pt" class="accordion-content" role="region" aria-labelledby="btn-dia-sessao-pt">
+            <ul>
+              <li>Alimente-se bem e hidrate-se</li>
+              <li>Evite álcool na véspera</li>
+              <li>Use roupas que facilitem o acesso à área</li>
+              <li>Para um melhor atendimento, evite atrasos</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="accordion-section">
-        <h2 id="btn-agendamento-pt" role="button" aria-expanded="false" aria-controls="agendamento-pt" onclick="toggleAccordion('agendamento-pt', 'btn-agendamento-pt')">Agendamento e Sinal</h2>
-        <div id="agendamento-pt" class="accordion-content" role="region" aria-labelledby="btn-agendamento-pt">
-          <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
-        </div>
-      </div>
-      <div class="accordion-section">
-        <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt', 'btn-lista-espera-pt')">Lista de Espera</h2>
-        <div id="lista-espera-pt" class="accordion-content" role="region" aria-labelledby="btn-lista-espera-pt">
-          <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
-        </div>
-      </div>
-      <div class="accordion-section">
-        <h2 id="btn-dia-sessao-pt" role="button" aria-expanded="false" aria-controls="dia-sessao-pt" onclick="toggleAccordion('dia-sessao-pt', 'btn-dia-sessao-pt')">No Dia da Sessão</h2>
-        <div id="dia-sessao-pt" class="accordion-content" role="region" aria-labelledby="btn-dia-sessao-pt">
-          <ul>
-            <li>Alimente-se bem e hidrate-se</li>
-            <li>Evite álcool na véspera</li>
-            <li>Use roupas que facilitem o acesso à área</li>
-            <li>Para um melhor atendimento, evite atrasos</li>
-          </ul>
-        </div>
-      </div>
-    </div>
 
-    <!-- Conteúdo de Agendamento (em Inglês) -->
-    <div id="content-en" class="hidden">
-      <p>To make the booking process easier, please follow the guidelines below:</p>
-      <div class="accordion-section">
-        <h2 id="btn-pricing-en" role="button" aria-expanded="false" aria-controls="pricing-en" onclick="toggleAccordion('pricing-en', 'btn-pricing-en')">Pricing</h2>
-        <div id="pricing-en" class="accordion-content" role="region" aria-labelledby="btn-pricing-en">
-          <p>Send me a direct message with the following details:</p>
-          <ul>
-            <li>Reference image or flash design</li>
-            <li>Body placement</li>
-            <li>Approximate size (in cm)</li>
-          </ul>
-          <p>With this information, I can provide a price estimate.</p>
+      <!-- Conteúdo de Agendamento (em Inglês) -->
+      <div id="content-en" class="hidden">
+        <p>To make the booking process easier, please follow the guidelines below:</p>
+        <div class="accordion-section">
+          <h2 id="btn-pricing-en" role="button" aria-expanded="false" aria-controls="pricing-en" onclick="toggleAccordion('pricing-en', 'btn-pricing-en')">Pricing</h2>
+          <div id="pricing-en" class="accordion-content" role="region" aria-labelledby="btn-pricing-en">
+            <p>Send me a direct message with the following details:</p>
+            <ul>
+              <li>Reference image or flash design</li>
+              <li>Body placement</li>
+              <li>Approximate size (in cm)</li>
+            </ul>
+            <p>With this information, I can provide a price estimate.</p>
+          </div>
+        </div>
+        <div class="accordion-section">
+          <h2 id="btn-booking-en" role="button" aria-expanded="false" aria-controls="booking-en" onclick="toggleAccordion('booking-en', 'btn-booking-en')">Booking and Deposit</h2>
+          <div id="booking-en" class="accordion-content" role="region" aria-labelledby="btn-booking-en">
+            <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
+          </div>
+        </div>
+        <div class="accordion-section">
+          <h2 id="btn-waitlist-en" role="button" aria-expanded="false" aria-controls="waitlist-en" onclick="toggleAccordion('waitlist-en', 'btn-waitlist-en')">Waitlist</h2>
+          <div id="waitlist-en" class="accordion-content" role="region" aria-labelledby="btn-waitlist-en">
+            <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
+          </div>
+        </div>
+        <div class="accordion-section">
+          <h2 id="btn-session-day-en" role="button" aria-expanded="false" aria-controls="session-day-en" onclick="toggleAccordion('session-day-en', 'btn-session-day-en')">On the Day of Your Session</h2>
+          <div id="session-day-en" class="accordion-content" role="region" aria-labelledby="btn-session-day-en">
+            <ul>
+              <li>Eat well and stay hydrated</li>
+              <li>Avoid alcohol the day before</li>
+              <li>Wear comfortable clothing that allows easy access to the tattoo area</li>
+              <li>For better service, avoid delays</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="accordion-section">
-        <h2 id="btn-booking-en" role="button" aria-expanded="false" aria-controls="booking-en" onclick="toggleAccordion('booking-en', 'btn-booking-en')">Booking and Deposit</h2>
-        <div id="booking-en" class="accordion-content" role="region" aria-labelledby="btn-booking-en">
-          <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
-        </div>
-      </div>
-      <div class="accordion-section">
-        <h2 id="btn-waitlist-en" role="button" aria-expanded="false" aria-controls="waitlist-en" onclick="toggleAccordion('waitlist-en', 'btn-waitlist-en')">Waitlist</h2>
-        <div id="waitlist-en" class="accordion-content" role="region" aria-labelledby="btn-waitlist-en">
-          <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
-        </div>
-      </div>
-      <div class="accordion-section">
-        <h2 id="btn-session-day-en" role="button" aria-expanded="false" aria-controls="session-day-en" onclick="toggleAccordion('session-day-en', 'btn-session-day-en')">On the Day of Your Session</h2>
-        <div id="session-day-en" class="accordion-content" role="region" aria-labelledby="btn-session-day-en">
-          <ul>
-            <li>Eat well and stay hydrated</li>
-            <li>Avoid alcohol the day before</li>
-            <li>Wear comfortable clothing that allows easy access to the tattoo area</li>
-            <li>For better service, avoid delays</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- Seção de Contato -->
-  <h2 class="contact-title" onclick="toggleContato()">CONTATO | CONTACT</h2>
-  <div id="contato-info" class="accordion-content">
-    <p><span class="contato-label">E-mail:</span> <a href="mailto:Welbertc.rodriguess@gmail.com" class="email">Welbertc.rodriguess@gmail.com</a></p>
-    <p><span class="contato-label">WhatsApp:</span> <a href="https://wa.me/5531920022832" target="_blank" class="whatsapp">+55 31 92002-2832</a></p>
-    <p><a href="https://www.instagram.com/we.ro___" target="_blank" class="instagram-btn">INSTAGRAM</a></p>
-  </div>
+    <!-- Seção de Contato -->
+    <section>
+      <h2 class="contact-title" onclick="toggleContato()">CONTATO | CONTACT</h2>
+      <div id="contato-info" class="accordion-content">
+        <p><span class="contato-label">E-mail:</span> <a href="mailto:Welbertc.rodriguess@gmail.com" class="email">Welbertc.rodriguess@gmail.com</a></p>
+        <p><span class="contato-label">WhatsApp:</span> <a href="https://wa.me/5531920022832" target="_blank" class="whatsapp">+55 31 92002-2832</a></p>
+        <p><a href="https://www.instagram.com/we.ro___" target="_blank" class="instagram-btn">INSTAGRAM</a></p>
+      </div>
+    </section>
+  </main>
 
+  <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
     <button class="close-btn" onclick="closeLightbox()">&times;</button>
     <button class="prev-btn" onclick="changeImage(-1)">&lt;</button>
@@ -545,6 +575,11 @@
       img.alt = `Desenho ${num}`;
       // Adiciona lazy loading para melhorar a performance
       img.loading = 'lazy';
+      // Se ocorrer erro ao carregar a imagem, substitui por um placeholder
+      img.onerror = function() {
+        this.onerror = null;
+        this.src = 'images/placeholder.jpg';
+      };
       img.onclick = () => openLightbox(num);
       galleryFragment.appendChild(img);
     });
