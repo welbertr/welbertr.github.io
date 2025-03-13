@@ -14,7 +14,7 @@
   <meta property="og:description" content="Conheça o trabalho de Welbert Rodrigues e agende sua tatuagem." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://welbertr.github.io" />
-  <!-- Caminho absoluto para a imagem de preview -->
+  <!-- AJUSTE AQUI: caminho absoluto da imagem -->
   <meta property="og:image" content="https://welbertr.github.io/images/preview.jpg" />
 
   <!-- Pré-conexão para fontes -->
@@ -51,7 +51,7 @@
     /* Estilos padrão (modo claro) */
     body {
       font-family: 'Outfit', sans-serif;
-      font-weight: 300;
+      font-weight: 300; /* Peso base mais leve */
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
@@ -462,7 +462,7 @@
     </section>
 
     <!-- Seção de Informações -->
-    <section id="info-section" class="hidden" aria-label="Informações para agendamento">
+    <section id="info" class="hidden" aria-label="Informações para agendamento">
       <!-- Conteúdo PT -->
       <div id="content-pt">
         <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
@@ -564,19 +564,6 @@
   </div>
 
   <script>
-    // Remover parâmetros de rastreamento (ex.: fbclid, gclid) da URL
-    if (window.location.search.length > 0) {
-      const url = new URL(window.location.href);
-      const params = url.searchParams;
-      ['fbclid', 'gclid'].forEach(param => {
-        if (params.has(param)) {
-          params.delete(param);
-        }
-      });
-      const newUrl = url.origin + url.pathname + (params.toString() ? '?' + params.toString() : '');
-      window.history.replaceState({}, document.title, newUrl);
-    }
-
     // Array com os números das imagens que realmente existem
     const imagensValidas = [
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 
@@ -651,7 +638,7 @@
     function toggleGalleryInfo() {
       document.getElementById("contato-info").classList.remove("active");
       const gallerySection = document.getElementById("gallery-section");
-      const infoSection = document.getElementById("info-section");
+      const infoSection = document.getElementById("info");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const language = localStorage.getItem("language") || "pt";
       const availabilityText = document.getElementById("availability-text");
@@ -718,13 +705,13 @@
       const section = localStorage.getItem("section") || "gallery";
       if (section === "info") {
         document.getElementById("gallery-section").classList.add("hidden");
-        document.getElementById("info-section").classList.remove("hidden");
+        document.getElementById("info").classList.remove("hidden");
         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
         availabilityText.style.display = "none";
         customLine.style.display = "none";
       } else {
         document.getElementById("gallery-section").classList.remove("hidden");
-        document.getElementById("info-section").classList.add("hidden");
+        document.getElementById("info").classList.add("hidden");
         galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "block";
         customLine.style.display = "block";
