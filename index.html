@@ -685,11 +685,16 @@
     }
 
     function loadState() {
-      // Se a URL contém "#info", define o estado para exibir a seção de informações;
-      // caso contrário, força o estado para "gallery"
+      // Se houver âncora na URL, atualiza o estado e remove a âncora para não sobrescrever o localStorage
       if (window.location.hash === "#info") {
         localStorage.setItem("section", "info");
-      } else {
+        history.replaceState(null, null, window.location.pathname);
+      } else if (window.location.hash === "#gallery") {
+        localStorage.setItem("section", "gallery");
+        history.replaceState(null, null, window.location.pathname);
+      }
+      // Se não houver estado salvo, define o padrão como "gallery"
+      if (!localStorage.getItem("section")) {
         localStorage.setItem("section", "gallery");
       }
       
@@ -710,7 +715,7 @@
         contentEn.classList.add("hidden");
         langBtn.textContent = "EN";
       }
-      const section = localStorage.getItem("section") || "gallery";
+      const section = localStorage.getItem("section");
       if (section === "info") {
         document.getElementById("gallery-section").classList.add("hidden");
         document.getElementById("info").classList.remove("hidden");
