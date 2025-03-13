@@ -4,10 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Welbert Rodrigues</title>
+  
+  <!-- Meta Tags para SEO -->
+  <meta name="description" content="Site minimalista e intuitivo de Welbert Rodrigues com galeria de desenhos e informações para agendamento de tatuagens." />
+  <meta name="keywords" content="Welbert Rodrigues, tatuagens, portfólio, agendamento, minimalista" />
+  <meta property="og:title" content="Welbert Rodrigues" />
+  <meta property="og:description" content="Conheça o trabalho de Welbert Rodrigues e agende sua tatuagem." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://welbertr.github.io" />
+  <meta property="og:image" content="images/preview.jpg" />
+
   <!-- Pré-conexão para fontes -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Fonte minimalista do Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
+
+  <!-- 
+    Para melhorar a organização, você pode mover o CSS para um arquivo externo (ex: styles.css)
+    e referenciá-lo aqui. 
+  -->
   <style>
     /* Skip link: totalmente oculto até receber foco */
     .skip-link {
@@ -51,11 +66,11 @@
 
     /* ----------------- NOVO: Cabeçalho fixo ----------------- */
     header.sticky-header {
-      position: sticky;         /* Fica fixo ao rolar a página */
-      top: 0;                   /* Fixa no topo */
-      background-color: #fafafa; /* Fundo do modo claro */
-      z-index: 10;              /* Fica acima dos outros elementos */
-      padding: 20px 20px 10px;   /* Espaçamento interno */
+      position: sticky;
+      top: 0;
+      background-color: #fafafa;
+      z-index: 10;
+      padding: 20px 20px 10px;
     }
 
     /* Nome no topo, agora sem position absolute */
@@ -153,7 +168,6 @@
       }
     }
 
-    /* Reduz animações para usuários que preferem menos movimento */
     @media (prefers-reduced-motion: reduce) {
       .gallery img {
         animation: none;
@@ -407,7 +421,6 @@
       .instagram-btn:hover {
         text-decoration: underline;
       }
-      /* Alterações para o modo escuro */
       .contact-title {
         color: #666;
       }
@@ -418,7 +431,6 @@
       #contato-info a.whatsapp {
         color: #fff;
       }
-      /* Ajuste aplicado: aumenta a especificidade para o cabeçalho no modo noturno */
       header.sticky-header {
         background-color: #121212;
       }
@@ -432,18 +444,18 @@
   <!-- Link para pular para o conteúdo (oculto por padrão) -->
   <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
   
-  <!-- Cabeçalho semântico -->
-  <header class="sticky-header">
+  <!-- Cabeçalho semântico com atributos adicionais para acessibilidade -->
+  <header class="sticky-header" role="banner">
     <!-- Nome no topo -->
-    <div class="top-name">WELBERT RODRIGUES</div>
+    <div class="top-name" aria-label="Nome do artista">WELBERT RODRIGUES</div>
 
     <!-- Controles de idioma e galeria/info -->
     <div class="top-controls">
-      <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFO</button>
-      <button id="lang-btn" onclick="toggleLanguage()">EN</button>
+      <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()" aria-label="Alternar entre galeria e informações">INFO</button>
+      <button id="lang-btn" onclick="toggleLanguage()" aria-label="Alternar idioma">EN</button>
     </div>
 
-    <!-- Texto de disponibilidade e linha decorativa (apenas para a galeria) -->
+    <!-- Texto de disponibilidade e linha decorativa -->
     <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <hr class="custom-line">
   </header>
@@ -452,11 +464,11 @@
   <main id="main-content">
     <!-- Seção da Galeria -->
     <section id="gallery-section">
-      <div class="gallery"></div>
+      <div class="gallery" aria-label="Galeria de desenhos"></div>
     </section>
 
     <!-- Seção de Informações -->
-    <section id="info-section" class="hidden">
+    <section id="info-section" class="hidden" aria-label="Informações para agendamento">
       <!-- Conteúdo de Agendamento (em Português) -->
       <div id="content-pt">
         <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
@@ -540,8 +552,8 @@
 
     <!-- Seção de Contato -->
     <section>
-      <h2 class="contact-title" onclick="toggleContato()">CONTATO | CONTACT</h2>
-      <div id="contato-info" class="accordion-content">
+      <h2 class="contact-title" onclick="toggleContato()" role="button" aria-expanded="false" aria-controls="contato-info">CONTATO | CONTACT</h2>
+      <div id="contato-info" class="accordion-content" role="region">
         <p><span class="contato-label">E-mail:</span> <a href="mailto:Welbertc.rodriguess@gmail.com" class="email">Welbertc.rodriguess@gmail.com</a></p>
         <p><span class="contato-label">WhatsApp:</span> <a href="https://wa.me/5531920022832" target="_blank" class="whatsapp">+55 31 92002-2832</a></p>
         <p><a href="https://www.instagram.com/we.ro___" target="_blank" class="instagram-btn">INSTAGRAM</a></p>
@@ -550,13 +562,16 @@
   </main>
 
   <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <button class="close-btn" onclick="closeLightbox()">&times;</button>
-    <button class="prev-btn" onclick="changeImage(-1)">&lt;</button>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada">
+    <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
+    <button class="prev-btn" onclick="changeImage(-1)" aria-label="Imagem anterior">&lt;</button>
     <img id="lightbox-img" src="" alt="Imagem ampliada">
-    <button class="next-btn" onclick="changeImage(1)">&gt;</button>
+    <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
   </div>
 
+  <!-- 
+    Para melhorar a manutenção, considere mover este script para um arquivo externo (ex: script.js)
+  -->
   <script>
     // Array com os números das imagens que realmente existem (desenho15 removido)
     const imagensValidas = [
@@ -577,9 +592,7 @@
       const img = document.createElement('img');
       img.src = `images/desenho${num}.jpg`;
       img.alt = `Desenho ${num}`;
-      // Adiciona lazy loading para melhorar a performance
       img.loading = 'lazy';
-      // Se ocorrer erro ao carregar a imagem, substitui por um placeholder
       img.onerror = function() {
         this.onerror = null;
         this.src = 'images/placeholder.jpg';
@@ -616,7 +629,6 @@
       const availabilityText = document.getElementById("availability-text");
       const currentLanguage = localStorage.getItem("language") || "pt";
       if (currentLanguage === "en") {
-        // Muda para português
         contentPt.classList.remove("hidden");
         contentEn.classList.add("hidden");
         langBtn.textContent = "EN";
@@ -624,7 +636,6 @@
         availabilityText.textContent = "Consulte disponibilidade.";
         localStorage.setItem("language", "pt");
       } else {
-        // Muda para inglês
         contentPt.classList.add("hidden");
         contentEn.classList.remove("hidden");
         langBtn.textContent = "PT";
@@ -635,7 +646,6 @@
     }
 
     function toggleGalleryInfo() {
-      // Fecha contato se aberto
       document.getElementById("contato-info").classList.remove("active");
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info-section");
@@ -645,12 +655,10 @@
       const customLine = document.querySelector('.custom-line');
 
       if (!gallerySection.classList.contains("hidden")) {
-        // Se a galeria está visível, troca para informações
         gallerySection.classList.add("hidden");
         infoSection.classList.remove("hidden");
         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
         localStorage.setItem("section", "info");
-        // Oculta o texto de disponibilidade e a linha
         availabilityText.style.display = "none";
         customLine.style.display = "none";
       } else {
@@ -658,13 +666,11 @@
         infoSection.classList.add("hidden");
         galleryToggleBtn.textContent = "INFO";
         localStorage.setItem("section", "gallery");
-        // Exibe o texto de disponibilidade e a linha
         availabilityText.style.display = "block";
         customLine.style.display = "block";
       }
     }
 
-    // Função atualizada para alternar o estado do acordeão e atualizar os atributos ARIA
     function toggleAccordion(id, btnId) {
       const content = document.getElementById(id);
       const button = document.getElementById(btnId);
@@ -679,7 +685,14 @@
 
     function toggleContato() {
       const contatoInfo = document.getElementById("contato-info");
-      contatoInfo.classList.toggle("active");
+      // Atualiza o atributo aria-expanded para acessibilidade
+      if (contatoInfo.classList.contains("active")) {
+        contatoInfo.classList.remove("active");
+        document.querySelector('.contact-title').setAttribute("aria-expanded", "false");
+      } else {
+        contatoInfo.classList.add("active");
+        document.querySelector('.contact-title').setAttribute("aria-expanded", "true");
+      }
     }
 
     function loadState() {
