@@ -685,9 +685,12 @@
     }
 
     function loadState() {
-      // Se a URL contém "#info", define o estado para exibir a seção de informações.
+      // Se a URL contém "#info", define o estado para exibir a seção de informações;
+      // caso contrário, força o estado para "gallery"
       if (window.location.hash === "#info") {
         localStorage.setItem("section", "info");
+      } else {
+        localStorage.setItem("section", "gallery");
       }
       
       const contentPt = document.getElementById("content-pt");
