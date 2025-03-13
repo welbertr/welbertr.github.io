@@ -685,6 +685,11 @@
     }
 
     function loadState() {
+      // Se a URL contém "#info", define o estado para exibir a seção de informações.
+      if (window.location.hash === "#info") {
+        localStorage.setItem("section", "info");
+      }
+      
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
       const langBtn = document.getElementById("lang-btn");
