@@ -14,7 +14,7 @@
   <meta property="og:description" content="Conheça o trabalho de Welbert Rodrigues e agende sua tatuagem." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://welbertr.github.io" />
-  <!-- AJUSTE AQUI: caminho absoluto da imagem -->
+  <!-- Caminho absoluto para a imagem de preview -->
   <meta property="og:image" content="https://welbertr.github.io/images/preview.jpg" />
 
   <!-- Pré-conexão para fontes -->
@@ -51,7 +51,7 @@
     /* Estilos padrão (modo claro) */
     body {
       font-family: 'Outfit', sans-serif;
-      font-weight: 300; /* Peso base mais leve */
+      font-weight: 300;
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
@@ -564,6 +564,19 @@
   </div>
 
   <script>
+    // Remover parâmetros de rastreamento (ex.: fbclid, gclid) da URL
+    if (window.location.search.length > 0) {
+      const url = new URL(window.location.href);
+      const params = url.searchParams;
+      ['fbclid', 'gclid'].forEach(param => {
+        if (params.has(param)) {
+          params.delete(param);
+        }
+      });
+      const newUrl = url.origin + url.pathname + (params.toString() ? '?' + params.toString() : '');
+      window.history.replaceState({}, document.title, newUrl);
+    }
+
     // Array com os números das imagens que realmente existem
     const imagensValidas = [
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 
