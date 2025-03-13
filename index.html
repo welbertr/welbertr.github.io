@@ -431,8 +431,8 @@
     <div id="content-pt">
       <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
       <div class="accordion-section">
-        <h2 onclick="toggleAccordion('orcamento-pt')">Orçamento</h2>
-        <div id="orcamento-pt" class="accordion-content">
+        <h2 id="btn-orcamento-pt" role="button" aria-expanded="false" aria-controls="orcamento-pt" onclick="toggleAccordion('orcamento-pt', 'btn-orcamento-pt')">Orçamento</h2>
+        <div id="orcamento-pt" class="accordion-content" role="region" aria-labelledby="btn-orcamento-pt">
           <p>Envie um direct com:</p>
           <ul>
             <li>Imagem de referência ou flash</li>
@@ -443,20 +443,20 @@
         </div>
       </div>
       <div class="accordion-section">
-        <h2 onclick="toggleAccordion('agendamento-pt')">Agendamento e Sinal</h2>
-        <div id="agendamento-pt" class="accordion-content">
+        <h2 id="btn-agendamento-pt" role="button" aria-expanded="false" aria-controls="agendamento-pt" onclick="toggleAccordion('agendamento-pt', 'btn-agendamento-pt')">Agendamento e Sinal</h2>
+        <div id="agendamento-pt" class="accordion-content" role="region" aria-labelledby="btn-agendamento-pt">
           <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
         </div>
       </div>
       <div class="accordion-section">
-        <h2 onclick="toggleAccordion('lista-espera-pt')">Lista de Espera</h2>
-        <div id="lista-espera-pt" class="accordion-content">
+        <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt', 'btn-lista-espera-pt')">Lista de Espera</h2>
+        <div id="lista-espera-pt" class="accordion-content" role="region" aria-labelledby="btn-lista-espera-pt">
           <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
         </div>
       </div>
       <div class="accordion-section">
-        <h2 onclick="toggleAccordion('dia-sessao-pt')">No Dia da Sessão</h2>
-        <div id="dia-sessao-pt" class="accordion-content">
+        <h2 id="btn-dia-sessao-pt" role="button" aria-expanded="false" aria-controls="dia-sessao-pt" onclick="toggleAccordion('dia-sessao-pt', 'btn-dia-sessao-pt')">No Dia da Sessão</h2>
+        <div id="dia-sessao-pt" class="accordion-content" role="region" aria-labelledby="btn-dia-sessao-pt">
           <ul>
             <li>Alimente-se bem e hidrate-se</li>
             <li>Evite álcool na véspera</li>
@@ -471,8 +471,8 @@
     <div id="content-en" class="hidden">
       <p>To make the booking process easier, please follow the guidelines below:</p>
       <div class="accordion-section">
-        <h2 onclick="toggleAccordion('pricing-en')">Pricing</h2>
-        <div id="pricing-en" class="accordion-content">
+        <h2 id="btn-pricing-en" role="button" aria-expanded="false" aria-controls="pricing-en" onclick="toggleAccordion('pricing-en', 'btn-pricing-en')">Pricing</h2>
+        <div id="pricing-en" class="accordion-content" role="region" aria-labelledby="btn-pricing-en">
           <p>Send me a direct message with the following details:</p>
           <ul>
             <li>Reference image or flash design</li>
@@ -483,20 +483,20 @@
         </div>
       </div>
       <div class="accordion-section">
-        <h2 onclick="toggleAccordion('booking-en')">Booking and Deposit</h2>
-        <div id="booking-en" class="accordion-content">
+        <h2 id="btn-booking-en" role="button" aria-expanded="false" aria-controls="booking-en" onclick="toggleAccordion('booking-en', 'btn-booking-en')">Booking and Deposit</h2>
+        <div id="booking-en" class="accordion-content" role="region" aria-labelledby="btn-booking-en">
           <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
         </div>
       </div>
       <div class="accordion-section">
-        <h2 onclick="toggleAccordion('waitlist-en')">Waitlist</h2>
-        <div id="waitlist-en" class="accordion-content">
+        <h2 id="btn-waitlist-en" role="button" aria-expanded="false" aria-controls="waitlist-en" onclick="toggleAccordion('waitlist-en', 'btn-waitlist-en')">Waitlist</h2>
+        <div id="waitlist-en" class="accordion-content" role="region" aria-labelledby="btn-waitlist-en">
           <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
         </div>
       </div>
       <div class="accordion-section">
-        <h2 onclick="toggleAccordion('session-day-en')">On the Day of Your Session</h2>
-        <div id="session-day-en" class="accordion-content">
+        <h2 id="btn-session-day-en" role="button" aria-expanded="false" aria-controls="session-day-en" onclick="toggleAccordion('session-day-en', 'btn-session-day-en')">On the Day of Your Session</h2>
+        <div id="session-day-en" class="accordion-content" role="region" aria-labelledby="btn-session-day-en">
           <ul>
             <li>Eat well and stay hydrated</li>
             <li>Avoid alcohol the day before</li>
@@ -625,9 +625,17 @@
       }
     }
 
-    function toggleAccordion(id) {
+    // Função atualizada para alternar o estado do acordeão e atualizar os atributos ARIA
+    function toggleAccordion(id, btnId) {
       const content = document.getElementById(id);
-      content.classList.toggle("active");
+      const button = document.getElementById(btnId);
+      if (content.classList.contains("active")) {
+        content.classList.remove("active");
+        button.setAttribute("aria-expanded", "false");
+      } else {
+        content.classList.add("active");
+        button.setAttribute("aria-expanded", "true");
+      }
     }
 
     function toggleContato() {
