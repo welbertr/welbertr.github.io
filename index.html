@@ -334,14 +334,15 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+    /* Botão de envio com fundo preto */
     #waitlist-form button {
-      background-color: #007BFF;
+      background-color: #000;
       color: #fff;
       border: none;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-    #waitlist-form button:hover { background-color: #0056b3; }
+    #waitlist-form button:hover { background-color: #333; }
     #waitlist-form fieldset {
       border: none;
       padding: 0;
@@ -397,8 +398,9 @@
         color: #e0e0e0;
         border: 1px solid #444;
       }
-      #waitlist-form button { background-color: #007BFF; }
-      #waitlist-form button:hover { background-color: #0056b3; }
+      /* Atualização do botão para fundo preto também no modo escuro */
+      #waitlist-form button { background-color: #000; }
+      #waitlist-form button:hover { background-color: #333; }
     }
   </style>
 </head>
@@ -672,13 +674,12 @@
       document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
     }
   
-    // Adiciona tratamento para os links "waitlist-link" – ao serem clicados, definem o estado "waitlist"
+    // Tratamento para os links "waitlist-link"
     document.querySelectorAll('.waitlist-link').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         localStorage.setItem("section", "waitlist");
         loadState();
-        // Opcional: rolar suavemente para a nova seção
         document.getElementById("waitlist-form").scrollIntoView({ behavior: "smooth" });
       });
     });
@@ -723,23 +724,32 @@
       const availabilityText = document.getElementById("availability-text");
       const customLine = document.querySelector('.custom-line');
   
-      // Ao alternar entre Galeria e Informações, o formulário de lista de espera é sempre ocultado
-      waitlistFormSection.classList.add("hidden");
+      // Se estiver na área do formulário, redireciona para a seção de Informações
+      if (localStorage.getItem("section") === "waitlist") {
+         waitlistFormSection.classList.add("hidden");
+         gallerySection.classList.add("hidden");
+         infoSection.classList.remove("hidden");
+         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
+         localStorage.setItem("section", "info");
+         availabilityText.style.display = "none";
+         customLine.style.display = "none";
+         return;
+      }
   
       if (!gallerySection.classList.contains("hidden")) {
-        gallerySection.classList.add("hidden");
-        infoSection.classList.remove("hidden");
-        galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
-        localStorage.setItem("section", "info");
-        availabilityText.style.display = "none";
-        customLine.style.display = "none";
+         gallerySection.classList.add("hidden");
+         infoSection.classList.remove("hidden");
+         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
+         localStorage.setItem("section", "info");
+         availabilityText.style.display = "none";
+         customLine.style.display = "none";
       } else {
-        gallerySection.classList.remove("hidden");
-        infoSection.classList.add("hidden");
-        galleryToggleBtn.textContent = "INFO";
-        localStorage.setItem("section", "gallery");
-        availabilityText.style.display = "block";
-        customLine.style.display = "block";
+         gallerySection.classList.remove("hidden");
+         infoSection.classList.add("hidden");
+         galleryToggleBtn.textContent = "INFO";
+         localStorage.setItem("section", "gallery");
+         availabilityText.style.display = "block";
+         customLine.style.display = "block";
       }
     }
   
@@ -767,7 +777,6 @@
     }
   
     function loadState() {
-      // Se houver âncora na URL, atualiza o estado e remove a âncora
       if (window.location.hash === "#info") {
         localStorage.setItem("section", "info");
         history.replaceState(null, null, window.location.pathname);
@@ -793,7 +802,6 @@
       const infoSection = document.getElementById("info");
       const waitlistFormSection = document.getElementById("waitlist-form");
       
-      // Define visibilidade dos conteúdos de idioma
       if (language === "en") {
         contentPt.classList.add("hidden");
         contentEn.classList.remove("hidden");
@@ -811,16 +819,14 @@
         availabilityText.style.display = "none";
         customLine.style.display = "none";
       } else if (section === "waitlist") {
-        // Nova área: oculta Galeria e Informações, exibe o Formulário da Lista de Espera
         gallerySection.classList.add("hidden");
         infoSection.classList.add("hidden");
         waitlistFormSection.classList.remove("hidden");
-        // Podemos definir o texto do botão de navegação para "LISTA" ou similar se desejar;
-        galleryToggleBtn.textContent = language === "en" ? "WAITLIST" : "LISTA";
+        // Em vez de "LISTA", exibe "INFO" para que o botão direcione para a seção de Informações
+        galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "none";
         customLine.style.display = "none";
       } else {
-        // Padrão: exibe Galeria, oculta Informações e Formulário
         gallerySection.classList.remove("hidden");
         infoSection.classList.add("hidden");
         waitlistFormSection.classList.add("hidden");
@@ -829,7 +835,6 @@
         customLine.style.display = "block";
       }
       
-      // Atualiza os formulários de lista de espera conforme o idioma
       if (language === "en") {
         document.getElementById("waitlist-form-pt").classList.add("hidden");
         document.getElementById("waitlist-form-en").classList.remove("hidden");
@@ -841,7 +846,6 @@
   
     loadState();
   
-    // Ativação via teclado (Enter/Space) para elementos com role="button"
     document.querySelectorAll('[role="button"]:not(button)').forEach(elem => {
       if (!elem.hasAttribute('tabindex')) {
         elem.setAttribute('tabindex', '0');
