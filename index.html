@@ -9,12 +9,11 @@
   <meta name="description" content="Site minimalista e intuitivo de Welbert Rodrigues com galeria de desenhos e informações para agendamento de tatuagens." />
   <meta name="keywords" content="Welbert Rodrigues, tatuagens, portfólio, agendamento, minimalista" />
 
-  <!-- Meta Tags Open Graph (importante usar URL absoluto em og:image) -->
+  <!-- Meta Tags Open Graph -->
   <meta property="og:title" content="Welbert Rodrigues" />
   <meta property="og:description" content="Conheça o trabalho de Welbert Rodrigues e agende sua tatuagem." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://welbertr.github.io" />
-  <!-- AJUSTE AQUI: caminho absoluto da imagem -->
   <meta property="og:image" content="https://welbertr.github.io/images/preview.jpg" />
 
   <!-- Pré-conexão para fontes -->
@@ -23,7 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
 
   <style>
-    /* Skip link: totalmente oculto até receber foco */
+    /* Skip link */
     .skip-link {
       position: absolute;
       left: -9999px;
@@ -43,15 +42,15 @@
       text-decoration: none;
     }
     
-    /* Classe para ocultar elementos */
+    /* Ocultar elementos */
     .hidden {
       display: none !important;
     }
     
-    /* Estilos padrão (modo claro) */
+    /* Estilo geral */
     body {
       font-family: 'Outfit', sans-serif;
-      font-weight: 300; /* Peso base mais leve */
+      font-weight: 300;
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
@@ -62,8 +61,7 @@
       font-size: 14px;
       position: relative;
     }
-
-    /* Cabeçalho fixo */
+    
     header.sticky-header {
       position: sticky;
       top: 0;
@@ -71,8 +69,7 @@
       z-index: 10;
       padding: 20px 20px 10px;
     }
-
-    /* Nome no topo */
+    
     .top-name {
       font-family: 'Outfit', sans-serif;
       font-weight: 500;
@@ -81,15 +78,13 @@
       color: #666;
       margin-bottom: 5px;
     }
-
-    /* Linha decorativa abaixo do texto */
+    
     .custom-line {
       border: 0;
       border-bottom: 1px solid #ddd;
       margin: 10px 0;
     }
-
-    /* Títulos (h2) minimalistas */
+    
     h2 {
       border-bottom: 1px solid #ddd;
       padding-bottom: 8px;
@@ -101,8 +96,7 @@
       width: 100%;
       box-sizing: border-box;
     }
-
-    /* Botão de contato */
+    
     .contact-title {
       display: block;
       width: 100%;
@@ -116,64 +110,54 @@
       color: #000;
       background-color: transparent;
     }
-
-    p,
-    ul,
-    li {
+    
+    p, ul, li {
       font-size: 14px;
       text-align: justify;
       margin-bottom: 12px;
     }
-
+    
     ul {
       padding-left: 20px;
     }
     li {
       margin-bottom: 8px;
     }
-
-    /* Layout da galeria */
+    
+    /* Galeria */
     .gallery {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       margin: 20px 0;
     }
-
+    
     .gallery img {
       width: 100%;
       border-radius: 8px;
       cursor: pointer;
       transition: transform 0.2s;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       background-color: #fffff2;
       opacity: 0;
       animation: fadeIn 0.5s ease forwards;
     }
-
+    
     .gallery img:hover {
       transform: scale(1.02);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
-
+    
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
+    
     @media (prefers-reduced-motion: reduce) {
-      .gallery img {
-        animation: none;
-        transition: none;
-      }
+      .gallery img { animation: none; transition: none; }
     }
-
+    
+    /* Lightbox */
     .lightbox {
       display: none;
       position: fixed;
@@ -181,27 +165,24 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
       z-index: 1000;
     }
-
+    
     .lightbox img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 8px;
     }
-
-    /* Botões do lightbox */
-    .close-btn,
-    .prev-btn,
-    .next-btn {
+    
+    .close-btn, .prev-btn, .next-btn {
       position: absolute;
-      background: rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      color: rgba(0, 0, 0, 0.8);
+      background: rgba(0,0,0,0.1);
+      border: 1px solid rgba(0,0,0,0.3);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      color: rgba(0,0,0,0.8);
       cursor: pointer;
       transition: opacity 0.3s ease, background 0.3s ease;
       border-radius: 50%;
@@ -211,46 +192,33 @@
       align-items: center;
       justify-content: center;
     }
-
-    .close-btn:hover,
-    .prev-btn:hover,
-    .next-btn:hover {
-      background: rgba(0, 0, 0, 0.2);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    
+    .close-btn:hover, .prev-btn:hover, .next-btn:hover {
+      background: rgba(0,0,0,0.2);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
     }
-
+    
     .close-btn {
       top: 20px;
       right: 20px;
       font-size: 22px;
       font-weight: 700;
       z-index: 9999;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(0, 0, 0, 0.6);
-      color: rgba(0, 0, 0, 0.8);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.6);
+      color: rgba(0,0,0,0.8);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-
-    .close-btn:hover {
-      background: rgba(255, 255, 255, 1);
-      border-color: rgba(0, 0, 0, 0.8);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    .prev-btn,
-    .next-btn {
+    
+    .prev-btn, .next-btn {
       top: 50%;
       transform: translateY(-50%);
       font-size: 24px;
     }
-
-    .prev-btn {
-      left: 20px;
-    }
-    .next-btn {
-      right: 20px;
-    }
-
+    
+    .prev-btn { left: 20px; }
+    .next-btn { right: 20px; }
+    
     /* Botão do Instagram */
     .instagram-btn {
       background-color: transparent;
@@ -264,17 +232,13 @@
       text-decoration: none;
       text-transform: uppercase;
     }
-
-    .instagram-btn:hover {
-      text-decoration: underline;
-    }
-
-    /* Controles no topo (botões INFO | EN) */
+    .instagram-btn:hover { text-decoration: underline; }
+    
+    /* Controles do topo */
     .top-controls {
       text-align: right;
       margin-bottom: 10px;
     }
-
     .top-controls button {
       background-color: transparent;
       color: #000;
@@ -285,7 +249,6 @@
       cursor: pointer;
       transition: opacity 0.3s ease;
     }
-
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
@@ -294,171 +257,171 @@
       font-weight: 700;
       line-height: 1;
     }
-
-    .top-controls button:hover {
-      opacity: 0.8;
-    }
-
-    /* Acordeons com transição suave */
+    .top-controls button:hover { opacity: 0.8; }
+    
+    /* Acordeons */
     .accordion-content {
       max-height: 0;
       overflow: hidden;
       padding: 0;
       transition: max-height 0.3s ease, padding 0.3s ease;
     }
-
     .accordion-content.active {
       max-height: 500px;
       padding: 10px 0;
     }
-
-    .accordion-section {
-      margin-bottom: 30px;
-    }
-
+    .accordion-section { margin-bottom: 30px; }
+    
     /* Contato */
     #contato-info {
       text-align: center;
       margin: 0 auto;
     }
-
     #contato-info p {
       margin: 6px 0;
       font-size: 14px;
       text-align: center;
     }
-
-    /* Estilo para os links de e-mail e WhatsApp (modo claro) */
     #contato-info a.email,
     #contato-info a.whatsapp {
       font-weight: 500;
       color: #000;
       text-decoration: none;
     }
-
     #contato-info a.email:hover,
-    #contato-info a.whatsapp:hover {
-      text-decoration: underline;
-    }
-
-    /* Estilo para os rótulos de contato */
-    .contato-label {
-      font-weight: 500;
-    }
-
-    /* Estilo para o link da lista de espera */
+    #contato-info a.whatsapp:hover { text-decoration: underline; }
+    .contato-label { font-weight: 500; }
+    
+    /* Link da lista de espera */
     .waitlist-link {
       color: #007BFF;
       text-decoration: none;
       font-weight: 500;
     }
-    .waitlist-link:hover {
-      text-decoration: underline;
+    .waitlist-link:hover { text-decoration: underline; }
+    
+    /* Estilo do formulário (seção exclusiva) */
+    #waitlist-form {
+      margin: 40px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
     }
-
-    @media (min-width: 768px) {
-      body {
-        padding: 30px;
-      }
+    #waitlist-form h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
     }
-
+    #waitlist-form p {
+      margin-bottom: 20px;
+    }
+    #waitlist-form form {
+      display: grid;
+      grid-gap: 15px;
+    }
+    #waitlist-form label {
+      font-weight: 500;
+      margin-bottom: 5px;
+      display: block;
+    }
+    #waitlist-form input,
+    #waitlist-form button,
+    #waitlist-form fieldset {
+      font-size: 14px;
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #waitlist-form button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #waitlist-form button:hover { background-color: #0056b3; }
+    #waitlist-form fieldset {
+      border: none;
+      padding: 0;
+    }
+    #waitlist-form fieldset legend {
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    
+    /* Responsive */
+    @media (min-width: 768px) { body { padding: 30px; } }
     @media (min-width: 1024px) {
-      body {
-        max-width: 1200px;
-      }
-      .gallery {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      h2 {
-        font-size: 20px;
-      }
+      body { max-width: 1200px; }
+      .gallery { grid-template-columns: repeat(3, 1fr); }
+      h2 { font-size: 20px; }
     }
-
     @media (min-width: 1440px) {
-      .gallery {
-        grid-template-columns: repeat(4, 1fr);
-      }
+      .gallery { grid-template-columns: repeat(4, 1fr); }
     }
-
+    
+    /* Modo escuro */
     @media (prefers-color-scheme: dark) {
-      body {
-        color: #e0e0e0;
-        background-color: #121212;
-      }
-      h2 {
-        border-bottom: 1px solid #444;
-      }
-      .top-controls button {
-        color: #e0e0e0;
-      }
-      .gallery img {
-        background-color: #1e1e1e;
-      }
-      .lightbox {
-        background: rgba(0, 0, 0, 0.9);
-      }
-      .close-btn,
-      .prev-btn,
-      .next-btn {
-        background: rgba(0, 0, 0, 0.4);
-        border-color: rgba(255, 255, 255, 0.3);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      body { color: #e0e0e0; background-color: #121212; }
+      h2 { border-bottom: 1px solid #444; }
+      .top-controls button { color: #e0e0e0; }
+      .gallery img { background-color: #1e1e1e; }
+      .lightbox { background: rgba(0,0,0,0.9); }
+      .close-btn, .prev-btn, .next-btn {
+        background: rgba(0,0,0,0.4);
+        border-color: rgba(255,255,255,0.3);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         color: #f5f5f5;
       }
-      .close-btn:hover,
-      .prev-btn:hover,
-      .next-btn:hover {
-        background: rgba(0, 0, 0, 0.7);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+      .close-btn:hover, .prev-btn:hover, .next-btn:hover {
+        background: rgba(0,0,0,0.7);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.6);
       }
-      .instagram-btn {
-        color: #e0e0e0;
-        border-color: #e0e0e0;
+      .instagram-btn { color: #e0e0e0; border-color: #e0e0e0; }
+      .instagram-btn:hover { text-decoration: underline; }
+      .contact-title { color: #666; }
+      #contato-info .contato-label { color: #666; }
+      #contato-info a.email, #contato-info a.whatsapp { color: #fff; }
+      header.sticky-header { background-color: #121212; }
+      .custom-line { border-bottom: 1px solid #444; }
+      
+      /* Formulário */
+      #waitlist-form {
+        background-color: #1e1e1e;
+        border: 1px solid #444;
       }
-      .instagram-btn:hover {
-        text-decoration: underline;
-      }
-      .contact-title {
-        color: #666;
-      }
-      #contato-info .contato-label {
-        color: #666;
-      }
-      #contato-info a.email,
-      #contato-info a.whatsapp {
-        color: #fff;
-      }
-      header.sticky-header {
+      #waitlist-form input, #waitlist-form button, #waitlist-form fieldset {
         background-color: #121212;
+        color: #e0e0e0;
+        border: 1px solid #444;
       }
-      .custom-line {
-        border-bottom: 1px solid #444;
-      }
+      #waitlist-form button { background-color: #007BFF; }
+      #waitlist-form button:hover { background-color: #0056b3; }
     }
   </style>
 </head>
 <body>
-  <!-- Link para pular para o conteúdo (oculto por padrão) -->
+  <!-- Pular para o conteúdo -->
   <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
   
   <header class="sticky-header" role="banner">
     <div class="top-name" aria-label="Nome do artista">WELBERT RODRIGUES</div>
-
     <div class="top-controls">
       <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()" aria-label="Alternar entre galeria e informações">INFO</button>
       <button id="lang-btn" onclick="toggleLanguage()" aria-label="Alternar idioma">EN</button>
     </div>
-
     <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <hr class="custom-line">
   </header>
-
+  
   <main id="main-content">
     <!-- Seção da Galeria -->
     <section id="gallery-section">
       <div class="gallery" aria-label="Galeria de desenhos"></div>
     </section>
-
+    
     <!-- Seção de Informações -->
     <section id="info" class="hidden" aria-label="Informações para agendamento">
       <!-- Conteúdo PT -->
@@ -501,7 +464,7 @@
           </div>
         </div>
       </div>
-
+      
       <!-- Conteúdo EN -->
       <div id="content-en" class="hidden">
         <p>To make the booking process easier, please follow the guidelines below:</p>
@@ -543,12 +506,17 @@
         </div>
       </div>
     </section>
-
-    <!-- Seção de Formulário da Lista de Espera -->
-    <section id="waitlist-form">
+    
+    <!-- Seção do Formulário da Lista de Espera (nova área) -->
+    <section id="waitlist-form" class="hidden">
       <!-- Versão PT -->
       <div id="waitlist-form-pt">
         <h2>Inscrição na Lista de Espera</h2>
+        <p>
+          Se a sua cidade ainda não está na minha agenda, inscreva-se na lista de espera!  
+          Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha do horário.  
+          <br><em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em>
+        </p>
         <form action="https://formspree.io/f/seu-endpoint" method="POST">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
@@ -591,6 +559,11 @@
       <!-- Versão EN -->
       <div id="waitlist-form-en" class="hidden">
         <h2>Waitlist Registration</h2>
+        <p>
+          If your city is not on my schedule yet, sign up for the waitlist!  
+          Once I confirm a date to travel to your region, I will notify registered clients in advance – ensuring priority in choosing an appointment time.  
+          <br><em>Note: I will contact you only when the date is confirmed.</em>
+        </p>
         <form action="https://formspree.io/f/seu-endpoint" method="POST">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" required>
@@ -631,8 +604,8 @@
         </form>
       </div>
     </section>
-
-    <!-- Seção de Contato (original) -->
+    
+    <!-- Seção de Contato -->
     <section>
       <h2 class="contact-title" onclick="toggleContato()" role="button" aria-expanded="false" aria-controls="contato-info">CONTATO | CONTACT</h2>
       <div id="contato-info" class="accordion-content" role="region">
@@ -642,7 +615,7 @@
       </div>
     </section>
   </main>
-
+  
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada">
     <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
@@ -650,20 +623,20 @@
     <img id="lightbox-img" src="" alt="Imagem ampliada">
     <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
   </div>
-
+  
   <script>
     // Array com os números das imagens que realmente existem
     const imagensValidas = [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 
-      16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 
-      27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 
-      38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 
-      49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 
-      60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
-      71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
+      1,2,3,4,5,6,7,8,9,10,11,12,13,
+      16,17,18,20,21,22,23,24,25,26,
+      27,28,29,30,31,32,33,34,35,36,37,
+      38,39,40,41,42,43,44,45,46,47,48,
+      49,50,51,52,53,54,55,56,57,58,59,
+      60,61,62,63,64,65,66,67,68,69,70,
+      71,72,73,74,75,76,77,78,79,80,
     ];
     imagensValidas.reverse();
-
+  
     const galleryContainer = document.querySelector('.gallery');
     const galleryFragment = document.createDocumentFragment();
     imagensValidas.forEach(num => {
@@ -679,7 +652,7 @@
       galleryFragment.appendChild(img);
     });
     galleryContainer.appendChild(galleryFragment);
-
+  
     let currentIndex = 0;
     function openLightbox(num) {
       currentIndex = imagensValidas.indexOf(num);
@@ -698,7 +671,18 @@
     function updateLightboxImage() {
       document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
     }
-
+  
+    // Adiciona tratamento para os links "waitlist-link" – ao serem clicados, definem o estado "waitlist"
+    document.querySelectorAll('.waitlist-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.setItem("section", "waitlist");
+        loadState();
+        // Opcional: rolar suavemente para a nova seção
+        document.getElementById("waitlist-form").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+  
     function toggleLanguage() {
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
@@ -728,16 +712,20 @@
         localStorage.setItem("language", "en");
       }
     }
-
+  
     function toggleGalleryInfo() {
       document.getElementById("contato-info").classList.remove("active");
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info");
+      const waitlistFormSection = document.getElementById("waitlist-form");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const language = localStorage.getItem("language") || "pt";
       const availabilityText = document.getElementById("availability-text");
       const customLine = document.querySelector('.custom-line');
-
+  
+      // Ao alternar entre Galeria e Informações, o formulário de lista de espera é sempre ocultado
+      waitlistFormSection.classList.add("hidden");
+  
       if (!gallerySection.classList.contains("hidden")) {
         gallerySection.classList.add("hidden");
         infoSection.classList.remove("hidden");
@@ -754,7 +742,7 @@
         customLine.style.display = "block";
       }
     }
-
+  
     function toggleAccordion(id, btnId) {
       const content = document.getElementById(id);
       const button = document.getElementById(btnId);
@@ -766,7 +754,7 @@
         button.setAttribute("aria-expanded", "true");
       }
     }
-
+  
     function toggleContato() {
       const contatoInfo = document.getElementById("contato-info");
       if (contatoInfo.classList.contains("active")) {
@@ -777,7 +765,7 @@
         document.querySelector('.contact-title').setAttribute("aria-expanded", "true");
       }
     }
-
+  
     function loadState() {
       // Se houver âncora na URL, atualiza o estado e remove a âncora
       if (window.location.hash === "#info") {
@@ -786,8 +774,10 @@
       } else if (window.location.hash === "#gallery") {
         localStorage.setItem("section", "gallery");
         history.replaceState(null, null, window.location.pathname);
+      } else if (window.location.hash === "#waitlist-form") {
+        localStorage.setItem("section", "waitlist");
+        history.replaceState(null, null, window.location.pathname);
       }
-      // Se não houver estado salvo, define o padrão como "gallery"
       if (!localStorage.getItem("section")) {
         localStorage.setItem("section", "gallery");
       }
@@ -799,7 +789,11 @@
       const language = localStorage.getItem("language") || "pt";
       const availabilityText = document.getElementById("availability-text");
       const customLine = document.querySelector('.custom-line');
+      const gallerySection = document.getElementById("gallery-section");
+      const infoSection = document.getElementById("info");
+      const waitlistFormSection = document.getElementById("waitlist-form");
       
+      // Define visibilidade dos conteúdos de idioma
       if (language === "en") {
         contentPt.classList.add("hidden");
         contentEn.classList.remove("hidden");
@@ -810,20 +804,32 @@
       
       const section = localStorage.getItem("section");
       if (section === "info") {
-        document.getElementById("gallery-section").classList.add("hidden");
-        document.getElementById("info").classList.remove("hidden");
+        gallerySection.classList.add("hidden");
+        infoSection.classList.remove("hidden");
+        waitlistFormSection.classList.add("hidden");
         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
         availabilityText.style.display = "none";
         customLine.style.display = "none";
+      } else if (section === "waitlist") {
+        // Nova área: oculta Galeria e Informações, exibe o Formulário da Lista de Espera
+        gallerySection.classList.add("hidden");
+        infoSection.classList.add("hidden");
+        waitlistFormSection.classList.remove("hidden");
+        // Podemos definir o texto do botão de navegação para "LISTA" ou similar se desejar;
+        galleryToggleBtn.textContent = language === "en" ? "WAITLIST" : "LISTA";
+        availabilityText.style.display = "none";
+        customLine.style.display = "none";
       } else {
-        document.getElementById("gallery-section").classList.remove("hidden");
-        document.getElementById("info").classList.add("hidden");
+        // Padrão: exibe Galeria, oculta Informações e Formulário
+        gallerySection.classList.remove("hidden");
+        infoSection.classList.add("hidden");
+        waitlistFormSection.classList.add("hidden");
         galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "block";
         customLine.style.display = "block";
       }
       
-      // Atualiza os formulários de lista de espera de acordo com o idioma
+      // Atualiza os formulários de lista de espera conforme o idioma
       if (language === "en") {
         document.getElementById("waitlist-form-pt").classList.add("hidden");
         document.getElementById("waitlist-form-en").classList.remove("hidden");
@@ -832,10 +838,10 @@
         document.getElementById("waitlist-form-en").classList.add("hidden");
       }
     }
-
+  
     loadState();
-
-    // Tratamento para ativação via teclado (Enter/Space) em elementos com role="button"
+  
+    // Ativação via teclado (Enter/Space) para elementos com role="button"
     document.querySelectorAll('[role="button"]:not(button)').forEach(elem => {
       if (!elem.hasAttribute('tabindex')) {
         elem.setAttribute('tabindex', '0');
