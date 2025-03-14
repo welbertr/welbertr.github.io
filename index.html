@@ -352,6 +352,19 @@
       margin-bottom: 5px;
     }
     
+    /*
+      Estilo para alinhar botões de rádio:
+      Agrupamos input + label em .radio-inline
+    */
+    .radio-inline {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .radio-inline input[type="radio"] {
+      margin-right: 5px;
+    }
+
     /* Responsive */
     @media (min-width: 768px) { body { padding: 30px; } }
     @media (min-width: 1024px) {
@@ -519,7 +532,6 @@
           Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha do horário.  
           <br><em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em>
         </p>
-        <!-- Ação ajustada para o endpoint da Getform -->
         <form action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
@@ -559,10 +571,14 @@
           
           <fieldset>
             <legend>Já tatuou comigo anteriormente? *</legend>
-            <input type="radio" id="sim" name="tatuagem" value="Sim" required>
-            <label for="sim">Sim</label>
-            <input type="radio" id="nao" name="tatuagem" value="Não" required>
-            <label for="nao">Não</label>
+            <div class="radio-inline">
+              <input type="radio" id="sim" name="tatuagem" value="Sim" required>
+              <label for="sim">Sim</label>
+            </div>
+            <div class="radio-inline">
+              <input type="radio" id="nao" name="tatuagem" value="Não" required>
+              <label for="nao">Não</label>
+            </div>
           </fieldset>
           
           <button type="submit">Inscrever-se</button>
@@ -576,7 +592,6 @@
           Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.
           <br><em>Note: I will contact you only when the date is confirmed.</em>
         </p>
-        <!-- Ação ajustada para o endpoint da Getform -->
         <form action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" required>
@@ -620,10 +635,14 @@
           
           <fieldset>
             <legend>Have you been tattooed by me before? *</legend>
-            <input type="radio" id="yes" name="tattooedBefore" value="Yes" required>
-            <label for="yes">Yes</label>
-            <input type="radio" id="no" name="tattooedBefore" value="No" required>
-            <label for="no">No</label>
+            <div class="radio-inline">
+              <input type="radio" id="yes" name="tattooedBefore" value="Yes" required>
+              <label for="yes">Yes</label>
+            </div>
+            <div class="radio-inline">
+              <input type="radio" id="no" name="tattooedBefore" value="No" required>
+              <label for="no">No</label>
+            </div>
           </fieldset>
           
           <button type="submit">Submit</button>
