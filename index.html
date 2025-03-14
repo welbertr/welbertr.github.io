@@ -309,6 +309,8 @@
       border: 1px solid #ddd;
       border-radius: 8px;
       background-color: #fff;
+      opacity: 1;
+      transition: opacity 0.3s ease;
     }
     #waitlist-form h2 {
       margin-bottom: 20px;
@@ -349,13 +351,13 @@
       border: none;
       padding: 0;
     }
-    /* Em vez de fieldset/legend para a questão dos radios, usamos label acima */
     
     /* Estilo para alinhar botões de rádio */
     .radio-inline {
       display: inline-flex;
       align-items: center;
-      margin-right: 20px;
+      margin-right: 10px;
+      transition: opacity 0.3s ease;
     }
     .radio-inline input[type="radio"] {
       margin-right: 5px;
@@ -572,7 +574,7 @@
           <label for="local">Local do corpo *</label>
           <input type="text" id="local" name="local" required>
           
-          <!-- A pergunta fica agora como um label acima dos botões -->
+          <!-- Pergunta posicionada como label acima -->
           <label>Já tatuou comigo anteriormente? *</label>
           <div class="radio-inline">
             <input type="radio" id="sim" name="tatuagem" value="Sim" required>
@@ -636,7 +638,7 @@
           <label for="bodyLocation">Body location *</label>
           <input type="text" id="bodyLocation" name="bodyLocation" required>
           
-          <!-- A pergunta fica agora como um label acima dos botões -->
+          <!-- Pergunta posicionada como label acima -->
           <label>Have you been tattooed by me before? *</label>
           <div class="radio-inline">
             <input type="radio" id="yes" name="tattooedBefore" value="Yes" required>
@@ -910,13 +912,10 @@
           method: form.method,
           body: formData
         })
-        .then(response => {
-          if (response.ok) {
-            document.getElementById(feedbackId).textContent = "Obrigado! Sua inscrição foi enviada com sucesso.";
-            form.reset();
-          } else {
-            document.getElementById(feedbackId).textContent = "Ocorreu um erro. Por favor, tente novamente.";
-          }
+        .then(response => response.text())
+        .then(text => {
+          document.getElementById(feedbackId).textContent = "Obrigado! Sua inscrição foi enviada com sucesso.";
+          form.reset();
         })
         .catch(error => {
           document.getElementById(feedbackId).textContent = "Ocorreu um erro. Por favor, tente novamente.";
