@@ -641,6 +641,13 @@
   </div>
   
   <script>
+    // Remoção do parâmetro "fbclid" da URL, se presente.
+    if (window.location.search.includes('fbclid')) {
+      const url = new URL(window.location);
+      url.searchParams.delete('fbclid');
+      history.replaceState(null, '', url.pathname + url.search);
+    }
+    
     // Array com os números das imagens que realmente existem
     const imagensValidas = [
       1,2,3,4,5,6,7,8,9,10,11,12,13,
