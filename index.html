@@ -6,7 +6,7 @@
   <title>Welbert Rodrigues</title>
   
   <!-- Meta Tags para SEO -->
-  <meta name="description" content="Site minimalista e intuitivo de Welbert Rodrigues com galeria de desenhos e informações para agendamento de tatuagens." />
+  <meta name="description" content="Site minimalista e intuitivo de Welbert Rodrigues, com galeria de desenhos e informações para agendamento de tatuagens. Minimalist and intuitive website by Welbert Rodrigues, showcasing tattoo designs and scheduling information." />
   <meta name="keywords" content="Welbert Rodrigues, tatuagens, portfólio, agendamento, minimalista" />
 
   <!-- Meta Tags Open Graph -->
@@ -264,11 +264,13 @@
       max-height: 0;
       overflow: hidden;
       padding: 0;
-      transition: max-height 0.3s ease, padding 0.3s ease;
+      opacity: 0;
+      transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
     }
     .accordion-content.active {
       max-height: 500px;
       padding: 10px 0;
+      opacity: 1;
     }
     .accordion-section { margin-bottom: 30px; }
     
@@ -347,15 +349,9 @@
       border: none;
       padding: 0;
     }
-    #waitlist-form fieldset legend {
-      font-weight: 500;
-      margin-bottom: 5px;
-    }
+    /* Em vez de fieldset/legend para a questão dos radios, usamos label acima */
     
-    /*
-      Estilo para alinhar botões de rádio:
-      Agrupamos input + label em .radio-inline
-    */
+    /* Estilo para alinhar botões de rádio */
     .radio-inline {
       display: inline-flex;
       align-items: center;
@@ -364,15 +360,23 @@
     .radio-inline input[type="radio"] {
       margin-right: 5px;
     }
-
-    /* Responsive */
-    @media (min-width: 768px) { body { padding: 30px; } }
+    
+    /* Adiciona transição de opacidade aos contêineres de INFO e GALERIA */
+    #gallery-section, #info {
+      transition: opacity 0.3s ease;
+    }
+    
+    /* Responsividade */
+    @media (min-width: 768px) {
+      body { padding: 30px; }
+    }
     @media (min-width: 1024px) {
-      body { max-width: 1200px; }
+      body { max-width: 800px; }
       .gallery { grid-template-columns: repeat(3, 1fr); }
       h2 { font-size: 20px; }
     }
     @media (min-width: 1440px) {
+      body { max-width: 800px; }
       .gallery { grid-template-columns: repeat(4, 1fr); }
     }
     
@@ -411,7 +415,6 @@
         color: #e0e0e0;
         border: 1px solid #444;
       }
-      /* Atualização do botão para fundo preto também no modo escuro */
       #waitlist-form button { background-color: #000; }
       #waitlist-form button:hover { background-color: #333; }
     }
@@ -532,7 +535,7 @@
           Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha do horário.  
           <br><em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em>
         </p>
-        <form action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
+        <form id="form-pt" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
           
@@ -569,20 +572,20 @@
           <label for="local">Local do corpo *</label>
           <input type="text" id="local" name="local" required>
           
-          <fieldset>
-            <legend>Já tatuou comigo anteriormente? *</legend>
-            <div class="radio-inline">
-              <input type="radio" id="sim" name="tatuagem" value="Sim" required>
-              <label for="sim">Sim</label>
-            </div>
-            <div class="radio-inline">
-              <input type="radio" id="nao" name="tatuagem" value="Não" required>
-              <label for="nao">Não</label>
-            </div>
-          </fieldset>
+          <!-- A pergunta fica agora como um label acima dos botões -->
+          <label>Já tatuou comigo anteriormente? *</label>
+          <div class="radio-inline">
+            <input type="radio" id="sim" name="tatuagem" value="Sim" required>
+            <label for="sim">Sim</label>
+          </div>
+          <div class="radio-inline">
+            <input type="radio" id="nao" name="tatuagem" value="Não" required>
+            <label for="nao">Não</label>
+          </div>
           
           <button type="submit">Inscrever-se</button>
         </form>
+        <div id="feedback-pt" style="margin-top:10px; font-size:14px; color:#007BFF;"></div>
       </div>
       <!-- Versão EN -->
       <div id="waitlist-form-en" class="hidden">
@@ -592,7 +595,7 @@
           Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.
           <br><em>Note: I will contact you only when the date is confirmed.</em>
         </p>
-        <form action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
+        <form id="form-en" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" required>
           
@@ -633,20 +636,20 @@
           <label for="bodyLocation">Body location *</label>
           <input type="text" id="bodyLocation" name="bodyLocation" required>
           
-          <fieldset>
-            <legend>Have you been tattooed by me before? *</legend>
-            <div class="radio-inline">
-              <input type="radio" id="yes" name="tattooedBefore" value="Yes" required>
-              <label for="yes">Yes</label>
-            </div>
-            <div class="radio-inline">
-              <input type="radio" id="no" name="tattooedBefore" value="No" required>
-              <label for="no">No</label>
-            </div>
-          </fieldset>
+          <!-- A pergunta fica agora como um label acima dos botões -->
+          <label>Have you been tattooed by me before? *</label>
+          <div class="radio-inline">
+            <input type="radio" id="yes" name="tattooedBefore" value="Yes" required>
+            <label for="yes">Yes</label>
+          </div>
+          <div class="radio-inline">
+            <input type="radio" id="no" name="tattooedBefore" value="No" required>
+            <label for="no">No</label>
+          </div>
           
           <button type="submit">Submit</button>
         </form>
+        <div id="feedback-en" style="margin-top:10px; font-size:14px; color:#007BFF;"></div>
       </div>
     </section>
     
@@ -765,41 +768,43 @@
     }
   
     function toggleGalleryInfo() {
-      document.getElementById("contato-info").classList.remove("active");
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info");
-      const waitlistFormSection = document.getElementById("waitlist-form");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      const language = localStorage.getItem("language") || "pt";
       const availabilityText = document.getElementById("availability-text");
       const customLine = document.querySelector('.custom-line');
-  
-      // Se estiver na área do formulário, redireciona para a seção de Informações
-      if (localStorage.getItem("section") === "waitlist") {
-         waitlistFormSection.classList.add("hidden");
-         gallerySection.classList.add("hidden");
-         infoSection.classList.remove("hidden");
-         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
-         localStorage.setItem("section", "info");
-         availabilityText.style.display = "none";
-         customLine.style.display = "none";
-         return;
-      }
+      const language = localStorage.getItem("language") || "pt";
   
       if (!gallerySection.classList.contains("hidden")) {
-         gallerySection.classList.add("hidden");
-         infoSection.classList.remove("hidden");
-         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
-         localStorage.setItem("section", "info");
-         availabilityText.style.display = "none";
-         customLine.style.display = "none";
+        // Fade out gallery, then switch to info
+        gallerySection.style.opacity = 0;
+        setTimeout(() => {
+          gallerySection.classList.add("hidden");
+          infoSection.classList.remove("hidden");
+          infoSection.style.opacity = 0;
+          galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
+          localStorage.setItem("section", "info");
+          availabilityText.style.display = "none";
+          customLine.style.display = "none";
+          setTimeout(() => {
+            infoSection.style.opacity = 1;
+          }, 50);
+        }, 300);
       } else {
-         gallerySection.classList.remove("hidden");
-         infoSection.classList.add("hidden");
-         galleryToggleBtn.textContent = "INFO";
-         localStorage.setItem("section", "gallery");
-         availabilityText.style.display = "block";
-         customLine.style.display = "block";
+        // Fade out info, then switch to gallery
+        infoSection.style.opacity = 0;
+        setTimeout(() => {
+          infoSection.classList.add("hidden");
+          gallerySection.classList.remove("hidden");
+          gallerySection.style.opacity = 0;
+          galleryToggleBtn.textContent = "INFO";
+          localStorage.setItem("section", "gallery");
+          availabilityText.style.display = "block";
+          customLine.style.display = "block";
+          setTimeout(() => {
+            gallerySection.style.opacity = 1;
+          }, 50);
+        }, 300);
       }
     }
   
@@ -872,7 +877,6 @@
         gallerySection.classList.add("hidden");
         infoSection.classList.add("hidden");
         waitlistFormSection.classList.remove("hidden");
-        // Em vez de "LISTA", exibe "INFO" para que o botão direcione para a seção de Informações
         galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "none";
         customLine.style.display = "none";
@@ -896,12 +900,38 @@
   
     loadState();
   
+    // Feedback de envio dos formulários via AJAX
+    function handleFormSubmission(formId, feedbackId) {
+      const form = document.getElementById(formId);
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const formData = new FormData(form);
+        fetch(form.action, {
+          method: form.method,
+          body: formData
+        })
+        .then(response => {
+          if (response.ok) {
+            document.getElementById(feedbackId).textContent = "Obrigado! Sua inscrição foi enviada com sucesso.";
+            form.reset();
+          } else {
+            document.getElementById(feedbackId).textContent = "Ocorreu um erro. Por favor, tente novamente.";
+          }
+        })
+        .catch(error => {
+          document.getElementById(feedbackId).textContent = "Ocorreu um erro. Por favor, tente novamente.";
+        });
+      });
+    }
+    handleFormSubmission("form-pt", "feedback-pt");
+    handleFormSubmission("form-en", "feedback-en");
+  
     document.querySelectorAll('[role="button"]:not(button)').forEach(elem => {
-      if (!elem.hasAttribute('tabindex')) {
-        elem.setAttribute('tabindex', '0');
+      if (!elem.hasAttribute("tabindex")) {
+        elem.setAttribute("tabindex", "0");
       }
-      elem.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
+      elem.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           elem.click();
         }
