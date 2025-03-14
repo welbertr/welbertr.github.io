@@ -469,7 +469,7 @@
       
       <!-- Conteúdo EN -->
       <div id="content-en" class="hidden">
-        <p>To make the booking process easier, please follow the guidelines below:</p>
+        <p>If your city is not currently scheduled on my calendar, sign up for the waitlist! Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.</p>
         <div class="accordion-section">
           <h2 id="btn-pricing-en" role="button" aria-expanded="false" aria-controls="pricing-en" onclick="toggleAccordion('pricing-en', 'btn-pricing-en')">Pricing</h2>
           <div id="pricing-en" class="accordion-content" role="region" aria-labelledby="btn-pricing-en">
@@ -491,7 +491,7 @@
         <div class="accordion-section">
           <h2 id="btn-waitlist-en" role="button" aria-expanded="false" aria-controls="waitlist-en" onclick="toggleAccordion('waitlist-en', 'btn-waitlist-en')">Waitlist</h2>
           <div id="waitlist-en" class="accordion-content" role="region" aria-labelledby="btn-waitlist-en">
-            <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing an appointment time.</p>
+            <p>If your city is not currently scheduled on my calendar, sign up for the waitlist! Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.</p>
             <p><a href="#waitlist-form" class="waitlist-link">Join the Waitlist</a></p>
           </div>
         </div>
@@ -532,11 +532,16 @@
           <label for="estado">Estado *</label>
           <input type="text" id="estado" name="estado" required>
           
-          <label for="telefone">Celular com DDD *</label>
-          <input type="tel" id="telefone" name="telefone" required>
+          <!-- Campo Celular opcional -->
+          <label for="telefone">Celular com DDD</label>
+          <input type="tel" id="telefone" name="telefone">
           
           <label for="email">E-mail *</label>
           <input type="email" id="email" name="email" required>
+          
+          <!-- Novo campo Instagram (opcional) -->
+          <label for="instagram">Instagram</label>
+          <input type="text" id="instagram" name="instagram">
           
           <label for="tattoo">O que gostaria de tatuar? *</label>
           <input type="text" id="tattoo" name="tattoo" required>
@@ -562,8 +567,8 @@
       <div id="waitlist-form-en" class="hidden">
         <h2>Waitlist Registration</h2>
         <p>
-          If your city is not on my schedule yet, sign up for the waitlist!  
-          Once I confirm a date to travel to your region, I will notify registered clients in advance – ensuring priority in choosing an appointment time.  
+          If your city is not currently scheduled on my calendar, sign up for the waitlist!  
+          Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.
           <br><em>Note: I will contact you only when the date is confirmed.</em>
         </p>
         <form action="https://formspree.io/f/mrbpbzzj" method="POST">
@@ -579,11 +584,20 @@
           <label for="state">State *</label>
           <input type="text" id="state" name="state" required>
           
-          <label for="phone">Phone with area code *</label>
-          <input type="tel" id="phone" name="phone" required>
+          <!-- Novo campo País -->
+          <label for="country">Country *</label>
+          <input type="text" id="country" name="country" required>
+          
+          <!-- Campo Phone opcional -->
+          <label for="phone">Phone with area code</label>
+          <input type="tel" id="phone" name="phone">
           
           <label for="emailEn">E-mail *</label>
           <input type="email" id="emailEn" name="email" required>
+          
+          <!-- Novo campo Instagram (opcional) -->
+          <label for="instagramEn">Instagram</label>
+          <input type="text" id="instagramEn" name="instagram">
           
           <label for="tattooEn">What tattoo would you like? *</label>
           <input type="text" id="tattooEn" name="tattoo" required>
