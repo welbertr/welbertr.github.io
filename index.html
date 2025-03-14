@@ -346,16 +346,14 @@
       font-weight: 500;
     }
 
-    /* Estilos de foco para navegação via teclado */
-    button:not(:focus-visible),
-    a:not(:focus-visible) {
-      outline: none;
-      box-shadow: none;
+    /* Estilo para o link da lista de espera */
+    .waitlist-link {
+      color: #007BFF;
+      text-decoration: none;
+      font-weight: 500;
     }
-    button:focus-visible,
-    a:focus-visible {
-      outline: 2px solid #ccc;
-      outline-offset: 2px;
+    .waitlist-link:hover {
+      text-decoration: underline;
     }
 
     @media (min-width: 768px) {
@@ -488,6 +486,7 @@
           <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt', 'btn-lista-espera-pt')">Lista de Espera</h2>
           <div id="lista-espera-pt" class="accordion-content" role="region" aria-labelledby="btn-lista-espera-pt">
             <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
+            <p><a href="#waitlist-form" class="waitlist-link">Entrar para lista</a></p>
           </div>
         </div>
         <div class="accordion-section">
@@ -528,6 +527,7 @@
           <h2 id="btn-waitlist-en" role="button" aria-expanded="false" aria-controls="waitlist-en" onclick="toggleAccordion('waitlist-en', 'btn-waitlist-en')">Waitlist</h2>
           <div id="waitlist-en" class="accordion-content" role="region" aria-labelledby="btn-waitlist-en">
             <p>When I open my schedule for other regions, I start accepting bookings for those locations. Once dates are confirmed, I notify clients on the waitlist in advance, giving them priority in choosing their appointment time.</p>
+            <p><a href="#waitlist-form" class="waitlist-link">Join the Waitlist</a></p>
           </div>
         </div>
         <div class="accordion-section">
@@ -544,13 +544,101 @@
       </div>
     </section>
 
-    <!-- Seção de Contato -->
+    <!-- Seção de Formulário da Lista de Espera -->
+    <section id="waitlist-form">
+      <!-- Versão PT -->
+      <div id="waitlist-form-pt">
+        <h2>Inscrição na Lista de Espera</h2>
+        <form action="https://formspree.io/f/seu-endpoint" method="POST">
+          <label for="nome">Nome *</label>
+          <input type="text" id="nome" name="nome" required>
+          
+          <label for="idade">Idade *</label>
+          <input type="number" id="idade" name="idade" required>
+          
+          <label for="cidade">Cidade *</label>
+          <input type="text" id="cidade" name="cidade" required>
+          
+          <label for="estado">Estado *</label>
+          <input type="text" id="estado" name="estado" required>
+          
+          <label for="telefone">Celular com DDD *</label>
+          <input type="tel" id="telefone" name="telefone" required>
+          
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" required>
+          
+          <label for="tattoo">O que gostaria de tatuar? *</label>
+          <input type="text" id="tattoo" name="tattoo" required>
+          
+          <label for="tamanho">Tamanho aproximado (em cm) *</label>
+          <input type="number" id="tamanho" name="tamanho" required>
+          
+          <label for="local">Local do corpo *</label>
+          <input type="text" id="local" name="local" required>
+          
+          <fieldset>
+            <legend>Já tatuou comigo anteriormente? *</legend>
+            <input type="radio" id="sim" name="tatuagem" value="Sim" required>
+            <label for="sim">Sim</label>
+            <input type="radio" id="nao" name="tatuagem" value="Não" required>
+            <label for="nao">Não</label>
+          </fieldset>
+          
+          <button type="submit">Inscrever-se</button>
+        </form>
+      </div>
+      <!-- Versão EN -->
+      <div id="waitlist-form-en" class="hidden">
+        <h2>Waitlist Registration</h2>
+        <form action="https://formspree.io/f/seu-endpoint" method="POST">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" required>
+          
+          <label for="age">Age *</label>
+          <input type="number" id="age" name="age" required>
+          
+          <label for="city">City *</label>
+          <input type="text" id="city" name="city" required>
+          
+          <label for="state">State *</label>
+          <input type="text" id="state" name="state" required>
+          
+          <label for="phone">Phone with area code *</label>
+          <input type="tel" id="phone" name="phone" required>
+          
+          <label for="emailEn">E-mail *</label>
+          <input type="email" id="emailEn" name="email" required>
+          
+          <label for="tattooEn">What tattoo would you like? *</label>
+          <input type="text" id="tattooEn" name="tattoo" required>
+          
+          <label for="size">Approximate size (in cm) *</label>
+          <input type="number" id="size" name="size" required>
+          
+          <label for="bodyLocation">Body location *</label>
+          <input type="text" id="bodyLocation" name="bodyLocation" required>
+          
+          <fieldset>
+            <legend>Have you been tattooed by me before? *</legend>
+            <input type="radio" id="yes" name="tattooedBefore" value="Yes" required>
+            <label for="yes">Yes</label>
+            <input type="radio" id="no" name="tattooedBefore" value="No" required>
+            <label for="no">No</label>
+          </fieldset>
+          
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Seção de Contato (original) -->
     <section>
       <h2 class="contact-title" onclick="toggleContato()" role="button" aria-expanded="false" aria-controls="contato-info">CONTATO | CONTACT</h2>
       <div id="contato-info" class="accordion-content" role="region">
         <p><span class="contato-label">E-mail:</span> <a href="mailto:Welbertc.rodriguess@gmail.com" class="email">Welbertc.rodriguess@gmail.com</a></p>
-        <p><span class="contato-label">WhatsApp:</span> <a href="https://wa.me/5531920022832" target="_blank" class="whatsapp">+55 31 92002-2832</a></p>
-        <p><a href="https://www.instagram.com/we.ro___" target="_blank" class="instagram-btn">INSTAGRAM</a></p>
+        <p><span class="contato-label">WhatsApp:</span> <a href="https://wa.me/5531920022832" target="_blank" rel="noopener noreferrer" class="whatsapp">+55 31 92002-2832</a></p>
+        <p><a href="https://www.instagram.com/we.ro___" target="_blank" rel="noopener noreferrer" class="instagram-btn">INSTAGRAM</a></p>
       </div>
     </section>
   </main>
@@ -614,6 +702,8 @@
     function toggleLanguage() {
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
+      const waitlistFormPt = document.getElementById("waitlist-form-pt");
+      const waitlistFormEn = document.getElementById("waitlist-form-en");
       const langBtn = document.getElementById("lang-btn");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const availabilityText = document.getElementById("availability-text");
@@ -621,6 +711,8 @@
       if (currentLanguage === "en") {
         contentPt.classList.remove("hidden");
         contentEn.classList.add("hidden");
+        waitlistFormPt.classList.remove("hidden");
+        waitlistFormEn.classList.add("hidden");
         langBtn.textContent = "EN";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
         availabilityText.textContent = "Consulte disponibilidade.";
@@ -628,6 +720,8 @@
       } else {
         contentPt.classList.add("hidden");
         contentEn.classList.remove("hidden");
+        waitlistFormPt.classList.add("hidden");
+        waitlistFormEn.classList.remove("hidden");
         langBtn.textContent = "PT";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
         availabilityText.textContent = "Check availability.";
@@ -685,7 +779,7 @@
     }
 
     function loadState() {
-      // Se houver âncora na URL, atualiza o estado e remove a âncora para não sobrescrever o localStorage
+      // Se houver âncora na URL, atualiza o estado e remove a âncora
       if (window.location.hash === "#info") {
         localStorage.setItem("section", "info");
         history.replaceState(null, null, window.location.pathname);
@@ -709,12 +803,11 @@
       if (language === "en") {
         contentPt.classList.add("hidden");
         contentEn.classList.remove("hidden");
-        langBtn.textContent = "PT";
       } else {
         contentPt.classList.remove("hidden");
         contentEn.classList.add("hidden");
-        langBtn.textContent = "EN";
       }
+      
       const section = localStorage.getItem("section");
       if (section === "info") {
         document.getElementById("gallery-section").classList.add("hidden");
@@ -729,9 +822,31 @@
         availabilityText.style.display = "block";
         customLine.style.display = "block";
       }
+      
+      // Atualiza os formulários de lista de espera de acordo com o idioma
+      if (language === "en") {
+        document.getElementById("waitlist-form-pt").classList.add("hidden");
+        document.getElementById("waitlist-form-en").classList.remove("hidden");
+      } else {
+        document.getElementById("waitlist-form-pt").classList.remove("hidden");
+        document.getElementById("waitlist-form-en").classList.add("hidden");
+      }
     }
 
     loadState();
+
+    // Tratamento para ativação via teclado (Enter/Space) em elementos com role="button"
+    document.querySelectorAll('[role="button"]:not(button)').forEach(elem => {
+      if (!elem.hasAttribute('tabindex')) {
+        elem.setAttribute('tabindex', '0');
+      }
+      elem.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          elem.click();
+        }
+      });
+    });
   </script>
 </body>
 </html>
