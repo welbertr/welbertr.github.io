@@ -328,6 +328,12 @@
       margin-bottom: 5px;
       display: block;
     }
+    /* Estilo específico para a pergunta dos radios */
+    .radio-group-label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
     #waitlist-form input,
     #waitlist-form button,
     #waitlist-form fieldset {
@@ -527,14 +533,14 @@
       </div>
     </section>
     
-    <!-- Seção do Formulário da Lista de Espera (nova área) -->
+    <!-- Seção do Formulário da Lista de Espera (seção waitlist) -->
     <section id="waitlist-form" class="hidden">
       <!-- Versão PT -->
       <div id="waitlist-form-pt">
         <h2>Inscrição na Lista de Espera</h2>
         <p>
           Se a sua cidade ainda não está na minha agenda, inscreva-se na lista de espera!  
-          Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha do horário.  
+          Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha de horário.  
           <br><em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em>
         </p>
         <form id="form-pt" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
@@ -574,8 +580,8 @@
           <label for="local">Local do corpo *</label>
           <input type="text" id="local" name="local" required>
           
-          <!-- Pergunta posicionada como label acima -->
-          <label>Já tatuou comigo anteriormente? *</label>
+          <!-- Pergunta posicionada como label acima dos radios -->
+          <label class="radio-group-label">Já tatuou comigo anteriormente? *</label>
           <div class="radio-inline">
             <input type="radio" id="sim" name="tatuagem" value="Sim" required>
             <label for="sim">Sim</label>
@@ -638,8 +644,8 @@
           <label for="bodyLocation">Body location *</label>
           <input type="text" id="bodyLocation" name="bodyLocation" required>
           
-          <!-- Pergunta posicionada como label acima -->
-          <label>Have you been tattooed by me before? *</label>
+          <!-- Pergunta posicionada como label acima dos radios -->
+          <label class="radio-group-label">Have you been tattooed by me before? *</label>
           <div class="radio-inline">
             <input type="radio" id="yes" name="tattooedBefore" value="Yes" required>
             <label for="yes">Yes</label>
@@ -772,13 +778,31 @@
     function toggleGalleryInfo() {
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info");
+      const waitlistFormSection = document.getElementById("waitlist-form");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const availabilityText = document.getElementById("availability-text");
       const customLine = document.querySelector('.custom-line');
       const language = localStorage.getItem("language") || "pt";
+      const section = localStorage.getItem("section");
+  
+      if (section === "waitlist") {
+        // Se estiver no formulário, voltar para a seção info
+        waitlistFormSection.style.opacity = 0;
+        setTimeout(() => {
+          waitlistFormSection.classList.add("hidden");
+          infoSection.classList.remove("hidden");
+          infoSection.style.opacity = 0;
+          galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
+          localStorage.setItem("section", "info");
+          availabilityText.style.display = "none";
+          customLine.style.display = "none";
+          setTimeout(() => { infoSection.style.opacity = 1; }, 50);
+        }, 300);
+        return;
+      }
   
       if (!gallerySection.classList.contains("hidden")) {
-        // Fade out gallery, then switch to info
+        // Fade out gallery, then show info
         gallerySection.style.opacity = 0;
         setTimeout(() => {
           gallerySection.classList.add("hidden");
@@ -788,12 +812,10 @@
           localStorage.setItem("section", "info");
           availabilityText.style.display = "none";
           customLine.style.display = "none";
-          setTimeout(() => {
-            infoSection.style.opacity = 1;
-          }, 50);
+          setTimeout(() => { infoSection.style.opacity = 1; }, 50);
         }, 300);
       } else {
-        // Fade out info, then switch to gallery
+        // Fade out info, then show gallery
         infoSection.style.opacity = 0;
         setTimeout(() => {
           infoSection.classList.add("hidden");
@@ -803,9 +825,7 @@
           localStorage.setItem("section", "gallery");
           availabilityText.style.display = "block";
           customLine.style.display = "block";
-          setTimeout(() => {
-            gallerySection.style.opacity = 1;
-          }, 50);
+          setTimeout(() => { gallerySection.style.opacity = 1; }, 50);
         }, 300);
       }
     }
@@ -859,14 +879,11 @@
       const infoSection = document.getElementById("info");
       const waitlistFormSection = document.getElementById("waitlist-form");
       
-      if (language === "en") {
-        contentPt.classList.add("hidden");
-        contentEn.classList.remove("hidden");
-      } else {
-        contentPt.classList.remove("hidden");
-        contentEn.classList.add("hidden");
-      }
-      
+      // Reset opacities para garantir a transição
+      gallerySection.style.opacity = "";
+      infoSection.style.opacity = "";
+      waitlistFormSection.style.opacity = "";
+  
       const section = localStorage.getItem("section");
       if (section === "info") {
         gallerySection.classList.add("hidden");
@@ -875,6 +892,7 @@
         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
         availabilityText.style.display = "none";
         customLine.style.display = "none";
+        infoSection.style.opacity = 1;
       } else if (section === "waitlist") {
         gallerySection.classList.add("hidden");
         infoSection.classList.add("hidden");
@@ -882,6 +900,8 @@
         galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "none";
         customLine.style.display = "none";
+        waitlistFormSection.style.opacity = 0;
+        setTimeout(() => { waitlistFormSection.style.opacity = 1; }, 50);
       } else {
         gallerySection.classList.remove("hidden");
         infoSection.classList.add("hidden");
@@ -889,6 +909,7 @@
         galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "block";
         customLine.style.display = "block";
+        gallerySection.style.opacity = 1;
       }
       
       if (language === "en") {
@@ -902,7 +923,7 @@
   
     loadState();
   
-    // Feedback de envio dos formulários via AJAX
+    // Feedback de envio dos formulários via AJAX com response.text()
     function handleFormSubmission(formId, feedbackId) {
       const form = document.getElementById(formId);
       form.addEventListener("submit", function(event) {
