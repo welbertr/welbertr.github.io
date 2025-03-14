@@ -519,7 +519,7 @@
           Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha do horário.  
           <br><em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em>
         </p>
-        <form action="https://formspree.io/f/mrbpbzzj" method="POST">
+        <form action="https://formspree.io/f/mrbpbzzj" method="POST" enctype="multipart/form-data">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
           
@@ -546,6 +546,10 @@
           <label for="tattoo">O que gostaria de tatuar? *</label>
           <input type="text" id="tattoo" name="tattoo" required>
           
+          <!-- Novo campo para upload de imagem de referência -->
+          <label for="reference-image">Imagem de Referência:</label>
+          <input type="file" id="reference-image" name="reference-image" accept="image/*">
+          
           <label for="tamanho">Tamanho aproximado (em cm) *</label>
           <input type="number" id="tamanho" name="tamanho" required>
           
@@ -571,7 +575,7 @@
           Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.
           <br><em>Note: I will contact you only when the date is confirmed.</em>
         </p>
-        <form action="https://formspree.io/f/mrbpbzzj" method="POST">
+        <form action="https://formspree.io/f/mrbpbzzj" method="POST" enctype="multipart/form-data">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" required>
           
@@ -601,6 +605,10 @@
           
           <label for="tattooEn">What tattoo would you like? *</label>
           <input type="text" id="tattooEn" name="tattoo" required>
+          
+          <!-- Novo campo para upload de imagem de referência -->
+          <label for="reference-image-en">Reference Image:</label>
+          <input type="file" id="reference-image-en" name="reference-image" accept="image/*">
           
           <label for="size">Approximate size (in cm) *</label>
           <input type="number" id="size" name="size" required>
