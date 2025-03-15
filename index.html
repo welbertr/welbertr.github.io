@@ -42,7 +42,7 @@
       text-decoration: none;
     }
     
-    /* Ocultar elementos (mantido para outros usos) */
+    /* Ocultar elementos */
     .hidden {
       display: none !important;
     }
@@ -376,13 +376,10 @@
       visibility: hidden;
     }
     
-    /* Regras para a seção de contatos para "subir" em modo INFO */
+    /* Espaçamento consistente para a seção de contato */
     #contact-section {
-      margin-top: 10px;
+      margin-top: 20px;
       transition: margin-top 0.3s ease;
-    }
-    #contact-section.raised {
-      margin-top: -80px;
     }
     
     /* Responsive */
@@ -964,12 +961,8 @@
         document.getElementById("waitlist-form-en").classList.add("hidden");
       }
       
-      const contactSection = document.getElementById("contact-section");
-      if (section === "info") {
-        contactSection.classList.add("raised");
-      } else {
-        contactSection.classList.remove("raised");
-      }
+      // Removi a lógica que aplicava a classe "raised" na seção de contato,
+      // para manter um espaçamento consistente.
     }
   
     loadState();
