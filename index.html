@@ -103,7 +103,7 @@
       text-align: center;
       border: none;
       padding: 8px 16px;
-      margin: 20px 0 8px; /* Margem inferior reduzida para aproximar do conteúdo */
+      margin: 20px 0 8px;
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
@@ -114,7 +114,7 @@
     p, ul, li {
       font-size: 14px;
       text-align: justify;
-      margin-bottom: 8px; /* Espaçamento interno reduzido */
+      margin-bottom: 8px;
     }
     
     ul {
@@ -262,7 +262,7 @@
     /* Acordeons */
     .accordion-content {
       overflow: hidden;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.8s ease;
       opacity: 1;
     }
     .accordion-content:not(.active) {
@@ -311,7 +311,7 @@
       border: 1px solid #ddd;
       border-radius: 8px;
       background-color: #fff;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.8s ease;
     }
     #waitlist-form h2 {
       margin-bottom: 20px;
@@ -365,11 +365,11 @@
       margin-right: 5px;
     }
 
-    /* Seções principais: Transição suave por opacidade */
+    /* Seções principais: Transição suave de opacidade e visibilidade */
     section.section {
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
     }
     section.section.hidden {
       opacity: 0;
@@ -378,7 +378,7 @@
     
     /* Regras para a seção de contatos para "subir" em modo INFO */
     #contact-section {
-      margin-top: 10px; /* Espaçamento superior reduzido */
+      margin-top: 10px;
       transition: margin-top 0.3s ease;
     }
     #contact-section.raised {
@@ -892,7 +892,6 @@
       } else {
         contatoInfo.classList.add("active");
         document.querySelector('.contact-title').setAttribute("aria-expanded", "true");
-        // Ao abrir, rola suavemente para a seção de contato com um offset maior
         const yOffset = -150;
         const y = contactSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: y, behavior: 'smooth' });
