@@ -42,7 +42,7 @@
       text-decoration: none;
     }
     
-    /* Ocultar elementos */
+    /* Ocultar elementos (mantido para outros usos) */
     .hidden {
       display: none !important;
     }
@@ -415,6 +415,24 @@
       #waitlist-form button { background-color: #000; }
       #waitlist-form button:hover { background-color: #333; }
     }
+
+    /* --- Transições Suaves para as Seções Principais --- */
+    /* Essas regras se aplicam somente aos elementos <section> que receberam a classe "section" */
+    section.section {
+      display: block !important;
+      overflow: hidden;
+      max-height: 2000px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease;
+    }
+    section.section.hidden {
+      display: block !important;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -433,12 +451,12 @@
   
   <main id="main-content">
     <!-- Seção da Galeria -->
-    <section id="gallery-section">
+    <section id="gallery-section" class="section">
       <div class="gallery" aria-label="Galeria de desenhos"></div>
     </section>
     
     <!-- Seção de Informações -->
-    <section id="info" class="hidden" aria-label="Informações para agendamento">
+    <section id="info" class="section hidden" aria-label="Informações para agendamento">
       <!-- Conteúdo PT -->
       <div id="content-pt">
         <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
@@ -523,7 +541,7 @@
     </section>
     
     <!-- Seção do Formulário da Lista de Espera -->
-    <section id="waitlist-form" class="hidden">
+    <section id="waitlist-form" class="section hidden">
       <!-- Versão PT -->
       <div id="waitlist-form-pt">
         <h2>Inscrição na Lista de Espera</h2>
