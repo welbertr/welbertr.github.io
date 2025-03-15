@@ -368,13 +368,21 @@
       margin-right: 5px;
     }
 
-    /* Regras para a seção de contato para "subir" em modo INFO */
+    /* Regras para a seção de contatos para "subir" em modo INFO */
     #contact-section {
       margin-top: 20px; /* Valor padrão */
       transition: margin-top 0.3s ease;
     }
     #contact-section.raised {
-      margin-top: -80px; /* Valor ajustado para -80px */
+      margin-top: -80px; /* Elevação definida anteriormente */
+    }
+
+    /* Regras específicas para aproximar o conteúdo da seção de contatos do título */
+    #contact-section #contato-info.active {
+      padding-top: 0 !important;
+    }
+    #contact-section #contato-info p {
+      margin-top: 0 !important;
     }
 
     /* Responsive */
@@ -423,17 +431,15 @@
         color: #e0e0e0;
         border: 1px solid #444;
       }
-      /* Atualização do botão para fundo preto também no modo escuro */
       #waitlist-form button { background-color: #000; }
       #waitlist-form button:hover { background-color: #333; }
     }
 
     /* --- Transições Suaves para as Seções Principais --- */
-    /* Essas regras se aplicam somente aos elementos <section> que receberam a classe "section" */
     section.section {
       display: block !important;
       overflow: hidden;
-      max-height: 10000px; /* Valor aumentado para comportar conteúdo maior */
+      max-height: 10000px;
       opacity: 1;
       transform: translateY(0);
       transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease;
