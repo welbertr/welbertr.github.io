@@ -350,10 +350,13 @@
     #waitlist-form fieldset {
       border: none;
       padding: 0;
+      /* Ajuste para deixar a legend mais distante dos inputs */
+      display: block;
     }
     #waitlist-form fieldset legend {
       font-weight: 500;
-      margin-bottom: 5px;
+      margin-bottom: 10px; /* valor que afasta a pergunta dos botões */
+      display: block;
     }
     
     .radio-inline {
@@ -960,8 +963,6 @@
         document.getElementById("waitlist-form-pt").classList.remove("hidden");
         document.getElementById("waitlist-form-en").classList.add("hidden");
       }
-      
-      // Mantém o espaçamento consistente para a seção de contato
     }
   
     loadState();
