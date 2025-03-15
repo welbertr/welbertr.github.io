@@ -283,7 +283,7 @@
       text-align: center;
     }
     #contato-info .contato-label {
-      font-weight: normal; /* Labels 'E-mail' e 'WhatsApp' agora normais */
+      font-weight: normal; /* Rótulos 'E-mail' e 'WhatsApp' normais */
       color: #666;
     }
     #contato-info a.email,
@@ -366,6 +366,15 @@
     }
     .radio-inline input[type="radio"] {
       margin-right: 5px;
+    }
+
+    /* Regras para a seção de contato para "subir" em modo INFO */
+    #contact-section {
+      margin-top: 20px; /* Valor padrão */
+      transition: margin-top 0.3s ease;
+    }
+    #contact-section.raised {
+      margin-top: -30px; /* Valor negativo para elevar a seção */
     }
 
     /* Responsive */
@@ -672,7 +681,7 @@
     </section>
     
     <!-- Seção de Contato -->
-    <section>
+    <section id="contact-section">
       <h2 class="contact-title" onclick="toggleContato()" role="button" aria-expanded="false" aria-controls="contato-info">CONTATO | CONTACT</h2>
       <div id="contato-info" class="accordion-content" role="region">
         <p><span class="contato-label">E-mail:</span> <a href="mailto:Welbertc.rodriguess@gmail.com" class="email">Welbertc.rodriguess@gmail.com</a></p>
@@ -974,6 +983,14 @@
       } else {
         document.getElementById("waitlist-form-pt").classList.remove("hidden");
         document.getElementById("waitlist-form-en").classList.add("hidden");
+      }
+      
+      // Ajusta a posição da seção de contatos:
+      const contactSection = document.getElementById("contact-section");
+      if (section === "info") {
+        contactSection.classList.add("raised");
+      } else {
+        contactSection.classList.remove("raised");
       }
     }
   
