@@ -354,8 +354,7 @@
     }
     #waitlist-form fieldset legend {
       font-weight: 500;
-      /* Aumentei a margem superior e inferior para afastar do campo em modo escuro */
-      margin: 10px 0 10px 0; 
+      margin: 10px 0 10px 0; /* Espaçamento para posicionar a legenda acima dos botões */
       display: block;
     }
     
@@ -550,7 +549,9 @@
           Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha do horário.  
           <br><em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em>
         </p>
-        <form action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
+        <!-- Container para exibição da mensagem -->
+        <div class="form-message" style="margin-top: 10px; font-weight: bold;"></div>
+        <form id="myFormPt" class="waitlist-form" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
           
@@ -569,7 +570,6 @@
           <label for="email">E-mail *</label>
           <input type="email" id="email" name="email" required>
           
-          <!-- Instagram agora obrigatório -->
           <label for="instagram">Instagram *</label>
           <input type="text" id="instagram" name="instagram" required>
           
@@ -608,7 +608,9 @@
           Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.
           <br><em>Note: I will contact you only when the date is confirmed.</em>
         </p>
-        <form action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
+        <!-- Container para exibição da mensagem -->
+        <div class="form-message" style="margin-top: 10px; font-weight: bold;"></div>
+        <form id="myFormEn" class="waitlist-form" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" required>
           
@@ -630,7 +632,6 @@
           <label for="emailEn">E-mail *</label>
           <input type="email" id="emailEn" name="email" required>
           
-          <!-- Instagram agora obrigatório -->
           <label for="instagramEn">Instagram *</label>
           <input type="text" id="instagramEn" name="instagram" required>
           
@@ -744,6 +745,50 @@
         localStorage.setItem("section", "waitlist");
         loadState();
         document.getElementById("waitlist-form").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+    
+    // Intercepta o envio dos formulários de inscrição e exibe mensagens
+    document.querySelectorAll("form.waitlist-form").forEach(form => {
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        // Encontra o contêiner para a mensagem (dentro do mesmo formulário)
+        const formMessage = form.querySelector(".form-message");
+        // Cria o objeto FormData
+        const formData = new FormData(form);
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: formData
+          });
+          if(response.ok){
+            // Verifica se o formulário é PT ou EN pelo seu id
+            if(form.id === "myFormPt"){
+              formMessage.style.color = "#007BFF";
+              formMessage.textContent = "Obrigado! Recebi sua inscrição e, em breve, entrarei em contato.";
+            } else {
+              formMessage.style.color = "#007BFF";
+              formMessage.textContent = "Thank you! Your registration was received, and I will contact you shortly.";
+            }
+            form.reset();
+          } else {
+            if(form.id === "myFormPt"){
+              formMessage.style.color = "#007BFF";
+              formMessage.textContent = "Não foi possível enviar sua mensagem. Por favor, tente novamente.";
+            } else {
+              formMessage.style.color = "#007BFF";
+              formMessage.textContent = "Unable to send your message. Please try again.";
+            }
+          }
+        } catch (error) {
+          if(form.id === "myFormPt"){
+            formMessage.style.color = "#007BFF";
+            formMessage.textContent = "Falha de conexão. Por favor, verifique sua internet e tente novamente.";
+          } else {
+            formMessage.style.color = "#007BFF";
+            formMessage.textContent = "Connection failed. Please check your internet and try again.";
+          }
+        }
       });
     });
     
