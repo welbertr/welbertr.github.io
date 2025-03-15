@@ -103,7 +103,7 @@
       text-align: center;
       border: none;
       padding: 8px 16px;
-      margin-top: 20px; /* Reduzido de 50px para 20px */
+      margin-top: 20px;
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
@@ -283,7 +283,7 @@
       text-align: center;
     }
     #contato-info .contato-label {
-      font-weight: normal; /* Rótulos 'E-mail' e 'WhatsApp' normais */
+      font-weight: normal;
       color: #666;
     }
     #contato-info a.email,
@@ -337,7 +337,6 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
-    /* Botão de envio com fundo preto */
     #waitlist-form button {
       background-color: #000;
       color: #fff;
@@ -355,10 +354,6 @@
       margin-bottom: 5px;
     }
     
-    /*
-      Estilo para alinhar botões de rádio:
-      Agrupamos input + label em .radio-inline
-    */
     .radio-inline {
       display: inline-flex;
       align-items: center;
@@ -370,17 +365,14 @@
 
     /* Regras para a seção de contatos para "subir" em modo INFO */
     #contact-section {
-      margin-top: 20px; /* Valor padrão */
+      margin-top: 20px;
       transition: margin-top 0.3s ease;
     }
     #contact-section.raised {
-      margin-top: -80px; /* Elevação definida anteriormente */
+      margin-top: -80px;
     }
 
-    /* Regras específicas para aproximar o conteúdo da seção de contatos do título */
-    #contact-section #contato-info.active {
-      padding-top: 0 !important;
-    }
+    /* Regras para aproximar o conteúdo da seção de contatos do título */
     #contact-section #contato-info p {
       margin-top: 0 !important;
     }
@@ -421,7 +413,6 @@
       header.sticky-header { background-color: #121212; }
       .custom-line { border-bottom: 1px solid #444; }
       
-      /* Formulário */
       #waitlist-form {
         background-color: #1e1e1e;
         border: 1px solid #444;
@@ -435,7 +426,7 @@
       #waitlist-form button:hover { background-color: #333; }
     }
 
-    /* --- Transições Suaves para as Seções Principais --- */
+    /* Transições Suaves para as Seções Principais */
     section.section {
       display: block !important;
       overflow: hidden;
@@ -581,21 +572,18 @@
           <label for="estado">Estado *</label>
           <input type="text" id="estado" name="estado" required>
           
-          <!-- Campo Celular opcional -->
           <label for="telefone">Celular com DDD</label>
           <input type="tel" id="telefone" name="telefone">
           
           <label for="email">E-mail *</label>
           <input type="email" id="email" name="email" required>
           
-          <!-- Novo campo Instagram (opcional) -->
           <label for="instagram">Instagram</label>
           <input type="text" id="instagram" name="instagram">
           
           <label for="tattoo">O que gostaria de tatuar? *</label>
           <input type="text" id="tattoo" name="tattoo" required>
           
-          <!-- Novo campo para upload de imagem de referência -->
           <label for="reference-image">Imagem de Referência:</label>
           <input type="file" id="reference-image" name="reference-image" accept="image/*">
           
@@ -641,25 +629,21 @@
           <label for="state">State *</label>
           <input type="text" id="state" name="state" required>
           
-          <!-- Novo campo País -->
           <label for="country">Country *</label>
           <input type="text" id="country" name="country" required>
           
-          <!-- Campo Phone opcional -->
           <label for="phone">Phone with area code</label>
           <input type="tel" id="phone" name="phone">
           
           <label for="emailEn">E-mail *</label>
           <input type="email" id="emailEn" name="email" required>
           
-          <!-- Novo campo Instagram (opcional) -->
           <label for="instagramEn">Instagram</label>
           <input type="text" id="instagramEn" name="instagram">
           
           <label for="tattooEn">What tattoo would you like? *</label>
           <input type="text" id="tattooEn" name="tattoo" required>
           
-          <!-- Novo campo para upload de imagem de referência -->
           <label for="reference-image-en">Reference Image:</label>
           <input type="file" id="reference-image-en" name="reference-image" accept="image/*">
           
@@ -770,7 +754,6 @@
       });
     });
     
-    // Mapeamento dos acordeons para troca de idioma
     const accordionMapping = {
       "orcamento": { pt: "orcamento-pt", en: "pricing-en", btnPt: "btn-orcamento-pt", btnEn: "btn-pricing-en" },
       "agendamento": { pt: "agendamento-pt", en: "booking-en", btnPt: "btn-agendamento-pt", btnEn: "btn-booking-en" },
@@ -782,7 +765,6 @@
       const currentLanguage = localStorage.getItem("language") || "pt";
       const activeAccordions = [];
       
-      // Armazena os acordeons ativos do idioma atual
       Object.keys(accordionMapping).forEach(key => {
         if (currentLanguage === "pt") {
           const elem = document.getElementById(accordionMapping[key].pt);
@@ -797,7 +779,6 @@
         }
       });
   
-      // Alterna o idioma
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
       const waitlistFormPt = document.getElementById("waitlist-form-pt");
@@ -826,7 +807,6 @@
         localStorage.setItem("language", "en");
       }
   
-      // Limpa o estado "active" de todos os acordeons (tanto dos containers PT quanto EN)
       Object.keys(accordionMapping).forEach(key => {
         const ptElem = document.getElementById(accordionMapping[key].pt);
         const ptBtn = document.getElementById(accordionMapping[key].btnPt);
@@ -842,7 +822,6 @@
         }
       });
   
-      // Reabre somente os acordeons que estavam ativos no idioma atual
       const newLang = localStorage.getItem("language");
       activeAccordions.forEach(key => {
         if (newLang === "pt") {
@@ -873,7 +852,6 @@
       const availabilityText = document.getElementById("availability-text");
       const customLine = document.querySelector('.custom-line');
   
-      // Se estiver na área do formulário, redireciona para a seção de Informações
       if (localStorage.getItem("section") === "waitlist") {
          waitlistFormSection.classList.add("hidden");
          gallerySection.classList.add("hidden");
@@ -916,12 +894,17 @@
   
     function toggleContato() {
       const contatoInfo = document.getElementById("contato-info");
+      const contactSection = document.getElementById("contact-section");
       if (contatoInfo.classList.contains("active")) {
         contatoInfo.classList.remove("active");
         document.querySelector('.contact-title').setAttribute("aria-expanded", "false");
       } else {
         contatoInfo.classList.add("active");
         document.querySelector('.contact-title').setAttribute("aria-expanded", "true");
+        // Ao abrir, rola suavemente para a seção de contato com um offset
+        const yOffset = -50; // ajuste esse valor conforme necessário
+        const y = contactSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
       }
     }
   
@@ -991,7 +974,6 @@
         document.getElementById("waitlist-form-en").classList.add("hidden");
       }
       
-      // Ajusta a posição da seção de contatos:
       const contactSection = document.getElementById("contact-section");
       if (section === "info") {
         contactSection.classList.add("raised");
