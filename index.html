@@ -257,7 +257,7 @@
       font-weight: 700;
       line-height: 1;
     }
-    .top-controls button:hover { opacity: 0.3s ease; }
+    .top-controls button:hover { opacity: 0.8; }
     
     /* Acordeons */
     .accordion-content {
@@ -328,13 +328,39 @@
       margin-bottom: 5px;
       display: block;
     }
+    /* Estilo comum para inputs, botões e fieldset */
+    #waitlist-form input,
+    #waitlist-form button,
+    #waitlist-form fieldset {
+      font-size: 14px;
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    /* Botão de envio maior */
+    #waitlist-form button {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      padding: 12px;
+      font-size: 16px;
+    }
+    #waitlist-form button:hover { background-color: #333; }
+    #waitlist-form fieldset {
+      border: none;
+      padding: 0;
+    }
     /* Estilo para a pergunta dos radios */
     .radio-group-label {
       display: block;
       margin-bottom: 10px;
       font-weight: 500;
     }
-    /* Container para os radios, para parecer uma caixa de input */
+    /* Container para os radios – mesmo tamanho e estilo dos inputs */
     .radio-group-container {
       display: inline-flex;
       align-items: center;
@@ -342,8 +368,8 @@
       border: 1px solid #ccc;
       border-radius: 4px;
       background-color: #fff;
+      width: 100%;
     }
-    /* Ajuste dos radio buttons */
     .radio-inline {
       display: inline-flex;
       align-items: center;
@@ -353,7 +379,7 @@
       margin-right: 5px;
     }
     
-    /* Transição para seções INFO e GALERIA */
+    /* Transição para seções INFO, GALERIA e FORMULÁRIO */
     #gallery-section, #info, #waitlist-form {
       transition: opacity 0.3s ease;
     }
@@ -568,7 +594,7 @@
           <label for="local">Local do corpo *</label>
           <input type="text" id="local" name="local" required>
           
-          <!-- Pergunta acima dos radios -->
+          <!-- Pergunta posicionada como label acima dos radios -->
           <label class="radio-group-label">Já tatuou comigo anteriormente? *</label>
           <div class="radio-group-container">
             <div class="radio-inline">
@@ -583,7 +609,7 @@
           
           <button type="submit">Inscrever-se</button>
         </form>
-        <div id="feedback-pt" style="margin-top:10px; font-size:14px;"></div>
+        <div id="feedback-pt" style="margin-top:10px; font-size:14px; color:#007BFF;"></div>
       </div>
       <!-- Versão EN -->
       <div id="waitlist-form-en" class="hidden">
@@ -634,7 +660,7 @@
           <label for="bodyLocation">Body location *</label>
           <input type="text" id="bodyLocation" name="bodyLocation" required>
           
-          <!-- Pergunta acima dos radios -->
+          <!-- Pergunta posicionada como label acima dos radios -->
           <label class="radio-group-label">Have you been tattooed by me before? *</label>
           <div class="radio-group-container">
             <div class="radio-inline">
@@ -649,7 +675,7 @@
           
           <button type="submit">Submit</button>
         </form>
-        <div id="feedback-en" style="margin-top:10px; font-size:14px;"></div>
+        <div id="feedback-en" style="margin-top:10px; font-size:14px; color:#007BFF;"></div>
       </div>
     </section>
     
@@ -673,74 +699,45 @@
   </div>
   
   <script>
-    // Remoção do parâmetro "fbclid" da URL, se presente.
-    if (window.location.search.includes('fbclid')) {
-      const url = new URL(window.location);
-      url.searchParams.delete('fbclid');
-      history.replaceState(null, '', url.pathname + url.search);
-    }
-    
-    // Array com os números das imagens que realmente existem
-    const imagensValidas = [
-      1,2,3,4,5,6,7,8,9,10,11,12,13,
-      16,17,18,20,21,22,23,24,25,26,
-      27,28,29,30,31,32,33,34,35,36,37,
-      38,39,40,41,42,43,44,45,46,47,48,
-      49,50,51,52,53,54,55,56,57,58,59,
-      60,61,62,63,64,65,66,67,68,69,70,
-      71,72,73,74,75,76,77,78,79,80,
-    ];
-    imagensValidas.reverse();
-  
-    const galleryContainer = document.querySelector('.gallery');
-    const galleryFragment = document.createDocumentFragment();
-    imagensValidas.forEach(num => {
-      const img = document.createElement('img');
-      img.src = `images/desenho${num}.jpg`;
-      img.alt = `Desenho ${num}`;
-      img.loading = 'lazy';
-      img.onerror = function() {
-        this.onerror = null;
-        this.src = 'images/placeholder.jpg';
-      };
-      img.onclick = () => openLightbox(num);
-      galleryFragment.appendChild(img);
-    });
-    galleryContainer.appendChild(galleryFragment);
-  
-    let currentIndex = 0;
-    function openLightbox(num) {
-      currentIndex = imagensValidas.indexOf(num);
-      document.getElementById("lightbox").style.display = "flex";
-      updateLightboxImage();
-    }
-    function closeLightbox() {
-      document.getElementById("lightbox").style.display = "none";
-    }
-    function changeImage(direction) {
-      currentIndex += direction;
-      if (currentIndex < 0) currentIndex = imagensValidas.length - 1;
-      if (currentIndex >= imagensValidas.length) currentIndex = 0;
-      updateLightboxImage();
-    }
-    function updateLightboxImage() {
-      document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
+    // Função para copiar os valores do formulário atual para o outro, para preservar os dados ao trocar de idioma.
+    function copyFormData(sourceForm, targetForm) {
+      const srcElems = sourceForm.elements;
+      for (let i = 0; i < srcElems.length; i++) {
+        const srcElem = srcElems[i];
+        if (srcElem.name) {
+          const tgtElem = targetForm.elements[srcElem.name];
+          if (tgtElem) {
+            if (srcElem.type === "radio") {
+              if (srcElem.checked) {
+                if (tgtElem.length !== undefined) {
+                  for (let j = 0; j < tgtElem.length; j++) {
+                    if (tgtElem[j].value === srcElem.value) {
+                      tgtElem[j].checked = true;
+                    }
+                  }
+                } else {
+                  tgtElem.checked = true;
+                }
+              }
+            } else {
+              tgtElem.value = srcElem.value;
+            }
+          }
+        }
+      }
     }
   
-    // Tratamento para os links "waitlist-link"
-    document.querySelectorAll('.waitlist-link').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        localStorage.setItem("section", "waitlist");
-        loadState();
-        document.getElementById("waitlist-form").scrollIntoView({ behavior: "smooth" });
-      });
-    });
-  
-    // Função de troca de idioma sem afetar o estado dos accordions
+    // Troca de idioma sem resetar os accordions nem os valores do formulário
     function toggleLanguage() {
       let currentLanguage = localStorage.getItem("language") || "pt";
       let newLanguage = currentLanguage === "en" ? "pt" : "en";
+      
+      // Copiar dados do formulário atual para o outro
+      if(newLanguage === "en") {
+        copyFormData(document.getElementById("form-pt"), document.getElementById("form-en"));
+      } else {
+        copyFormData(document.getElementById("form-en"), document.getElementById("form-pt"));
+      }
       localStorage.setItem("language", newLanguage);
   
       if(newLanguage === "en") {
@@ -758,7 +755,7 @@
         document.getElementById("lang-btn").textContent = "EN";
         document.getElementById("availability-text").textContent = "Consulte disponibilidade.";
       }
-      // Não alteramos o estado dos accordions ao trocar o idioma.
+      // Os accordions e os valores dos inputs permanecem inalterados.
     }
   
     function toggleGalleryInfo() {
@@ -908,7 +905,7 @@
   
     loadState();
   
-    // Feedback de envio dos formulários via AJAX com mensagens conforme o idioma
+    // Feedback de envio dos formulários via AJAX com mensagens de acordo com o idioma
     function handleFormSubmission(formId, feedbackId) {
       const form = document.getElementById(formId);
       form.addEventListener("submit", function(event) {
@@ -925,7 +922,7 @@
             "Thank you! Your registration was sent successfully. Please wait for a response." :
             "Obrigado! Sua inscrição foi enviada com sucesso. Aguarde retorno.";
           document.getElementById(feedbackId).textContent = successMsg;
-          form.reset();
+          // NÃO resetamos o formulário para preservar os dados caso o usuário troque de idioma
         })
         .catch(error => {
           let lang = localStorage.getItem("language") || "pt";
@@ -938,6 +935,34 @@
     }
     handleFormSubmission("form-pt", "feedback-pt");
     handleFormSubmission("form-en", "feedback-en");
+  
+    // Função para copiar dados entre formulários ao trocar idioma (para não perder os valores)
+    function copyFormData(sourceForm, targetForm) {
+      const srcElems = sourceForm.elements;
+      for (let i = 0; i < srcElems.length; i++) {
+        const srcElem = srcElems[i];
+        if (srcElem.name) {
+          const tgtElem = targetForm.elements[srcElem.name];
+          if (tgtElem) {
+            if (srcElem.type === "radio") {
+              if (srcElem.checked) {
+                if (tgtElem.length !== undefined) {
+                  for (let j = 0; j < tgtElem.length; j++) {
+                    if (tgtElem[j].value === srcElem.value) {
+                      tgtElem[j].checked = true;
+                    }
+                  }
+                } else {
+                  tgtElem.checked = true;
+                }
+              }
+            } else {
+              tgtElem.value = srcElem.value;
+            }
+          }
+        }
+      }
+    }
   
     document.querySelectorAll('[role="button"]:not(button)').forEach(elem => {
       if (!elem.hasAttribute("tabindex")) {
