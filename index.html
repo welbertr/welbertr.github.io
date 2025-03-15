@@ -6,7 +6,7 @@
   <title>Welbert Rodrigues</title>
   
   <!-- Meta Tags para SEO -->
-  <meta name="description" content="Site minimalista e intuitivo de Welbert Rodrigues, com galeria de desenhos e informações para agendamento de tatuagens. Minimalist and intuitive website by Welbert Rodrigues, showcasing tattoo designs and scheduling information." />
+  <meta name="description" content="Site minimalista e intuitivo de Welbert Rodrigues com galeria de desenhos e informações para agendamento de tatuagens." />
   <meta name="keywords" content="Welbert Rodrigues, tatuagens, portfólio, agendamento, minimalista" />
 
   <!-- Meta Tags Open Graph -->
@@ -264,13 +264,11 @@
       max-height: 0;
       overflow: hidden;
       padding: 0;
-      opacity: 0;
-      transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+      transition: max-height 0.3s ease, padding 0.3s ease;
     }
     .accordion-content.active {
       max-height: 500px;
       padding: 10px 0;
-      opacity: 1;
     }
     .accordion-section { margin-bottom: 30px; }
     
@@ -302,15 +300,13 @@
     }
     .waitlist-link:hover { text-decoration: underline; }
     
-    /* Estilo do formulário (seção waitlist) */
+    /* Estilo do formulário (seção exclusiva) */
     #waitlist-form {
       margin: 40px 0;
       padding: 20px;
       border: 1px solid #ddd;
       border-radius: 8px;
       background-color: #fff;
-      opacity: 1;
-      transition: opacity 0.3s ease;
     }
     #waitlist-form h2 {
       margin-bottom: 20px;
@@ -328,7 +324,6 @@
       margin-bottom: 5px;
       display: block;
     }
-    /* Estilo comum para inputs, botões e fieldset */
     #waitlist-form input,
     #waitlist-form button,
     #waitlist-form fieldset {
@@ -339,62 +334,45 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
-    /* Botão de envio maior */
+    /* Botão de envio com fundo preto */
     #waitlist-form button {
       background-color: #000;
       color: #fff;
       border: none;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      padding: 12px;
-      font-size: 16px;
     }
     #waitlist-form button:hover { background-color: #333; }
     #waitlist-form fieldset {
       border: none;
       padding: 0;
     }
-    /* Estilo para a pergunta dos radios */
-    .radio-group-label {
-      display: block;
-      margin-bottom: 10px;
+    #waitlist-form fieldset legend {
       font-weight: 500;
+      margin-bottom: 5px;
     }
-    /* Container para os radios – mesmo tamanho e estilo dos inputs */
-    .radio-group-container {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background-color: #fff;
-      width: 100%;
-    }
+    
+    /*
+      Estilo para alinhar botões de rádio:
+      Agrupamos input + label em .radio-inline
+    */
     .radio-inline {
       display: inline-flex;
       align-items: center;
-      margin-right: 10px;
+      margin-right: 20px;
     }
     .radio-inline input[type="radio"] {
       margin-right: 5px;
     }
-    
-    /* Transição para seções INFO, GALERIA e FORMULÁRIO */
-    #gallery-section, #info, #waitlist-form {
-      transition: opacity 0.3s ease;
-    }
-    
-    /* Responsividade */
-    @media (min-width: 768px) {
-      body { padding: 30px; }
-    }
+
+    /* Responsive */
+    @media (min-width: 768px) { body { padding: 30px; } }
     @media (min-width: 1024px) {
-      body { max-width: 800px; }
+      body { max-width: 1200px; }
       .gallery { grid-template-columns: repeat(3, 1fr); }
       h2 { font-size: 20px; }
     }
     @media (min-width: 1440px) {
-      body { max-width: 800px; }
       .gallery { grid-template-columns: repeat(4, 1fr); }
     }
     
@@ -433,12 +411,9 @@
         color: #e0e0e0;
         border: 1px solid #444;
       }
+      /* Atualização do botão para fundo preto também no modo escuro */
       #waitlist-form button { background-color: #000; }
       #waitlist-form button:hover { background-color: #333; }
-      .radio-group-container {
-        background-color: #121212;
-        border: 1px solid #444;
-      }
     }
   </style>
 </head>
@@ -547,17 +522,17 @@
       </div>
     </section>
     
-    <!-- Seção do Formulário da Lista de Espera (seção waitlist) -->
+    <!-- Seção do Formulário da Lista de Espera (nova área) -->
     <section id="waitlist-form" class="hidden">
       <!-- Versão PT -->
       <div id="waitlist-form-pt">
         <h2>Inscrição na Lista de Espera</h2>
         <p>
           Se a sua cidade ainda não está na minha agenda, inscreva-se na lista de espera!  
-          Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha de horário.  
+          Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha do horário.  
           <br><em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em>
         </p>
-        <form id="form-pt" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
+        <form action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
           
@@ -594,9 +569,8 @@
           <label for="local">Local do corpo *</label>
           <input type="text" id="local" name="local" required>
           
-          <!-- Pergunta posicionada como label acima dos radios -->
-          <label class="radio-group-label">Já tatuou comigo anteriormente? *</label>
-          <div class="radio-group-container">
+          <fieldset>
+            <legend>Já tatuou comigo anteriormente? *</legend>
             <div class="radio-inline">
               <input type="radio" id="sim" name="tatuagem" value="Sim" required>
               <label for="sim">Sim</label>
@@ -605,11 +579,10 @@
               <input type="radio" id="nao" name="tatuagem" value="Não" required>
               <label for="nao">Não</label>
             </div>
-          </div>
+          </fieldset>
           
           <button type="submit">Inscrever-se</button>
         </form>
-        <div id="feedback-pt" style="margin-top:10px; font-size:14px; color:#007BFF;"></div>
       </div>
       <!-- Versão EN -->
       <div id="waitlist-form-en" class="hidden">
@@ -619,7 +592,7 @@
           Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.
           <br><em>Note: I will contact you only when the date is confirmed.</em>
         </p>
-        <form id="form-en" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
+        <form action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" required>
           
@@ -660,9 +633,8 @@
           <label for="bodyLocation">Body location *</label>
           <input type="text" id="bodyLocation" name="bodyLocation" required>
           
-          <!-- Pergunta posicionada como label acima dos radios -->
-          <label class="radio-group-label">Have you been tattooed by me before? *</label>
-          <div class="radio-group-container">
+          <fieldset>
+            <legend>Have you been tattooed by me before? *</legend>
             <div class="radio-inline">
               <input type="radio" id="yes" name="tattooedBefore" value="Yes" required>
               <label for="yes">Yes</label>
@@ -671,11 +643,10 @@
               <input type="radio" id="no" name="tattooedBefore" value="No" required>
               <label for="no">No</label>
             </div>
-          </div>
+          </fieldset>
           
           <button type="submit">Submit</button>
         </form>
-        <div id="feedback-en" style="margin-top:10px; font-size:14px; color:#007BFF;"></div>
       </div>
     </section>
     
@@ -699,117 +670,136 @@
   </div>
   
   <script>
-    // Função para copiar os valores do formulário atual para o outro, para preservar os dados ao trocar de idioma.
-    function copyFormData(sourceForm, targetForm) {
-      const srcElems = sourceForm.elements;
-      for (let i = 0; i < srcElems.length; i++) {
-        const srcElem = srcElems[i];
-        if (srcElem.name) {
-          const tgtElem = targetForm.elements[srcElem.name];
-          if (tgtElem) {
-            if (srcElem.type === "radio") {
-              if (srcElem.checked) {
-                if (tgtElem.length !== undefined) {
-                  for (let j = 0; j < tgtElem.length; j++) {
-                    if (tgtElem[j].value === srcElem.value) {
-                      tgtElem[j].checked = true;
-                    }
-                  }
-                } else {
-                  tgtElem.checked = true;
-                }
-              }
-            } else {
-              tgtElem.value = srcElem.value;
-            }
-          }
-        }
-      }
+    // Remoção do parâmetro "fbclid" da URL, se presente.
+    if (window.location.search.includes('fbclid')) {
+      const url = new URL(window.location);
+      url.searchParams.delete('fbclid');
+      history.replaceState(null, '', url.pathname + url.search);
+    }
+    
+    // Array com os números das imagens que realmente existem
+    const imagensValidas = [
+      1,2,3,4,5,6,7,8,9,10,11,12,13,
+      16,17,18,20,21,22,23,24,25,26,
+      27,28,29,30,31,32,33,34,35,36,37,
+      38,39,40,41,42,43,44,45,46,47,48,
+      49,50,51,52,53,54,55,56,57,58,59,
+      60,61,62,63,64,65,66,67,68,69,70,
+      71,72,73,74,75,76,77,78,79,80,
+    ];
+    imagensValidas.reverse();
+  
+    const galleryContainer = document.querySelector('.gallery');
+    const galleryFragment = document.createDocumentFragment();
+    imagensValidas.forEach(num => {
+      const img = document.createElement('img');
+      img.src = `images/desenho${num}.jpg`;
+      img.alt = `Desenho ${num}`;
+      img.loading = 'lazy';
+      img.onerror = function() {
+        this.onerror = null;
+        this.src = 'images/placeholder.jpg';
+      };
+      img.onclick = () => openLightbox(num);
+      galleryFragment.appendChild(img);
+    });
+    galleryContainer.appendChild(galleryFragment);
+  
+    let currentIndex = 0;
+    function openLightbox(num) {
+      currentIndex = imagensValidas.indexOf(num);
+      document.getElementById("lightbox").style.display = "flex";
+      updateLightboxImage();
+    }
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+    function changeImage(direction) {
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = imagensValidas.length - 1;
+      if (currentIndex >= imagensValidas.length) currentIndex = 0;
+      updateLightboxImage();
+    }
+    function updateLightboxImage() {
+      document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
     }
   
-    // Troca de idioma sem resetar os accordions nem os valores do formulário
-    function toggleLanguage() {
-      let currentLanguage = localStorage.getItem("language") || "pt";
-      let newLanguage = currentLanguage === "en" ? "pt" : "en";
-      
-      // Copiar dados do formulário atual para o outro
-      if(newLanguage === "en") {
-        copyFormData(document.getElementById("form-pt"), document.getElementById("form-en"));
-      } else {
-        copyFormData(document.getElementById("form-en"), document.getElementById("form-pt"));
-      }
-      localStorage.setItem("language", newLanguage);
+    // Tratamento para os links "waitlist-link"
+    document.querySelectorAll('.waitlist-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.setItem("section", "waitlist");
+        loadState();
+        document.getElementById("waitlist-form").scrollIntoView({ behavior: "smooth" });
+      });
+    });
   
-      if(newLanguage === "en") {
-        document.getElementById("content-pt").classList.add("hidden");
-        document.getElementById("content-en").classList.remove("hidden");
-        document.getElementById("waitlist-form-pt").classList.add("hidden");
-        document.getElementById("waitlist-form-en").classList.remove("hidden");
-        document.getElementById("lang-btn").textContent = "PT";
-        document.getElementById("availability-text").textContent = "Check availability.";
+    function toggleLanguage() {
+      const contentPt = document.getElementById("content-pt");
+      const contentEn = document.getElementById("content-en");
+      const waitlistFormPt = document.getElementById("waitlist-form-pt");
+      const waitlistFormEn = document.getElementById("waitlist-form-en");
+      const langBtn = document.getElementById("lang-btn");
+      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
+      const availabilityText = document.getElementById("availability-text");
+      const currentLanguage = localStorage.getItem("language") || "pt";
+      if (currentLanguage === "en") {
+        contentPt.classList.remove("hidden");
+        contentEn.classList.add("hidden");
+        waitlistFormPt.classList.remove("hidden");
+        waitlistFormEn.classList.add("hidden");
+        langBtn.textContent = "EN";
+        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
+        availabilityText.textContent = "Consulte disponibilidade.";
+        localStorage.setItem("language", "pt");
       } else {
-        document.getElementById("content-pt").classList.remove("hidden");
-        document.getElementById("content-en").classList.add("hidden");
-        document.getElementById("waitlist-form-pt").classList.remove("hidden");
-        document.getElementById("waitlist-form-en").classList.add("hidden");
-        document.getElementById("lang-btn").textContent = "EN";
-        document.getElementById("availability-text").textContent = "Consulte disponibilidade.";
+        contentPt.classList.add("hidden");
+        contentEn.classList.remove("hidden");
+        waitlistFormPt.classList.add("hidden");
+        waitlistFormEn.classList.remove("hidden");
+        langBtn.textContent = "PT";
+        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
+        availabilityText.textContent = "Check availability.";
+        localStorage.setItem("language", "en");
       }
-      // Os accordions e os valores dos inputs permanecem inalterados.
     }
   
     function toggleGalleryInfo() {
+      document.getElementById("contato-info").classList.remove("active");
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info");
       const waitlistFormSection = document.getElementById("waitlist-form");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
+      const language = localStorage.getItem("language") || "pt";
       const availabilityText = document.getElementById("availability-text");
       const customLine = document.querySelector('.custom-line');
-      const language = localStorage.getItem("language") || "pt";
-      const section = localStorage.getItem("section");
   
-      if (section === "waitlist") {
-        // Se estiver no formulário, voltar para info
-        waitlistFormSection.style.opacity = 0;
-        setTimeout(() => {
-          waitlistFormSection.classList.add("hidden");
-          infoSection.classList.remove("hidden");
-          infoSection.style.opacity = 0;
-          galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
-          localStorage.setItem("section", "info");
-          availabilityText.style.display = "none";
-          customLine.style.display = "none";
-          setTimeout(() => { infoSection.style.opacity = 1; }, 50);
-        }, 300);
-        return;
+      // Se estiver na área do formulário, redireciona para a seção de Informações
+      if (localStorage.getItem("section") === "waitlist") {
+         waitlistFormSection.classList.add("hidden");
+         gallerySection.classList.add("hidden");
+         infoSection.classList.remove("hidden");
+         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
+         localStorage.setItem("section", "info");
+         availabilityText.style.display = "none";
+         customLine.style.display = "none";
+         return;
       }
   
       if (!gallerySection.classList.contains("hidden")) {
-        // Fade out gallery, then show info
-        gallerySection.style.opacity = 0;
-        setTimeout(() => {
-          gallerySection.classList.add("hidden");
-          infoSection.classList.remove("hidden");
-          infoSection.style.opacity = 0;
-          galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
-          localStorage.setItem("section", "info");
-          availabilityText.style.display = "none";
-          customLine.style.display = "none";
-          setTimeout(() => { infoSection.style.opacity = 1; }, 50);
-        }, 300);
+         gallerySection.classList.add("hidden");
+         infoSection.classList.remove("hidden");
+         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
+         localStorage.setItem("section", "info");
+         availabilityText.style.display = "none";
+         customLine.style.display = "none";
       } else {
-        // Fade out info, then show gallery
-        infoSection.style.opacity = 0;
-        setTimeout(() => {
-          infoSection.classList.add("hidden");
-          gallerySection.classList.remove("hidden");
-          gallerySection.style.opacity = 0;
-          galleryToggleBtn.textContent = "INFO";
-          localStorage.setItem("section", "gallery");
-          availabilityText.style.display = "block";
-          customLine.style.display = "block";
-          setTimeout(() => { gallerySection.style.opacity = 1; }, 50);
-        }, 300);
+         gallerySection.classList.remove("hidden");
+         infoSection.classList.add("hidden");
+         galleryToggleBtn.textContent = "INFO";
+         localStorage.setItem("section", "gallery");
+         availabilityText.style.display = "block";
+         customLine.style.display = "block";
       }
     }
   
@@ -862,11 +852,14 @@
       const infoSection = document.getElementById("info");
       const waitlistFormSection = document.getElementById("waitlist-form");
       
-      // Resetar opacidades
-      gallerySection.style.opacity = "";
-      infoSection.style.opacity = "";
-      waitlistFormSection.style.opacity = "";
-  
+      if (language === "en") {
+        contentPt.classList.add("hidden");
+        contentEn.classList.remove("hidden");
+      } else {
+        contentPt.classList.remove("hidden");
+        contentEn.classList.add("hidden");
+      }
+      
       const section = localStorage.getItem("section");
       if (section === "info") {
         gallerySection.classList.add("hidden");
@@ -875,15 +868,14 @@
         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
         availabilityText.style.display = "none";
         customLine.style.display = "none";
-        infoSection.style.opacity = 1;
       } else if (section === "waitlist") {
         gallerySection.classList.add("hidden");
         infoSection.classList.add("hidden");
         waitlistFormSection.classList.remove("hidden");
+        // Em vez de "LISTA", exibe "INFO" para que o botão direcione para a seção de Informações
         galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "none";
         customLine.style.display = "none";
-        waitlistFormSection.style.opacity = 1;
       } else {
         gallerySection.classList.remove("hidden");
         infoSection.classList.add("hidden");
@@ -891,7 +883,6 @@
         galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "block";
         customLine.style.display = "block";
-        gallerySection.style.opacity = 1;
       }
       
       if (language === "en") {
@@ -905,71 +896,12 @@
   
     loadState();
   
-    // Feedback de envio dos formulários via AJAX com mensagens de acordo com o idioma
-    function handleFormSubmission(formId, feedbackId) {
-      const form = document.getElementById(formId);
-      form.addEventListener("submit", function(event) {
-        event.preventDefault();
-        const formData = new FormData(form);
-        fetch(form.action, {
-          method: form.method,
-          body: formData
-        })
-        .then(response => response.text())
-        .then(text => {
-          let lang = localStorage.getItem("language") || "pt";
-          let successMsg = lang === "en" ?
-            "Thank you! Your registration was sent successfully. Please wait for a response." :
-            "Obrigado! Sua inscrição foi enviada com sucesso. Aguarde retorno.";
-          document.getElementById(feedbackId).textContent = successMsg;
-          // NÃO resetamos o formulário para preservar os dados caso o usuário troque de idioma
-        })
-        .catch(error => {
-          let lang = localStorage.getItem("language") || "pt";
-          let errorMsg = lang === "en" ?
-            "An error occurred. Please try again." :
-            "Ocorreu um erro. Por favor, tente novamente.";
-          document.getElementById(feedbackId).textContent = errorMsg;
-        });
-      });
-    }
-    handleFormSubmission("form-pt", "feedback-pt");
-    handleFormSubmission("form-en", "feedback-en");
-  
-    // Função para copiar dados entre formulários ao trocar idioma (para não perder os valores)
-    function copyFormData(sourceForm, targetForm) {
-      const srcElems = sourceForm.elements;
-      for (let i = 0; i < srcElems.length; i++) {
-        const srcElem = srcElems[i];
-        if (srcElem.name) {
-          const tgtElem = targetForm.elements[srcElem.name];
-          if (tgtElem) {
-            if (srcElem.type === "radio") {
-              if (srcElem.checked) {
-                if (tgtElem.length !== undefined) {
-                  for (let j = 0; j < tgtElem.length; j++) {
-                    if (tgtElem[j].value === srcElem.value) {
-                      tgtElem[j].checked = true;
-                    }
-                  }
-                } else {
-                  tgtElem.checked = true;
-                }
-              }
-            } else {
-              tgtElem.value = srcElem.value;
-            }
-          }
-        }
-      }
-    }
-  
     document.querySelectorAll('[role="button"]:not(button)').forEach(elem => {
-      if (!elem.hasAttribute("tabindex")) {
-        elem.setAttribute("tabindex", "0");
+      if (!elem.hasAttribute('tabindex')) {
+        elem.setAttribute('tabindex', '0');
       }
-      elem.addEventListener("keydown", function(e) {
-        if (e.key === "Enter" || e.key === " ") {
+      elem.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           elem.click();
         }
