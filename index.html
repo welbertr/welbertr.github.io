@@ -761,9 +761,10 @@
     };
 
     function toggleLanguage() {
-      // Armazena os tópicos abertos antes da troca
       const currentLanguage = localStorage.getItem("language") || "pt";
       const activeAccordions = [];
+      
+      // Armazena os acordeons ativos do idioma atual
       Object.keys(accordionMapping).forEach(key => {
         if (currentLanguage === "pt") {
           const elem = document.getElementById(accordionMapping[key].pt);
@@ -777,8 +778,8 @@
           }
         }
       });
-
-      // Troca de idioma conforme a lógica atual
+  
+      // Alterna o idioma
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
       const waitlistFormPt = document.getElementById("waitlist-form-pt");
@@ -786,7 +787,7 @@
       const langBtn = document.getElementById("lang-btn");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const availabilityText = document.getElementById("availability-text");
-
+  
       if (currentLanguage === "en") {
         contentPt.classList.remove("hidden");
         contentEn.classList.add("hidden");
@@ -806,8 +807,24 @@
         availabilityText.textContent = "Check availability.";
         localStorage.setItem("language", "en");
       }
-
-      // Reabre os acordeons que estavam abertos, mapeando para o novo idioma
+  
+      // Limpa o estado "active" de todos os acordeons (tanto dos containers PT quanto EN)
+      Object.keys(accordionMapping).forEach(key => {
+        const ptElem = document.getElementById(accordionMapping[key].pt);
+        const ptBtn = document.getElementById(accordionMapping[key].btnPt);
+        if (ptElem && ptBtn) {
+          ptElem.classList.remove("active");
+          ptBtn.setAttribute("aria-expanded", "false");
+        }
+        const enElem = document.getElementById(accordionMapping[key].en);
+        const enBtn = document.getElementById(accordionMapping[key].btnEn);
+        if (enElem && enBtn) {
+          enElem.classList.remove("active");
+          enBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+  
+      // Reabre somente os acordeons que estavam ativos no idioma atual
       const newLang = localStorage.getItem("language");
       activeAccordions.forEach(key => {
         if (newLang === "pt") {
