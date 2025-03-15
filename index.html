@@ -257,7 +257,7 @@
       font-weight: 700;
       line-height: 1;
     }
-    .top-controls button:hover { opacity: 0.8; }
+    .top-controls button:hover { opacity: 0.3s ease; }
     
     /* Acordeons */
     .accordion-content {
@@ -302,7 +302,7 @@
     }
     .waitlist-link:hover { text-decoration: underline; }
     
-    /* Estilo do formulário (seção exclusiva) */
+    /* Estilo do formulário (seção waitlist) */
     #waitlist-form {
       margin: 40px 0;
       padding: 20px;
@@ -328,49 +328,33 @@
       margin-bottom: 5px;
       display: block;
     }
-    /* Estilo específico para a pergunta dos radios */
+    /* Estilo para a pergunta dos radios */
     .radio-group-label {
       display: block;
       margin-bottom: 10px;
       font-weight: 500;
     }
-    #waitlist-form input,
-    #waitlist-form button,
-    #waitlist-form fieldset {
-      font-size: 14px;
+    /* Container para os radios, para parecer uma caixa de input */
+    .radio-group-container {
+      display: inline-flex;
+      align-items: center;
       padding: 8px;
-      width: 100%;
-      box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 4px;
+      background-color: #fff;
     }
-    /* Botão de envio com fundo preto */
-    #waitlist-form button {
-      background-color: #000;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    #waitlist-form button:hover { background-color: #333; }
-    #waitlist-form fieldset {
-      border: none;
-      padding: 0;
-    }
-    
-    /* Estilo para alinhar botões de rádio */
+    /* Ajuste dos radio buttons */
     .radio-inline {
       display: inline-flex;
       align-items: center;
       margin-right: 10px;
-      transition: opacity 0.3s ease;
     }
     .radio-inline input[type="radio"] {
       margin-right: 5px;
     }
     
-    /* Adiciona transição de opacidade aos contêineres de INFO e GALERIA */
-    #gallery-section, #info {
+    /* Transição para seções INFO e GALERIA */
+    #gallery-section, #info, #waitlist-form {
       transition: opacity 0.3s ease;
     }
     
@@ -425,6 +409,10 @@
       }
       #waitlist-form button { background-color: #000; }
       #waitlist-form button:hover { background-color: #333; }
+      .radio-group-container {
+        background-color: #121212;
+        border: 1px solid #444;
+      }
     }
   </style>
 </head>
@@ -580,20 +568,22 @@
           <label for="local">Local do corpo *</label>
           <input type="text" id="local" name="local" required>
           
-          <!-- Pergunta posicionada como label acima dos radios -->
+          <!-- Pergunta acima dos radios -->
           <label class="radio-group-label">Já tatuou comigo anteriormente? *</label>
-          <div class="radio-inline">
-            <input type="radio" id="sim" name="tatuagem" value="Sim" required>
-            <label for="sim">Sim</label>
-          </div>
-          <div class="radio-inline">
-            <input type="radio" id="nao" name="tatuagem" value="Não" required>
-            <label for="nao">Não</label>
+          <div class="radio-group-container">
+            <div class="radio-inline">
+              <input type="radio" id="sim" name="tatuagem" value="Sim" required>
+              <label for="sim">Sim</label>
+            </div>
+            <div class="radio-inline">
+              <input type="radio" id="nao" name="tatuagem" value="Não" required>
+              <label for="nao">Não</label>
+            </div>
           </div>
           
           <button type="submit">Inscrever-se</button>
         </form>
-        <div id="feedback-pt" style="margin-top:10px; font-size:14px; color:#007BFF;"></div>
+        <div id="feedback-pt" style="margin-top:10px; font-size:14px;"></div>
       </div>
       <!-- Versão EN -->
       <div id="waitlist-form-en" class="hidden">
@@ -644,20 +634,22 @@
           <label for="bodyLocation">Body location *</label>
           <input type="text" id="bodyLocation" name="bodyLocation" required>
           
-          <!-- Pergunta posicionada como label acima dos radios -->
+          <!-- Pergunta acima dos radios -->
           <label class="radio-group-label">Have you been tattooed by me before? *</label>
-          <div class="radio-inline">
-            <input type="radio" id="yes" name="tattooedBefore" value="Yes" required>
-            <label for="yes">Yes</label>
-          </div>
-          <div class="radio-inline">
-            <input type="radio" id="no" name="tattooedBefore" value="No" required>
-            <label for="no">No</label>
+          <div class="radio-group-container">
+            <div class="radio-inline">
+              <input type="radio" id="yes" name="tattooedBefore" value="Yes" required>
+              <label for="yes">Yes</label>
+            </div>
+            <div class="radio-inline">
+              <input type="radio" id="no" name="tattooedBefore" value="No" required>
+              <label for="no">No</label>
+            </div>
           </div>
           
           <button type="submit">Submit</button>
         </form>
-        <div id="feedback-en" style="margin-top:10px; font-size:14px; color:#007BFF;"></div>
+        <div id="feedback-en" style="margin-top:10px; font-size:14px;"></div>
       </div>
     </section>
     
@@ -745,34 +737,28 @@
       });
     });
   
+    // Função de troca de idioma sem afetar o estado dos accordions
     function toggleLanguage() {
-      const contentPt = document.getElementById("content-pt");
-      const contentEn = document.getElementById("content-en");
-      const waitlistFormPt = document.getElementById("waitlist-form-pt");
-      const waitlistFormEn = document.getElementById("waitlist-form-en");
-      const langBtn = document.getElementById("lang-btn");
-      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      const availabilityText = document.getElementById("availability-text");
-      const currentLanguage = localStorage.getItem("language") || "pt";
-      if (currentLanguage === "en") {
-        contentPt.classList.remove("hidden");
-        contentEn.classList.add("hidden");
-        waitlistFormPt.classList.remove("hidden");
-        waitlistFormEn.classList.add("hidden");
-        langBtn.textContent = "EN";
-        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
-        availabilityText.textContent = "Consulte disponibilidade.";
-        localStorage.setItem("language", "pt");
+      let currentLanguage = localStorage.getItem("language") || "pt";
+      let newLanguage = currentLanguage === "en" ? "pt" : "en";
+      localStorage.setItem("language", newLanguage);
+  
+      if(newLanguage === "en") {
+        document.getElementById("content-pt").classList.add("hidden");
+        document.getElementById("content-en").classList.remove("hidden");
+        document.getElementById("waitlist-form-pt").classList.add("hidden");
+        document.getElementById("waitlist-form-en").classList.remove("hidden");
+        document.getElementById("lang-btn").textContent = "PT";
+        document.getElementById("availability-text").textContent = "Check availability.";
       } else {
-        contentPt.classList.add("hidden");
-        contentEn.classList.remove("hidden");
-        waitlistFormPt.classList.add("hidden");
-        waitlistFormEn.classList.remove("hidden");
-        langBtn.textContent = "PT";
-        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
-        availabilityText.textContent = "Check availability.";
-        localStorage.setItem("language", "en");
+        document.getElementById("content-pt").classList.remove("hidden");
+        document.getElementById("content-en").classList.add("hidden");
+        document.getElementById("waitlist-form-pt").classList.remove("hidden");
+        document.getElementById("waitlist-form-en").classList.add("hidden");
+        document.getElementById("lang-btn").textContent = "EN";
+        document.getElementById("availability-text").textContent = "Consulte disponibilidade.";
       }
+      // Não alteramos o estado dos accordions ao trocar o idioma.
     }
   
     function toggleGalleryInfo() {
@@ -786,7 +772,7 @@
       const section = localStorage.getItem("section");
   
       if (section === "waitlist") {
-        // Se estiver no formulário, voltar para a seção info
+        // Se estiver no formulário, voltar para info
         waitlistFormSection.style.opacity = 0;
         setTimeout(() => {
           waitlistFormSection.classList.add("hidden");
@@ -879,7 +865,7 @@
       const infoSection = document.getElementById("info");
       const waitlistFormSection = document.getElementById("waitlist-form");
       
-      // Reset opacities para garantir a transição
+      // Resetar opacidades
       gallerySection.style.opacity = "";
       infoSection.style.opacity = "";
       waitlistFormSection.style.opacity = "";
@@ -900,8 +886,7 @@
         galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "none";
         customLine.style.display = "none";
-        waitlistFormSection.style.opacity = 0;
-        setTimeout(() => { waitlistFormSection.style.opacity = 1; }, 50);
+        waitlistFormSection.style.opacity = 1;
       } else {
         gallerySection.classList.remove("hidden");
         infoSection.classList.add("hidden");
@@ -923,7 +908,7 @@
   
     loadState();
   
-    // Feedback de envio dos formulários via AJAX com response.text()
+    // Feedback de envio dos formulários via AJAX com mensagens conforme o idioma
     function handleFormSubmission(formId, feedbackId) {
       const form = document.getElementById(formId);
       form.addEventListener("submit", function(event) {
@@ -935,11 +920,19 @@
         })
         .then(response => response.text())
         .then(text => {
-          document.getElementById(feedbackId).textContent = "Obrigado! Sua inscrição foi enviada com sucesso.";
+          let lang = localStorage.getItem("language") || "pt";
+          let successMsg = lang === "en" ?
+            "Thank you! Your registration was sent successfully. Please wait for a response." :
+            "Obrigado! Sua inscrição foi enviada com sucesso. Aguarde retorno.";
+          document.getElementById(feedbackId).textContent = successMsg;
           form.reset();
         })
         .catch(error => {
-          document.getElementById(feedbackId).textContent = "Ocorreu um erro. Por favor, tente novamente.";
+          let lang = localStorage.getItem("language") || "pt";
+          let errorMsg = lang === "en" ?
+            "An error occurred. Please try again." :
+            "Ocorreu um erro. Por favor, tente novamente.";
+          document.getElementById(feedbackId).textContent = errorMsg;
         });
       });
     }
