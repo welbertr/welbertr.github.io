@@ -16,12 +16,32 @@
   <meta property="og:url" content="https://welbertr.github.io" />
   <meta property="og:image" content="https://welbertr.github.io/images/preview.jpg" />
 
-  <!-- Pré-conexão para fontes -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Pré-carregamento para fontes -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <!-- Fonte minimalista do Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
 
   <style>
+    /* CSS Variables para facilitar manutenções e ajustes */
+    :root {
+      --font-family: 'Outfit', sans-serif;
+      --font-weight-light: 300;
+      --font-weight-medium: 500;
+      --font-weight-bold: 700;
+      --text-color: #333;
+      --background-color: #fafafa;
+      --header-bg-color: #fafafa;
+      --border-color: #ddd;
+      --accent-color: #000;
+      --hover-accent-color: #333;
+      --lightbox-bg: rgba(0, 0, 0, 0.8);
+      --btn-bg: rgba(0, 0, 0, 0.1);
+      --btn-border: rgba(0, 0, 0, 0.3);
+      --btn-color: rgba(0, 0, 0, 0.8);
+      --btn-hover-bg: rgba(0, 0, 0, 0.2);
+      --transition-speed: 0.3s;
+    }
+    
     /* Skip link */
     .skip-link {
       position: absolute;
@@ -36,7 +56,7 @@
       width: auto;
       height: auto;
       padding: 8px;
-      background: #000;
+      background: var(--accent-color);
       color: #fff;
       z-index: 100;
       text-decoration: none;
@@ -49,14 +69,14 @@
     
     /* Estilo geral */
     body {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 300;
+      font-family: var(--font-family);
+      font-weight: var(--font-weight-light);
       max-width: 600px;
       margin: 40px auto;
       padding: 20px;
       line-height: 1.6;
-      color: #333;
-      background-color: #fafafa;
+      color: var(--text-color);
+      background-color: var(--background-color);
       text-align: left;
       font-size: 14px;
       position: relative;
@@ -65,14 +85,14 @@
     header.sticky-header {
       position: sticky;
       top: 0;
-      background-color: #fafafa;
+      background-color: var(--header-bg-color);
       z-index: 10;
       padding: 20px 20px 10px;
     }
     
     .top-name {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 500;
+      font-family: var(--font-family);
+      font-weight: var(--font-weight-medium);
       font-size: 14px;
       text-transform: uppercase;
       color: #666;
@@ -81,20 +101,21 @@
     
     .custom-line {
       border: 0;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid var(--border-color);
       margin: 10px 0;
     }
     
     h2 {
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid var(--border-color);
       padding-bottom: 8px;
       font-size: 18px;
       margin-top: 40px;
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       cursor: pointer;
       display: block;
       width: 100%;
       box-sizing: border-box;
+      transition: border-color var(--transition-speed);
     }
     
     .contact-title {
@@ -105,10 +126,11 @@
       padding: 8px 16px;
       margin-top: 50px;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       cursor: pointer;
-      color: #000;
+      color: var(--accent-color);
       background-color: transparent;
+      transition: background-color var(--transition-speed);
     }
     
     p, ul, li {
@@ -132,20 +154,25 @@
       margin: 20px 0;
     }
     
-    .gallery img {
-      width: 100%;
+    .gallery picture {
       border-radius: 8px;
+      overflow: hidden;
       cursor: pointer;
-      transition: transform 0.2s;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
       background-color: #fffff2;
       opacity: 0;
       animation: fadeIn 0.5s ease forwards;
     }
     
-    .gallery img:hover {
+    .gallery picture:hover {
       transform: scale(1.02);
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .gallery img {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
     }
     
     @keyframes fadeIn {
@@ -154,7 +181,7 @@
     }
     
     @media (prefers-reduced-motion: reduce) {
-      .gallery img { animation: none; transition: none; }
+      .gallery picture { animation: none; transition: none; }
     }
     
     /* Lightbox */
@@ -165,10 +192,11 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.8);
+      background: var(--lightbox-bg);
       justify-content: center;
       align-items: center;
       z-index: 1000;
+      transition: opacity var(--transition-speed);
     }
     
     .lightbox img {
@@ -179,12 +207,12 @@
     
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
-      background: rgba(0,0,0,0.1);
-      border: 1px solid rgba(0,0,0,0.3);
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      color: rgba(0,0,0,0.8);
+      color: var(--btn-color);
       cursor: pointer;
-      transition: opacity 0.3s ease, background 0.3s ease;
+      transition: opacity var(--transition-speed), background var(--transition-speed);
       border-radius: 50%;
       width: 40px;
       height: 40px;
@@ -194,7 +222,7 @@
     }
     
     .close-btn:hover, .prev-btn:hover, .next-btn:hover {
-      background: rgba(0,0,0,0.2);
+      background: var(--btn-hover-bg);
       box-shadow: 0 6px 12px rgba(0,0,0,0.3);
     }
     
@@ -202,11 +230,11 @@
       top: 20px;
       right: 20px;
       font-size: 22px;
-      font-weight: 700;
+      font-weight: var(--font-weight-bold);
       z-index: 9999;
       background: rgba(255,255,255,0.9);
       border: 1px solid rgba(0,0,0,0.6);
-      color: rgba(0,0,0,0.8);
+      color: var(--btn-color);
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
     
@@ -222,8 +250,8 @@
     /* Botão do Instagram */
     .instagram-btn {
       background-color: transparent;
-      color: #000;
-      border: 1px solid #000;
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
       padding: 4px 8px;
       border-radius: 4px;
       cursor: pointer;
@@ -231,6 +259,7 @@
       display: inline-block;
       text-decoration: none;
       text-transform: uppercase;
+      transition: text-decoration var(--transition-speed);
     }
     .instagram-btn:hover { text-decoration: underline; }
     
@@ -241,20 +270,20 @@
     }
     .top-controls button {
       background-color: transparent;
-      color: #000;
+      color: var(--accent-color);
       border: none;
       padding: 8px 16px;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       cursor: pointer;
-      transition: opacity 0.3s ease;
+      transition: opacity var(--transition-speed);
     }
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
       margin-right: 8px;
       font-size: 18px;
-      font-weight: 700;
+      font-weight: var(--font-weight-bold);
       line-height: 1;
     }
     .top-controls button:hover { opacity: 0.8; }
@@ -284,19 +313,19 @@
     }
     #contato-info a.email,
     #contato-info a.whatsapp {
-      font-weight: 500;
-      color: #000;
+      font-weight: var(--font-weight-medium);
+      color: var(--accent-color);
       text-decoration: none;
     }
     #contato-info a.email:hover,
     #contato-info a.whatsapp:hover { text-decoration: underline; }
-    .contato-label { font-weight: 500; }
+    .contato-label { font-weight: var(--font-weight-medium); }
     
     /* Link da lista de espera */
     .waitlist-link {
       color: #007BFF;
       text-decoration: none;
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
     }
     .waitlist-link:hover { text-decoration: underline; }
     
@@ -304,7 +333,7 @@
     #waitlist-form {
       margin: 40px 0;
       padding: 20px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border-color);
       border-radius: 8px;
       background-color: #fff;
     }
@@ -320,7 +349,7 @@
       grid-gap: 15px;
     }
     #waitlist-form label {
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       margin-bottom: 5px;
       display: block;
     }
@@ -336,26 +365,23 @@
     }
     /* Botão de envio com fundo preto */
     #waitlist-form button {
-      background-color: #000;
+      background-color: var(--accent-color);
       color: #fff;
       border: none;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color var(--transition-speed);
     }
-    #waitlist-form button:hover { background-color: #333; }
+    #waitlist-form button:hover { background-color: var(--hover-accent-color); }
     #waitlist-form fieldset {
       border: none;
       padding: 0;
     }
     #waitlist-form fieldset legend {
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       margin-bottom: 5px;
     }
     
-    /*
-      Estilo para alinhar botões de rádio:
-      Agrupamos input + label em .radio-inline
-    */
+    /* Radio inline */
     .radio-inline {
       display: inline-flex;
       align-items: center;
@@ -381,7 +407,7 @@
       body { color: #e0e0e0; background-color: #121212; }
       h2 { border-bottom: 1px solid #444; }
       .top-controls button { color: #e0e0e0; }
-      .gallery img { background-color: #1e1e1e; }
+      .gallery picture { background-color: #1e1e1e; }
       .lightbox { background: rgba(0,0,0,0.9); }
       .close-btn, .prev-btn, .next-btn {
         background: rgba(0,0,0,0.4);
@@ -411,7 +437,6 @@
         color: #e0e0e0;
         border: 1px solid #444;
       }
-      /* Atualização do botão para fundo preto também no modo escuro */
       #waitlist-form button { background-color: #000; }
       #waitlist-form button:hover { background-color: #333; }
     }
@@ -522,7 +547,7 @@
       </div>
     </section>
     
-    <!-- Seção do Formulário da Lista de Espera (nova área) -->
+    <!-- Seção do Formulário da Lista de Espera -->
     <section id="waitlist-form" class="hidden">
       <!-- Versão PT -->
       <div id="waitlist-form-pt">
@@ -692,16 +717,27 @@
     const galleryContainer = document.querySelector('.gallery');
     const galleryFragment = document.createDocumentFragment();
     imagensValidas.forEach(num => {
+      const picture = document.createElement('picture');
+      
+      // Fonte WebP para melhor performance
+      const source = document.createElement('source');
+      source.srcset = `images/desenho${num}.webp`;
+      source.type = 'image/webp';
+      picture.appendChild(source);
+      
+      // Imagem JPG como fallback com atributos responsivos
       const img = document.createElement('img');
       img.src = `images/desenho${num}.jpg`;
       img.alt = `Desenho ${num}`;
       img.loading = 'lazy';
+      img.sizes = "(max-width: 600px) 50vw, (max-width: 1024px) 33vw, 25vw";
       img.onerror = function() {
         this.onerror = null;
         this.src = 'images/placeholder.jpg';
       };
       img.onclick = () => openLightbox(num);
-      galleryFragment.appendChild(img);
+      picture.appendChild(img);
+      galleryFragment.appendChild(picture);
     });
     galleryContainer.appendChild(galleryFragment);
   
@@ -872,7 +908,6 @@
         gallerySection.classList.add("hidden");
         infoSection.classList.add("hidden");
         waitlistFormSection.classList.remove("hidden");
-        // Em vez de "LISTA", exibe "INFO" para que o botão direcione para a seção de Informações
         galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "none";
         customLine.style.display = "none";
@@ -896,6 +931,7 @@
   
     loadState();
   
+    // Permitir interação via teclado em elementos com role="button"
     document.querySelectorAll('[role="button"]:not(button)').forEach(elem => {
       if (!elem.hasAttribute('tabindex')) {
         elem.setAttribute('tabindex', '0');
