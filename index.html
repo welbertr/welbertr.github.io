@@ -103,7 +103,7 @@
       text-align: center;
       border: none;
       padding: 8px 16px;
-      margin: 20px 0 8px; /* Reduzi a margem inferior para aproximar do conteúdo */
+      margin: 20px 0 8px; /* Margem inferior reduzida para aproximar do conteúdo */
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
@@ -114,7 +114,7 @@
     p, ul, li {
       font-size: 14px;
       text-align: justify;
-      margin-bottom: 8px; /* Reduzi o espaçamento interno dos parágrafos e itens */
+      margin-bottom: 8px; /* Espaçamento interno reduzido */
     }
     
     ul {
@@ -261,14 +261,15 @@
     
     /* Acordeons */
     .accordion-content {
-      max-height: 0;
       overflow: hidden;
-      padding: 0;
-      transition: max-height 0.3s ease, padding 0.3s ease;
+      transition: opacity 0.5s ease;
+      opacity: 1;
     }
-    .accordion-content.active {
-      max-height: 500px;
-      padding: 10px 0;
+    .accordion-content:not(.active) {
+      opacity: 0;
+      height: 0;
+      padding: 0;
+      pointer-events: none;
     }
     .accordion-section { margin-bottom: 30px; }
     
@@ -276,7 +277,6 @@
     #contato-info {
       text-align: center;
       margin: 0 auto;
-      /* Redução de margens internas para aproximar o conteúdo */
     }
     #contato-info p {
       margin: 4px 0;
@@ -311,6 +311,7 @@
       border: 1px solid #ddd;
       border-radius: 8px;
       background-color: #fff;
+      transition: opacity 0.5s ease;
     }
     #waitlist-form h2 {
       margin-bottom: 20px;
@@ -364,20 +365,26 @@
       margin-right: 5px;
     }
 
+    /* Seções principais: Transição suave por opacidade */
+    section.section {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s ease;
+    }
+    section.section.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
     /* Regras para a seção de contatos para "subir" em modo INFO */
     #contact-section {
-      margin-top: 10px; /* Reduzi o espaçamento superior para aproximar do restante da página */
+      margin-top: 10px; /* Espaçamento superior reduzido */
       transition: margin-top 0.3s ease;
     }
     #contact-section.raised {
       margin-top: -80px;
     }
-
-    /* Regras para aproximar o conteúdo da seção de contatos do título */
-    #contact-section #contato-info p {
-      margin-top: 0 !important;
-    }
-
+    
     /* Responsive */
     @media (min-width: 768px) { body { padding: 30px; } }
     @media (min-width: 1024px) {
@@ -425,23 +432,6 @@
       }
       #waitlist-form button { background-color: #000; }
       #waitlist-form button:hover { background-color: #333; }
-    }
-
-    /* Transições Suaves para as Seções Principais */
-    section.section {
-      display: block !important;
-      overflow: hidden;
-      max-height: 10000px;
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease;
-    }
-    section.section.hidden {
-      display: block !important;
-      max-height: 0;
-      opacity: 0;
-      transform: translateY(20px);
-      pointer-events: none;
     }
   </style>
 </head>
@@ -903,7 +893,7 @@
         contatoInfo.classList.add("active");
         document.querySelector('.contact-title').setAttribute("aria-expanded", "true");
         // Ao abrir, rola suavemente para a seção de contato com um offset maior
-        const yOffset = -150; // Offset ajustado para subir mais a tela
+        const yOffset = -150;
         const y = contactSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
