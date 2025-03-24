@@ -259,6 +259,20 @@
     }
     .top-controls button:hover { opacity: 0.8; }
     
+    /* Links de acesso direto (adicionados) */
+    .direct-links {
+      text-align: center;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+    .direct-links a {
+      text-decoration: none;
+      color: #007BFF;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+    .direct-links a:hover { text-decoration: underline; }
+    
     /* Acordeons */
     .accordion-content {
       overflow: hidden;
@@ -354,8 +368,7 @@
     }
     #waitlist-form fieldset legend {
       font-weight: 500;
-      /* Aumentei a margem superior e inferior para afastar do campo em modo escuro */
-      margin: 10px 0 10px 0; 
+      margin: 10px 0;
       display: block;
     }
     
@@ -444,6 +457,11 @@
     <div class="top-controls">
       <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()" aria-label="Alternar entre galeria e informações">INFO</button>
       <button id="lang-btn" onclick="toggleLanguage()" aria-label="Alternar idioma">EN</button>
+    </div>
+    <!-- Links diretos para Informações e Formulário -->
+    <div class="direct-links">
+      <a href="#info">Informações</a>
+      <a href="#waitlist-form">Formulário</a>
     </div>
     <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <hr class="custom-line">
@@ -902,18 +920,20 @@
     }
   
     function loadState() {
-      if (window.location.hash === "#info") {
-        localStorage.setItem("section", "info");
+      let section = "gallery"; // valor padrão
+  
+      // Se houver hash na URL, usa-o para definir a seção (apenas nesta carga)
+      if (window.location.hash) {
+        if (window.location.hash === "#info") {
+          section = "info";
+        } else if (window.location.hash === "#waitlist-form") {
+          section = "waitlist";
+        }
+        // Limpa o hash para não afetar recarregamentos futuros
         history.replaceState(null, null, window.location.pathname);
-      } else if (window.location.hash === "#gallery") {
-        localStorage.setItem("section", "gallery");
-        history.replaceState(null, null, window.location.pathname);
-      } else if (window.location.hash === "#waitlist-form") {
-        localStorage.setItem("section", "waitlist");
-        history.replaceState(null, null, window.location.pathname);
-      }
-      if (!localStorage.getItem("section")) {
-        localStorage.setItem("section", "gallery");
+      } else {
+        // Verifica se há estado salvo (navegação manual) ou usa o padrão
+        section = localStorage.getItem("section") || "gallery";
       }
       
       const contentPt = document.getElementById("content-pt");
@@ -935,7 +955,6 @@
         contentEn.classList.add("hidden");
       }
       
-      const section = localStorage.getItem("section");
       if (section === "info") {
         gallerySection.classList.add("hidden");
         infoSection.classList.remove("hidden");
