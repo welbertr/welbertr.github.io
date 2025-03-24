@@ -846,6 +846,7 @@
       const customLine = document.querySelector('.custom-line');
   
       if (localStorage.getItem("section") === "waitlist") {
+         // Se o estado atual for "waitlist", troca para "info"
          waitlistFormSection.classList.add("hidden");
          gallerySection.classList.add("hidden");
          infoSection.classList.remove("hidden");
@@ -910,7 +911,8 @@
         if (paramSection === "info" || paramSection === "waitlist") {
           section = paramSection;
         }
-        // Remove o parâmetro para não fixar o estado no recarregamento
+        // Armazena o estado vindo do parâmetro e limpa a URL
+        localStorage.setItem("section", section);
         history.replaceState(null, '', window.location.pathname);
       } else {
         section = localStorage.getItem("section") || "gallery";
