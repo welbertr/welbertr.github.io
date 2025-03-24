@@ -910,10 +910,9 @@
         if (paramSection === "info" || paramSection === "waitlist") {
           section = paramSection;
         }
-        // Remove o parâmetro de query da URL para não fixar o estado em recarregamentos futuros
+        // Remove o parâmetro para não fixar o estado no recarregamento
         history.replaceState(null, '', window.location.pathname);
       } else {
-        // Caso contrário, usa o estado salvo no localStorage ou o padrão
         section = localStorage.getItem("section") || "gallery";
       }
       
