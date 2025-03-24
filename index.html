@@ -481,7 +481,7 @@
           <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt', 'btn-lista-espera-pt')">Lista de Espera</h2>
           <div id="lista-espera-pt" class="accordion-content" role="region" aria-labelledby="btn-lista-espera-pt">
             <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
-            <p><a href="#waitlist-form" class="waitlist-link">Entrar para lista</a></p>
+            <p><a href="?section=waitlist" class="waitlist-link">Entrar para lista</a></p>
           </div>
         </div>
         <div class="accordion-section">
@@ -522,7 +522,7 @@
           <h2 id="btn-waitlist-en" role="button" aria-expanded="false" aria-controls="waitlist-en" onclick="toggleAccordion('waitlist-en', 'btn-waitlist-en')">Waitlist</h2>
           <div id="waitlist-en" class="accordion-content" role="region" aria-labelledby="btn-waitlist-en">
             <p>If your city is not currently scheduled on my calendar, sign up for the waitlist! Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.</p>
-            <p><a href="#waitlist-form" class="waitlist-link">Join the Waitlist</a></p>
+            <p><a href="?section=waitlist" class="waitlist-link">Join the Waitlist</a></p>
           </div>
         </div>
         <div class="accordion-section">
@@ -902,18 +902,18 @@
   
     function loadState() {
       let section = "gallery"; // valor padrão
-  
-      // Se houver hash na URL, usa-o para definir a seção (apenas nesta carga)
-      if (window.location.hash) {
-        if (window.location.hash === "#info") {
-          section = "info";
-        } else if (window.location.hash === "#waitlist-form") {
-          section = "waitlist";
+      
+      // Verifica se há o parâmetro de query "section" na URL
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has("section")) {
+        const paramSection = urlParams.get("section");
+        if (paramSection === "info" || paramSection === "waitlist") {
+          section = paramSection;
         }
-        // Limpa o hash para não afetar recarregamentos futuros
-        history.replaceState(null, null, window.location.pathname);
+        // Remove o parâmetro de query da URL para não fixar o estado em recarregamentos futuros
+        history.replaceState(null, '', window.location.pathname);
       } else {
-        // Verifica se há estado salvo (navegação manual) ou usa o padrão
+        // Caso contrário, usa o estado salvo no localStorage ou o padrão
         section = localStorage.getItem("section") || "gallery";
       }
       
