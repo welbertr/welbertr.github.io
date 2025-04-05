@@ -18,10 +18,8 @@
 
   <!-- Pré-conexão para fontes -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Fonte base para o site -->
+  <!-- Fonte minimalista do Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
-  <!-- Nova fonte para o nome (Antic Didone) -->
-  <link href="https://fonts.googleapis.com/css2?family=Antic+Didone&display=swap" rel="stylesheet" />
 
   <style>
     /* Skip link */
@@ -64,33 +62,21 @@
       position: relative;
     }
     
-    /* Cabeçalho: aumentamos o padding superior para elevar o nome */
     header.sticky-header {
       position: sticky;
       top: 0;
       background-color: #fafafa;
       z-index: 10;
-      padding: 40px 20px 10px;
+      padding: 20px 20px 10px;
     }
     
-    /* Nome do artista: utilizando Antic Didone para um visual dramático e sofisticado */
     .top-name {
-      font-family: 'Antic Didone', serif;
-      font-size: 20px; /* tamanho reduzido */
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
-      word-spacing: 0.2em;
-      text-align: center;
-      color: #333;
-      margin: 0 auto; /* centralização */
-      padding: 0 30px 10px; /* aumento de espaço nas laterais */
-    }
-    
-    /* Controles do topo: maior distância entre o nome e os botões */
-    .top-controls {
-      text-align: right;
-      margin-top: 30px;
-      margin-bottom: 10px;
+      color: #666;
+      margin-bottom: 5px;
     }
     
     .custom-line {
@@ -249,6 +235,10 @@
     .instagram-btn:hover { text-decoration: underline; }
     
     /* Controles do topo */
+    .top-controls {
+      text-align: right;
+      margin-bottom: 10px;
+    }
     .top-controls button {
       background-color: transparent;
       color: #000;
