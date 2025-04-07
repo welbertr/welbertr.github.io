@@ -73,7 +73,7 @@
     /* Container do cabeçalho com nome e botões na mesma linha */
     .header-row {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: nowrap; /* Mantém tudo em uma única linha */
       justify-content: space-between;
       align-items: center;
       border-top: 1px solid #ddd;
@@ -87,7 +87,7 @@
       font-size: 14px;
       text-transform: uppercase;
       color: #666;
-      white-space: nowrap;
+      white-space: nowrap; /* Evita quebra de linha */
       margin-right: 10px;
     }
     
@@ -95,7 +95,7 @@
       margin-left: auto;
       display: flex;
       align-items: center;
-      gap: 2px;
+      gap: 2px; /* Espaço entre os botões */
     }
     
     .top-controls button {
@@ -107,13 +107,14 @@
       font-weight: 500;
       cursor: pointer;
       transition: opacity 0.3s ease;
-      white-space: nowrap;
+      white-space: nowrap; /* Evita quebra de linha */
     }
     
+    /* Aqui aumentamos o espaço entre o '|' e o texto do botão de idioma */
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
-      margin-right: 6px;
+      margin-right: 6px; /* Aumentado para 6px */
       font-size: 18px;
       font-weight: 700;
       line-height: 1;
@@ -483,7 +484,6 @@
       <!-- Conteúdo PT -->
       <div id="content-pt">
         <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
-        <br>
         <div class="accordion-section">
           <h2 id="btn-orcamento-pt" role="button" aria-expanded="false" aria-controls="orcamento-pt" onclick="toggleAccordion('orcamento-pt', 'btn-orcamento-pt')">Orçamento</h2>
           <div id="orcamento-pt" class="accordion-content" role="region" aria-labelledby="btn-orcamento-pt">
@@ -525,7 +525,6 @@
       <!-- Conteúdo EN -->
       <div id="content-en" class="hidden">
         <p>To help me better serve you, please follow the guidelines below:</p>
-        <br>
         <div class="accordion-section">
           <h2 id="btn-pricing-en" role="button" aria-expanded="false" aria-controls="pricing-en" onclick="toggleAccordion('pricing-en', 'btn-pricing-en')">Pricing</h2>
           <div id="pricing-en" class="accordion-content" role="region" aria-labelledby="btn-pricing-en">
