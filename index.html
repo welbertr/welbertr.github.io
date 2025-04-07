@@ -95,14 +95,14 @@
       margin-left: auto;
       display: flex;
       align-items: center;
-      gap: 2px; /* Espaço entre os botões reduzido */
+      gap: 2px; /* Espaço entre os botões */
     }
     
     .top-controls button {
       background-color: transparent;
       color: #000;
       border: none;
-      padding: 6px 8px; /* Padding reduzido para um conjunto mais compacto */
+      padding: 6px 8px;
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
@@ -110,10 +110,11 @@
       white-space: nowrap; /* Evita quebra de linha */
     }
     
+    /* Aqui aumentamos o espaço entre o '|' e o texto do botão de idioma */
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
-      margin-right: 3px; /* Margem ajustada para dar o espaçamento ideal */
+      margin-right: 6px; /* Aumentado para 6px */
       font-size: 18px;
       font-weight: 700;
       line-height: 1;
@@ -122,8 +123,6 @@
     .top-controls button:hover {
       opacity: 0.8;
     }
-    
-    /* Removida a linha extra abaixo de "Consulte disponibilidade" */
     
     h2 {
       border-bottom: 1px solid #ddd;
