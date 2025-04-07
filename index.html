@@ -110,11 +110,11 @@
       white-space: nowrap; /* Evita quebra de linha */
     }
     
-    /* Aqui aumentamos o espaço entre o '|' e o texto do botão de idioma */
+    /* Espaço entre o '|' e o texto do botão de idioma */
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
-      margin-right: 6px; /* Aumentado para 6px */
+      margin-right: 6px;
       font-size: 18px;
       font-weight: 700;
       line-height: 1;
@@ -820,7 +820,10 @@
       const langBtn = document.getElementById("lang-btn");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const availabilityText = document.getElementById("availability-text");
-  
+      
+      // Define a nova língua após a troca
+      const newLang = currentLanguage === "en" ? "pt" : "en";
+      
       if (currentLanguage === "en") {
         contentPt.classList.remove("hidden");
         contentEn.classList.add("hidden");
@@ -829,17 +832,16 @@
         langBtn.textContent = "EN";
         galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
         availabilityText.textContent = "Consulte disponibilidade.";
-        localStorage.setItem("language", "pt");
       } else {
         contentPt.classList.add("hidden");
         contentEn.classList.remove("hidden");
         waitlistFormPt.classList.add("hidden");
         waitlistFormEn.classList.remove("hidden");
         langBtn.textContent = "PT";
-        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
+        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
         availabilityText.textContent = "Check availability.";
-        localStorage.setItem("language", "en");
       }
+      localStorage.setItem("language", newLang);
   
       Object.keys(accordionMapping).forEach(key => {
         const ptElem = document.getElementById(accordionMapping[key].pt);
@@ -856,7 +858,6 @@
         }
       });
   
-      const newLang = localStorage.getItem("language");
       activeAccordions.forEach(key => {
         if (newLang === "pt") {
           const elem = document.getElementById(accordionMapping[key].pt);
@@ -890,7 +891,7 @@
          waitlistFormSection.classList.add("hidden");
          gallerySection.classList.add("hidden");
          infoSection.classList.remove("hidden");
-         galleryToggleBtn.textContent = language === "en" ? "DESENHOS" : "DESENHOS";
+         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
          localStorage.setItem("section", "info");
          availabilityText.style.display = "none";
          return;
@@ -899,7 +900,7 @@
       if (!gallerySection.classList.contains("hidden")) {
          gallerySection.classList.add("hidden");
          infoSection.classList.remove("hidden");
-         galleryToggleBtn.textContent = language === "en" ? "DESENHOS" : "DESENHOS";
+         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
          localStorage.setItem("section", "info");
          availabilityText.style.display = "none";
       } else {
@@ -977,7 +978,7 @@
         gallerySection.classList.add("hidden");
         infoSection.classList.remove("hidden");
         waitlistFormSection.classList.add("hidden");
-        galleryToggleBtn.textContent = language === "en" ? "DESENHOS" : "DESENHOS";
+        galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
         availabilityText.style.display = "none";
       } else if (section === "waitlist") {
         gallerySection.classList.add("hidden");
