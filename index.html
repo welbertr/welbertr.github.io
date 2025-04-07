@@ -95,14 +95,14 @@
       margin-left: auto;
       display: flex;
       align-items: center;
-      gap: 4px; /* Reduzimos para 4px para aproximar os botões */
+      gap: 2px; /* Espaço entre os botões reduzido */
     }
     
     .top-controls button {
       background-color: transparent;
       color: #000;
       border: none;
-      padding: 8px 12px; /* Reduzimos o padding horizontal */
+      padding: 6px 8px; /* Padding reduzido para um conjunto mais compacto */
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
@@ -113,7 +113,7 @@
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
-      margin-right: 2px; /* Menor espaço entre o '|' e o texto */
+      margin-right: 1px; /* Espaço ainda menor entre o '|' e o texto */
       font-size: 18px;
       font-weight: 700;
       line-height: 1;
@@ -402,10 +402,10 @@
     /* Responsividade: ajuste para telas muito estreitas */
     @media (max-width: 360px) {
       .top-controls {
-        gap: 2px; /* Ainda menor em telas minúsculas */
+        gap: 1px;
       }
       .top-controls button {
-        padding: 6px 10px;
+        padding: 4px 6px;
       }
     }
 
