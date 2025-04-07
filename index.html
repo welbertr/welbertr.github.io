@@ -85,7 +85,13 @@
       font-size: 14px;
       text-transform: uppercase;
       color: #666;
-      /* Removido margin-bottom, pois está na mesma linha */
+    }
+    
+    /* Espaçamento extra para separar o nome dos botões */
+    .header-row .top-controls {
+      margin-left: 20px;
+      min-width: 100px;
+      text-align: right;
     }
     
     .top-controls button {
@@ -101,18 +107,14 @@
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
-      margin-right: 8px;
+      margin-right: 4px; /* Reduzido de 8px para 4px */
       font-size: 18px;
       font-weight: 700;
       line-height: 1;
     }
     .top-controls button:hover { opacity: 0.8; }
     
-    .custom-line {
-      border: 0;
-      border-bottom: 1px solid #ddd;
-      margin: 10px 0;
-    }
+    /* Removido o elemento custom-line abaixo de "Consulte disponibilidade" */
     
     h2 {
       border-bottom: 1px solid #ddd;
@@ -422,7 +424,7 @@
       #contato-info .contato-label { color: #666; }
       #contato-info a.email, #contato-info a.whatsapp { color: #fff; }
       header.sticky-header { background-color: #121212; }
-      .custom-line { border-bottom: 1px solid #444; }
+      /* Remoção de custom-line já que não é mais exibida */
       
       #waitlist-form {
         background-color: #1e1e1e;
@@ -452,7 +454,6 @@
       </div>
     </div>
     <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
-    <hr class="custom-line">
   </header>
   
   <main id="main-content">
@@ -850,34 +851,30 @@
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const language = localStorage.getItem("language") || "pt";
       const availabilityText = document.getElementById("availability-text");
-      const customLine = document.querySelector('.custom-line');
   
       if (localStorage.getItem("section") === "waitlist") {
          // Se o estado atual for "waitlist", troca para "info"
          waitlistFormSection.classList.add("hidden");
          gallerySection.classList.add("hidden");
          infoSection.classList.remove("hidden");
-         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
+         galleryToggleBtn.textContent = language === "en" ? "DESENHOS" : "DESENHOS";
          localStorage.setItem("section", "info");
          availabilityText.style.display = "none";
-         customLine.style.display = "none";
          return;
       }
   
       if (!gallerySection.classList.contains("hidden")) {
          gallerySection.classList.add("hidden");
          infoSection.classList.remove("hidden");
-         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
+         galleryToggleBtn.textContent = language === "en" ? "DESENHOS" : "DESENHOS";
          localStorage.setItem("section", "info");
          availabilityText.style.display = "none";
-         customLine.style.display = "none";
       } else {
          gallerySection.classList.remove("hidden");
          infoSection.classList.add("hidden");
          galleryToggleBtn.textContent = "INFO";
          localStorage.setItem("section", "gallery");
          availabilityText.style.display = "block";
-         customLine.style.display = "block";
       }
     }
   
@@ -931,7 +928,6 @@
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const language = localStorage.getItem("language") || "pt";
       const availabilityText = document.getElementById("availability-text");
-      const customLine = document.querySelector('.custom-line');
       const gallerySection = document.getElementById("gallery-section");
       const infoSection = document.getElementById("info");
       const waitlistFormSection = document.getElementById("waitlist-form");
@@ -948,23 +944,20 @@
         gallerySection.classList.add("hidden");
         infoSection.classList.remove("hidden");
         waitlistFormSection.classList.add("hidden");
-        galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
+        galleryToggleBtn.textContent = language === "en" ? "DESENHOS" : "DESENHOS";
         availabilityText.style.display = "none";
-        customLine.style.display = "none";
       } else if (section === "waitlist") {
         gallerySection.classList.add("hidden");
         infoSection.classList.add("hidden");
         waitlistFormSection.classList.remove("hidden");
         galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "none";
-        customLine.style.display = "none";
       } else {
         gallerySection.classList.remove("hidden");
         infoSection.classList.add("hidden");
         waitlistFormSection.classList.add("hidden");
         galleryToggleBtn.textContent = "INFO";
         availabilityText.style.display = "block";
-        customLine.style.display = "block";
       }
       
       if (language === "en") {
@@ -991,4 +984,4 @@
     });
   </script>
 </body>
-  </html>
+</html>
