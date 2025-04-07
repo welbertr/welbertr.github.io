@@ -69,9 +69,11 @@
       z-index: 10;
       padding: 10px 20px;
     }
-    /* Novo container para o cabeçalho com linhas suaves */
+    
+    /* Container do cabeçalho com nome e botões na mesma linha */
     .header-row {
       display: flex;
+      flex-wrap: nowrap; /* Mantém tudo em uma única linha */
       justify-content: space-between;
       align-items: center;
       border-top: 1px solid #ddd;
@@ -85,13 +87,15 @@
       font-size: 14px;
       text-transform: uppercase;
       color: #666;
+      white-space: nowrap; /* Evita quebra de linha */
+      margin-right: 10px;
     }
     
-    /* Espaçamento extra para separar o nome dos botões */
-    .header-row .top-controls {
-      margin-left: 20px;
-      min-width: 100px;
-      text-align: right;
+    .top-controls {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px; /* Espaço entre os botões */
     }
     
     .top-controls button {
@@ -103,18 +107,23 @@
       font-weight: 500;
       cursor: pointer;
       transition: opacity 0.3s ease;
+      white-space: nowrap; /* Evita quebra de linha */
     }
+    
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
-      margin-right: 4px; /* Reduzido de 8px para 4px */
+      margin-right: 4px; /* Espaço reduzido para aproximar o '|' do texto */
       font-size: 18px;
       font-weight: 700;
       line-height: 1;
     }
-    .top-controls button:hover { opacity: 0.8; }
     
-    /* Removido o elemento custom-line abaixo de "Consulte disponibilidade" */
+    .top-controls button:hover {
+      opacity: 0.8;
+    }
+    
+    /* Removida a linha extra abaixo de "Consulte disponibilidade" */
     
     h2 {
       border-bottom: 1px solid #ddd;
@@ -384,14 +393,25 @@
       visibility: hidden;
     }
     
-    /* Espaçamento ajustado para a seção de contato (mais baixa) */
+    /* Espaçamento para a seção de contato */
     #contact-section {
       margin-top: 40px;
       transition: margin-top 0.3s ease;
     }
     
-    /* Responsive */
-    @media (min-width: 768px) { body { padding: 30px; } }
+    /* Responsividade: ajuste para telas muito estreitas */
+    @media (max-width: 360px) {
+      .top-controls {
+        gap: 6px;
+      }
+      .top-controls button {
+        padding: 6px 10px;
+      }
+    }
+
+    @media (min-width: 768px) { 
+      body { padding: 30px; } 
+    }
     @media (min-width: 1024px) {
       body { max-width: 1200px; }
       .gallery { grid-template-columns: repeat(3, 1fr); }
@@ -424,7 +444,6 @@
       #contato-info .contato-label { color: #666; }
       #contato-info a.email, #contato-info a.whatsapp { color: #fff; }
       header.sticky-header { background-color: #121212; }
-      /* Remoção de custom-line já que não é mais exibida */
       
       #waitlist-form {
         background-color: #1e1e1e;
@@ -445,7 +464,6 @@
   <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
   
   <header class="sticky-header" role="banner">
-    <!-- Novo cabeçalho com nome e botões na mesma linha -->
     <div class="header-row">
       <div class="top-name" aria-label="Nome do artista">WELBERT RODRIGUES</div>
       <div class="top-controls">
@@ -984,4 +1002,4 @@
     });
   </script>
 </body>
-</html>
+  </html>
