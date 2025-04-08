@@ -76,7 +76,7 @@
       font-size: 14px;
       text-transform: uppercase;
       color: #666;
-      margin-bottom: 20px; /* Aumentado de 5px para 20px */
+      margin-bottom: 20px;
     }
     
     .custom-line {
@@ -241,12 +241,12 @@
     }
     /* Ajuste de espaçamento:
        - padding horizontal definido como 2px
-       - espaço do separador ajustado para 2px */
+       - o pseudo-elemento com margem 2px à esquerda e 4px à direita */
     .top-controls button {
       background-color: transparent;
       color: #000;
       border: none;
-      padding: 8px 2px; /* ajuste horizontal para 2px */
+      padding: 8px 2px;
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
@@ -255,7 +255,7 @@
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
-      margin: 0 2px; /* 2px à esquerda e à direita do '|' */
+      margin: 0 4px 0 2px; /* margem: top 0, right 4px, bottom 0, left 2px */
       font-size: 18px;
       font-weight: 700;
       line-height: 1;
