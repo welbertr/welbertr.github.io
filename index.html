@@ -239,14 +239,14 @@
       text-align: right;
       margin-bottom: 10px;
     }
-    /* AQUI ESTÁ A PRINCIPAL MUDANÇA:
-       - Reduzindo o padding horizontal de 16px para 8px
-       - Ajustando a margin do ::before para equilibrar o espaço */
+    /* Ajuste de espaçamento:
+       - padding horizontal definido como 2px
+       - espaço do separador ajustado para 2px */
     .top-controls button {
       background-color: transparent;
       color: #000;
       border: none;
-      padding: 8px 8px; /* Em vez de 8px 16px */
+      padding: 8px 2px; /* ajuste horizontal para 2px */
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
@@ -255,7 +255,7 @@
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
-      margin: 0 8px; /* 8px à esquerda e à direita do '|' */
+      margin: 0 2px; /* 2px à esquerda e à direita do '|' */
       font-size: 18px;
       font-weight: 700;
       line-height: 1;
