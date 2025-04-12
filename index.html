@@ -255,7 +255,7 @@
     .top-controls button#lang-btn::before {
       content: "|";
       display: inline-block;
-      margin: 0 7px 0 2px; /* margem: top 0, right 7px, bottom 0, left 2px */
+      margin: 0 7px 0 2px;
       font-size: 18px;
       font-weight: 700;
       line-height: 1;
@@ -552,7 +552,7 @@
           Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha do horário.
           <br><em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em>
         </p>
-        <form action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
+        <form id="form-pt" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
           
@@ -601,6 +601,7 @@
           
           <button type="submit">Inscrever-se</button>
         </form>
+        <div id="form-response-pt" style="margin-top: 20px;"></div>
       </div>
       <!-- Versão EN -->
       <div id="waitlist-form-en" class="hidden">
@@ -610,7 +611,7 @@
           Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.
           <br><em>Note: I will contact you only when the date is confirmed.</em>
         </p>
-        <form action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
+        <form id="form-en" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" required>
           
@@ -662,6 +663,7 @@
           
           <button type="submit">Submit</button>
         </form>
+        <div id="form-response-en" style="margin-top: 20px;"></div>
       </div>
     </section>
     
@@ -849,7 +851,6 @@
       const customLine = document.querySelector('.custom-line');
   
       if (localStorage.getItem("section") === "waitlist") {
-         // Se o estado atual for "waitlist", troca para "info"
          waitlistFormSection.classList.add("hidden");
          gallerySection.classList.add("hidden");
          infoSection.classList.remove("hidden");
@@ -905,16 +906,13 @@
     }
     
     function loadState() {
-      let section = "gallery"; // valor padrão
-      
-      // Verifica se há o parâmetro de query "section" na URL
+      let section = "gallery";
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has("section")) {
         const paramSection = urlParams.get("section");
         if (paramSection === "info" || paramSection === "waitlist") {
           section = paramSection;
         }
-        // Armazena o estado vindo do parâmetro e limpa a URL
         localStorage.setItem("section", section);
         history.replaceState(null, '', window.location.pathname);
       } else {
@@ -985,6 +983,52 @@
         }
       });
     });
+    
+    // Função para tratar envio assíncrono dos formulários
+    function handleFormSubmit(formId, responseId, messages) {
+      const form = document.getElementById(formId);
+      const responseContainer = document.getElementById(responseId);
+      
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        responseContainer.innerHTML = '<p style="color: #555;">Enviando...</p>';
+        const formData = new FormData(form);
+        
+        fetch(form.action, {
+          method: form.method,
+          body: formData,
+        })
+        .then(response => {
+          if (response.ok) {
+            responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
+            form.reset();
+          } else {
+            throw new Error('Erro no envio');
+          }
+        })
+        .catch(error => {
+          responseContainer.innerHTML = `<p style="color: red; font-size: 16px;">&#10007; ${messages.error}</p>`;
+        });
+      });
+    }
+    
+    // Mensagens para cada idioma
+    const messagesPT = {
+      success: "Obrigado! Sua inscrição foi enviada com sucesso. Em breve entrarei em contato.",
+      error: "Houve um problema ao enviar sua inscrição. Por favor, tente novamente."
+    };
+    
+    const messagesEN = {
+      success: "Thank you! Your submission was successfully received. I will be in touch shortly.",
+      error: "There was an error submitting your form. Please try again."
+    };
+    
+    if (document.getElementById('form-pt')) {
+      handleFormSubmit('form-pt', 'form-response-pt', messagesPT);
+    }
+    if (document.getElementById('form-en')) {
+      handleFormSubmit('form-en', 'form-response-en', messagesEN);
+    }
   </script>
 </body>
 </html>
