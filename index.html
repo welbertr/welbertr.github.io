@@ -239,9 +239,6 @@
       text-align: right;
       margin-bottom: 10px;
     }
-    /* Ajuste de espaçamento:
-       - padding horizontal definido como 2px
-       - o pseudo-elemento com margem 2px à esquerda e 7px à direita */
     .top-controls button {
       background-color: transparent;
       color: #000;
@@ -381,7 +378,7 @@
       visibility: hidden;
     }
     
-    /* Espaçamento ajustado para a seção de contato (mais baixa) */
+    /* Espaçamento para a seção de contato */
     #contact-section {
       margin-top: 40px;
       transition: margin-top 0.3s ease;
@@ -603,6 +600,7 @@
         </form>
         <div id="form-response-pt" style="margin-top: 20px;"></div>
       </div>
+      
       <!-- Versão EN -->
       <div id="waitlist-form-en" class="hidden">
         <h2>Waitlist Registration</h2>
@@ -838,6 +836,13 @@
           }
         }
       });
+      
+      // Após trocar o idioma, carrega os dados do formulário correspondente
+      if (localStorage.getItem("language") === "pt") {
+        loadFormData('form-pt', 'formDataPT');
+      } else {
+        loadFormData('form-en', 'formDataEN');
+      }
     }
     
     function toggleGalleryInfo() {
@@ -964,9 +969,11 @@
       if (language === "en") {
         document.getElementById("waitlist-form-pt").classList.add("hidden");
         document.getElementById("waitlist-form-en").classList.remove("hidden");
+        loadFormData('form-en', 'formDataEN'); // Carrega dados do formulário EN
       } else {
         document.getElementById("waitlist-form-pt").classList.remove("hidden");
         document.getElementById("waitlist-form-en").classList.add("hidden");
+        loadFormData('form-pt', 'formDataPT'); // Carrega dados do formulário PT
       }
     }
     
@@ -983,6 +990,56 @@
         }
       });
     });
+    
+    // Funções para salvar e carregar dados do formulário no localStorage
+    function saveFormData(formId, storageKey) {
+      const form = document.getElementById(formId);
+      const data = {};
+      form.querySelectorAll("input, textarea, select").forEach(input => {
+        if (input.type === "radio") {
+          if (input.checked) {
+            data[input.name] = input.value;
+          }
+        } else {
+          data[input.id] = input.value;
+        }
+      });
+      localStorage.setItem(storageKey, JSON.stringify(data));
+    }
+    
+    function loadFormData(formId, storageKey) {
+      const form = document.getElementById(formId);
+      const data = JSON.parse(localStorage.getItem(storageKey) || "{}");
+      form.querySelectorAll("input, textarea, select").forEach(input => {
+        if (input.type === "radio") {
+          if (data[input.name] && data[input.name] === input.value) {
+            input.checked = true;
+          }
+        } else if (data[input.id]) {
+          input.value = data[input.id];
+        }
+      });
+    }
+    
+    // Vincula evento 'input' para salvar os dados conforme o usuário digita (PT)
+    const formPT = document.getElementById('form-pt');
+    if (formPT) {
+      formPT.querySelectorAll("input, textarea, select").forEach(input => {
+        input.addEventListener('input', () => {
+          saveFormData('form-pt', 'formDataPT');
+        });
+      });
+    }
+    
+    // Vincula evento 'input' para salvar os dados conforme o usuário digita (EN)
+    const formEN = document.getElementById('form-en');
+    if (formEN) {
+      formEN.querySelectorAll("input, textarea, select").forEach(input => {
+        input.addEventListener('input', () => {
+          saveFormData('form-en', 'formDataEN');
+        });
+      });
+    }
     
     // Função para tratar envio assíncrono dos formulários
     function handleFormSubmit(formId, responseId, messages) {
@@ -1002,6 +1059,8 @@
           if (response.ok) {
             responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
             form.reset();
+            // Opcional: limpar os dados salvos
+            localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
           } else {
             throw new Error('Erro no envio');
           }
