@@ -552,26 +552,38 @@
         <form id="form-pt" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
+          
           <label for="idade">Idade *</label>
           <input type="number" id="idade" name="idade" required>
+          
           <label for="cidade">Cidade *</label>
           <input type="text" id="cidade" name="cidade" required>
+          
           <label for="estado">Estado *</label>
           <input type="text" id="estado" name="estado" required>
+          
           <label for="telefone">Celular com DDD</label>
           <input type="tel" id="telefone" name="telefone">
+          
           <label for="email">E-mail *</label>
           <input type="email" id="email" name="email" required>
+          
+          <!-- Instagram agora obrigatório -->
           <label for="instagram">Instagram *</label>
           <input type="text" id="instagram" name="instagram" required>
+          
           <label for="tattoo">O que gostaria de tatuar? *</label>
           <input type="text" id="tattoo" name="tattoo" required>
+          
           <label for="reference-image">Imagem de Referência:</label>
           <input type="file" id="reference-image" name="reference-image" accept="image/*">
+          
           <label for="tamanho">Tamanho aproximado (em cm) *</label>
           <input type="number" id="tamanho" name="tamanho" required>
+          
           <label for="local">Local do corpo *</label>
           <input type="text" id="local" name="local" required>
+          
           <fieldset>
             <legend>Já tatuou comigo anteriormente? *</legend>
             <div class="radio-inline">
@@ -583,6 +595,7 @@
               <label for="nao">Não</label>
             </div>
           </fieldset>
+          
           <button type="submit">Inscrever-se</button>
         </form>
         <div id="form-response-pt" style="margin-top: 20px;"></div>
@@ -599,28 +612,41 @@
         <form id="form-en" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" required>
+          
           <label for="age">Age *</label>
           <input type="number" id="age" name="age" required>
+          
           <label for="city">City *</label>
           <input type="text" id="city" name="city" required>
+          
           <label for="state">State *</label>
           <input type="text" id="state" name="state" required>
+          
           <label for="country">Country *</label>
           <input type="text" id="country" name="country" required>
+          
           <label for="phone">Phone with area code</label>
           <input type="tel" id="phone" name="phone">
+          
           <label for="emailEn">E-mail *</label>
           <input type="email" id="emailEn" name="email" required>
+          
+          <!-- Instagram agora obrigatório -->
           <label for="instagramEn">Instagram *</label>
           <input type="text" id="instagramEn" name="instagram" required>
+          
           <label for="tattooEn">What tattoo would you like? *</label>
           <input type="text" id="tattooEn" name="tattoo" required>
+          
           <label for="reference-image-en">Reference Image:</label>
           <input type="file" id="reference-image-en" name="reference-image" accept="image/*">
+          
           <label for="size">Approximate size (in cm) *</label>
           <input type="number" id="size" name="size" required>
+          
           <label for="bodyLocation">Body location *</label>
           <input type="text" id="bodyLocation" name="bodyLocation" required>
+          
           <fieldset>
             <legend>Have you been tattooed by me before? *</legend>
             <div class="radio-inline">
@@ -632,6 +658,7 @@
               <label for="no">No</label>
             </div>
           </fieldset>
+          
           <button type="submit">Submit</button>
         </form>
         <div id="form-response-en" style="margin-top: 20px;"></div>
@@ -658,14 +685,14 @@
   </div>
   
   <script>
-    // Remoção do parâmetro "fbclid" da URL, se presente
+    // Remoção do parâmetro "fbclid" da URL, se presente.
     if (window.location.search.includes('fbclid')) {
       const url = new URL(window.location);
       url.searchParams.delete('fbclid');
       history.replaceState(null, '', url.pathname + url.search);
     }
     
-    // Array com números das imagens válidas
+    // Array com os números das imagens que realmente existem
     const imagensValidas = [
       1,2,4,5,6,7,8,9,10,11,12,13,
       16,17,18,20,21,23,24,25,26,
@@ -674,7 +701,7 @@
       51,52,53,54,55,56,57,58,59,
       60,61,62,64,65,66,67,68,69,70,
       71,72,73,74,75,76,77,78,79,80,
-      81
+      81,
     ];
     imagensValidas.reverse();
     
@@ -713,7 +740,7 @@
       document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
     }
     
-    // Tratamento para links "waitlist-link"
+    // Tratamento para os links "waitlist-link"
     document.querySelectorAll('.waitlist-link').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -723,103 +750,31 @@
       });
     });
     
-    // Mapeamento entre os campos dos formulários PT e EN
-    const fieldMapping = {
-      "nome": "name",
-      "idade": "age",
-      "cidade": "city",
-      "estado": "state",
-      "telefone": "phone",
-      "email": "emailEn",
-      "instagram": "instagramEn",
-      "tattoo": "tattooEn",
-      "reference-image": "reference-image-en",
-      "tamanho": "size",
-      "local": "bodyLocation"
+    const accordionMapping = {
+      "orcamento": { pt: "orcamento-pt", en: "pricing-en", btnPt: "btn-orcamento-pt", btnEn: "btn-pricing-en" },
+      "agendamento": { pt: "agendamento-pt", en: "booking-en", btnPt: "btn-agendamento-pt", btnEn: "btn-booking-en" },
+      "lista-espera": { pt: "lista-espera-pt", en: "waitlist-en", btnPt: "btn-lista-espera-pt", btnEn: "btn-waitlist-en" },
+      "dia-sessao": { pt: "dia-sessao-pt", en: "session-day-en", btnPt: "btn-dia-sessao-pt", btnEn: "btn-session-day-en" }
     };
-    
-    // Funções para salvar e carregar os dados do formulário no localStorage
-    function saveFormData(formId, storageKey) {
-      const form = document.getElementById(formId);
-      const data = {};
-      form.querySelectorAll("input, textarea, select").forEach(input => {
-        if (input.type === "radio") {
-          if (input.checked) {
-            data[input.name] = input.value;
-          }
-        } else {
-          data[input.id] = input.value;
-        }
-      });
-      localStorage.setItem(storageKey, JSON.stringify(data));
-    }
-    
-    function loadFormData(formId, storageKey) {
-      const form = document.getElementById(formId);
-      const data = JSON.parse(localStorage.getItem(storageKey) || "{}");
-      form.querySelectorAll("input, textarea, select").forEach(input => {
-        if (input.type === "radio") {
-          if (data[input.name] && data[input.name] === input.value) {
-            input.checked = true;
-          }
-        } else if (data[input.id]) {
-          input.value = data[input.id];
-        }
-      });
-    }
-    
-    // Função para sincronizar os dados entre os formulários (ao trocar de idioma)
-    function synchronizeFormData() {
-      const currentLang = localStorage.getItem("language") || "pt";
-      if (currentLang === "pt") {
-        const dataPT = JSON.parse(localStorage.getItem("formDataPT") || "{}");
-        const dataEN = {};
-        for (const key in fieldMapping) {
-          if (dataPT[key] !== undefined) {
-            dataEN[fieldMapping[key]] = dataPT[key];
-          }
-        }
-        localStorage.setItem("formDataEN", JSON.stringify(dataEN));
-      } else {
-        const dataEN = JSON.parse(localStorage.getItem("formDataEN") || "{}");
-        const dataPT = {};
-        for (const key in fieldMapping) {
-          const value = dataEN[fieldMapping[key]];
-          if (value !== undefined) {
-            dataPT[key] = value;
-          }
-        }
-        localStorage.setItem("formDataPT", JSON.stringify(dataPT));
-      }
-    }
-    
-    // Vincula o evento 'input' para salvar os dados conforme o usuário digita (versão PT)
-    const formPT = document.getElementById('form-pt');
-    if (formPT) {
-      formPT.querySelectorAll("input, textarea, select").forEach(input => {
-        input.addEventListener('input', () => {
-          saveFormData('form-pt', 'formDataPT');
-        });
-      });
-    }
-    
-    // Vincula o evento 'input' para salvar os dados conforme o usuário digita (versão EN)
-    const formEN = document.getElementById('form-en');
-    if (formEN) {
-      formEN.querySelectorAll("input, textarea, select").forEach(input => {
-        input.addEventListener('input', () => {
-          saveFormData('form-en', 'formDataEN');
-        });
-      });
-    }
-    
-    // Modificação na função de troca de idioma para sincronizar os dados antes de alternar
+  
     function toggleLanguage() {
-      synchronizeFormData();
       const currentLanguage = localStorage.getItem("language") || "pt";
       const activeAccordions = [];
-      // (Mantemos a lógica atual para os acordions, se houver)
       
+      Object.keys(accordionMapping).forEach(key => {
+        if (currentLanguage === "pt") {
+          const elem = document.getElementById(accordionMapping[key].pt);
+          if (elem && elem.classList.contains("active")) {
+            activeAccordions.push(key);
+          }
+        } else {
+          const elem = document.getElementById(accordionMapping[key].en);
+          if (elem && elem.classList.contains("active")) {
+            activeAccordions.push(key);
+          }
+        }
+      });
+  
       const contentPt = document.getElementById("content-pt");
       const contentEn = document.getElementById("content-en");
       const waitlistFormPt = document.getElementById("waitlist-form-pt");
@@ -847,7 +802,42 @@
         availabilityText.textContent = "Check availability.";
         localStorage.setItem("language", "en");
       }
-      // Após a troca, carrega os dados do formulário ativo
+  
+      Object.keys(accordionMapping).forEach(key => {
+        const ptElem = document.getElementById(accordionMapping[key].pt);
+        const ptBtn = document.getElementById(accordionMapping[key].btnPt);
+        if (ptElem && ptBtn) {
+          ptElem.classList.remove("active");
+          ptBtn.setAttribute("aria-expanded", "false");
+        }
+        const enElem = document.getElementById(accordionMapping[key].en);
+        const enBtn = document.getElementById(accordionMapping[key].btnEn);
+        if (enElem && enBtn) {
+          enElem.classList.remove("active");
+          enBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+  
+      const newLang = localStorage.getItem("language");
+      activeAccordions.forEach(key => {
+        if (newLang === "pt") {
+          const elem = document.getElementById(accordionMapping[key].pt);
+          const btn = document.getElementById(accordionMapping[key].btnPt);
+          if (elem && btn) {
+            elem.classList.add("active");
+            btn.setAttribute("aria-expanded", "true");
+          }
+        } else {
+          const elem = document.getElementById(accordionMapping[key].en);
+          const btn = document.getElementById(accordionMapping[key].btnEn);
+          if (elem && btn) {
+            elem.classList.add("active");
+            btn.setAttribute("aria-expanded", "true");
+          }
+        }
+      });
+      
+      // Após trocar o idioma, carrega os dados do formulário correspondente
       if (localStorage.getItem("language") === "pt") {
         loadFormData('form-pt', 'formDataPT');
       } else {
@@ -979,11 +969,11 @@
       if (language === "en") {
         document.getElementById("waitlist-form-pt").classList.add("hidden");
         document.getElementById("waitlist-form-en").classList.remove("hidden");
-        loadFormData('form-en', 'formDataEN');
+        loadFormData('form-en', 'formDataEN'); // Carrega dados do formulário EN
       } else {
         document.getElementById("waitlist-form-pt").classList.remove("hidden");
         document.getElementById("waitlist-form-en").classList.add("hidden");
-        loadFormData('form-pt', 'formDataPT');
+        loadFormData('form-pt', 'formDataPT'); // Carrega dados do formulário PT
       }
     }
     
@@ -1001,7 +991,57 @@
       });
     });
     
-    // Função para tratar o envio assíncrono dos formulários
+    // Funções para salvar e carregar dados do formulário no localStorage
+    function saveFormData(formId, storageKey) {
+      const form = document.getElementById(formId);
+      const data = {};
+      form.querySelectorAll("input, textarea, select").forEach(input => {
+        if (input.type === "radio") {
+          if (input.checked) {
+            data[input.name] = input.value;
+          }
+        } else {
+          data[input.id] = input.value;
+        }
+      });
+      localStorage.setItem(storageKey, JSON.stringify(data));
+    }
+    
+    function loadFormData(formId, storageKey) {
+      const form = document.getElementById(formId);
+      const data = JSON.parse(localStorage.getItem(storageKey) || "{}");
+      form.querySelectorAll("input, textarea, select").forEach(input => {
+        if (input.type === "radio") {
+          if (data[input.name] && data[input.name] === input.value) {
+            input.checked = true;
+          }
+        } else if (data[input.id]) {
+          input.value = data[input.id];
+        }
+      });
+    }
+    
+    // Vincula evento 'input' para salvar os dados conforme o usuário digita (PT)
+    const formPT = document.getElementById('form-pt');
+    if (formPT) {
+      formPT.querySelectorAll("input, textarea, select").forEach(input => {
+        input.addEventListener('input', () => {
+          saveFormData('form-pt', 'formDataPT');
+        });
+      });
+    }
+    
+    // Vincula evento 'input' para salvar os dados conforme o usuário digita (EN)
+    const formEN = document.getElementById('form-en');
+    if (formEN) {
+      formEN.querySelectorAll("input, textarea, select").forEach(input => {
+        input.addEventListener('input', () => {
+          saveFormData('form-en', 'formDataEN');
+        });
+      });
+    }
+    
+    // Função para tratar envio assíncrono dos formulários
     function handleFormSubmit(formId, responseId, messages) {
       const form = document.getElementById(formId);
       const responseContainer = document.getElementById(responseId);
@@ -1019,6 +1059,7 @@
           if (response.ok) {
             responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
             form.reset();
+            // Opcional: limpar os dados salvos
             localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
           } else {
             throw new Error('Erro no envio');
@@ -1030,7 +1071,7 @@
       });
     }
     
-    // Mensagens de resposta para cada idioma
+    // Mensagens para cada idioma
     const messagesPT = {
       success: "Obrigado! Sua inscrição foi enviada com sucesso. Em breve entrarei em contato.",
       error: "Houve um problema ao enviar sua inscrição. Por favor, tente novamente."
@@ -1049,4 +1090,4 @@
     }
   </script>
 </body>
-  </html>
+</html>
