@@ -678,10 +678,12 @@
   
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada">
-    <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
+  <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
+  <div class="lightbox-content">
     <button class="prev-btn" onclick="changeImage(-1)" aria-label="Imagem anterior">&lt;</button>
     <img id="lightbox-img" src="" alt="Imagem ampliada">
     <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
+  </div>
   </div>
   
   <script>
