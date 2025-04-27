@@ -158,53 +158,66 @@
     }
     
     /* Lightbox */
-    .lightbox-content {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 90%;
-  max-width: 800px;
-  margin: auto;
-}
-
-.lightbox-content img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  max-height: 90vh;
-  object-fit: contain;
-}
-
-.prev-btn, .next-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s;
-}
-
-.prev-btn:hover, .next-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.prev-btn {
-  left: -20px;
-}
-
-.next-btn {
-  right: -20px;
-}
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+    
+    .close-btn, .prev-btn, .next-btn {
+      position: absolute;
+      background: rgba(0,0,0,0.1);
+      border: 1px solid rgba(0,0,0,0.3);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      color: rgba(0,0,0,0.8);
+      cursor: pointer;
+      transition: opacity 0.3s ease, background 0.3s ease;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .close-btn:hover, .prev-btn:hover, .next-btn:hover {
+      background: rgba(0,0,0,0.2);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    
+    .close-btn {
+      top: 20px;
+      right: 20px;
+      font-size: 22px;
+      font-weight: 700;
+      z-index: 9999;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.6);
+      color: rgba(0,0,0,0.8);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .prev-btn, .next-btn {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+    }
+    
+    .prev-btn { left: 20px; }
+    .next-btn { right: 20px; }
     
     /* Botão do Instagram */
     .instagram-btn {
@@ -665,12 +678,10 @@
   
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada">
-  <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
-  <div class="lightbox-content">
+    <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
     <button class="prev-btn" onclick="changeImage(-1)" aria-label="Imagem anterior">&lt;</button>
     <img id="lightbox-img" src="" alt="Imagem ampliada">
     <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
-  </div>
   </div>
   
   <script>
