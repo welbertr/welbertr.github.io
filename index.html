@@ -1,4 +1,7 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Welbert Rodrigues</title>
   
@@ -681,410 +684,38 @@
     <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
   </div>
   
-  <script>
-    // Remoção do parâmetro "fbclid" da URL, se presente.
-    if (window.location.search.includes('fbclid')) {
-      const url = new URL(window.location);
-      url.searchParams.delete('fbclid');
-      history.replaceState(null, '', url.pathname + url.search);
-    }
-    
-    // Array com os números das imagens que realmente existem
-    const imagensValidas = [
-      1,2,4,5,6,7,8,9,10,12,13,
-      16,17,18,20,21,23,24,25,26,
-      27,29,30,31,33,34,35,36,39,
-      40,41,43,44,45,46,47,48,49,
-      51,52,53,54,55,56,57,58,59,
-      60,61,62,64,65,66,67,68,69,
-      72,73,74,75,76,77,78,79,80,
-      81,
-    ];
-    imagensValidas.reverse();
-    
-    const galleryContainer = document.querySelector('.gallery');
-    const galleryFragment = document.createDocumentFragment();
-    imagensValidas.forEach(num => {
-      const img = document.createElement('img');
-      img.src = `images/desenho${num}.jpg`;
-      img.alt = `Desenho ${num}`;
-      img.loading = 'lazy';
-      img.onerror = function() {
-        this.onerror = null;
-        this.src = 'images/placeholder.jpg';
-      };
-      img.onclick = () => openLightbox(num);
-      galleryFragment.appendChild(img);
-    });
-    galleryContainer.appendChild(galleryFragment);
-    
-    let currentIndex = 0;
-    function openLightbox(num) {
-      currentIndex = imagensValidas.indexOf(num);
-      document.getElementById("lightbox").style.display = "flex";
-      updateLightboxImage();
-    }
-    function closeLightbox() {
-      document.getElementById("lightbox").style.display = "none";
-    }
-    function changeImage(direction) {
-      currentIndex += direction;
-      if (currentIndex < 0) currentIndex = imagensValidas.length - 1;
-      if (currentIndex >= imagensValidas.length) currentIndex = 0;
-      updateLightboxImage();
-    }
-    function updateLightboxImage() {
-      document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
-    }
-    
-    // Tratamento para os links "waitlist-link"
-    document.querySelectorAll('.waitlist-link').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        localStorage.setItem("section", "waitlist");
-        loadState();
-        document.getElementById("waitlist-form").scrollIntoView({ behavior: "smooth" });
-      });
-    });
-    
-    const accordionMapping = {
-      "orcamento": { pt: "orcamento-pt", en: "pricing-en", btnPt: "btn-orcamento-pt", btnEn: "btn-pricing-en" },
-      "agendamento": { pt: "agendamento-pt", en: "booking-en", btnPt: "btn-agendamento-pt", btnEn: "btn-booking-en" },
-      "lista-espera": { pt: "lista-espera-pt", en: "waitlist-en", btnPt: "btn-lista-espera-pt", btnEn: "btn-waitlist-en" },
-      "dia-sessao": { pt: "dia-sessao-pt", en: "session-day-en", btnPt: "btn-dia-sessao-pt", btnEn: "btn-session-day-en" }
+  
+<script>
+const gallery = document.getElementById('gallery');
+const quantidadeImagens = 30; // ajuste o máximo conforme sua pasta
+
+// Limpa a galeria antes
+gallery.innerHTML = "";
+
+// Testa todas as imagens até o limite
+for (let num = 1; num <= quantidadeImagens; num++) {
+    const imgPath = `images/desenho${num}.jpg`;
+
+    const img = new Image();
+    img.src = imgPath;
+    img.alt = `Desenho ${num}`;
+
+    // Se carregar com sucesso → adiciona na galeria
+    img.onload = () => {
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("gallery-item");
+        wrapper.appendChild(img);
+
+        img.onclick = () => openModal(imgPath, `Desenho ${num}`);
+        gallery.appendChild(wrapper);
     };
-  
-    function toggleLanguage() {
-      const currentLanguage = localStorage.getItem("language") || "pt";
-      const activeAccordions = [];
-      
-      Object.keys(accordionMapping).forEach(key => {
-        if (currentLanguage === "pt") {
-          const elem = document.getElementById(accordionMapping[key].pt);
-          if (elem && elem.classList.contains("active")) {
-            activeAccordions.push(key);
-          }
-        } else {
-          const elem = document.getElementById(accordionMapping[key].en);
-          if (elem && elem.classList.contains("active")) {
-            activeAccordions.push(key);
-          }
-        }
-      });
-  
-      const contentPt = document.getElementById("content-pt");
-      const contentEn = document.getElementById("content-en");
-      const waitlistFormPt = document.getElementById("waitlist-form-pt");
-      const waitlistFormEn = document.getElementById("waitlist-form-en");
-      const langBtn = document.getElementById("lang-btn");
-      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      const availabilityText = document.getElementById("availability-text");
-  
-      if (currentLanguage === "en") {
-        contentPt.classList.remove("hidden");
-        contentEn.classList.add("hidden");
-        waitlistFormPt.classList.remove("hidden");
-        waitlistFormEn.classList.add("hidden");
-        langBtn.textContent = "EN";
-        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
-        availabilityText.textContent = "Consulte disponibilidade.";
-        localStorage.setItem("language", "pt");
-      } else {
-        contentPt.classList.add("hidden");
-        contentEn.classList.remove("hidden");
-        waitlistFormPt.classList.add("hidden");
-        waitlistFormEn.classList.remove("hidden");
-        langBtn.textContent = "PT";
-        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
-        availabilityText.textContent = "Check availability.";
-        localStorage.setItem("language", "en");
-      }
-  
-      Object.keys(accordionMapping).forEach(key => {
-        const ptElem = document.getElementById(accordionMapping[key].pt);
-        const ptBtn = document.getElementById(accordionMapping[key].btnPt);
-        if (ptElem && ptBtn) {
-          ptElem.classList.remove("active");
-          ptBtn.setAttribute("aria-expanded", "false");
-        }
-        const enElem = document.getElementById(accordionMapping[key].en);
-        const enBtn = document.getElementById(accordionMapping[key].btnEn);
-        if (enElem && enBtn) {
-          enElem.classList.remove("active");
-          enBtn.setAttribute("aria-expanded", "false");
-        }
-      });
-  
-      const newLang = localStorage.getItem("language");
-      activeAccordions.forEach(key => {
-        if (newLang === "pt") {
-          const elem = document.getElementById(accordionMapping[key].pt);
-          const btn = document.getElementById(accordionMapping[key].btnPt);
-          if (elem && btn) {
-            elem.classList.add("active");
-            btn.setAttribute("aria-expanded", "true");
-          }
-        } else {
-          const elem = document.getElementById(accordionMapping[key].en);
-          const btn = document.getElementById(accordionMapping[key].btnEn);
-          if (elem && btn) {
-            elem.classList.add("active");
-            btn.setAttribute("aria-expanded", "true");
-          }
-        }
-      });
-      
-      // Após trocar o idioma, carrega os dados do formulário correspondente
-      if (localStorage.getItem("language") === "pt") {
-        loadFormData('form-pt', 'formDataPT');
-      } else {
-        loadFormData('form-en', 'formDataEN');
-      }
-    }
-    
-    function toggleGalleryInfo() {
-      document.getElementById("contato-info").classList.remove("active");
-      const gallerySection = document.getElementById("gallery-section");
-      const infoSection = document.getElementById("info");
-      const waitlistFormSection = document.getElementById("waitlist-form");
-      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      const language = localStorage.getItem("language") || "pt";
-      const availabilityText = document.getElementById("availability-text");
-      const customLine = document.querySelector('.custom-line');
-  
-      if (localStorage.getItem("section") === "waitlist") {
-         waitlistFormSection.classList.add("hidden");
-         gallerySection.classList.add("hidden");
-         infoSection.classList.remove("hidden");
-         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
-         localStorage.setItem("section", "info");
-         availabilityText.style.display = "none";
-         customLine.style.display = "none";
-         return;
-      }
-  
-      if (!gallerySection.classList.contains("hidden")) {
-         gallerySection.classList.add("hidden");
-         infoSection.classList.remove("hidden");
-         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
-         localStorage.setItem("section", "info");
-         availabilityText.style.display = "none";
-         customLine.style.display = "none";
-      } else {
-         gallerySection.classList.remove("hidden");
-         infoSection.classList.add("hidden");
-         galleryToggleBtn.textContent = "INFO";
-         localStorage.setItem("section", "gallery");
-         availabilityText.style.display = "block";
-         customLine.style.display = "block";
-      }
-    }
-    
-    function toggleAccordion(id, btnId) {
-      const content = document.getElementById(id);
-      const button = document.getElementById(btnId);
-      if (content.classList.contains("active")) {
-        content.classList.remove("active");
-        button.setAttribute("aria-expanded", "false");
-      } else {
-        content.classList.add("active");
-        button.setAttribute("aria-expanded", "true");
-      }
-    }
-    
-    function toggleContato() {
-      const contatoInfo = document.getElementById("contato-info");
-      const contactSection = document.getElementById("contact-section");
-      if (contatoInfo.classList.contains("active")) {
-        contatoInfo.classList.remove("active");
-        document.querySelector('.contact-title').setAttribute("aria-expanded", "false");
-      } else {
-        contatoInfo.classList.add("active");
-        document.querySelector('.contact-title').setAttribute("aria-expanded", "true");
-        const yOffset = -150;
-        const y = contactSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
-    }
-    
-    function loadState() {
-      let section = "gallery";
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has("section")) {
-        const paramSection = urlParams.get("section");
-        if (paramSection === "info" || paramSection === "waitlist") {
-          section = paramSection;
-        }
-        localStorage.setItem("section", section);
-        history.replaceState(null, '', window.location.pathname);
-      } else {
-        section = localStorage.getItem("section") || "gallery";
-      }
-      
-      const contentPt = document.getElementById("content-pt");
-      const contentEn = document.getElementById("content-en");
-      const langBtn = document.getElementById("lang-btn");
-      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      const language = localStorage.getItem("language") || "pt";
-      const availabilityText = document.getElementById("availability-text");
-      const customLine = document.querySelector('.custom-line');
-      const gallerySection = document.getElementById("gallery-section");
-      const infoSection = document.getElementById("info");
-      const waitlistFormSection = document.getElementById("waitlist-form");
-      
-      if (language === "en") {
-        contentPt.classList.add("hidden");
-        contentEn.classList.remove("hidden");
-      } else {
-        contentPt.classList.remove("hidden");
-        contentEn.classList.add("hidden");
-      }
-      
-      if (section === "info") {
-        gallerySection.classList.add("hidden");
-        infoSection.classList.remove("hidden");
-        waitlistFormSection.classList.add("hidden");
-        galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
-        availabilityText.style.display = "none";
-        customLine.style.display = "none";
-      } else if (section === "waitlist") {
-        gallerySection.classList.add("hidden");
-        infoSection.classList.add("hidden");
-        waitlistFormSection.classList.remove("hidden");
-        galleryToggleBtn.textContent = "INFO";
-        availabilityText.style.display = "none";
-        customLine.style.display = "none";
-      } else {
-        gallerySection.classList.remove("hidden");
-        infoSection.classList.add("hidden");
-        waitlistFormSection.classList.add("hidden");
-        galleryToggleBtn.textContent = "INFO";
-        availabilityText.style.display = "block";
-        customLine.style.display = "block";
-      }
-      
-      if (language === "en") {
-        document.getElementById("waitlist-form-pt").classList.add("hidden");
-        document.getElementById("waitlist-form-en").classList.remove("hidden");
-        loadFormData('form-en', 'formDataEN'); // Carrega dados do formulário EN
-      } else {
-        document.getElementById("waitlist-form-pt").classList.remove("hidden");
-        document.getElementById("waitlist-form-en").classList.add("hidden");
-        loadFormData('form-pt', 'formDataPT'); // Carrega dados do formulário PT
-      }
-    }
-    
-    loadState();
-    
-    document.querySelectorAll('[role="button"]:not(button)').forEach(elem => {
-      if (!elem.hasAttribute('tabindex')) {
-        elem.setAttribute('tabindex', '0');
-      }
-      elem.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          elem.click();
-        }
-      });
-    });
-    
-    // Funções para salvar e carregar dados do formulário no localStorage
-    function saveFormData(formId, storageKey) {
-      const form = document.getElementById(formId);
-      const data = {};
-      form.querySelectorAll("input, textarea, select").forEach(input => {
-        if (input.type === "radio") {
-          if (input.checked) {
-            data[input.name] = input.value;
-          }
-        } else {
-          data[input.id] = input.value;
-        }
-      });
-      localStorage.setItem(storageKey, JSON.stringify(data));
-    }
-    
-    function loadFormData(formId, storageKey) {
-      const form = document.getElementById(formId);
-      const data = JSON.parse(localStorage.getItem(storageKey) || "{}");
-      form.querySelectorAll("input, textarea, select").forEach(input => {
-        if (input.type === "radio") {
-          if (data[input.name] && data[input.name] === input.value) {
-            input.checked = true;
-          }
-        } else if (data[input.id]) {
-          input.value = data[input.id];
-        }
-      });
-    }
-    
-    // Vincula evento 'input' para salvar os dados conforme o usuário digita (PT)
-    const formPT = document.getElementById('form-pt');
-    if (formPT) {
-      formPT.querySelectorAll("input, textarea, select").forEach(input => {
-        input.addEventListener('input', () => {
-          saveFormData('form-pt', 'formDataPT');
-        });
-      });
-    }
-    
-    // Vincula evento 'input' para salvar os dados conforme o usuário digita (EN)
-    const formEN = document.getElementById('form-en');
-    if (formEN) {
-      formEN.querySelectorAll("input, textarea, select").forEach(input => {
-        input.addEventListener('input', () => {
-          saveFormData('form-en', 'formDataEN');
-        });
-      });
-    }
-    
-    // Função para tratar envio assíncrono dos formulários
-    function handleFormSubmit(formId, responseId, messages) {
-      const form = document.getElementById(formId);
-      const responseContainer = document.getElementById(responseId);
-      
-      form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        responseContainer.innerHTML = '<p style="color: #555;">Enviando...</p>';
-        const formData = new FormData(form);
-        
-        fetch(form.action, {
-          method: form.method,
-          body: formData,
-        })
-        .then(response => {
-          if (response.ok) {
-            responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
-            form.reset();
-            // Opcional: limpar os dados salvos
-            localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
-          } else {
-            throw new Error('Erro no envio');
-          }
-        })
-        .catch(error => {
-          responseContainer.innerHTML = `<p style="color: red; font-size: 16px;">&#10007; ${messages.error}</p>`;
-        });
-      });
-    }
-    
-    // Mensagens para cada idioma
-    const messagesPT = {
-      success: "Obrigado! Sua inscrição foi enviada com sucesso. Em breve entrarei em contato.",
-      error: "Houve um problema ao enviar sua inscrição. Por favor, tente novamente."
+
+    // Se não existir → ignora
+    img.onerror = () => {
+        console.log(`Imagem não encontrada: ${imgPath}`);
     };
-    
-    const messagesEN = {
-      success: "Thank you! Your submission was successfully received. I will be in touch shortly.",
-      error: "There was an error submitting your form. Please try again."
-    };
-    
-    if (document.getElementById('form-pt')) {
-      handleFormSubmit('form-pt', 'form-response-pt', messagesPT);
-    }
-    if (document.getElementById('form-en')) {
-      handleFormSubmit('form-en', 'form-response-en', messagesEN);
-    }
-  </script>
+}
+</script>
+
 </body>
 </html>
