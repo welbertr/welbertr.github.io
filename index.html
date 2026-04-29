@@ -1,5 +1,8 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name='viewport' content='width=device-width, initial-scale=1'/>
   <title>Welbert Rodrigues</title>
   
   <!-- Meta Tags para SEO -->
@@ -15,7 +18,6 @@
   
   <!-- Pré-conexão para fontes -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Fonte minimalista do Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
   
   <style>
@@ -39,12 +41,10 @@
       text-decoration: none;
     }
     
-    /* Ocultar elementos */
     .hidden {
       display: none !important;
     }
     
-    /* Estilo geral */
     body {
       font-family: 'Outfit', sans-serif;
       font-weight: 300;
@@ -256,18 +256,20 @@
     }
     .top-controls button:hover { opacity: 0.8; }
     
-    /* Acordeons */
+    /* FIX: Acordeons com animação suave usando max-height + opacity */
     .accordion-content {
       overflow: hidden;
-      transition: opacity 0.8s ease;
-      opacity: 1;
-    }
-    .accordion-content:not(.active) {
+      max-height: 0;
       opacity: 0;
-      height: 0;
-      padding: 0;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
       pointer-events: none;
     }
+    .accordion-content.active {
+      max-height: 600px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     .accordion-section { margin-bottom: 30px; }
     
     /* Contato */
@@ -301,8 +303,8 @@
     }
     .waitlist-link:hover { text-decoration: underline; }
     
-    /* Estilo do formulário (seção exclusiva) */
-    #waitlist-form {
+    /* FIX: Seção da waitlist com ID único (#waitlist-section) */
+    #waitlist-section {
       margin: 40px 0;
       padding: 20px;
       border: 1px solid #ddd;
@@ -310,25 +312,25 @@
       background-color: #fff;
       transition: opacity 0.8s ease;
     }
-    #waitlist-form h2 {
+    #waitlist-section h2 {
       margin-bottom: 20px;
       font-size: 20px;
     }
-    #waitlist-form p {
+    #waitlist-section p {
       margin-bottom: 20px;
     }
-    #waitlist-form form {
+    #waitlist-section form {
       display: grid;
       grid-gap: 15px;
     }
-    #waitlist-form label {
+    #waitlist-section label {
       font-weight: 500;
       margin-bottom: 5px;
       display: block;
     }
-    #waitlist-form input,
-    #waitlist-form button,
-    #waitlist-form fieldset {
+    #waitlist-section input,
+    #waitlist-section button,
+    #waitlist-section fieldset {
       font-size: 14px;
       padding: 8px;
       width: 100%;
@@ -336,20 +338,20 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
-    #waitlist-form button {
+    #waitlist-section button {
       background-color: #000;
       color: #fff;
       border: none;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-    #waitlist-form button:hover { background-color: #333; }
-    #waitlist-form fieldset {
+    #waitlist-section button:hover { background-color: #333; }
+    #waitlist-section fieldset {
       border: none;
       padding: 0;
       display: block;
     }
-    #waitlist-form fieldset legend {
+    #waitlist-section fieldset legend {
       font-weight: 500;
       margin: 10px 0;
       display: block;
@@ -364,7 +366,6 @@
       margin-right: 5px;
     }
     
-    /* Seções principais: Transição suave de opacidade e visibilidade */
     section.section {
       opacity: 1;
       visibility: visible;
@@ -375,7 +376,6 @@
       visibility: hidden;
     }
     
-    /* Espaçamento para a seção de contato */
     #contact-section {
       margin-top: 40px;
       transition: margin-top 0.3s ease;
@@ -417,23 +417,31 @@
       header.sticky-header { background-color: #121212; }
       .custom-line { border-bottom: 1px solid #444; }
       
-      #waitlist-form {
+      #waitlist-section {
         background-color: #1e1e1e;
         border: 1px solid #444;
       }
-      #waitlist-form input, #waitlist-form button, #waitlist-form fieldset {
+      #waitlist-section input,
+      #waitlist-section button,
+      #waitlist-section fieldset {
         background-color: #121212;
         color: #e0e0e0;
         border: 1px solid #444;
       }
-      #waitlist-form button { background-color: #000; }
-      #waitlist-form button:hover { background-color: #333; }
+      #waitlist-section button { background-color: #000; }
+      #waitlist-section button:hover { background-color: #333; }
     }
   </style>
 </head>
 <body>
-  <!-- Pular para o conteúdo -->
   <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+
+  <!-- FIX: aviso para usuários sem JavaScript -->
+  <noscript>
+    <p style="text-align:center; padding: 20px; background: #fff3cd; color: #856404; border: 1px solid #ffc107; border-radius: 4px; margin: 0;">
+      Este site requer JavaScript para funcionar corretamente. Por favor, ative o JavaScript no seu navegador.
+    </p>
+  </noscript>
   
   <header class="sticky-header" role="banner">
     <div class="top-name" aria-label="Nome do artista">WELBERT RODRIGUES</div>
@@ -453,7 +461,6 @@
     
     <!-- Seção de Informações -->
     <section id="info" class="section hidden" aria-label="Informações para agendamento">
-      <!-- Conteúdo PT -->
       <div id="content-pt">
         <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
         <div class="accordion-section">
@@ -478,7 +485,8 @@
           <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt', 'btn-lista-espera-pt')">Lista de Espera</h2>
           <div id="lista-espera-pt" class="accordion-content" role="region" aria-labelledby="btn-lista-espera-pt">
             <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
-            <p><a href="?section=waitlist" class="waitlist-link">Entrar para lista</a></p>
+            <!-- FIX: href="#" com data-action em vez de ?section=waitlist -->
+            <p><a href="#" class="waitlist-link" data-action="open-waitlist">Entrar para lista</a></p>
           </div>
         </div>
         <div class="accordion-section">
@@ -494,7 +502,6 @@
         </div>
       </div>
       
-      <!-- Conteúdo EN -->
       <div id="content-en" class="hidden">
         <p>To help me better serve you, please follow the guidelines below:</p>
         <div class="accordion-section">
@@ -519,7 +526,7 @@
           <h2 id="btn-waitlist-en" role="button" aria-expanded="false" aria-controls="waitlist-en" onclick="toggleAccordion('waitlist-en', 'btn-waitlist-en')">Waitlist</h2>
           <div id="waitlist-en" class="accordion-content" role="region" aria-labelledby="btn-waitlist-en">
             <p>If your city is not currently scheduled on my calendar, sign up for the waitlist! Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.</p>
-            <p><a href="?section=waitlist" class="waitlist-link">Join the Waitlist</a></p>
+            <p><a href="#" class="waitlist-link" data-action="open-waitlist">Join the Waitlist</a></p>
           </div>
         </div>
         <div class="accordion-section">
@@ -536,9 +543,8 @@
       </div>
     </section>
     
-    <!-- Seção do Formulário da Lista de Espera -->
-    <section id="waitlist-form" class="section hidden">
-      <!-- Versão PT -->
+    <!-- FIX: ID renomeado de #waitlist-form para #waitlist-section (evita ambiguidade com o <form> interno) -->
+    <section id="waitlist-section" class="section hidden">
       <div id="waitlist-form-pt">
         <h2>Inscrição na Lista de Espera</h2>
         <p>
@@ -549,38 +555,26 @@
         <form id="form-pt" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
-          
           <label for="idade">Idade *</label>
           <input type="number" id="idade" name="idade" required>
-          
           <label for="cidade">Cidade *</label>
           <input type="text" id="cidade" name="cidade" required>
-          
           <label for="estado">Estado *</label>
           <input type="text" id="estado" name="estado" required>
-          
           <label for="telefone">Celular com DDD</label>
           <input type="tel" id="telefone" name="telefone">
-          
           <label for="email">E-mail *</label>
           <input type="email" id="email" name="email" required>
-          
-          <!-- Instagram agora obrigatório -->
           <label for="instagram">Instagram *</label>
           <input type="text" id="instagram" name="instagram" required>
-          
           <label for="tattoo">O que gostaria de tatuar? *</label>
           <input type="text" id="tattoo" name="tattoo" required>
-          
           <label for="reference-image">Imagem de Referência:</label>
           <input type="file" id="reference-image" name="reference-image" accept="image/*">
-          
           <label for="tamanho">Tamanho aproximado (em cm) *</label>
           <input type="number" id="tamanho" name="tamanho" required>
-          
           <label for="local">Local do corpo *</label>
           <input type="text" id="local" name="local" required>
-          
           <fieldset>
             <legend>Já tatuou comigo anteriormente? *</legend>
             <div class="radio-inline">
@@ -592,13 +586,11 @@
               <label for="nao">Não</label>
             </div>
           </fieldset>
-          
           <button type="submit">Inscrever-se</button>
         </form>
         <div id="form-response-pt" style="margin-top: 20px;"></div>
       </div>
       
-      <!-- Versão EN -->
       <div id="waitlist-form-en" class="hidden">
         <h2>Waitlist Registration</h2>
         <p>
@@ -609,41 +601,28 @@
         <form id="form-en" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" required>
-          
           <label for="age">Age *</label>
           <input type="number" id="age" name="age" required>
-          
           <label for="city">City *</label>
           <input type="text" id="city" name="city" required>
-          
           <label for="state">State *</label>
           <input type="text" id="state" name="state" required>
-          
           <label for="country">Country *</label>
           <input type="text" id="country" name="country" required>
-          
           <label for="phone">Phone with area code</label>
           <input type="tel" id="phone" name="phone">
-          
           <label for="emailEn">E-mail *</label>
           <input type="email" id="emailEn" name="email" required>
-          
-          <!-- Instagram agora obrigatório -->
           <label for="instagramEn">Instagram *</label>
           <input type="text" id="instagramEn" name="instagram" required>
-          
           <label for="tattooEn">What tattoo would you like? *</label>
           <input type="text" id="tattooEn" name="tattoo" required>
-          
           <label for="reference-image-en">Reference Image:</label>
           <input type="file" id="reference-image-en" name="reference-image" accept="image/*">
-          
           <label for="size">Approximate size (in cm) *</label>
           <input type="number" id="size" name="size" required>
-          
           <label for="bodyLocation">Body location *</label>
           <input type="text" id="bodyLocation" name="bodyLocation" required>
-          
           <fieldset>
             <legend>Have you been tattooed by me before? *</legend>
             <div class="radio-inline">
@@ -655,14 +634,12 @@
               <label for="no">No</label>
             </div>
           </fieldset>
-          
           <button type="submit">Submit</button>
         </form>
         <div id="form-response-en" style="margin-top: 20px;"></div>
       </div>
     </section>
     
-    <!-- Seção de Contato -->
     <section id="contact-section">
       <h2 class="contact-title" onclick="toggleContato()" role="button" aria-expanded="false" aria-controls="contato-info">CONTATO | CONTACT</h2>
       <div id="contato-info" class="accordion-content" role="region">
@@ -673,7 +650,6 @@
     </section>
   </main>
   
-  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada">
     <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
     <button class="prev-btn" onclick="changeImage(-1)" aria-label="Imagem anterior">&lt;</button>
@@ -682,14 +658,14 @@
   </div>
   
   <script>
-    // Remoção do parâmetro "fbclid" da URL, se presente.
+    // Remove fbclid da URL, se presente
     if (window.location.search.includes('fbclid')) {
       const url = new URL(window.location);
       url.searchParams.delete('fbclid');
       history.replaceState(null, '', url.pathname + url.search);
     }
-    
-    // Array com os números das imagens que realmente existem
+
+    // FIX: cópia imutável invertida — não muta o array original
     const imagensValidas = [
       1,2,4,5,6,7,8,9,10,12,13,
       16,17,18,20,21,23,24,25,26,
@@ -701,18 +677,25 @@
       81,82,83,84,85,86,87,88,89,
       90,91,92,93,
     ];
-    imagensValidas.reverse();
+    const imagensOrdenadas = [...imagensValidas].reverse();
     
     const galleryContainer = document.querySelector('.gallery');
     const galleryFragment = document.createDocumentFragment();
-    imagensValidas.forEach(num => {
+
+    imagensOrdenadas.forEach(num => {
       const img = document.createElement('img');
       img.src = `images/desenho${num}.jpg`;
       img.alt = `Desenho ${num}`;
       img.loading = 'lazy';
+      // FIX: fallback seguro — tenta placeholder uma vez, depois esconde a imagem
       img.onerror = function() {
         this.onerror = null;
-        this.src = 'images/placeholder.jpg';
+        const placeholder = new URL('images/placeholder.jpg', window.location.href).href;
+        if (this.src !== placeholder) {
+          this.src = 'images/placeholder.jpg';
+        } else {
+          this.style.display = 'none';
+        }
       };
       img.onclick = () => openLightbox(num);
       galleryFragment.appendChild(img);
@@ -720,8 +703,9 @@
     galleryContainer.appendChild(galleryFragment);
     
     let currentIndex = 0;
+
     function openLightbox(num) {
-      currentIndex = imagensValidas.indexOf(num);
+      currentIndex = imagensOrdenadas.indexOf(num);
       document.getElementById("lightbox").style.display = "flex";
       updateLightboxImage();
     }
@@ -730,257 +714,193 @@
     }
     function changeImage(direction) {
       currentIndex += direction;
-      if (currentIndex < 0) currentIndex = imagensValidas.length - 1;
-      if (currentIndex >= imagensValidas.length) currentIndex = 0;
+      if (currentIndex < 0) currentIndex = imagensOrdenadas.length - 1;
+      if (currentIndex >= imagensOrdenadas.length) currentIndex = 0;
       updateLightboxImage();
     }
     function updateLightboxImage() {
-      document.getElementById("lightbox-img").src = `images/desenho${imagensValidas[currentIndex]}.jpg`;
+      document.getElementById("lightbox-img").src = `images/desenho${imagensOrdenadas[currentIndex]}.jpg`;
     }
     
-    // Tratamento para os links "waitlist-link"
-    document.querySelectorAll('.waitlist-link').forEach(link => {
+    // FIX: links da waitlist via data-action — evita navegação por query string
+    document.querySelectorAll('.waitlist-link[data-action="open-waitlist"]').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
-        localStorage.setItem("section", "waitlist");
-        loadState();
-        document.getElementById("waitlist-form").scrollIntoView({ behavior: "smooth" });
+        showSection('waitlist');
+        document.getElementById("waitlist-section").scrollIntoView({ behavior: "smooth" });
       });
     });
-    
+
     const accordionMapping = {
-      "orcamento": { pt: "orcamento-pt", en: "pricing-en", btnPt: "btn-orcamento-pt", btnEn: "btn-pricing-en" },
-      "agendamento": { pt: "agendamento-pt", en: "booking-en", btnPt: "btn-agendamento-pt", btnEn: "btn-booking-en" },
-      "lista-espera": { pt: "lista-espera-pt", en: "waitlist-en", btnPt: "btn-lista-espera-pt", btnEn: "btn-waitlist-en" },
-      "dia-sessao": { pt: "dia-sessao-pt", en: "session-day-en", btnPt: "btn-dia-sessao-pt", btnEn: "btn-session-day-en" }
+      "orcamento":    { pt: "orcamento-pt",    en: "pricing-en",     btnPt: "btn-orcamento-pt",    btnEn: "btn-pricing-en" },
+      "agendamento":  { pt: "agendamento-pt",  en: "booking-en",     btnPt: "btn-agendamento-pt",  btnEn: "btn-booking-en" },
+      "lista-espera": { pt: "lista-espera-pt", en: "waitlist-en",    btnPt: "btn-lista-espera-pt", btnEn: "btn-waitlist-en" },
+      "dia-sessao":   { pt: "dia-sessao-pt",   en: "session-day-en", btnPt: "btn-dia-sessao-pt",   btnEn: "btn-session-day-en" }
     };
-  
-    function toggleLanguage() {
-      const currentLanguage = localStorage.getItem("language") || "pt";
-      const activeAccordions = [];
-      
-      Object.keys(accordionMapping).forEach(key => {
-        if (currentLanguage === "pt") {
-          const elem = document.getElementById(accordionMapping[key].pt);
-          if (elem && elem.classList.contains("active")) {
-            activeAccordions.push(key);
-          }
-        } else {
-          const elem = document.getElementById(accordionMapping[key].en);
-          if (elem && elem.classList.contains("active")) {
-            activeAccordions.push(key);
-          }
-        }
-      });
-  
-      const contentPt = document.getElementById("content-pt");
-      const contentEn = document.getElementById("content-en");
-      const waitlistFormPt = document.getElementById("waitlist-form-pt");
-      const waitlistFormEn = document.getElementById("waitlist-form-en");
-      const langBtn = document.getElementById("lang-btn");
+
+    function getCurrentLanguage() {
+      return localStorage.getItem("language") || "pt";
+    }
+
+    // FIX: applyLanguage centraliza toda atualização de UI de idioma
+    function applyLanguage(lang) {
+      const isPt = lang === "pt";
+      const currentSection = localStorage.getItem("section") || "gallery";
+
+      document.getElementById("content-pt").classList.toggle("hidden", !isPt);
+      document.getElementById("content-en").classList.toggle("hidden", isPt);
+      document.getElementById("waitlist-form-pt").classList.toggle("hidden", !isPt);
+      document.getElementById("waitlist-form-en").classList.toggle("hidden", isPt);
+
+      document.getElementById("lang-btn").textContent = isPt ? "EN" : "PT";
+      document.getElementById("availability-text").textContent = isPt
+        ? "Consulte disponibilidade."
+        : "Check availability.";
+
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      const availabilityText = document.getElementById("availability-text");
-  
-      if (currentLanguage === "en") {
-        contentPt.classList.remove("hidden");
-        contentEn.classList.add("hidden");
-        waitlistFormPt.classList.remove("hidden");
-        waitlistFormEn.classList.add("hidden");
-        langBtn.textContent = "EN";
-        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESENHOS" : "INFO";
-        availabilityText.textContent = "Consulte disponibilidade.";
-        localStorage.setItem("language", "pt");
-      } else {
-        contentPt.classList.add("hidden");
-        contentEn.classList.remove("hidden");
-        waitlistFormPt.classList.add("hidden");
-        waitlistFormEn.classList.remove("hidden");
-        langBtn.textContent = "PT";
-        galleryToggleBtn.textContent = localStorage.getItem("section") === "info" ? "DESIGNS" : "INFO";
-        availabilityText.textContent = "Check availability.";
-        localStorage.setItem("language", "en");
-      }
-  
+      galleryToggleBtn.textContent = currentSection === "gallery"
+        ? "INFO"
+        : (isPt ? "DESENHOS" : "DESIGNS");
+
+      // Fecha todos os acordeons ao trocar idioma
       Object.keys(accordionMapping).forEach(key => {
-        const ptElem = document.getElementById(accordionMapping[key].pt);
-        const ptBtn = document.getElementById(accordionMapping[key].btnPt);
-        if (ptElem && ptBtn) {
-          ptElem.classList.remove("active");
-          ptBtn.setAttribute("aria-expanded", "false");
-        }
-        const enElem = document.getElementById(accordionMapping[key].en);
-        const enBtn = document.getElementById(accordionMapping[key].btnEn);
-        if (enElem && enBtn) {
-          enElem.classList.remove("active");
-          enBtn.setAttribute("aria-expanded", "false");
+        ["pt", "en"].forEach(l => {
+          const elemId = accordionMapping[key][l];
+          const btnKey = l === "pt" ? "btnPt" : "btnEn";
+          const btnId  = accordionMapping[key][btnKey];
+          const elem = document.getElementById(elemId);
+          const btn  = document.getElementById(btnId);
+          if (elem) elem.classList.remove("active");
+          if (btn)  btn.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
+    function toggleLanguage() {
+      const currentLanguage = getCurrentLanguage();
+
+      // Guarda acordeons abertos antes de trocar
+      const activeAccordions = [];
+      Object.keys(accordionMapping).forEach(key => {
+        const id = currentLanguage === "pt"
+          ? accordionMapping[key].pt
+          : accordionMapping[key].en;
+        if (document.getElementById(id)?.classList.contains("active")) {
+          activeAccordions.push(key);
         }
       });
-  
-      const newLang = localStorage.getItem("language");
+
+      const newLanguage = currentLanguage === "en" ? "pt" : "en";
+      localStorage.setItem("language", newLanguage);
+      applyLanguage(newLanguage);
+
+      // Reabre os mesmos acordeons no novo idioma
       activeAccordions.forEach(key => {
-        if (newLang === "pt") {
-          const elem = document.getElementById(accordionMapping[key].pt);
-          const btn = document.getElementById(accordionMapping[key].btnPt);
-          if (elem && btn) {
-            elem.classList.add("active");
-            btn.setAttribute("aria-expanded", "true");
-          }
-        } else {
-          const elem = document.getElementById(accordionMapping[key].en);
-          const btn = document.getElementById(accordionMapping[key].btnEn);
-          if (elem && btn) {
-            elem.classList.add("active");
-            btn.setAttribute("aria-expanded", "true");
-          }
+        const id    = newLanguage === "pt" ? accordionMapping[key].pt    : accordionMapping[key].en;
+        const btnId = newLanguage === "pt" ? accordionMapping[key].btnPt : accordionMapping[key].btnEn;
+        const elem  = document.getElementById(id);
+        const btn   = document.getElementById(btnId);
+        if (elem && btn) {
+          elem.classList.add("active");
+          btn.setAttribute("aria-expanded", "true");
         }
       });
-      
-      // Após trocar o idioma, carrega os dados do formulário correspondente
-      if (localStorage.getItem("language") === "pt") {
-        loadFormData('form-pt', 'formDataPT');
-      } else {
-        loadFormData('form-en', 'formDataEN');
-      }
+
+      const formKey    = newLanguage === "pt" ? "form-pt"    : "form-en";
+      const storageKey = newLanguage === "pt" ? "formDataPT" : "formDataEN";
+      loadFormData(formKey, storageKey);
     }
     
+    // FIX: showSection centraliza a lógica de exibição de seções
+    function showSection(section) {
+      const gallerySection   = document.getElementById("gallery-section");
+      const infoSection      = document.getElementById("info");
+      const waitlistSection  = document.getElementById("waitlist-section");
+      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
+      const availabilityText = document.getElementById("availability-text");
+      const customLine       = document.querySelector('.custom-line');
+      const lang             = getCurrentLanguage();
+
+      gallerySection.classList.add("hidden");
+      infoSection.classList.add("hidden");
+      waitlistSection.classList.add("hidden");
+      availabilityText.style.display = "none";
+      customLine.style.display       = "none";
+
+      if (section === "gallery") {
+        gallerySection.classList.remove("hidden");
+        availabilityText.style.display = "block";
+        customLine.style.display       = "block";
+        galleryToggleBtn.textContent   = "INFO";
+      } else if (section === "info") {
+        infoSection.classList.remove("hidden");
+        galleryToggleBtn.textContent = lang === "en" ? "DESIGNS" : "DESENHOS";
+      } else if (section === "waitlist") {
+        waitlistSection.classList.remove("hidden");
+        galleryToggleBtn.textContent = "INFO";
+      }
+
+      localStorage.setItem("section", section);
+    }
+
     function toggleGalleryInfo() {
       document.getElementById("contato-info").classList.remove("active");
-      const gallerySection = document.getElementById("gallery-section");
-      const infoSection = document.getElementById("info");
-      const waitlistFormSection = document.getElementById("waitlist-form");
-      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      const language = localStorage.getItem("language") || "pt";
-      const availabilityText = document.getElementById("availability-text");
-      const customLine = document.querySelector('.custom-line');
-  
-      if (localStorage.getItem("section") === "waitlist") {
-         waitlistFormSection.classList.add("hidden");
-         gallerySection.classList.add("hidden");
-         infoSection.classList.remove("hidden");
-         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
-         localStorage.setItem("section", "info");
-         availabilityText.style.display = "none";
-         customLine.style.display = "none";
-         return;
-      }
-  
-      if (!gallerySection.classList.contains("hidden")) {
-         gallerySection.classList.add("hidden");
-         infoSection.classList.remove("hidden");
-         galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
-         localStorage.setItem("section", "info");
-         availabilityText.style.display = "none";
-         customLine.style.display = "none";
+      const currentSection = localStorage.getItem("section") || "gallery";
+
+      if (currentSection === "waitlist" || currentSection === "info") {
+        showSection("gallery");
       } else {
-         gallerySection.classList.remove("hidden");
-         infoSection.classList.add("hidden");
-         galleryToggleBtn.textContent = "INFO";
-         localStorage.setItem("section", "gallery");
-         availabilityText.style.display = "block";
-         customLine.style.display = "block";
+        showSection("info");
       }
     }
     
     function toggleAccordion(id, btnId) {
       const content = document.getElementById(id);
-      const button = document.getElementById(btnId);
-      if (content.classList.contains("active")) {
-        content.classList.remove("active");
-        button.setAttribute("aria-expanded", "false");
-      } else {
-        content.classList.add("active");
-        button.setAttribute("aria-expanded", "true");
-      }
+      const button  = document.getElementById(btnId);
+      const isOpen  = content.classList.contains("active");
+      content.classList.toggle("active", !isOpen);
+      button.setAttribute("aria-expanded", String(!isOpen));
     }
     
     function toggleContato() {
-      const contatoInfo = document.getElementById("contato-info");
+      const contatoInfo    = document.getElementById("contato-info");
       const contactSection = document.getElementById("contact-section");
-      if (contatoInfo.classList.contains("active")) {
-        contatoInfo.classList.remove("active");
-        document.querySelector('.contact-title').setAttribute("aria-expanded", "false");
-      } else {
-        contatoInfo.classList.add("active");
-        document.querySelector('.contact-title').setAttribute("aria-expanded", "true");
-        const yOffset = -150;
-        const y = contactSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      const isOpen = contatoInfo.classList.contains("active");
+      contatoInfo.classList.toggle("active", !isOpen);
+      document.querySelector('.contact-title').setAttribute("aria-expanded", String(!isOpen));
+      if (!isOpen) {
+        const y = contactSection.getBoundingClientRect().top + window.pageYOffset - 150;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
     }
     
     function loadState() {
-      let section = "gallery";
+      // FIX: URL é a fonte primária de verdade; evita herança de estado entre abas
       const urlParams = new URLSearchParams(window.location.search);
+      let section = "gallery";
+
       if (urlParams.has("section")) {
-        const paramSection = urlParams.get("section");
-        if (paramSection === "info" || paramSection === "waitlist") {
-          section = paramSection;
-        }
-        localStorage.setItem("section", section);
+        const param = urlParams.get("section");
+        if (["info", "waitlist"].includes(param)) section = param;
         history.replaceState(null, '', window.location.pathname);
       } else {
         section = localStorage.getItem("section") || "gallery";
       }
-      
-      const contentPt = document.getElementById("content-pt");
-      const contentEn = document.getElementById("content-en");
-      const langBtn = document.getElementById("lang-btn");
-      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      const language = localStorage.getItem("language") || "pt";
-      const availabilityText = document.getElementById("availability-text");
-      const customLine = document.querySelector('.custom-line');
-      const gallerySection = document.getElementById("gallery-section");
-      const infoSection = document.getElementById("info");
-      const waitlistFormSection = document.getElementById("waitlist-form");
-      
-      if (language === "en") {
-        contentPt.classList.add("hidden");
-        contentEn.classList.remove("hidden");
-      } else {
-        contentPt.classList.remove("hidden");
-        contentEn.classList.add("hidden");
-      }
-      
-      if (section === "info") {
-        gallerySection.classList.add("hidden");
-        infoSection.classList.remove("hidden");
-        waitlistFormSection.classList.add("hidden");
-        galleryToggleBtn.textContent = language === "en" ? "DESIGNS" : "DESENHOS";
-        availabilityText.style.display = "none";
-        customLine.style.display = "none";
-      } else if (section === "waitlist") {
-        gallerySection.classList.add("hidden");
-        infoSection.classList.add("hidden");
-        waitlistFormSection.classList.remove("hidden");
-        galleryToggleBtn.textContent = "INFO";
-        availabilityText.style.display = "none";
-        customLine.style.display = "none";
-      } else {
-        gallerySection.classList.remove("hidden");
-        infoSection.classList.add("hidden");
-        waitlistFormSection.classList.add("hidden");
-        galleryToggleBtn.textContent = "INFO";
-        availabilityText.style.display = "block";
-        customLine.style.display = "block";
-      }
-      
-      if (language === "en") {
-        document.getElementById("waitlist-form-pt").classList.add("hidden");
-        document.getElementById("waitlist-form-en").classList.remove("hidden");
-        loadFormData('form-en', 'formDataEN'); // Carrega dados do formulário EN
-      } else {
-        document.getElementById("waitlist-form-pt").classList.remove("hidden");
-        document.getElementById("waitlist-form-en").classList.add("hidden");
-        loadFormData('form-pt', 'formDataPT'); // Carrega dados do formulário PT
-      }
+
+      const lang = getCurrentLanguage();
+      applyLanguage(lang);
+      showSection(section);
+
+      const formKey    = lang === "pt" ? "form-pt"    : "form-en";
+      const storageKey = lang === "pt" ? "formDataPT" : "formDataEN";
+      loadFormData(formKey, storageKey);
     }
     
     loadState();
     
+    // Keyboard navigation para role="button" não-nativos
     document.querySelectorAll('[role="button"]:not(button)').forEach(elem => {
-      if (!elem.hasAttribute('tabindex')) {
-        elem.setAttribute('tabindex', '0');
-      }
+      if (!elem.hasAttribute('tabindex')) elem.setAttribute('tabindex', '0');
       elem.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -989,15 +909,13 @@
       });
     });
     
-    // Funções para salvar e carregar dados do formulário no localStorage
     function saveFormData(formId, storageKey) {
       const form = document.getElementById(formId);
+      if (!form) return;
       const data = {};
       form.querySelectorAll("input, textarea, select").forEach(input => {
         if (input.type === "radio") {
-          if (input.checked) {
-            data[input.name] = input.value;
-          }
+          if (input.checked) data[input.name] = input.value;
         } else {
           data[input.id] = input.value;
         }
@@ -1007,85 +925,63 @@
     
     function loadFormData(formId, storageKey) {
       const form = document.getElementById(formId);
+      if (!form) return;
       const data = JSON.parse(localStorage.getItem(storageKey) || "{}");
       form.querySelectorAll("input, textarea, select").forEach(input => {
         if (input.type === "radio") {
-          if (data[input.name] && data[input.name] === input.value) {
-            input.checked = true;
-          }
+          if (data[input.name] === input.value) input.checked = true;
         } else if (data[input.id]) {
           input.value = data[input.id];
         }
       });
     }
     
-    // Vincula evento 'input' para salvar os dados conforme o usuário digita (PT)
     const formPT = document.getElementById('form-pt');
     if (formPT) {
       formPT.querySelectorAll("input, textarea, select").forEach(input => {
-        input.addEventListener('input', () => {
-          saveFormData('form-pt', 'formDataPT');
-        });
+        input.addEventListener('input', () => saveFormData('form-pt', 'formDataPT'));
       });
     }
     
-    // Vincula evento 'input' para salvar os dados conforme o usuário digita (EN)
     const formEN = document.getElementById('form-en');
     if (formEN) {
       formEN.querySelectorAll("input, textarea, select").forEach(input => {
-        input.addEventListener('input', () => {
-          saveFormData('form-en', 'formDataEN');
-        });
+        input.addEventListener('input', () => saveFormData('form-en', 'formDataEN'));
       });
     }
     
-    // Função para tratar envio assíncrono dos formulários
     function handleFormSubmit(formId, responseId, messages) {
       const form = document.getElementById(formId);
       const responseContainer = document.getElementById(responseId);
+      if (!form || !responseContainer) return;
       
       form.addEventListener('submit', function(event) {
         event.preventDefault();
         responseContainer.innerHTML = '<p style="color: #555;">Enviando...</p>';
-        const formData = new FormData(form);
-        
-        fetch(form.action, {
-          method: form.method,
-          body: formData,
-        })
-        .then(response => {
-          if (response.ok) {
-            responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
-            form.reset();
-            // Opcional: limpar os dados salvos
-            localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
-          } else {
-            throw new Error('Erro no envio');
-          }
-        })
-        .catch(error => {
-          responseContainer.innerHTML = `<p style="color: red; font-size: 16px;">&#10007; ${messages.error}</p>`;
-        });
+        fetch(form.action, { method: form.method, body: new FormData(form) })
+          .then(response => {
+            if (response.ok) {
+              responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
+              form.reset();
+              localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
+            } else {
+              throw new Error('Erro no envio');
+            }
+          })
+          .catch(() => {
+            responseContainer.innerHTML = `<p style="color: red; font-size: 16px;">&#10007; ${messages.error}</p>`;
+          });
       });
     }
     
-    // Mensagens para cada idioma
-    const messagesPT = {
+    handleFormSubmit('form-pt', 'form-response-pt', {
       success: "Obrigado! Sua inscrição foi enviada com sucesso. Em breve entrarei em contato.",
-      error: "Houve um problema ao enviar sua inscrição. Por favor, tente novamente."
-    };
-    
-    const messagesEN = {
+      error:   "Houve um problema ao enviar sua inscrição. Por favor, tente novamente."
+    });
+    handleFormSubmit('form-en', 'form-response-en', {
       success: "Thank you! Your submission was successfully received. I will be in touch shortly.",
-      error: "There was an error submitting your form. Please try again."
-    };
-    
-    if (document.getElementById('form-pt')) {
-      handleFormSubmit('form-pt', 'form-response-pt', messagesPT);
-    }
-    if (document.getElementById('form-en')) {
-      handleFormSubmit('form-en', 'form-response-en', messagesEN);
-    }
+      error:   "There was an error submitting your form. Please try again."
+    });
   </script>
 </body>
 </html>
