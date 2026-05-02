@@ -151,7 +151,7 @@
     }
     
     @media (prefers-reduced-motion: reduce) {
-      .gallery img { animation: none; transition: none; opacity: 1; }
+      .gallery img { animation: none; transition: none; }
     }
     
     /* Lightbox */
@@ -392,91 +392,6 @@
       .gallery { grid-template-columns: repeat(4, 1fr); }
     }
     
-    /* Modal Bio */
-    .bio-modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-    .bio-modal.open {
-      display: flex;
-    }
-    .bio-modal-content {
-      background: #fafafa;
-      border-radius: 12px;
-      max-width: 420px;
-      width: 100%;
-      padding: 40px 32px;
-      position: relative;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-    .bio-modal-close {
-      position: absolute;
-      top: 16px; right: 16px;
-      background: transparent;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-      color: #666;
-      line-height: 1;
-      padding: 4px;
-    }
-    .bio-modal-close:hover { color: #000; }
-    .bio-photo {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      filter: grayscale(100%);
-      margin-bottom: 20px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .bio-name {
-      font-weight: 500;
-      font-size: 16px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 4px;
-      color: #333;
-    }
-    .bio-role {
-      font-size: 12px;
-      color: #999;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 28px;
-    }
-    .bio-text {
-      font-size: 13px;
-      color: #555;
-      line-height: 1.8;
-      text-align: center;
-      margin-bottom: 0;
-    }
-    .bio-text p {
-      margin-bottom: 12px;
-      text-align: center;
-      font-size: 13px;
-    }
-    .bio-text p:last-child { margin-bottom: 0; }
-    .top-name {
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    .top-name:hover { opacity: 0.6; }
-
     /* Modo escuro */
     @media (prefers-color-scheme: dark) {
       body { color: #e0e0e0; background-color: #121212; }
@@ -515,14 +430,6 @@
       }
       #waitlist-section button { background-color: #000; }
       #waitlist-section button:hover { background-color: #333; }
-      .bio-modal-content {
-        background: #1e1e1e;
-      }
-      .bio-name { color: #e0e0e0; }
-      .bio-role { color: #666; }
-      .bio-text p { color: #aaa; }
-      .bio-modal-close { color: #666; }
-      .bio-modal-close:hover { color: #e0e0e0; }
     }
   </style>
 </head>
@@ -537,7 +444,7 @@
   </noscript>
   
   <header class="sticky-header" role="banner">
-    <div class="top-name" aria-label="Sobre Welbert Rodrigues" role="button" tabindex="0" onclick="openBio()" onkeydown="if(event.key==='Enter'||event.key===' ')openBio()">WELBERT RODRIGUES</div>
+    <div class="top-name" aria-label="Nome do artista">WELBERT RODRIGUES</div>
     <div class="top-controls">
       <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()" aria-label="Alternar entre galeria e informações">INFO</button>
       <button id="lang-btn" onclick="toggleLanguage()" aria-label="Alternar idioma">EN</button>
@@ -750,40 +657,7 @@
     <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
   </div>
   
-  <!-- Modal Bio -->
-  <div class="bio-modal" id="bio-modal" role="dialog" aria-modal="true" aria-label="Sobre Welbert Rodrigues" onclick="handleBioOverlayClick(event)">
-    <div class="bio-modal-content">
-      <button class="bio-modal-close" onclick="closeBio()" aria-label="Fechar">&times;</button>
-      <img src="images/profile.jpg" alt="Welbert Rodrigues" class="bio-photo"
-        onerror="this.onerror=null;this.style.display='none'">
-      <div class="bio-name">Welbert Rodrigues</div>
-      <div class="bio-role">Tatuador / Ilustrador</div>
-      <div class="bio-text">
-        <p>Minha pesquisa parte de padrões orgânicos, fragmentos de uma arquitetura maior.</p>
-        <p>Não busco representar formas, mas reorganizar estruturas.</p>
-        <p>Trabalho com repetição e contraste, explorando como essas formas evocam sensações e constroem estados.</p>
-        <p>Tatuo desde 2019. Incorporo imagens à experiência individual.</p>
-      </div>
-    </div>
-  </div>
-
   <script>
-    // Bio modal
-    function openBio() {
-      document.getElementById("bio-modal").classList.add("open");
-      document.body.style.overflow = "hidden";
-    }
-    function closeBio() {
-      document.getElementById("bio-modal").classList.remove("open");
-      document.body.style.overflow = "";
-    }
-    function handleBioOverlayClick(e) {
-      if (e.target === document.getElementById("bio-modal")) closeBio();
-    }
-    document.addEventListener("keydown", function(e) {
-      if (e.key === "Escape") closeBio();
-    });
-
     // Remove fbclid da URL, se presente
     if (window.location.search.includes('fbclid')) {
       const url = new URL(window.location);
