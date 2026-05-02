@@ -19,6 +19,8 @@
   <!-- Pré-conexão para fontes -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init("U1u5vYqm7OjNk8N0T");</script>
   
   <style>
     /* Skip link */
@@ -475,6 +477,17 @@
     .top-name {
       cursor: pointer;
       transition: opacity 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+      display: block;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 20px;
+      text-align: left;
     }
     .top-name:hover { opacity: 0.6; }
 
@@ -538,7 +551,7 @@
   </noscript>
   
   <header class="sticky-header" role="banner">
-    <div class="top-name" aria-label="Sobre Welbert Rodrigues" role="button" tabindex="0" onclick="openBio()" onkeydown="if(event.key==='Enter'||event.key===' ')openBio()">WELBERT RODRIGUES</div>
+    <button class="top-name" aria-label="Sobre Welbert Rodrigues" onclick="openBio()">WELBERT RODRIGUES</button>
     <div class="top-controls">
       <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()" aria-label="Alternar entre galeria e informações">INFO</button>
       <button id="lang-btn" onclick="toggleLanguage()" aria-label="Alternar idioma">EN</button>
@@ -1093,19 +1106,26 @@
       const form = document.getElementById(formId);
       const responseContainer = document.getElementById(responseId);
       if (!form || !responseContainer) return;
-      
+
       form.addEventListener('submit', function(event) {
         event.preventDefault();
         responseContainer.innerHTML = '<p style="color: #555;">Enviando...</p>';
-        fetch(form.action, { method: form.method, body: new FormData(form) })
-          .then(response => {
-            if (response.ok) {
-              responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
-              form.reset();
-              localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
-            } else {
-              throw new Error('Erro no envio');
-            }
+
+        const data = {};
+        form.querySelectorAll("input, textarea, select").forEach(input => {
+          if (input.type === "file") return;
+          if (input.type === "radio") {
+            if (input.checked) data[input.name] = input.value;
+          } else {
+            data[input.name] = input.value;
+          }
+        });
+
+        emailjs.send("we.ro___", "template_en4517r", data)
+          .then(() => {
+            responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
+            form.reset();
+            localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
           })
           .catch(() => {
             responseContainer.innerHTML = `<p style="color: red; font-size: 16px;">&#10007; ${messages.error}</p>`;
@@ -1124,4 +1144,3 @@
   </script>
 </body>
 </html>
-
