@@ -129,6 +129,9 @@
       margin: 20px 0;
     }
     
+    /* MELHORIA 3: Lazy loading real via Intersection Observer.
+       As imagens começam sem src e recebem o data-src.
+       A classe .lazy-loaded aplica a animação só quando carregada. */
     .gallery img {
       width: 100%;
       border-radius: 8px;
@@ -137,7 +140,13 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       background-color: #fffff2;
       opacity: 0;
+    }
+    .gallery img.lazy-loaded {
       animation: fadeIn 0.5s ease forwards;
+    }
+    /* Imagens que não são lazy (sem data-src) ficam visíveis normalmente */
+    .gallery img:not([data-src]) {
+      opacity: 1;
     }
     
     .gallery img:hover {
@@ -422,7 +431,9 @@
     }
     .top-controls button:hover { opacity: 0.8; }
     
-    /* FIX: Acordeons com animação suave usando max-height + opacity */
+    /* MELHORIA 2: Acordeons com altura dinâmica via JS (scrollHeight),
+       mantendo transição suave sem risco de corte em conteúdo longo.
+       max-height é setado inline pelo JS, não mais fixo em CSS. */
     .accordion-content {
       overflow: hidden;
       max-height: 0;
@@ -431,7 +442,7 @@
       pointer-events: none;
     }
     .accordion-content.active {
-      max-height: 600px;
+      /* max-height definido inline pelo JS com scrollHeight real */
       opacity: 1;
       pointer-events: auto;
     }
@@ -469,7 +480,6 @@
     }
     .waitlist-link:hover { text-decoration: underline; }
     
-    /* FIX: Seção da waitlist com ID único (#waitlist-section) */
     #waitlist-section {
       margin: 40px 0;
       padding: 20px;
@@ -562,7 +572,6 @@
       .gallery { grid-template-columns: repeat(3, 1fr); gap: 14px; }
       h2 { font-size: 20px; }
 
-      /* Limita largura do texto nas seções para legibilidade */
       #info > div,
       #waitlist-section > div {
         max-width: 680px;
@@ -673,7 +682,6 @@
     #landing-section {
       padding-top: 8px;
     }
-    /* Nome centralizado na landing */
     .header-landing .top-name {
       position: absolute;
       left: 50%;
@@ -686,7 +694,12 @@
       width: 100%;
       cursor: pointer;
       display: block;
-      background: #f5f5f5;
+
+      /* MELHORIA 1: poster frame como fallback visual caso o vídeo falhe.
+         A cor de fundo aparece enquanto o vídeo carrega ou se não carregar. */
+      background: #111;
+      position: relative;
+      min-height: 200px;
     }
     #landing-video {
       width: 100%;
@@ -695,6 +708,28 @@
       object-fit: cover;
       display: block;
     }
+
+    /* MELHORIA 1: Fallback overlay — aparece só se o vídeo falhar */
+    .landing-video-fallback {
+      display: none;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+      color: #555;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+    }
+    .landing-video-container.video-failed .landing-video-fallback {
+      display: flex;
+    }
+    .landing-video-container.video-failed #landing-video {
+      display: none;
+    }
+
     .landing-actions {
       display: flex;
       justify-content: space-between;
@@ -764,13 +799,14 @@
       .bio-text p { color: #aaa; }
       .bio-modal-close { color: rgba(255,255,255,0.2); }
       .bio-modal-close:hover { color: rgba(255,255,255,0.6); }
+
+      .landing-video-fallback { background: #1a1a1a; }
     }
   </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
 
-  <!-- FIX: aviso para usuários sem JavaScript -->
   <noscript>
     <p style="text-align:center; padding: 20px; background: #fff3cd; color: #856404; border: 1px solid #ffc107; border-radius: 4px; margin: 0;">
       Este site requer JavaScript para funcionar corretamente. Por favor, ative o JavaScript no seu navegador.
@@ -790,9 +826,16 @@
   <main id="main-content">
     <!-- Seção Landing -->
     <section id="landing-section" class="section hidden">
+
+      <!-- MELHORIA 1: poster="images/preview.jpg" como frame de fallback nativo do vídeo.
+           O div .landing-video-container com .video-failed cobre o caso de erro total. -->
       <div class="landing-video-container" onclick="enterSite()" title="Ver desenhos">
-        <video id="landing-video" autoplay muted loop playsinline></video>
+        <video id="landing-video" autoplay muted loop playsinline poster="images/preview.jpg"></video>
+        <div class="landing-video-fallback" id="landing-video-fallback">
+          <span id="landing-fallback-text">DESENHOS</span>
+        </div>
       </div>
+
       <div class="landing-actions">
         <button class="landing-action-btn" id="landing-desenhos-btn" onclick="enterSite()">DESENHOS</button>
         <button class="landing-action-btn" id="landing-sobre-btn" onclick="openBio()">SOBRE</button>
@@ -830,7 +873,6 @@
           <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt', 'btn-lista-espera-pt')">Lista de Espera</h2>
           <div id="lista-espera-pt" class="accordion-content" role="region" aria-labelledby="btn-lista-espera-pt">
             <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
-            <!-- FIX: href="#" com data-action em vez de ?section=waitlist -->
             <p><a href="#" class="waitlist-link" data-action="open-waitlist">Entrar para lista</a></p>
           </div>
         </div>
@@ -888,7 +930,6 @@
       </div>
     </section>
     
-    <!-- FIX: ID renomeado de #waitlist-form para #waitlist-section (evita ambiguidade com o <form> interno) -->
     <section id="waitlist-section" class="section hidden">
       <div id="waitlist-form-pt">
         <h2>Inscrição na Lista de Espera</h2>
@@ -1052,27 +1093,44 @@
   </div>
 
   <script>
-    // ===== LANDING =====
+    // ===== MELHORIA 1: Landing video com fallback robusto =====
     function initLandingVideo() {
       const videos = [
         'videos/video1.mp4','videos/video2.mp4','videos/video3.mp4',
         'videos/video4.mp4','videos/video5.mp4'
       ];
       const video = document.getElementById('landing-video');
-      video.src   = videos[Math.floor(Math.random() * videos.length)];
-      video.play().catch(() => { video.style.opacity = '0'; });
+      const container = video.closest('.landing-video-container');
+
+      video.src = videos[Math.floor(Math.random() * videos.length)];
+
+      // Se o play falhar (sem suporte ou rede), mostra fallback overlay
+      video.play().catch(() => {
+        container.classList.add('video-failed');
+      });
+
+      // Erro de carregamento de mídia também ativa o fallback
+      video.addEventListener('error', () => {
+        container.classList.add('video-failed');
+      });
+
+      // Clique no fallback também entra no site
+      document.getElementById('landing-video-fallback').addEventListener('click', enterSite);
     }
+    // ===== FIM MELHORIA 1 =====
 
     function updateLandingText(lang) {
       const isPt = lang === 'pt';
       document.getElementById('landing-desenhos-btn').textContent = isPt ? 'DESENHOS' : 'DESIGNS';
       document.getElementById('landing-sobre-btn').textContent    = isPt ? 'SOBRE'    : 'ABOUT';
+      // Atualiza texto do fallback também
+      const fallbackText = document.getElementById('landing-fallback-text');
+      if (fallbackText) fallbackText.textContent = isPt ? 'DESENHOS' : 'DESIGNS';
     }
 
     function enterSite() {
       showSection('gallery');
     }
-    // ===== FIM LANDING =====
 
     // Bio modal
     function getCurrentLanguage() {
@@ -1115,8 +1173,6 @@
     }
 
     // ─── FLASH DATA ───────────────────────────────────────────────
-    // Para adicionar um flash: inclua o número da imagem em flashData
-    // com nome, tamanho, valor, status e até 3 mockups (caminhos de imagem)
     const flashData = {
       93: {
         nome: "Serpente I",
@@ -1155,7 +1211,6 @@
       status.textContent = data.disponivel ? "Disponível" : "Reservado";
       status.className = "flash-status " + (data.disponivel ? "available" : "reserved");
 
-      // Mockups — max 2, imagens falhadas são removidas silenciosamente
       const mockupsEl = document.getElementById("flash-mockups");
       mockupsEl.innerHTML = "";
       const mockups = (data.mockups || []).slice(0, 2);
@@ -1167,7 +1222,6 @@
         mockupsEl.appendChild(img);
       });
 
-      // Botão CTA
       const cta = document.getElementById("flash-cta");
       if (data.disponivel) {
         const msg = encodeURIComponent(`Olá! Tenho interesse no flash "${data.nome}" (${data.tamanho}).`);
@@ -1194,7 +1248,6 @@
     }
     // ──────────────────────────────────────────────────────────────
 
-    // FIX: cópia imutável invertida — não muta o array original
     const imagensValidas = [
       1,2,4,5,6,7,8,9,10,12,13,
       16,17,18,20,21,23,24,25,26,
@@ -1211,6 +1264,29 @@
     const galleryContainer = document.querySelector('.gallery');
     const galleryFragment = document.createDocumentFragment();
 
+    // MELHORIA 3: Lazy loading real com IntersectionObserver.
+    // Imagens recebem data-src (não src), e o observer troca quando entram na viewport.
+    // Fallback para navegadores sem suporte: carrega todas de uma vez.
+    const lazyImageObserver = ('IntersectionObserver' in window)
+      ? new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const img = entry.target;
+            const src = img.getAttribute('data-src');
+            if (src) {
+              img.src = src;
+              img.removeAttribute('data-src');
+              img.addEventListener('load', () => img.classList.add('lazy-loaded'), { once: true });
+              img.addEventListener('error', () => img.classList.add('lazy-loaded'), { once: true });
+            }
+            observer.unobserve(img);
+          });
+        }, {
+          rootMargin: '200px 0px', // pré-carrega 200px antes de entrar na tela
+          threshold: 0
+        })
+      : null;
+
     imagensOrdenadas.forEach(num => {
       const isFlash = flashData.hasOwnProperty(num);
 
@@ -1218,9 +1294,19 @@
       wrapper.className = 'gallery-item';
 
       const img = document.createElement('img');
-      img.src = `images/desenho${num}.jpg`;
+      const src = `images/desenho${num}.jpg`;
       img.alt = isFlash ? (flashData[num].nome || `Flash ${num}`) : `Desenho ${num}`;
-      img.loading = 'lazy';
+
+      if (lazyImageObserver) {
+        // Lazy: usa data-src
+        img.setAttribute('data-src', src);
+        img.setAttribute('loading', 'lazy');
+      } else {
+        // Fallback sem IntersectionObserver: carrega normalmente
+        img.src = src;
+        img.classList.add('lazy-loaded');
+      }
+
       img.onerror = function() {
         this.onerror = null;
         const placeholder = new URL('images/placeholder.jpg', window.location.href).href;
@@ -1241,6 +1327,11 @@
       }
 
       galleryFragment.appendChild(wrapper);
+
+      // Registra no observer após inserir no fragment
+      if (lazyImageObserver) {
+        lazyImageObserver.observe(img);
+      }
     });
     galleryContainer.appendChild(galleryFragment);
     
@@ -1264,7 +1355,7 @@
       document.getElementById("lightbox-img").src = `images/desenho${imagensOrdenadas[currentIndex]}.jpg`;
     }
     
-    // FIX: links da waitlist via data-action — evita navegação por query string
+    // Links da waitlist
     document.querySelectorAll('.waitlist-link[data-action="open-waitlist"]').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -1280,7 +1371,6 @@
       "dia-sessao":   { pt: "dia-sessao-pt",   en: "session-day-en", btnPt: "btn-dia-sessao-pt",   btnEn: "btn-session-day-en" }
     };
 
-    // FIX: applyLanguage centraliza toda atualização de UI de idioma
     function applyLanguage(lang) {
       const isPt = lang === "pt";
       const currentSection = localStorage.getItem("section") || "gallery";
@@ -1308,7 +1398,7 @@
           const btnId  = accordionMapping[key][btnKey];
           const elem = document.getElementById(elemId);
           const btn  = document.getElementById(btnId);
-          if (elem) elem.classList.remove("active");
+          if (elem) { elem.classList.remove("active"); elem.style.maxHeight = "0px"; }
           if (btn)  btn.setAttribute("aria-expanded", "false");
         });
       });
@@ -1317,7 +1407,6 @@
     function toggleLanguage() {
       const currentLanguage = getCurrentLanguage();
 
-      // Guarda acordeons abertos antes de trocar
       const activeAccordions = [];
       Object.keys(accordionMapping).forEach(key => {
         const id = currentLanguage === "pt"
@@ -1334,7 +1423,6 @@
       applyLanguage(newLanguage);
       updateLandingText(newLanguage);
 
-      // Reabre os mesmos acordeons no novo idioma
       activeAccordions.forEach(key => {
         const id    = newLanguage === "pt" ? accordionMapping[key].pt    : accordionMapping[key].en;
         const btnId = newLanguage === "pt" ? accordionMapping[key].btnPt : accordionMapping[key].btnEn;
@@ -1342,6 +1430,8 @@
         const btn   = document.getElementById(btnId);
         if (elem && btn) {
           elem.classList.add("active");
+          // MELHORIA 2: usa scrollHeight real ao reabrir
+          elem.style.maxHeight = elem.scrollHeight + "px";
           btn.setAttribute("aria-expanded", "true");
         }
       });
@@ -1389,11 +1479,17 @@
         galleryToggleBtn.textContent = "INFO";
       }
 
+      // MELHORIA 4: sempre reseta para landing ao recarregar a página,
+      // mas persiste a seção apenas durante a sessão (sessionStorage em vez de localStorage).
+      // Isso evita que o usuário recarregue e caia em info/waitlist sem contexto.
+      sessionStorage.setItem("section", section);
+      // Mantém localStorage apenas para compatibilidade de leitura no toggleGalleryInfo
       localStorage.setItem("section", section);
     }
 
     function toggleGalleryInfo() {
       document.getElementById("contato-info").classList.remove("active");
+      document.getElementById("contato-info").style.maxHeight = "0px";
       const currentSection = localStorage.getItem("section") || "landing";
       if (currentSection === "landing" || currentSection === "waitlist" || currentSection === "info") {
         showSection("gallery");
@@ -1402,21 +1498,59 @@
       }
     }
     
+    // MELHORIA 2: toggleAccordion com altura dinâmica via scrollHeight.
+    // Elimina o risco de conteúdo longo ser cortado pelo max-height fixo.
     function toggleAccordion(id, btnId) {
       const content = document.getElementById(id);
       const button  = document.getElementById(btnId);
       const isOpen  = content.classList.contains("active");
-      content.classList.toggle("active", !isOpen);
-      button.setAttribute("aria-expanded", String(!isOpen));
+
+      if (isOpen) {
+        // Fecha: primeiro define height explícita para poder transicionar para 0
+        content.style.maxHeight = content.scrollHeight + "px";
+        // Força reflow para a transição funcionar
+        content.getBoundingClientRect();
+        content.style.maxHeight = "0px";
+        content.classList.remove("active");
+        button.setAttribute("aria-expanded", "false");
+      } else {
+        // Abre: height real do conteúdo
+        content.classList.add("active");
+        content.style.maxHeight = content.scrollHeight + "px";
+        button.setAttribute("aria-expanded", "true");
+
+        // Após a transição, remove o max-height fixo para que
+        // conteúdo dinâmico (ex: imagens que carregam depois) não fique cortado
+        content.addEventListener('transitionend', () => {
+          if (content.classList.contains('active')) {
+            content.style.maxHeight = 'none';
+          }
+        }, { once: true });
+      }
     }
     
     function toggleContato() {
       const contatoInfo    = document.getElementById("contato-info");
       const contactSection = document.getElementById("contact-section");
       const isOpen = contatoInfo.classList.contains("active");
-      contatoInfo.classList.toggle("active", !isOpen);
-      document.querySelector('.contact-title').setAttribute("aria-expanded", String(!isOpen));
-      if (!isOpen) {
+
+      // MELHORIA 2: também usa scrollHeight no toggleContato
+      if (isOpen) {
+        contatoInfo.style.maxHeight = contatoInfo.scrollHeight + "px";
+        contatoInfo.getBoundingClientRect();
+        contatoInfo.style.maxHeight = "0px";
+        contatoInfo.classList.remove("active");
+        document.querySelector('.contact-title').setAttribute("aria-expanded", "false");
+      } else {
+        contatoInfo.classList.add("active");
+        contatoInfo.style.maxHeight = contatoInfo.scrollHeight + "px";
+        document.querySelector('.contact-title').setAttribute("aria-expanded", "true");
+        contatoInfo.addEventListener('transitionend', () => {
+          if (contatoInfo.classList.contains('active')) {
+            contatoInfo.style.maxHeight = 'none';
+          }
+        }, { once: true });
+
         const y = contactSection.getBoundingClientRect().top + window.pageYOffset - 150;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
@@ -1426,7 +1560,13 @@
       const lang = getCurrentLanguage();
       applyLanguage(lang);
       updateLandingText(lang);
-      showSection('landing');
+
+      // MELHORIA 4: usa sessionStorage para decidir a seção inicial.
+      // sessionStorage é zerado ao fechar/recarregar a aba, então
+      // o usuário sempre começa na landing em uma nova visita,
+      // mas mantém a seção se apenas navegar de volta.
+      const sessionSection = sessionStorage.getItem("section");
+      showSection(sessionSection || 'landing');
 
       const formKey    = lang === "pt" ? "form-pt"    : "form-en";
       const storageKey = lang === "pt" ? "formDataPT" : "formDataEN";
