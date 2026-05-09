@@ -129,9 +129,6 @@
       margin: 20px 0;
     }
     
-    /* MELHORIA 3: Lazy loading real via Intersection Observer.
-       As imagens começam sem src e recebem o data-src.
-       A classe .lazy-loaded aplica a animação só quando carregada. */
     .gallery img {
       width: 100%;
       border-radius: 8px;
@@ -144,7 +141,6 @@
     .gallery img.lazy-loaded {
       animation: fadeIn 0.5s ease forwards;
     }
-    /* Imagens que não são lazy (sem data-src) ficam visíveis normalmente */
     .gallery img:not([data-src]) {
       opacity: 1;
     }
@@ -431,9 +427,6 @@
     }
     .top-controls button:hover { opacity: 0.8; }
     
-    /* MELHORIA 2: Acordeons com altura dinâmica via JS (scrollHeight),
-       mantendo transição suave sem risco de corte em conteúdo longo.
-       max-height é setado inline pelo JS, não mais fixo em CSS. */
     .accordion-content {
       overflow: hidden;
       max-height: 0;
@@ -442,7 +435,6 @@
       pointer-events: none;
     }
     .accordion-content.active {
-      /* max-height definido inline pelo JS com scrollHeight real */
       opacity: 1;
       pointer-events: auto;
     }
@@ -690,26 +682,27 @@
     .header-landing {
       position: relative;
     }
+
+    /* CORRIGIDO: proporção 5:7, overflow hidden para não vazar */
     .landing-video-container {
       width: 100%;
+      aspect-ratio: 5 / 7;
+      max-height: 90vh;
       cursor: pointer;
-      display: block;
-
-      /* MELHORIA 1: poster frame como fallback visual caso o vídeo falhe.
-         A cor de fundo aparece enquanto o vídeo carrega ou se não carregar. */
       background: #111;
       position: relative;
-      min-height: 200px;
+      overflow: hidden;
     }
+
+    /* CORRIGIDO: vídeo preenche o container mantendo a proporção */
     #landing-video {
       width: 100%;
-      height: auto;
-      max-height: 78vh;
+      height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    /* MELHORIA 1: Fallback overlay — aparece só se o vídeo falhar */
+    /* Fallback overlay — aparece só se o vídeo falhar */
     .landing-video-fallback {
       display: none;
       position: absolute;
@@ -827,10 +820,8 @@
     <!-- Seção Landing -->
     <section id="landing-section" class="section hidden">
 
-      <!-- MELHORIA 1: poster="images/preview.jpg" como frame de fallback nativo do vídeo.
-           O div .landing-video-container com .video-failed cobre o caso de erro total. -->
       <div class="landing-video-container" onclick="enterSite()" title="Ver desenhos">
-        <video id="landing-video" autoplay muted loop playsinline poster="images/preview.jpg"></video>
+        <video id="landing-video" autoplay muted loop playsinline></video>
         <div class="landing-video-fallback" id="landing-video-fallback">
           <span id="landing-fallback-text">DESENHOS</span>
         </div>
@@ -1093,37 +1084,38 @@
   </div>
 
   <script>
-    // ===== MELHORIA 1: Landing video com fallback robusto =====
+    // ===== LANDING VIDEO — proporção 5:7, sequência entre visitas =====
     function initLandingVideo() {
-      const videos = [
-        'videos/video1.mp4','videos/video2.mp4','videos/video3.mp4',
-        'videos/video4.mp4','videos/video5.mp4'
-      ];
+      const TOTAL = 5;
       const video = document.getElementById('landing-video');
       const container = video.closest('.landing-video-container');
 
-      video.src = videos[Math.floor(Math.random() * videos.length)];
+      // Avança para o próximo vídeo a cada visita (persiste entre sessões)
+      const lastIndex = parseInt(localStorage.getItem('lastVideoIndex') ?? '-1', 10);
+      const nextIndex = (lastIndex + 1) % TOTAL;
+      localStorage.setItem('lastVideoIndex', nextIndex);
 
-      // Se o play falhar (sem suporte ou rede), mostra fallback overlay
-      video.play().catch(() => {
-        container.classList.add('video-failed');
-      });
+      video.src = `videos/video${nextIndex + 1}.mp4`;
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
 
-      // Erro de carregamento de mídia também ativa o fallback
-      video.addEventListener('error', () => {
-        container.classList.add('video-failed');
-      });
+      const tryPlay = () => {
+        video.play().catch(() => {
+          container.classList.add('video-failed');
+        });
+      };
 
-      // Clique no fallback também entra no site
-      document.getElementById('landing-video-fallback').addEventListener('click', enterSite);
+      video.addEventListener('canplay', tryPlay, { once: true });
+      video.addEventListener('error', () => container.classList.add('video-failed'));
+      video.load();
     }
-    // ===== FIM MELHORIA 1 =====
+    // ===== FIM LANDING VIDEO =====
 
     function updateLandingText(lang) {
       const isPt = lang === 'pt';
       document.getElementById('landing-desenhos-btn').textContent = isPt ? 'DESENHOS' : 'DESIGNS';
       document.getElementById('landing-sobre-btn').textContent    = isPt ? 'SOBRE'    : 'ABOUT';
-      // Atualiza texto do fallback também
       const fallbackText = document.getElementById('landing-fallback-text');
       if (fallbackText) fallbackText.textContent = isPt ? 'DESENHOS' : 'DESIGNS';
     }
@@ -1264,9 +1256,6 @@
     const galleryContainer = document.querySelector('.gallery');
     const galleryFragment = document.createDocumentFragment();
 
-    // MELHORIA 3: Lazy loading real com IntersectionObserver.
-    // Imagens recebem data-src (não src), e o observer troca quando entram na viewport.
-    // Fallback para navegadores sem suporte: carrega todas de uma vez.
     const lazyImageObserver = ('IntersectionObserver' in window)
       ? new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
@@ -1282,7 +1271,7 @@
             observer.unobserve(img);
           });
         }, {
-          rootMargin: '200px 0px', // pré-carrega 200px antes de entrar na tela
+          rootMargin: '200px 0px',
           threshold: 0
         })
       : null;
@@ -1298,11 +1287,9 @@
       img.alt = isFlash ? (flashData[num].nome || `Flash ${num}`) : `Desenho ${num}`;
 
       if (lazyImageObserver) {
-        // Lazy: usa data-src
         img.setAttribute('data-src', src);
         img.setAttribute('loading', 'lazy');
       } else {
-        // Fallback sem IntersectionObserver: carrega normalmente
         img.src = src;
         img.classList.add('lazy-loaded');
       }
@@ -1328,7 +1315,6 @@
 
       galleryFragment.appendChild(wrapper);
 
-      // Registra no observer após inserir no fragment
       if (lazyImageObserver) {
         lazyImageObserver.observe(img);
       }
@@ -1390,7 +1376,6 @@
         ? "INFO"
         : (isPt ? "DESENHOS" : "DESIGNS");
 
-      // Fecha todos os acordeons ao trocar idioma
       Object.keys(accordionMapping).forEach(key => {
         ["pt", "en"].forEach(l => {
           const elemId = accordionMapping[key][l];
@@ -1430,7 +1415,6 @@
         const btn   = document.getElementById(btnId);
         if (elem && btn) {
           elem.classList.add("active");
-          // MELHORIA 2: usa scrollHeight real ao reabrir
           elem.style.maxHeight = elem.scrollHeight + "px";
           btn.setAttribute("aria-expanded", "true");
         }
@@ -1479,11 +1463,7 @@
         galleryToggleBtn.textContent = "INFO";
       }
 
-      // MELHORIA 4: sempre reseta para landing ao recarregar a página,
-      // mas persiste a seção apenas durante a sessão (sessionStorage em vez de localStorage).
-      // Isso evita que o usuário recarregue e caia em info/waitlist sem contexto.
       sessionStorage.setItem("section", section);
-      // Mantém localStorage apenas para compatibilidade de leitura no toggleGalleryInfo
       localStorage.setItem("section", section);
     }
 
@@ -1498,29 +1478,22 @@
       }
     }
     
-    // MELHORIA 2: toggleAccordion com altura dinâmica via scrollHeight.
-    // Elimina o risco de conteúdo longo ser cortado pelo max-height fixo.
     function toggleAccordion(id, btnId) {
       const content = document.getElementById(id);
       const button  = document.getElementById(btnId);
       const isOpen  = content.classList.contains("active");
 
       if (isOpen) {
-        // Fecha: primeiro define height explícita para poder transicionar para 0
         content.style.maxHeight = content.scrollHeight + "px";
-        // Força reflow para a transição funcionar
         content.getBoundingClientRect();
         content.style.maxHeight = "0px";
         content.classList.remove("active");
         button.setAttribute("aria-expanded", "false");
       } else {
-        // Abre: height real do conteúdo
         content.classList.add("active");
         content.style.maxHeight = content.scrollHeight + "px";
         button.setAttribute("aria-expanded", "true");
 
-        // Após a transição, remove o max-height fixo para que
-        // conteúdo dinâmico (ex: imagens que carregam depois) não fique cortado
         content.addEventListener('transitionend', () => {
           if (content.classList.contains('active')) {
             content.style.maxHeight = 'none';
@@ -1534,7 +1507,6 @@
       const contactSection = document.getElementById("contact-section");
       const isOpen = contatoInfo.classList.contains("active");
 
-      // MELHORIA 2: também usa scrollHeight no toggleContato
       if (isOpen) {
         contatoInfo.style.maxHeight = contatoInfo.scrollHeight + "px";
         contatoInfo.getBoundingClientRect();
@@ -1561,10 +1533,6 @@
       applyLanguage(lang);
       updateLandingText(lang);
 
-      // MELHORIA 4: usa sessionStorage para decidir a seção inicial.
-      // sessionStorage é zerado ao fechar/recarregar a aba, então
-      // o usuário sempre começa na landing em uma nova visita,
-      // mas mantém a seção se apenas navegar de volta.
       const sessionSection = sessionStorage.getItem("section");
       showSection(sessionSection || 'landing');
 
