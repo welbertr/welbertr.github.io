@@ -19,6 +19,8 @@
   <!-- Pré-conexão para fontes -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init("U1u5vYqm7OjNk8N0T");</script>
   
   <style>
     /* Skip link */
@@ -45,6 +47,10 @@
       display: none !important;
     }
     
+    html {
+      overflow-x: hidden;
+    }
+
     body {
       font-family: 'Outfit', sans-serif;
       font-weight: 300;
@@ -64,16 +70,10 @@
       top: 0;
       background-color: #fafafa;
       z-index: 10;
-      padding: 20px 20px 10px;
-    }
-    
-    .top-name {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 500;
-      font-size: 14px;
-      text-transform: uppercase;
-      color: #666;
-      margin-bottom: 20px;
+      padding: 16px 0 10px;
+      margin: 0 -20px;
+      padding-left: 20px;
+      padding-right: 20px;
     }
     
     .custom-line {
@@ -109,7 +109,7 @@
     }
     
     p, ul, li {
-      font-size: 14px;
+      font-size: inherit;
       text-align: justify;
       margin-bottom: 8px;
     }
@@ -151,7 +151,7 @@
     }
     
     @media (prefers-reduced-motion: reduce) {
-      .gallery img { animation: none; transition: none; }
+      .gallery img { animation: none; transition: none; opacity: 1; }
     }
     
     /* Lightbox */
@@ -216,7 +216,173 @@
     .prev-btn { left: 20px; }
     .next-btn { right: 20px; }
     
-    /* Botão do Instagram */
+    /* Flash Modal */
+    .flash-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.75);
+      z-index: 1500;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    .flash-modal-content {
+      background: #fafafa;
+      border-radius: 12px;
+      max-width: 560px;
+      width: 100%;
+      margin: 40px auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .flash-modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(0,0,0,0.5);
+      z-index: 10;
+      transition: color 0.2s;
+    }
+    .flash-modal-close:hover { color: rgba(0,0,0,0.9); }
+    .flash-main-img {
+      width: 100%;
+      display: block;
+      border-radius: 12px 12px 0 0;
+      background: #f0f0f0;
+    }
+    .flash-info {
+      padding: 24px 28px;
+    }
+    .flash-title {
+      font-size: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #222;
+      margin-bottom: 16px;
+    }
+    .flash-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .flash-detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .flash-detail-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #999;
+    }
+    .flash-detail-value {
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+    }
+    .flash-status {
+      display: inline-block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .flash-status.available {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    .flash-status.reserved {
+      background: #fce4ec;
+      color: #c62828;
+    }
+    .flash-mockups {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .flash-mockups img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 6px;
+      background: #eee;
+    }
+    .flash-mockups:empty {
+      display: none;
+    }
+    .flash-cta {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s;
+      box-sizing: border-box;
+    }
+    .flash-cta:hover { background: #333; }
+    .flash-cta.reserved {
+      background: transparent;
+      color: #c62828;
+      border: 1px solid #c62828;
+      cursor: default;
+      pointer-events: none;
+    }
+    .flash-badge {
+      position: absolute;
+      top: 8px; left: 8px;
+      background: #fff;
+      color: #000;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 7px;
+      border-radius: 20px;
+      pointer-events: none;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+    .gallery-item {
+      position: relative;
+    }
+
+    /* Dark mode flash */
+    @media (prefers-color-scheme: dark) {
+      .flash-modal-content { background: #1a1a1a; }
+      .flash-title { color: #e0e0e0; }
+      .flash-detail-value { color: #ccc; }
+      .flash-modal-close {
+        background: rgba(30,30,30,0.9);
+        border-color: rgba(255,255,255,0.15);
+        color: rgba(255,255,255,0.5);
+      }
+      .flash-modal-close:hover { color: #fff; }
+      .flash-badge { background: #222; color: #e0e0e0; }
+    }
     .instagram-btn {
       background-color: transparent;
       color: #000;
@@ -241,7 +407,7 @@
       color: #000;
       border: none;
       padding: 8px 2px;
-      font-size: 14px;
+      font-size: inherit;
       font-weight: 500;
       cursor: pointer;
       transition: opacity 0.3s ease;
@@ -279,7 +445,7 @@
     }
     #contato-info p {
       margin: 4px 0;
-      font-size: 14px;
+      font-size: inherit;
       text-align: center;
     }
     #contato-info .contato-label {
@@ -310,7 +476,6 @@
       border: 1px solid #ddd;
       border-radius: 8px;
       background-color: #fff;
-      transition: opacity 0.8s ease;
     }
     #waitlist-section h2 {
       margin-bottom: 20px;
@@ -331,7 +496,7 @@
     #waitlist-section input,
     #waitlist-section button,
     #waitlist-section fieldset {
-      font-size: 14px;
+      font-size: inherit;
       padding: 8px;
       width: 100%;
       box-sizing: border-box;
@@ -367,13 +532,14 @@
     }
     
     section.section {
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      animation: sectionFadeIn 0.25s ease;
     }
-    section.section.hidden {
-      opacity: 0;
-      visibility: hidden;
+    @keyframes sectionFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      section.section { animation: none; }
     }
     
     #contact-section {
@@ -382,18 +548,178 @@
     }
     
     /* Responsive */
-    @media (min-width: 768px) { body { padding: 30px; } }
+    @media (min-width: 768px) {
+      body { padding: 30px; }
+      header.sticky-header {
+        margin: 0 -30px;
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
     @media (min-width: 1024px) {
-      body { max-width: 1200px; }
-      .gallery { grid-template-columns: repeat(3, 1fr); }
+      html { background-color: #fafafa; }
+      body { max-width: 1200px; font-size: 15px; }
+      .gallery { grid-template-columns: repeat(3, 1fr); gap: 14px; }
       h2 { font-size: 20px; }
+
+      /* Limita largura do texto nas seções para legibilidade */
+      #info > div,
+      #waitlist-section > div {
+        max-width: 680px;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
     @media (min-width: 1440px) {
-      .gallery { grid-template-columns: repeat(4, 1fr); }
+      body { font-size: 16px; }
+      .gallery { grid-template-columns: repeat(4, 1fr); gap: 16px; }
     }
     
+    /* Modal Bio */
+    .bio-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .bio-modal-content {
+      background: #fafafa;
+      border-radius: 12px;
+      max-width: 520px;
+      width: 100%;
+      padding: 48px 48px 40px;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .bio-modal-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: rgba(0,0,0,0.2);
+      line-height: 1;
+      padding: 4px;
+      transition: color 0.2s ease;
+    }
+    .bio-modal-close:hover { color: rgba(0,0,0,0.6); }
+    .bio-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .bio-name {
+      font-weight: 500;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      color: #333;
+    }
+    .bio-role {
+      font-size: 12px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 28px;
+    }
+    .bio-text {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.9;
+      text-align: center;
+      margin-bottom: 0;
+    }
+    .bio-text p {
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: inherit;
+    }
+    .bio-text p:last-child { margin-bottom: 0; }
+    .top-name {
+      cursor: pointer;
+      transition: opacity 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+      display: block;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .top-name:hover { opacity: 0.6; }
+
+    /* ========== LANDING ========== */
+    #landing-section {
+      padding-top: 8px;
+    }
+    /* Nome centralizado na landing */
+    .header-landing .top-name {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .header-landing {
+      position: relative;
+    }
+    .landing-video-container {
+      width: 100%;
+      cursor: pointer;
+      display: block;
+      background: #f5f5f5;
+    }
+    #landing-video {
+      width: 100%;
+      height: auto;
+      max-height: 78vh;
+      object-fit: cover;
+      display: block;
+    }
+    .landing-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .landing-action-btn {
+      background: none;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .landing-action-btn:hover { color: #555; }
+    /* ========== FIM LANDING ========== */
+
     /* Modo escuro */
     @media (prefers-color-scheme: dark) {
+      html { background-color: #121212; }
       body { color: #e0e0e0; background-color: #121212; }
       h2 { border-bottom: 1px solid #444; }
       .top-controls button { color: #e0e0e0; }
@@ -430,6 +756,14 @@
       }
       #waitlist-section button { background-color: #000; }
       #waitlist-section button:hover { background-color: #333; }
+      .bio-modal-content {
+        background: #1e1e1e;
+      }
+      .bio-name { color: #e0e0e0; }
+      .bio-role { color: #666; }
+      .bio-text p { color: #aaa; }
+      .bio-modal-close { color: rgba(255,255,255,0.2); }
+      .bio-modal-close:hover { color: rgba(255,255,255,0.6); }
     }
   </style>
 </head>
@@ -444,7 +778,7 @@
   </noscript>
   
   <header class="sticky-header" role="banner">
-    <div class="top-name" aria-label="Nome do artista">WELBERT RODRIGUES</div>
+    <button class="top-name" aria-label="Sobre Welbert Rodrigues" onclick="openBio()">WELBERT RODRIGUES</button>
     <div class="top-controls">
       <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()" aria-label="Alternar entre galeria e informações">INFO</button>
       <button id="lang-btn" onclick="toggleLanguage()" aria-label="Alternar idioma">EN</button>
@@ -454,6 +788,17 @@
   </header>
   
   <main id="main-content">
+    <!-- Seção Landing -->
+    <section id="landing-section" class="section hidden">
+      <div class="landing-video-container" onclick="enterSite()" title="Ver desenhos">
+        <video id="landing-video" autoplay muted loop playsinline></video>
+      </div>
+      <div class="landing-actions">
+        <button class="landing-action-btn" id="landing-desenhos-btn" onclick="enterSite()">DESENHOS</button>
+        <button class="landing-action-btn" id="landing-sobre-btn" onclick="openBio()">SOBRE</button>
+      </div>
+    </section>
+
     <!-- Seção da Galeria -->
     <section id="gallery-section" class="section">
       <div class="gallery" aria-label="Galeria de desenhos"></div>
@@ -552,7 +897,7 @@
           Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha do horário.
           <br><em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em>
         </p>
-        <form id="form-pt" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
+        <form id="form-pt">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
           <label for="idade">Idade *</label>
@@ -569,8 +914,6 @@
           <input type="text" id="instagram" name="instagram" required>
           <label for="tattoo">O que gostaria de tatuar? *</label>
           <input type="text" id="tattoo" name="tattoo" required>
-          <label for="reference-image">Imagem de Referência:</label>
-          <input type="file" id="reference-image" name="reference-image" accept="image/*">
           <label for="tamanho">Tamanho aproximado (em cm) *</label>
           <input type="number" id="tamanho" name="tamanho" required>
           <label for="local">Local do corpo *</label>
@@ -598,39 +941,37 @@
           Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.
           <br><em>Note: I will contact you only when the date is confirmed.</em>
         </p>
-        <form id="form-en" action="https://getform.io/f/ajjmdnqa" method="POST" enctype="multipart/form-data">
+        <form id="form-en">
           <label for="name">Name *</label>
-          <input type="text" id="name" name="name" required>
+          <input type="text" id="name" name="nome" required>
           <label for="age">Age *</label>
-          <input type="number" id="age" name="age" required>
+          <input type="number" id="age" name="idade" required>
           <label for="city">City *</label>
-          <input type="text" id="city" name="city" required>
+          <input type="text" id="city" name="cidade" required>
           <label for="state">State *</label>
-          <input type="text" id="state" name="state" required>
+          <input type="text" id="state" name="estado" required>
           <label for="country">Country *</label>
-          <input type="text" id="country" name="country" required>
+          <input type="text" id="country" name="pais" required>
           <label for="phone">Phone with area code</label>
-          <input type="tel" id="phone" name="phone">
+          <input type="tel" id="phone" name="telefone">
           <label for="emailEn">E-mail *</label>
           <input type="email" id="emailEn" name="email" required>
           <label for="instagramEn">Instagram *</label>
           <input type="text" id="instagramEn" name="instagram" required>
           <label for="tattooEn">What tattoo would you like? *</label>
           <input type="text" id="tattooEn" name="tattoo" required>
-          <label for="reference-image-en">Reference Image:</label>
-          <input type="file" id="reference-image-en" name="reference-image" accept="image/*">
           <label for="size">Approximate size (in cm) *</label>
-          <input type="number" id="size" name="size" required>
+          <input type="number" id="size" name="tamanho" required>
           <label for="bodyLocation">Body location *</label>
-          <input type="text" id="bodyLocation" name="bodyLocation" required>
+          <input type="text" id="bodyLocation" name="local" required>
           <fieldset>
             <legend>Have you been tattooed by me before? *</legend>
             <div class="radio-inline">
-              <input type="radio" id="yes" name="tattooedBefore" value="Yes" required>
+              <input type="radio" id="yes" name="tatuagem" value="Yes" required>
               <label for="yes">Yes</label>
             </div>
             <div class="radio-inline">
-              <input type="radio" id="no" name="tattooedBefore" value="No" required>
+              <input type="radio" id="no" name="tatuagem" value="No" required>
               <label for="no">No</label>
             </div>
           </fieldset>
@@ -650,6 +991,35 @@
     </section>
   </main>
   
+  <!-- Flash Modal -->
+  <div class="flash-modal" id="flash-modal" onclick="handleFlashOverlayClick(event)">
+    <div class="flash-modal-content">
+      <button class="flash-modal-close" onclick="closeFlash()" aria-label="Fechar">&times;</button>
+      <img id="flash-main-img" src="" alt="" class="flash-main-img">
+      <div class="flash-info">
+        <div class="flash-title" id="flash-title"></div>
+        <div class="flash-details">
+          <div class="flash-detail-item">
+            <span class="flash-detail-label">Tamanho sugerido</span>
+            <span class="flash-detail-value" id="flash-size"></span>
+          </div>
+          <div class="flash-detail-item">
+            <span class="flash-detail-label">Valor</span>
+            <span class="flash-detail-value" id="flash-price"></span>
+          </div>
+          <div class="flash-detail-item">
+            <span class="flash-detail-label">Disponibilidade</span>
+            <span class="flash-status" id="flash-status"></span>
+          </div>
+        </div>
+        <div class="flash-mockups" id="flash-mockups"></div>
+        <a id="flash-cta" href="https://wa.me/5531920022832" target="_blank" rel="noopener noreferrer" class="flash-cta">
+          Reservar este flash
+        </a>
+      </div>
+    </div>
+  </div>
+
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada">
     <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
     <button class="prev-btn" onclick="changeImage(-1)" aria-label="Imagem anterior">&lt;</button>
@@ -657,13 +1027,172 @@
     <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
   </div>
   
+  <!-- Modal Bio -->
+  <div class="bio-modal" id="bio-modal" role="dialog" aria-modal="true" aria-label="Sobre Welbert Rodrigues" onclick="handleBioOverlayClick(event)">
+    <div class="bio-modal-content">
+      <button class="bio-modal-close" onclick="closeBio()" aria-label="Fechar">&times;</button>
+      <img src="images/profile.jpg" alt="Welbert Rodrigues" class="bio-photo"
+        onerror="this.onerror=null;this.style.display='none'">
+      <div class="bio-name">Welbert Rodrigues</div>
+      <div class="bio-role" id="bio-role-pt">Tatuador / Ilustrador</div>
+      <div class="bio-role" id="bio-role-en">Tattoo Artist / Illustrator</div>
+      <div class="bio-text" id="bio-text-pt">
+        <p>Minha pesquisa parte de padrões orgânicos, fragmentos de uma arquitetura maior.</p>
+        <p>Não busco representar formas, mas reorganizar estruturas.</p>
+        <p>Trabalho com repetição e contraste, explorando como essas formas evocam sensações e constroem estados.</p>
+        <p>Tatuo desde 2019. Incorporo imagens à experiência individual.</p>
+      </div>
+      <div class="bio-text" id="bio-text-en">
+        <p>My work explores organic patterns as fragments of a larger underlying structure.</p>
+        <p>Rather than representing forms, I focus on reorganizing structures.</p>
+        <p>I work with repetition and contrast, exploring how these forms evoke sensations and shape states of perception.</p>
+        <p>Tattooing since 2019, I incorporate images into individual experience.</p>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // ===== LANDING =====
+    function initLandingVideo() {
+      const videos = [
+        'videos/video1.mp4','videos/video2.mp4','videos/video3.mp4',
+        'videos/video4.mp4','videos/video5.mp4'
+      ];
+      const video = document.getElementById('landing-video');
+      video.src   = videos[Math.floor(Math.random() * videos.length)];
+      video.play().catch(() => { video.style.opacity = '0'; });
+    }
+
+    function updateLandingText(lang) {
+      const isPt = lang === 'pt';
+      document.getElementById('landing-desenhos-btn').textContent = isPt ? 'DESENHOS' : 'DESIGNS';
+      document.getElementById('landing-sobre-btn').textContent    = isPt ? 'SOBRE'    : 'ABOUT';
+    }
+
+    function enterSite() {
+      showSection('gallery');
+    }
+    // ===== FIM LANDING =====
+
+    // Bio modal
+    function getCurrentLanguage() {
+      return localStorage.getItem("language") || "pt";
+    }
+
+    function openBio() {
+      const isPt = getCurrentLanguage() === "pt";
+      document.getElementById("bio-role-pt").style.display = isPt ? "" : "none";
+      document.getElementById("bio-role-en").style.display = isPt ? "none" : "";
+      document.getElementById("bio-text-pt").style.display = isPt ? "" : "none";
+      document.getElementById("bio-text-en").style.display = isPt ? "none" : "";
+      document.getElementById("bio-modal").style.display = "flex";
+      document.documentElement.style.overflow = "hidden";
+    }
+    function closeBio() {
+      document.getElementById("bio-modal").style.display = "none";
+      document.documentElement.style.overflow = "";
+    }
+    function handleBioOverlayClick(e) {
+      if (e.target === document.getElementById("bio-modal")) closeBio();
+    }
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+        closeBio();
+        closeFlash();
+        closeLightbox();
+      }
+      if (document.getElementById("lightbox").style.display === "flex") {
+        if (e.key === "ArrowLeft")  changeImage(-1);
+        if (e.key === "ArrowRight") changeImage(1);
+      }
+    });
+
     // Remove fbclid da URL, se presente
     if (window.location.search.includes('fbclid')) {
       const url = new URL(window.location);
       url.searchParams.delete('fbclid');
       history.replaceState(null, '', url.pathname + url.search);
     }
+
+    // ─── FLASH DATA ───────────────────────────────────────────────
+    // Para adicionar um flash: inclua o número da imagem em flashData
+    // com nome, tamanho, valor, status e até 3 mockups (caminhos de imagem)
+    const flashData = {
+      93: {
+        nome: "Serpente I",
+        tamanho: "10 × 6 cm",
+        valor: "R$ 350",
+        disponivel: true,
+        mockups: [
+          "images/desenho91.jpg",
+          "images/desenho92.jpg",
+          "images/desenho90.jpg"
+        ]
+      },
+      92: {
+        nome: "Botânico II",
+        tamanho: "8 × 8 cm",
+        valor: "R$ 300",
+        disponivel: false,
+        mockups: [
+          "images/desenho89.jpg",
+          "images/desenho88.jpg"
+        ]
+      }
+    };
+
+    function openFlash(num) {
+      const data = flashData[num];
+      if (!data) { openLightbox(num); return; }
+
+      document.getElementById("flash-main-img").src = `images/desenho${num}.jpg`;
+      document.getElementById("flash-main-img").alt = data.nome;
+      document.getElementById("flash-title").textContent = data.nome;
+      document.getElementById("flash-size").textContent = data.tamanho;
+      document.getElementById("flash-price").textContent = data.valor;
+
+      const status = document.getElementById("flash-status");
+      status.textContent = data.disponivel ? "Disponível" : "Reservado";
+      status.className = "flash-status " + (data.disponivel ? "available" : "reserved");
+
+      // Mockups — max 2, imagens falhadas são removidas silenciosamente
+      const mockupsEl = document.getElementById("flash-mockups");
+      mockupsEl.innerHTML = "";
+      const mockups = (data.mockups || []).slice(0, 2);
+      mockups.forEach(src => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "Referência";
+        img.onerror = function() { this.remove(); };
+        mockupsEl.appendChild(img);
+      });
+
+      // Botão CTA
+      const cta = document.getElementById("flash-cta");
+      if (data.disponivel) {
+        const msg = encodeURIComponent(`Olá! Tenho interesse no flash "${data.nome}" (${data.tamanho}).`);
+        cta.href = `https://wa.me/5531920022832?text=${msg}`;
+        cta.className = "flash-cta";
+        cta.textContent = "Reservar este flash";
+      } else {
+        cta.removeAttribute("href");
+        cta.className = "flash-cta reserved";
+        cta.textContent = "Reservado";
+      }
+
+      document.getElementById("flash-modal").style.display = "flex";
+      document.documentElement.style.overflow = "hidden";
+    }
+
+    function closeFlash() {
+      document.getElementById("flash-modal").style.display = "none";
+      document.documentElement.style.overflow = "";
+    }
+
+    function handleFlashOverlayClick(e) {
+      if (e.target === document.getElementById("flash-modal")) closeFlash();
+    }
+    // ──────────────────────────────────────────────────────────────
 
     // FIX: cópia imutável invertida — não muta o array original
     const imagensValidas = [
@@ -683,11 +1212,15 @@
     const galleryFragment = document.createDocumentFragment();
 
     imagensOrdenadas.forEach(num => {
+      const isFlash = flashData.hasOwnProperty(num);
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'gallery-item';
+
       const img = document.createElement('img');
       img.src = `images/desenho${num}.jpg`;
-      img.alt = `Desenho ${num}`;
+      img.alt = isFlash ? (flashData[num].nome || `Flash ${num}`) : `Desenho ${num}`;
       img.loading = 'lazy';
-      // FIX: fallback seguro — tenta placeholder uma vez, depois esconde a imagem
       img.onerror = function() {
         this.onerror = null;
         const placeholder = new URL('images/placeholder.jpg', window.location.href).href;
@@ -697,8 +1230,17 @@
           this.style.display = 'none';
         }
       };
-      img.onclick = () => openLightbox(num);
-      galleryFragment.appendChild(img);
+      img.onclick = () => isFlash ? openFlash(num) : openLightbox(num);
+      wrapper.appendChild(img);
+
+      if (isFlash) {
+        const badge = document.createElement('span');
+        badge.className = 'flash-badge';
+        badge.textContent = 'Flash';
+        wrapper.appendChild(badge);
+      }
+
+      galleryFragment.appendChild(wrapper);
     });
     galleryContainer.appendChild(galleryFragment);
     
@@ -737,10 +1279,6 @@
       "lista-espera": { pt: "lista-espera-pt", en: "waitlist-en",    btnPt: "btn-lista-espera-pt", btnEn: "btn-waitlist-en" },
       "dia-sessao":   { pt: "dia-sessao-pt",   en: "session-day-en", btnPt: "btn-dia-sessao-pt",   btnEn: "btn-session-day-en" }
     };
-
-    function getCurrentLanguage() {
-      return localStorage.getItem("language") || "pt";
-    }
 
     // FIX: applyLanguage centraliza toda atualização de UI de idioma
     function applyLanguage(lang) {
@@ -792,7 +1330,9 @@
 
       const newLanguage = currentLanguage === "en" ? "pt" : "en";
       localStorage.setItem("language", newLanguage);
+      document.documentElement.lang = newLanguage === "pt" ? "pt-BR" : "en";
       applyLanguage(newLanguage);
+      updateLandingText(newLanguage);
 
       // Reabre os mesmos acordeons no novo idioma
       activeAccordions.forEach(key => {
@@ -811,8 +1351,8 @@
       loadFormData(formKey, storageKey);
     }
     
-    // FIX: showSection centraliza a lógica de exibição de seções
     function showSection(section) {
+      const landingSection   = document.getElementById("landing-section");
       const gallerySection   = document.getElementById("gallery-section");
       const infoSection      = document.getElementById("info");
       const waitlistSection  = document.getElementById("waitlist-section");
@@ -821,13 +1361,22 @@
       const customLine       = document.querySelector('.custom-line');
       const lang             = getCurrentLanguage();
 
+      landingSection.classList.add("hidden");
       gallerySection.classList.add("hidden");
       infoSection.classList.add("hidden");
       waitlistSection.classList.add("hidden");
-      availabilityText.style.display = "none";
-      customLine.style.display       = "none";
+      availabilityText.style.display  = "none";
+      customLine.style.display        = "none";
+      galleryToggleBtn.style.display  = "";
 
-      if (section === "gallery") {
+      if (section === "landing") {
+        landingSection.classList.remove("hidden");
+        galleryToggleBtn.style.display = "none";
+        document.querySelector('.sticky-header').classList.add('header-landing');
+        updateLandingText(lang);
+        initLandingVideo();
+      } else if (section === "gallery") {
+        document.querySelector('.sticky-header').classList.remove('header-landing');
         gallerySection.classList.remove("hidden");
         availabilityText.style.display = "block";
         customLine.style.display       = "block";
@@ -845,9 +1394,8 @@
 
     function toggleGalleryInfo() {
       document.getElementById("contato-info").classList.remove("active");
-      const currentSection = localStorage.getItem("section") || "gallery";
-
-      if (currentSection === "waitlist" || currentSection === "info") {
+      const currentSection = localStorage.getItem("section") || "landing";
+      if (currentSection === "landing" || currentSection === "waitlist" || currentSection === "info") {
         showSection("gallery");
       } else {
         showSection("info");
@@ -875,21 +1423,10 @@
     }
     
     function loadState() {
-      // FIX: URL é a fonte primária de verdade; evita herança de estado entre abas
-      const urlParams = new URLSearchParams(window.location.search);
-      let section = "gallery";
-
-      if (urlParams.has("section")) {
-        const param = urlParams.get("section");
-        if (["info", "waitlist"].includes(param)) section = param;
-        history.replaceState(null, '', window.location.pathname);
-      } else {
-        section = localStorage.getItem("section") || "gallery";
-      }
-
       const lang = getCurrentLanguage();
       applyLanguage(lang);
-      showSection(section);
+      updateLandingText(lang);
+      showSection('landing');
 
       const formKey    = lang === "pt" ? "form-pt"    : "form-en";
       const storageKey = lang === "pt" ? "formDataPT" : "formDataEN";
@@ -954,19 +1491,26 @@
       const form = document.getElementById(formId);
       const responseContainer = document.getElementById(responseId);
       if (!form || !responseContainer) return;
-      
+
       form.addEventListener('submit', function(event) {
         event.preventDefault();
         responseContainer.innerHTML = '<p style="color: #555;">Enviando...</p>';
-        fetch(form.action, { method: form.method, body: new FormData(form) })
-          .then(response => {
-            if (response.ok) {
-              responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
-              form.reset();
-              localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
-            } else {
-              throw new Error('Erro no envio');
-            }
+
+        const data = {};
+        form.querySelectorAll("input, textarea, select").forEach(input => {
+          if (input.type === "file") return;
+          if (input.type === "radio") {
+            if (input.checked) data[input.name] = input.value;
+          } else {
+            data[input.name] = input.value;
+          }
+        });
+
+        emailjs.send("we.ro___", "template_en4517r", data)
+          .then(() => {
+            responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
+            form.reset();
+            localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
           })
           .catch(() => {
             responseContainer.innerHTML = `<p style="color: red; font-size: 16px;">&#10007; ${messages.error}</p>`;
