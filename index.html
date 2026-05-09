@@ -1095,7 +1095,7 @@
       const nextIndex = (lastIndex + 1) % TOTAL;
       localStorage.setItem('lastVideoIndex', nextIndex);
 
-      video.src = `videos/video${nextIndex + 1}.mp4`;
+      video.src = `video/video${nextIndex + 1}.mp4`;
       video.loop = true;
       video.muted = true;
       video.playsInline = true;
@@ -1637,3 +1637,4 @@
   </script>
 </body>
 </html>
+
