@@ -4,28 +4,51 @@
   <meta charset="UTF-8" />
   <meta name='viewport' content='width=device-width, initial-scale=1'/>
   <title>Welbert Rodrigues</title>
+  
+  <!-- Meta Tags para SEO -->
   <meta name="description" content="Site minimalista e intuitivo de Welbert Rodrigues com galeria de desenhos e informações para agendamento de tatuagens." />
   <meta name="keywords" content="Welbert Rodrigues, tatuagens, portfólio, agendamento, minimalista" />
+  
+  <!-- Meta Tags Open Graph -->
   <meta property="og:title" content="Welbert Rodrigues" />
   <meta property="og:description" content="Conheça o trabalho de Welbert Rodrigues e agende sua tatuagem." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://welbertr.github.io" />
   <meta property="og:image" content="https://welbertr.github.io/images/preview.jpg" />
+  
+  <!-- Pré-conexão para fontes -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>emailjs.init("U1u5vYqm7OjNk8N0T");</script>
-
+  
   <style>
     .skip-link {
-      position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
     }
     .skip-link:focus {
-      left: 0; top: 0; width: auto; height: auto; padding: 8px;
-      background: #000; color: #fff; z-index: 100; text-decoration: none;
+      left: 0;
+      top: 0;
+      width: auto;
+      height: auto;
+      padding: 8px;
+      background: #000;
+      color: #fff;
+      z-index: 100;
+      text-decoration: none;
     }
-    .hidden { display: none !important; }
-    html { overflow-x: hidden; }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    html {
+      overflow-x: hidden;
+    }
 
     body {
       font-family: 'Outfit', sans-serif;
@@ -40,22 +63,24 @@
       font-size: 14px;
       position: relative;
     }
-
+    
     header.sticky-header {
       position: sticky;
       top: 0;
       background-color: #fafafa;
       z-index: 10;
-      padding: 16px 20px 10px;
+      padding: 16px 0 10px;
       margin: 0 -20px;
+      padding-left: 20px;
+      padding-right: 20px;
     }
-
+    
     .custom-line {
       border: 0;
       border-bottom: 1px solid #ddd;
       margin: 10px 0;
     }
-
+    
     h2 {
       border-bottom: 1px solid #ddd;
       padding-bottom: 8px;
@@ -67,7 +92,7 @@
       width: 100%;
       box-sizing: border-box;
     }
-
+    
     .contact-title {
       display: block;
       width: 100%;
@@ -81,24 +106,27 @@
       color: #000;
       background-color: transparent;
     }
-
+    
     p, ul, li {
       font-size: inherit;
       text-align: justify;
       margin-bottom: 8px;
     }
-    ul { padding-left: 20px; }
-    li { margin-bottom: 8px; }
-
-    /* ── Galeria ── */
+    
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    
     .gallery {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       margin: 20px 0;
     }
-    .gallery-item { position: relative; }
-
+    
     .gallery img {
       width: 100%;
       border-radius: 8px;
@@ -108,56 +136,90 @@
       background-color: #fffff2;
       opacity: 0;
     }
-    .gallery img.lazy-loaded { animation: fadeIn 0.5s ease forwards; }
+    .gallery img.lazy-loaded {
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .gallery img:not([data-src]) {
+      opacity: 1;
+    }
+    
     .gallery img:hover {
       transform: scale(1.02);
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
+    
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: translateY(0); }
     }
+    
     @media (prefers-reduced-motion: reduce) {
       .gallery img { animation: none; transition: none; opacity: 1; }
     }
-
-    /* ── Lightbox ── */
+    
     .lightbox {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.9);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
       z-index: 1000;
     }
+    
     .lightbox img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 8px;
     }
+    
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-      color: #fff;
+      background: rgba(0,0,0,0.1);
+      border: 1px solid rgba(0,0,0,0.3);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      color: rgba(0,0,0,0.8);
       cursor: pointer;
+      transition: opacity 0.3s ease, background 0.3s ease;
       border-radius: 50%;
-      width: 40px; height: 40px;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+    
     .close-btn:hover, .prev-btn:hover, .next-btn:hover {
-      background: rgba(255,255,255,0.3);
+      background: rgba(0,0,0,0.2);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
     }
-    .close-btn { top: 20px; right: 20px; font-size: 22px; font-weight: 700; z-index: 9999; }
-    .prev-btn, .next-btn { top: 50%; transform: translateY(-50%); font-size: 20px; }
+    
+    .close-btn {
+      top: 20px;
+      right: 20px;
+      font-size: 22px;
+      font-weight: 700;
+      z-index: 9999;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.6);
+      color: rgba(0,0,0,0.8);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .prev-btn, .next-btn {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+    }
+    
     .prev-btn { left: 20px; }
     .next-btn { right: 20px; }
 
-    /* ── Instagram btn ── */
+    .gallery-item { position: relative; }
+
     .instagram-btn {
       background-color: transparent;
       color: #000;
@@ -171,8 +233,7 @@
       text-transform: uppercase;
     }
     .instagram-btn:hover { text-decoration: underline; }
-
-    /* ── Controles topo ── */
+    
     .top-controls {
       text-align: right;
       margin-bottom: 10px;
@@ -196,8 +257,7 @@
       line-height: 1;
     }
     .top-controls button:hover { opacity: 0.8; }
-
-    /* ── Acordeons ── */
+    
     .accordion-content {
       overflow: hidden;
       max-height: 0;
@@ -209,11 +269,18 @@
       opacity: 1;
       pointer-events: auto;
     }
-    .accordion-section { margin-bottom: 30px; }
 
-    /* ── Contato ── */
-    #contato-info { text-align: center; margin: 0 auto; }
-    #contato-info p { margin: 4px 0; text-align: center; }
+    .accordion-section { margin-bottom: 30px; }
+    
+    #contato-info {
+      text-align: center;
+      margin: 0 auto;
+    }
+    #contato-info p {
+      margin: 4px 0;
+      font-size: inherit;
+      text-align: center;
+    }
     #contato-info .contato-label { font-weight: normal; color: #666; }
     #contato-info a.email,
     #contato-info a.whatsapp {
@@ -221,12 +288,10 @@
     }
     #contato-info a.email:hover,
     #contato-info a.whatsapp:hover { text-decoration: underline; }
-
-    /* ── Waitlist link ── */
+    
     .waitlist-link { color: #007BFF; text-decoration: none; font-weight: 500; }
     .waitlist-link:hover { text-decoration: underline; }
-
-    /* ── Waitlist section ── */
+    
     #waitlist-section {
       margin: 40px 0; padding: 20px;
       border: 1px solid #ddd; border-radius: 8px; background-color: #fff;
@@ -248,17 +313,16 @@
     #waitlist-section button:hover { background-color: #333; }
     #waitlist-section fieldset { border: none; padding: 0; display: block; }
     #waitlist-section fieldset legend { font-weight: 500; margin: 10px 0; display: block; }
-
+    
     .radio-inline { display: inline-flex; align-items: center; margin-right: 20px; }
     .radio-inline input[type="radio"] { margin-right: 5px; }
-
+    
     section.section { animation: sectionFadeIn 0.25s ease; }
     @keyframes sectionFadeIn { from { opacity: 0; } to { opacity: 1; } }
     @media (prefers-reduced-motion: reduce) { section.section { animation: none; } }
-
-    #contact-section { margin-top: 40px; }
-
-    /* ── Responsive ── */
+    
+    #contact-section { margin-top: 40px; transition: margin-top 0.3s ease; }
+    
     @media (min-width: 768px) {
       body { padding: 30px; }
       header.sticky-header { margin: 0 -30px; padding-left: 30px; padding-right: 30px; }
@@ -276,8 +340,7 @@
       body { font-size: 16px; }
       .gallery { grid-template-columns: repeat(4, 1fr); gap: 16px; }
     }
-
-    /* ── Bio modal ── */
+    
     .bio-modal {
       display: none;
       position: fixed; top: 0; left: 0;
@@ -288,12 +351,10 @@
       padding: 20px; box-sizing: border-box;
     }
     .bio-modal-content {
-      background: #fafafa;
-      border-radius: 12px;
+      background: #fafafa; border-radius: 12px;
       max-width: 520px; width: 100%;
       padding: 48px 48px 40px;
-      position: relative;
-      text-align: center;
+      position: relative; text-align: center;
       box-shadow: 0 8px 32px rgba(0,0,0,0.18);
       max-height: 90vh; overflow-y: auto;
     }
@@ -309,98 +370,96 @@
       width: 120px; height: 120px;
       border-radius: 50%; object-fit: cover;
       filter: grayscale(100%);
-      margin: 0 auto 20px; display: block;
+      margin-bottom: 20px; display: block;
+      margin-left: auto; margin-right: auto;
     }
     .bio-name { font-weight: 500; font-size: 16px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; color: #333; }
     .bio-role { font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
-    .bio-text { font-size: 14px; color: #555; line-height: 1.9; text-align: center; }
-    .bio-text p { margin-bottom: 20px; text-align: center; }
+    .bio-text { font-size: 14px; color: #555; line-height: 1.9; text-align: center; margin-bottom: 0; }
+    .bio-text p { margin-bottom: 20px; text-align: center; font-size: inherit; }
     .bio-text p:last-child { margin-bottom: 0; }
 
-    /* ── Nome no topo ── */
     .top-name {
-      cursor: pointer;
-      transition: opacity 0.2s;
-      background: none; border: none; padding: 0;
-      display: block;
+      cursor: pointer; transition: opacity 0.2s;
+      background: none; border: none; padding: 0; display: block;
       font-family: 'Outfit', sans-serif;
       font-weight: 500; font-size: 14px;
-      text-transform: uppercase;
-      color: #666;
-      margin-bottom: 20px;
-      text-align: left;
+      text-transform: uppercase; color: #666;
+      margin-bottom: 20px; text-align: left;
     }
     .top-name:hover { opacity: 0.6; }
 
-    /* ══ LANDING ══ */
-    #landing-section { padding-top: 8px; }
-
-    /* Na landing: nome centralizado e subido acima da linha de botões */
-    .header-landing { position: relative; padding-top: 10px; }
-    .header-landing .top-name {
-      position: absolute;
-      left: 50%; transform: translateX(-50%);
-      top: -10px;
-      margin-bottom: 0;
+    /* Nome flutuante — só na landing */
+    #landing-name {
+      display: none;
       text-align: center;
-      white-space: nowrap;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500; font-size: 14px;
+      text-transform: uppercase; color: #666;
+      letter-spacing: 0.02em;
+      padding: 20px 20px 0;
+      cursor: default; user-select: none;
     }
+    body.on-landing #landing-name { display: block; }
+    body.on-landing .top-name { display: none; }
 
-    /* Container do vídeo: proporção 5:7 portrait */
+    /* LANDING */
+    #landing-section { padding-top: 8px; }
+    .header-landing { position: relative; }
+
     .landing-video-container {
       width: 100%;
       aspect-ratio: 5 / 7;
+      max-height: 90vh;
+      cursor: pointer;
+      background: #111;
       position: relative;
       overflow: hidden;
-      background: #111;
-      cursor: pointer;
     }
     #landing-video {
-      position: absolute;
-      inset: 0;
       width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
+      object-fit: cover; display: block;
     }
 
-    /* Fallback: aparece só se o vídeo falhar */
     .landing-video-fallback {
       display: none;
       position: absolute; inset: 0;
       align-items: center; justify-content: center;
-      background: #111;
-      color: #444;
-      font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em;
-      cursor: pointer;
+      background: #111; color: #555;
+      font-size: 11px; text-transform: uppercase;
+      letter-spacing: 0.15em; cursor: pointer;
     }
     .landing-video-container.video-failed .landing-video-fallback { display: flex; }
     .landing-video-container.video-failed #landing-video { display: none; }
 
-    /* Botões abaixo do vídeo: SOBRE esquerda, DESENHOS direita */
     .landing-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
+      display: flex; justify-content: space-between;
+      align-items: center; margin-top: 10px;
     }
     .landing-action-btn {
       background: none; border: none;
       font-family: 'Outfit', sans-serif;
       font-weight: 300; font-size: 11px;
-      color: #aaa; text-transform: uppercase; letter-spacing: 0.1em;
-      cursor: pointer; padding: 0;
-      transition: color 0.2s;
+      color: #aaa; text-transform: uppercase;
+      letter-spacing: 0.1em; cursor: pointer;
+      padding: 0; transition: color 0.2s;
     }
     .landing-action-btn:hover { color: #555; }
-    /* ══ FIM LANDING ══ */
 
-    /* ── Dark mode ── */
     @media (prefers-color-scheme: dark) {
       html { background-color: #121212; }
       body { color: #e0e0e0; background-color: #121212; }
       h2 { border-bottom: 1px solid #444; }
       .top-controls button { color: #e0e0e0; }
       .gallery img { background-color: #1e1e1e; }
+      .lightbox { background: rgba(0,0,0,0.9); }
+      .close-btn, .prev-btn, .next-btn {
+        background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.3);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.5); color: #f5f5f5;
+      }
+      .close-btn:hover, .prev-btn:hover, .next-btn:hover {
+        background: rgba(0,0,0,0.7); box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+      }
       .instagram-btn { color: #e0e0e0; border-color: #e0e0e0; }
       .contact-title { color: #666; }
       #contato-info .contato-label { color: #666; }
@@ -419,8 +478,8 @@
       .bio-text p { color: #aaa; }
       .bio-modal-close { color: rgba(255,255,255,0.2); }
       .bio-modal-close:hover { color: rgba(255,255,255,0.6); }
-      .top-name { color: #999; }
       .landing-video-fallback { background: #1a1a1a; }
+      #landing-name { color: #999; }
     }
   </style>
 </head>
@@ -428,52 +487,47 @@
   <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
 
   <noscript>
-    <p style="text-align:center;padding:20px;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:4px;margin:0;">
-      Este site requer JavaScript. Por favor, ative o JavaScript no seu navegador.
+    <p style="text-align:center; padding: 20px; background: #fff3cd; color: #856404; border: 1px solid #ffc107; border-radius: 4px; margin: 0;">
+      Este site requer JavaScript para funcionar corretamente. Por favor, ative o JavaScript no seu navegador.
     </p>
   </noscript>
+  
+  <div id="landing-name">WELBERT RODRIGUES</div>
 
   <header class="sticky-header" role="banner">
-    <!-- Fora da landing: clique no nome volta para a landing -->
-    <!-- Na landing: clique no nome não faz nada (bio só via botão SOBRE) -->
-    <button class="top-name" id="top-name-btn" onclick="handleNameClick()">WELBERT RODRIGUES</button>
+    <button class="top-name" aria-label="Página inicial" onclick="handleNameClick()">WELBERT RODRIGUES</button>
     <div class="top-controls">
-      <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()">INFO</button>
-      <button id="lang-btn" onclick="toggleLanguage()">EN</button>
+      <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()" aria-label="Alternar entre galeria e informações">INFO</button>
+      <button id="lang-btn" onclick="toggleLanguage()" aria-label="Alternar idioma">EN</button>
     </div>
-    <p id="availability-text" style="text-align:center;">Consulte disponibilidade.</p>
+    <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <hr class="custom-line">
   </header>
-
+  
   <main id="main-content">
-
-    <!-- ── Landing ── -->
     <section id="landing-section" class="section hidden">
-      <div class="landing-video-container" id="video-container" onclick="enterSite()">
-        <video id="landing-video" muted loop playsinline poster="images/preview.jpg"></video>
+      <div class="landing-video-container" onclick="enterSite()" title="Ver desenhos">
+        <video id="landing-video" muted loop playsinline></video>
         <div class="landing-video-fallback" id="landing-video-fallback">
           <span id="landing-fallback-text">DESENHOS</span>
         </div>
       </div>
       <div class="landing-actions">
-        <!-- SOBRE esquerda, DESENHOS direita -->
         <button class="landing-action-btn" id="landing-sobre-btn" onclick="openBio()">SOBRE</button>
         <button class="landing-action-btn" id="landing-desenhos-btn" onclick="enterSite()">DESENHOS</button>
       </div>
     </section>
 
-    <!-- ── Galeria ── -->
     <section id="gallery-section" class="section hidden">
       <div class="gallery" aria-label="Galeria de desenhos"></div>
     </section>
-
-    <!-- ── Info ── -->
+    
     <section id="info" class="section hidden" aria-label="Informações para agendamento">
       <div id="content-pt">
         <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
         <div class="accordion-section">
-          <h2 id="btn-orcamento-pt" role="button" aria-expanded="false" aria-controls="orcamento-pt" onclick="toggleAccordion('orcamento-pt','btn-orcamento-pt')">Orçamento</h2>
-          <div id="orcamento-pt" class="accordion-content" role="region">
+          <h2 id="btn-orcamento-pt" role="button" aria-expanded="false" aria-controls="orcamento-pt" onclick="toggleAccordion('orcamento-pt', 'btn-orcamento-pt')">Orçamento</h2>
+          <div id="orcamento-pt" class="accordion-content" role="region" aria-labelledby="btn-orcamento-pt">
             <p>Envie um direct com:</p>
             <ul>
               <li>Imagem de referência ou flash</li>
@@ -484,21 +538,21 @@
           </div>
         </div>
         <div class="accordion-section">
-          <h2 id="btn-agendamento-pt" role="button" aria-expanded="false" aria-controls="agendamento-pt" onclick="toggleAccordion('agendamento-pt','btn-agendamento-pt')">Agendamento e Sinal</h2>
-          <div id="agendamento-pt" class="accordion-content" role="region">
+          <h2 id="btn-agendamento-pt" role="button" aria-expanded="false" aria-controls="agendamento-pt" onclick="toggleAccordion('agendamento-pt', 'btn-agendamento-pt')">Agendamento e Sinal</h2>
+          <div id="agendamento-pt" class="accordion-content" role="region" aria-labelledby="btn-agendamento-pt">
             <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
           </div>
         </div>
         <div class="accordion-section">
-          <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt','btn-lista-espera-pt')">Lista de Espera</h2>
-          <div id="lista-espera-pt" class="accordion-content" role="region">
+          <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt', 'btn-lista-espera-pt')">Lista de Espera</h2>
+          <div id="lista-espera-pt" class="accordion-content" role="region" aria-labelledby="btn-lista-espera-pt">
             <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
             <p><a href="#" class="waitlist-link" data-action="open-waitlist">Entrar para lista</a></p>
           </div>
         </div>
         <div class="accordion-section">
-          <h2 id="btn-dia-sessao-pt" role="button" aria-expanded="false" aria-controls="dia-sessao-pt" onclick="toggleAccordion('dia-sessao-pt','btn-dia-sessao-pt')">No Dia da Sessão</h2>
-          <div id="dia-sessao-pt" class="accordion-content" role="region">
+          <h2 id="btn-dia-sessao-pt" role="button" aria-expanded="false" aria-controls="dia-sessao-pt" onclick="toggleAccordion('dia-sessao-pt', 'btn-dia-sessao-pt')">No Dia da Sessão</h2>
+          <div id="dia-sessao-pt" class="accordion-content" role="region" aria-labelledby="btn-dia-sessao-pt">
             <ul>
               <li>Alimente-se bem e hidrate-se</li>
               <li>Evite álcool na véspera</li>
@@ -508,13 +562,13 @@
           </div>
         </div>
       </div>
-
+      
       <div id="content-en" class="hidden">
         <p>To help me better serve you, please follow the guidelines below:</p>
         <div class="accordion-section">
-          <h2 id="btn-pricing-en" role="button" aria-expanded="false" aria-controls="pricing-en" onclick="toggleAccordion('pricing-en','btn-pricing-en')">Pricing</h2>
-          <div id="pricing-en" class="accordion-content" role="region">
-            <p>Send me a direct message with:</p>
+          <h2 id="btn-pricing-en" role="button" aria-expanded="false" aria-controls="pricing-en" onclick="toggleAccordion('pricing-en', 'btn-pricing-en')">Pricing</h2>
+          <div id="pricing-en" class="accordion-content" role="region" aria-labelledby="btn-pricing-en">
+            <p>Send me a direct message with the following details:</p>
             <ul>
               <li>Reference image or flash design</li>
               <li>Body placement</li>
@@ -524,38 +578,40 @@
           </div>
         </div>
         <div class="accordion-section">
-          <h2 id="btn-booking-en" role="button" aria-expanded="false" aria-controls="booking-en" onclick="toggleAccordion('booking-en','btn-booking-en')">Booking and Deposit</h2>
-          <div id="booking-en" class="accordion-content" role="region">
-            <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will apply.</p>
+          <h2 id="btn-booking-en" role="button" aria-expanded="false" aria-controls="booking-en" onclick="toggleAccordion('booking-en', 'btn-booking-en')">Booking and Deposit</h2>
+          <div id="booking-en" class="accordion-content" role="region" aria-labelledby="btn-booking-en">
+            <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
           </div>
         </div>
         <div class="accordion-section">
-          <h2 id="btn-waitlist-en" role="button" aria-expanded="false" aria-controls="waitlist-en" onclick="toggleAccordion('waitlist-en','btn-waitlist-en')">Waitlist</h2>
-          <div id="waitlist-en" class="accordion-content" role="region">
-            <p>If your city is not on my calendar, sign up for the waitlist! Once I confirm a date for your area, I will notify you — ensuring priority booking.</p>
+          <h2 id="btn-waitlist-en" role="button" aria-expanded="false" aria-controls="waitlist-en" onclick="toggleAccordion('waitlist-en', 'btn-waitlist-en')">Waitlist</h2>
+          <div id="waitlist-en" class="accordion-content" role="region" aria-labelledby="btn-waitlist-en">
+            <p>If your city is not currently scheduled on my calendar, sign up for the waitlist! Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.</p>
             <p><a href="#" class="waitlist-link" data-action="open-waitlist">Join the Waitlist</a></p>
           </div>
         </div>
         <div class="accordion-section">
-          <h2 id="btn-session-day-en" role="button" aria-expanded="false" aria-controls="session-day-en" onclick="toggleAccordion('session-day-en','btn-session-day-en')">On the Day of Your Session</h2>
-          <div id="session-day-en" class="accordion-content" role="region">
+          <h2 id="btn-session-day-en" role="button" aria-expanded="false" aria-controls="session-day-en" onclick="toggleAccordion('session-day-en', 'btn-session-day-en')">On the Day of Your Session</h2>
+          <div id="session-day-en" class="accordion-content" role="region" aria-labelledby="btn-session-day-en">
             <ul>
               <li>Eat well and stay hydrated</li>
               <li>Avoid alcohol the day before</li>
-              <li>Wear clothing that allows easy access to the tattoo area</li>
-              <li>Please arrive on time</li>
+              <li>Wear comfortable clothing that allows easy access to the tattoo area</li>
+              <li>For better service, avoid delays</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- ── Waitlist ── -->
+    
     <section id="waitlist-section" class="section hidden">
       <div id="waitlist-form-pt">
         <h2>Inscrição na Lista de Espera</h2>
-        <p>Se a sua cidade ainda não está na minha agenda, inscreva-se!<br>
-           <em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em></p>
+        <p>
+          Se a sua cidade ainda não está na minha agenda, inscreva-se na lista de espera!
+          Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha do horário.
+          <br><em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em>
+        </p>
         <form id="form-pt">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
@@ -590,13 +646,16 @@
           </fieldset>
           <button type="submit">Inscrever-se</button>
         </form>
-        <div id="form-response-pt" style="margin-top:20px;"></div>
+        <div id="form-response-pt" style="margin-top: 20px;"></div>
       </div>
-
+      
       <div id="waitlist-form-en" class="hidden">
         <h2>Waitlist Registration</h2>
-        <p>If your city is not on my calendar, sign up!<br>
-           <em>Note: I will contact you only when a date is confirmed.</em></p>
+        <p>
+          If your city is not currently scheduled on my calendar, sign up for the waitlist!
+          Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.
+          <br><em>Note: I will contact you only when the date is confirmed.</em>
+        </p>
         <form id="form-en">
           <label for="name">Name *</label>
           <input type="text" id="name" name="nome" required>
@@ -633,11 +692,10 @@
           </fieldset>
           <button type="submit">Submit</button>
         </form>
-        <div id="form-response-en" style="margin-top:20px;"></div>
+        <div id="form-response-en" style="margin-top: 20px;"></div>
       </div>
     </section>
-
-    <!-- ── Contato ── -->
+    
     <section id="contact-section">
       <h2 class="contact-title" onclick="toggleContato()" role="button" aria-expanded="false" aria-controls="contato-info">CONTATO | CONTACT</h2>
       <div id="contato-info" class="accordion-content" role="region">
@@ -646,209 +704,122 @@
         <p><a href="https://www.instagram.com/we.ro___" target="_blank" rel="noopener noreferrer" class="instagram-btn">INSTAGRAM</a></p>
       </div>
     </section>
-
   </main>
-
-  <!-- Lightbox — única forma de ver imagens da galeria -->
+  
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada">
     <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
     <button class="prev-btn" onclick="changeImage(-1)" aria-label="Imagem anterior">&lt;</button>
     <img id="lightbox-img" src="" alt="Imagem ampliada">
     <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
   </div>
-
-  <!-- Bio modal — só acessível pelo botão SOBRE na landing -->
-  <div class="bio-modal" id="bio-modal" role="dialog" aria-modal="true" onclick="handleBioOverlayClick(event)">
+  
+  <div class="bio-modal" id="bio-modal" role="dialog" aria-modal="true" aria-label="Sobre Welbert Rodrigues" onclick="handleBioOverlayClick(event)">
     <div class="bio-modal-content">
       <button class="bio-modal-close" onclick="closeBio()" aria-label="Fechar">&times;</button>
       <img src="images/profile.jpg" alt="Welbert Rodrigues" class="bio-photo"
-           onerror="this.onerror=null;this.style.display='none'">
+        onerror="this.onerror=null;this.style.display='none'">
       <div class="bio-name">Welbert Rodrigues</div>
       <div class="bio-role" id="bio-role-pt">Tatuador / Ilustrador</div>
-      <div class="bio-role" id="bio-role-en" style="display:none;">Tattoo Artist / Illustrator</div>
+      <div class="bio-role" id="bio-role-en">Tattoo Artist / Illustrator</div>
       <div class="bio-text" id="bio-text-pt">
-        <p>Minha pesquisa parte de padrões orgânicos, fragmentos de uma arquitetura maior.</p>
+        <p>Me interesso por padrões orgânicos, fragmentos de uma arquitetura maior.</p>
         <p>Não busco representar formas, mas reorganizar estruturas.</p>
-        <p>Trabalho com repetição e contraste, explorando como essas formas evocam sensações e constroem estados.</p>
-        <p>Tatuo desde 2019. Incorporo imagens à experiência individual.</p>
+        <p>Trabalho com repetição e contraste, explorando como essas formas evocam sensações e moldam estados emocionais.</p>
+        <p>Tatuo desde 2019 e atualmente atuo em Belo Horizonte.</p>
       </div>
-      <div class="bio-text" id="bio-text-en" style="display:none;">
-        <p>My work explores organic patterns as fragments of a larger underlying structure.</p>
-        <p>Rather than representing forms, I focus on reorganizing structures.</p>
-        <p>I work with repetition and contrast, exploring how these forms evoke sensations and shape states of perception.</p>
-        <p>Tattooing since 2019, I incorporate images into individual experience.</p>
+      <div class="bio-text" id="bio-text-en">
+        <p>I find myself drawn to organic patterns, fragments of a larger architecture.</p>
+        <p>I'm not interested in representing forms, but in reorganizing structures.</p>
+        <p>I work with repetition and contrast, exploring how these forms evoke sensations and shape emotional states.</p>
+        <p>Tattooing since 2019, I am currently based in Belo Horizonte.</p>
       </div>
     </div>
   </div>
 
   <script>
-    // ════════════════════════════════════════════
-    // ESTADO GLOBAL
-    // ════════════════════════════════════════════
-    let currentSection = 'landing';
-
-    function getCurrentLanguage() {
-      return localStorage.getItem('language') || 'pt';
-    }
-
-    // ════════════════════════════════════════════
-    // VÍDEO DA LANDING
-    // Sequência persistente: cada visita ao site
-    // avança para o próximo vídeo (1→2→3→4→5→1...)
-    // ════════════════════════════════════════════
     function initLandingVideo() {
-      const videos = [
-        'videos/video1.mp4',
-        'videos/video2.mp4',
-        'videos/video3.mp4',
-        'videos/video4.mp4',
-        'videos/video5.mp4'
-      ];
+      const TOTAL = 5;
+      const video = document.getElementById('landing-video');
+      const container = video.closest('.landing-video-container');
 
       const lastIndex = parseInt(localStorage.getItem('lastVideoIndex') ?? '-1', 10);
-      const nextIndex = (lastIndex + 1) % videos.length;
-      localStorage.setItem('lastVideoIndex', String(nextIndex));
+      const nextIndex = (lastIndex + 1) % TOTAL;
+      localStorage.setItem('lastVideoIndex', nextIndex);
 
-      const video     = document.getElementById('landing-video');
-      const container = document.getElementById('video-container');
+      video.src = `video/video${nextIndex + 1}.mp4`;
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
 
-      // Reseta estado de falha anterior
-      container.classList.remove('video-failed');
-
-      // Força mudo — sem áudio
-      video.muted  = true;
-      video.volume = 0;
-
-      // Define src e carrega
-      video.src = videos[nextIndex];
-      video.load();
-
-      // Tenta reproduzir
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Autoplay bloqueado: mostra fallback mas ainda deixa clicar para entrar
+      const tryPlay = () => {
+        video.play().catch(() => {
           container.classList.add('video-failed');
         });
-      }
-
-      // Erro de rede/codec
-      video.onerror = function() {
-        container.classList.add('video-failed');
       };
+
+      video.addEventListener('canplay', tryPlay, { once: true });
+      video.addEventListener('error', () => container.classList.add('video-failed'));
+      video.load();
     }
 
-    // ════════════════════════════════════════════
-    // NOME: fora da landing volta para landing;
-    //       na landing não faz nada
-    // ════════════════════════════════════════════
+    function updateLandingText(lang) {
+      const isPt = lang === 'pt';
+      document.getElementById('landing-desenhos-btn').textContent = isPt ? 'DESENHOS' : 'DESIGNS';
+      document.getElementById('landing-sobre-btn').textContent    = isPt ? 'SOBRE'    : 'ABOUT';
+      const fallbackText = document.getElementById('landing-fallback-text');
+      if (fallbackText) fallbackText.textContent = isPt ? 'DESENHOS' : 'DESIGNS';
+    }
+
     function handleNameClick() {
-      if (currentSection !== 'landing') {
-        showSection('landing');
+      const currentSection = sessionStorage.getItem("section") || "landing";
+      if (currentSection !== "landing") {
+        showSection("landing");
       }
-      // Na landing: sem ação (bio só via botão SOBRE)
     }
 
-    // ════════════════════════════════════════════
-    // NAVEGAÇÃO
-    // ════════════════════════════════════════════
     function enterSite() {
       showSection('gallery');
     }
 
-    function showSection(section) {
-      currentSection = section;
-      const header = document.querySelector('.sticky-header');
-
-      // Esconde tudo
-      document.getElementById('landing-section').classList.add('hidden');
-      document.getElementById('gallery-section').classList.add('hidden');
-      document.getElementById('info').classList.add('hidden');
-      document.getElementById('waitlist-section').classList.add('hidden');
-      document.getElementById('availability-text').style.display = 'none';
-      document.querySelector('.custom-line').style.display = 'none';
-      document.getElementById('gallery-toggle-btn').style.display = '';
-
-      if (section === 'landing') {
-        header.classList.add('header-landing');
-        document.getElementById('landing-section').classList.remove('hidden');
-        document.getElementById('gallery-toggle-btn').style.display = 'none';
-        updateLandingText(getCurrentLanguage());
-        initLandingVideo();
-
-      } else if (section === 'gallery') {
-        header.classList.remove('header-landing');
-        document.getElementById('gallery-section').classList.remove('hidden');
-        document.getElementById('availability-text').style.display = 'block';
-        document.querySelector('.custom-line').style.display = 'block';
-        document.getElementById('gallery-toggle-btn').textContent = 'INFO';
-
-      } else if (section === 'info') {
-        header.classList.remove('header-landing');
-        document.getElementById('info').classList.remove('hidden');
-        document.getElementById('gallery-toggle-btn').textContent =
-          getCurrentLanguage() === 'en' ? 'DESIGNS' : 'DESENHOS';
-
-      } else if (section === 'waitlist') {
-        header.classList.remove('header-landing');
-        document.getElementById('waitlist-section').classList.remove('hidden');
-        document.getElementById('gallery-toggle-btn').textContent = 'INFO';
-      }
-
-      localStorage.setItem('section', section);
+    function getCurrentLanguage() {
+      return localStorage.getItem("language") || "pt";
     }
 
-    function toggleGalleryInfo() {
-      // Fecha contato se aberto
-      const ci = document.getElementById('contato-info');
-      if (ci.classList.contains('active')) {
-        ci.style.maxHeight = '0px';
-        ci.classList.remove('active');
-      }
-      if (currentSection === 'gallery') {
-        showSection('info');
-      } else {
-        showSection('gallery');
-      }
-    }
-
-    // ════════════════════════════════════════════
-    // TEXTOS DA LANDING (idioma)
-    // ════════════════════════════════════════════
-    function updateLandingText(lang) {
-      const isPt = lang === 'pt';
-      const desenhosBtn = document.getElementById('landing-desenhos-btn');
-      const sobreBtn    = document.getElementById('landing-sobre-btn');
-      const fallback    = document.getElementById('landing-fallback-text');
-      if (desenhosBtn) desenhosBtn.textContent = isPt ? 'DESENHOS' : 'DESIGNS';
-      if (sobreBtn)    sobreBtn.textContent    = isPt ? 'SOBRE'    : 'ABOUT';
-      if (fallback)    fallback.textContent    = isPt ? 'DESENHOS' : 'DESIGNS';
-    }
-
-    // ════════════════════════════════════════════
-    // BIO MODAL (apenas via botão SOBRE na landing)
-    // ════════════════════════════════════════════
     function openBio() {
-      const isPt = getCurrentLanguage() === 'pt';
-      document.getElementById('bio-role-pt').style.display   = isPt ? '' : 'none';
-      document.getElementById('bio-role-en').style.display   = isPt ? 'none' : '';
-      document.getElementById('bio-text-pt').style.display   = isPt ? '' : 'none';
-      document.getElementById('bio-text-en').style.display   = isPt ? 'none' : '';
-      document.getElementById('bio-modal').style.display     = 'flex';
-      document.documentElement.style.overflow = 'hidden';
+      const isPt = getCurrentLanguage() === "pt";
+      document.getElementById("bio-role-pt").style.display = isPt ? "" : "none";
+      document.getElementById("bio-role-en").style.display = isPt ? "none" : "";
+      document.getElementById("bio-text-pt").style.display = isPt ? "" : "none";
+      document.getElementById("bio-text-en").style.display = isPt ? "none" : "";
+      document.getElementById("bio-modal").style.display = "flex";
+      document.documentElement.style.overflow = "hidden";
     }
     function closeBio() {
-      document.getElementById('bio-modal').style.display = 'none';
-      document.documentElement.style.overflow = '';
+      document.getElementById("bio-modal").style.display = "none";
+      document.documentElement.style.overflow = "";
     }
     function handleBioOverlayClick(e) {
-      if (e.target === document.getElementById('bio-modal')) closeBio();
+      if (e.target === document.getElementById("bio-modal")) closeBio();
+    }
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+        closeBio();
+        closeLightbox();
+      }
+      if (document.getElementById("lightbox").style.display === "flex") {
+        if (e.key === "ArrowLeft")  changeImage(-1);
+        if (e.key === "ArrowRight") changeImage(1);
+      }
+    });
+
+    if (window.location.search.includes('fbclid')) {
+      const url = new URL(window.location);
+      url.searchParams.delete('fbclid');
+      history.replaceState(null, '', url.pathname + url.search);
     }
 
-    // ════════════════════════════════════════════
-    // GALERIA — lazy loading com IntersectionObserver
-    // Clique: abre APENAS lightbox (sem modal de flash)
-    // ════════════════════════════════════════════
+    // Galeria — todas as imagens abrem o lightbox
+
     const imagensValidas = [
       1,2,4,5,6,7,8,9,10,12,13,
       16,17,18,20,21,23,24,25,26,
@@ -861,12 +832,12 @@
       90,91,92,93,
     ];
     const imagensOrdenadas = [...imagensValidas].reverse();
-
+    
     const galleryContainer = document.querySelector('.gallery');
-    const galleryFragment  = document.createDocumentFragment();
+    const galleryFragment = document.createDocumentFragment();
 
-    const lazyObserver = ('IntersectionObserver' in window)
-      ? new IntersectionObserver((entries, obs) => {
+    const lazyImageObserver = ('IntersectionObserver' in window)
+      ? new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
             if (!entry.isIntersecting) return;
             const img = entry.target;
@@ -877,7 +848,7 @@
               img.addEventListener('load',  () => img.classList.add('lazy-loaded'), { once: true });
               img.addEventListener('error', () => img.classList.add('lazy-loaded'), { once: true });
             }
-            obs.unobserve(img);
+            observer.unobserve(img);
           });
         }, { rootMargin: '200px 0px', threshold: 0 })
       : null;
@@ -885,285 +856,301 @@
     imagensOrdenadas.forEach(num => {
       const wrapper = document.createElement('div');
       wrapper.className = 'gallery-item';
-
       const img = document.createElement('img');
       img.alt = `Desenho ${num}`;
-
-      if (lazyObserver) {
+      if (lazyImageObserver) {
         img.setAttribute('data-src', `images/desenho${num}.jpg`);
         img.setAttribute('loading', 'lazy');
       } else {
         img.src = `images/desenho${num}.jpg`;
         img.classList.add('lazy-loaded');
       }
-
       img.onerror = function() {
         this.onerror = null;
-        this.src = 'images/placeholder.jpg';
-        this.onerror = function() { this.style.display = 'none'; };
+        const placeholder = new URL('images/placeholder.jpg', window.location.href).href;
+        if (this.src !== placeholder) { this.src = 'images/placeholder.jpg'; }
+        else { this.style.display = 'none'; }
       };
-
-      // Clique: sempre abre lightbox — sem flash modal
       img.onclick = () => openLightbox(num);
-
       wrapper.appendChild(img);
       galleryFragment.appendChild(wrapper);
-
-      if (lazyObserver) lazyObserver.observe(img);
+      if (lazyImageObserver) lazyImageObserver.observe(img);
     });
-
     galleryContainer.appendChild(galleryFragment);
-
-    // ════════════════════════════════════════════
-    // LIGHTBOX
-    // ════════════════════════════════════════════
+    
     let currentIndex = 0;
 
     function openLightbox(num) {
       currentIndex = imagensOrdenadas.indexOf(num);
-      document.getElementById('lightbox').style.display = 'flex';
-      document.documentElement.style.overflow = 'hidden';
+      document.getElementById("lightbox").style.display = "flex";
       updateLightboxImage();
     }
     function closeLightbox() {
-      document.getElementById('lightbox').style.display = 'none';
-      document.documentElement.style.overflow = '';
+      document.getElementById("lightbox").style.display = "none";
     }
     function changeImage(direction) {
-      currentIndex = (currentIndex + direction + imagensOrdenadas.length) % imagensOrdenadas.length;
+      currentIndex += direction;
+      if (currentIndex < 0) currentIndex = imagensOrdenadas.length - 1;
+      if (currentIndex >= imagensOrdenadas.length) currentIndex = 0;
       updateLightboxImage();
     }
     function updateLightboxImage() {
-      document.getElementById('lightbox-img').src =
-        `images/desenho${imagensOrdenadas[currentIndex]}.jpg`;
+      document.getElementById("lightbox-img").src = `images/desenho${imagensOrdenadas[currentIndex]}.jpg`;
     }
-
-    // ════════════════════════════════════════════
-    // TECLADO
-    // ════════════════════════════════════════════
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') { closeBio(); closeLightbox(); }
-      if (document.getElementById('lightbox').style.display === 'flex') {
-        if (e.key === 'ArrowLeft')  changeImage(-1);
-        if (e.key === 'ArrowRight') changeImage(1);
-      }
+    
+    document.querySelectorAll('.waitlist-link[data-action="open-waitlist"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        showSection('waitlist');
+        document.getElementById("waitlist-section").scrollIntoView({ behavior: "smooth" });
+      });
     });
 
-    // ════════════════════════════════════════════
-    // IDIOMA
-    // ════════════════════════════════════════════
     const accordionMapping = {
-      'orcamento':    { pt: 'orcamento-pt',    en: 'pricing-en',     btnPt: 'btn-orcamento-pt',    btnEn: 'btn-pricing-en' },
-      'agendamento':  { pt: 'agendamento-pt',  en: 'booking-en',     btnPt: 'btn-agendamento-pt',  btnEn: 'btn-booking-en' },
-      'lista-espera': { pt: 'lista-espera-pt', en: 'waitlist-en',    btnPt: 'btn-lista-espera-pt', btnEn: 'btn-waitlist-en' },
-      'dia-sessao':   { pt: 'dia-sessao-pt',   en: 'session-day-en', btnPt: 'btn-dia-sessao-pt',   btnEn: 'btn-session-day-en' }
+      "orcamento":    { pt: "orcamento-pt",    en: "pricing-en",     btnPt: "btn-orcamento-pt",    btnEn: "btn-pricing-en" },
+      "agendamento":  { pt: "agendamento-pt",  en: "booking-en",     btnPt: "btn-agendamento-pt",  btnEn: "btn-booking-en" },
+      "lista-espera": { pt: "lista-espera-pt", en: "waitlist-en",    btnPt: "btn-lista-espera-pt", btnEn: "btn-waitlist-en" },
+      "dia-sessao":   { pt: "dia-sessao-pt",   en: "session-day-en", btnPt: "btn-dia-sessao-pt",   btnEn: "btn-session-day-en" }
     };
 
     function applyLanguage(lang) {
-      const isPt = lang === 'pt';
-      document.getElementById('content-pt').classList.toggle('hidden', !isPt);
-      document.getElementById('content-en').classList.toggle('hidden', isPt);
-      document.getElementById('waitlist-form-pt').classList.toggle('hidden', !isPt);
-      document.getElementById('waitlist-form-en').classList.toggle('hidden', isPt);
-      document.getElementById('lang-btn').textContent = isPt ? 'EN' : 'PT';
-      document.getElementById('availability-text').textContent =
-        isPt ? 'Consulte disponibilidade.' : 'Check availability.';
-
-      const btn = document.getElementById('gallery-toggle-btn');
-      if (currentSection !== 'gallery') {
-        btn.textContent = isPt ? 'DESENHOS' : 'DESIGNS';
-      }
-
-      // Fecha todos os acordeons
-      Object.values(accordionMapping).forEach(map => {
-        ['pt', 'en'].forEach(l => {
-          const el  = document.getElementById(map[l]);
-          const btn = document.getElementById(l === 'pt' ? map.btnPt : map.btnEn);
-          if (el)  { el.classList.remove('active'); el.style.maxHeight = '0px'; }
-          if (btn)   btn.setAttribute('aria-expanded', 'false');
+      const isPt = lang === "pt";
+      const currentSection = localStorage.getItem("section") || "gallery";
+      document.getElementById("content-pt").classList.toggle("hidden", !isPt);
+      document.getElementById("content-en").classList.toggle("hidden", isPt);
+      document.getElementById("waitlist-form-pt").classList.toggle("hidden", !isPt);
+      document.getElementById("waitlist-form-en").classList.toggle("hidden", isPt);
+      document.getElementById("lang-btn").textContent = isPt ? "EN" : "PT";
+      document.getElementById("availability-text").textContent = isPt ? "Consulte disponibilidade." : "Check availability.";
+      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
+      galleryToggleBtn.textContent = currentSection === "gallery" ? "INFO" : (isPt ? "DESENHOS" : "DESIGNS");
+      Object.keys(accordionMapping).forEach(key => {
+        ["pt", "en"].forEach(l => {
+          const elemId = accordionMapping[key][l];
+          const btnKey = l === "pt" ? "btnPt" : "btnEn";
+          const btnId  = accordionMapping[key][btnKey];
+          const elem = document.getElementById(elemId);
+          const btn  = document.getElementById(btnId);
+          if (elem) { elem.classList.remove("active"); elem.style.maxHeight = "0px"; }
+          if (btn)  btn.setAttribute("aria-expanded", "false");
         });
       });
     }
 
     function toggleLanguage() {
-      const cur = getCurrentLanguage();
-
-      // Guarda acordeons abertos
-      const abertos = Object.keys(accordionMapping).filter(key => {
-        const id = cur === 'pt' ? accordionMapping[key].pt : accordionMapping[key].en;
-        return document.getElementById(id)?.classList.contains('active');
+      const currentLanguage = getCurrentLanguage();
+      const activeAccordions = [];
+      Object.keys(accordionMapping).forEach(key => {
+        const id = currentLanguage === "pt" ? accordionMapping[key].pt : accordionMapping[key].en;
+        if (document.getElementById(id)?.classList.contains("active")) activeAccordions.push(key);
       });
-
-      const nova = cur === 'en' ? 'pt' : 'en';
-      localStorage.setItem('language', nova);
-      document.documentElement.lang = nova === 'pt' ? 'pt-BR' : 'en';
-      applyLanguage(nova);
-      updateLandingText(nova);
-
-      // Reabre no novo idioma
-      abertos.forEach(key => {
-        const id    = nova === 'pt' ? accordionMapping[key].pt    : accordionMapping[key].en;
-        const btnId = nova === 'pt' ? accordionMapping[key].btnPt : accordionMapping[key].btnEn;
-        const el    = document.getElementById(id);
+      const newLanguage = currentLanguage === "en" ? "pt" : "en";
+      localStorage.setItem("language", newLanguage);
+      document.documentElement.lang = newLanguage === "pt" ? "pt-BR" : "en";
+      applyLanguage(newLanguage);
+      updateLandingText(newLanguage);
+      activeAccordions.forEach(key => {
+        const id    = newLanguage === "pt" ? accordionMapping[key].pt    : accordionMapping[key].en;
+        const btnId = newLanguage === "pt" ? accordionMapping[key].btnPt : accordionMapping[key].btnEn;
+        const elem  = document.getElementById(id);
         const btn   = document.getElementById(btnId);
-        if (el && btn) {
-          el.classList.add('active');
-          el.style.maxHeight = el.scrollHeight + 'px';
-          btn.setAttribute('aria-expanded', 'true');
+        if (elem && btn) {
+          elem.classList.add("active");
+          elem.style.maxHeight = elem.scrollHeight + "px";
+          btn.setAttribute("aria-expanded", "true");
         }
       });
+      const formKey    = newLanguage === "pt" ? "form-pt"    : "form-en";
+      const storageKey = newLanguage === "pt" ? "formDataPT" : "formDataEN";
+      loadFormData(formKey, storageKey);
+    }
+    
+    function showSection(section) {
+      const landingSection   = document.getElementById("landing-section");
+      const gallerySection   = document.getElementById("gallery-section");
+      const infoSection      = document.getElementById("info");
+      const waitlistSection  = document.getElementById("waitlist-section");
+      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
+      const availabilityText = document.getElementById("availability-text");
+      const customLine       = document.querySelector('.custom-line');
+      const lang             = getCurrentLanguage();
 
-      loadFormData(nova === 'pt' ? 'form-pt' : 'form-en',
-                   nova === 'pt' ? 'formDataPT' : 'formDataEN');
+      landingSection.classList.add("hidden");
+      gallerySection.classList.add("hidden");
+      infoSection.classList.add("hidden");
+      waitlistSection.classList.add("hidden");
+      availabilityText.style.display  = "none";
+      customLine.style.display        = "none";
+      galleryToggleBtn.style.display  = "";
+
+      if (section === "landing") {
+        document.body.classList.add("on-landing");
+        landingSection.classList.remove("hidden");
+        galleryToggleBtn.style.display = "none";
+        document.querySelector('.sticky-header').classList.add('header-landing');
+        updateLandingText(lang);
+        initLandingVideo();
+      } else if (section === "gallery") {
+        document.body.classList.remove("on-landing");
+        document.querySelector('.sticky-header').classList.remove('header-landing');
+        gallerySection.classList.remove("hidden");
+        availabilityText.style.display = "block";
+        customLine.style.display       = "block";
+        galleryToggleBtn.textContent   = "INFO";
+      } else if (section === "info") {
+        document.body.classList.remove("on-landing");
+        infoSection.classList.remove("hidden");
+        galleryToggleBtn.textContent = lang === "en" ? "DESIGNS" : "DESENHOS";
+      } else if (section === "waitlist") {
+        document.body.classList.remove("on-landing");
+        waitlistSection.classList.remove("hidden");
+        galleryToggleBtn.textContent = "INFO";
+      }
+
+      sessionStorage.setItem("section", section);
+      localStorage.setItem("section", section);
     }
 
-    // ════════════════════════════════════════════
-    // ACORDEONS
-    // ════════════════════════════════════════════
-    function toggleAccordion(id, btnId) {
-      const el  = document.getElementById(id);
-      const btn = document.getElementById(btnId);
-      const open = el.classList.contains('active');
-      if (open) {
-        el.style.maxHeight = el.scrollHeight + 'px';
-        el.getBoundingClientRect(); // force reflow
-        el.style.maxHeight = '0px';
-        el.classList.remove('active');
-        btn.setAttribute('aria-expanded', 'false');
+    function toggleGalleryInfo() {
+      document.getElementById("contato-info").classList.remove("active");
+      document.getElementById("contato-info").style.maxHeight = "0px";
+      const currentSection = localStorage.getItem("section") || "landing";
+      if (currentSection === "landing" || currentSection === "waitlist" || currentSection === "info") {
+        showSection("gallery");
       } else {
-        el.classList.add('active');
-        el.style.maxHeight = el.scrollHeight + 'px';
-        btn.setAttribute('aria-expanded', 'true');
-        el.addEventListener('transitionend', () => {
-          if (el.classList.contains('active')) el.style.maxHeight = 'none';
+        showSection("info");
+      }
+    }
+    
+    function toggleAccordion(id, btnId) {
+      const content = document.getElementById(id);
+      const button  = document.getElementById(btnId);
+      const isOpen  = content.classList.contains("active");
+      if (isOpen) {
+        content.style.maxHeight = content.scrollHeight + "px";
+        content.getBoundingClientRect();
+        content.style.maxHeight = "0px";
+        content.classList.remove("active");
+        button.setAttribute("aria-expanded", "false");
+      } else {
+        content.classList.add("active");
+        content.style.maxHeight = content.scrollHeight + "px";
+        button.setAttribute("aria-expanded", "true");
+        content.addEventListener('transitionend', () => {
+          if (content.classList.contains('active')) content.style.maxHeight = 'none';
         }, { once: true });
       }
     }
-
+    
     function toggleContato() {
-      const el  = document.getElementById('contato-info');
-      const btn = document.querySelector('.contact-title');
-      const cs  = document.getElementById('contact-section');
-      const open = el.classList.contains('active');
-      if (open) {
-        el.style.maxHeight = el.scrollHeight + 'px';
-        el.getBoundingClientRect();
-        el.style.maxHeight = '0px';
-        el.classList.remove('active');
-        btn.setAttribute('aria-expanded', 'false');
+      const contatoInfo    = document.getElementById("contato-info");
+      const contactSection = document.getElementById("contact-section");
+      const isOpen = contatoInfo.classList.contains("active");
+      if (isOpen) {
+        contatoInfo.style.maxHeight = contatoInfo.scrollHeight + "px";
+        contatoInfo.getBoundingClientRect();
+        contatoInfo.style.maxHeight = "0px";
+        contatoInfo.classList.remove("active");
+        document.querySelector('.contact-title').setAttribute("aria-expanded", "false");
       } else {
-        el.classList.add('active');
-        el.style.maxHeight = el.scrollHeight + 'px';
-        btn.setAttribute('aria-expanded', 'true');
-        el.addEventListener('transitionend', () => {
-          if (el.classList.contains('active')) el.style.maxHeight = 'none';
+        contatoInfo.classList.add("active");
+        contatoInfo.style.maxHeight = contatoInfo.scrollHeight + "px";
+        document.querySelector('.contact-title').setAttribute("aria-expanded", "true");
+        contatoInfo.addEventListener('transitionend', () => {
+          if (contatoInfo.classList.contains('active')) contatoInfo.style.maxHeight = 'none';
         }, { once: true });
-        const y = cs.getBoundingClientRect().top + window.pageYOffset - 150;
+        const y = contactSection.getBoundingClientRect().top + window.pageYOffset - 150;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
     }
-
-    // ════════════════════════════════════════════
-    // WAITLIST LINKS
-    // ════════════════════════════════════════════
-    document.querySelectorAll('.waitlist-link[data-action="open-waitlist"]').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        showSection('waitlist');
-        document.getElementById('waitlist-section').scrollIntoView({ behavior: 'smooth' });
+    
+    function loadState() {
+      const lang = getCurrentLanguage();
+      applyLanguage(lang);
+      updateLandingText(lang);
+      // Sempre inicia na landing — cada carregamento de página começa do zero
+      showSection('landing');
+      const formKey    = lang === "pt" ? "form-pt"    : "form-en";
+      const storageKey = lang === "pt" ? "formDataPT" : "formDataEN";
+      loadFormData(formKey, storageKey);
+    }
+    
+    loadState();
+    
+    document.querySelectorAll('[role="button"]:not(button)').forEach(elem => {
+      if (!elem.hasAttribute('tabindex')) elem.setAttribute('tabindex', '0');
+      elem.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); elem.click(); }
       });
     });
-
-    // ════════════════════════════════════════════
-    // FORMULÁRIOS — persistência e envio
-    // ════════════════════════════════════════════
-    function saveFormData(formId, key) {
+    
+    function saveFormData(formId, storageKey) {
       const form = document.getElementById(formId);
       if (!form) return;
       const data = {};
-      form.querySelectorAll('input,textarea,select').forEach(inp => {
-        if (inp.type === 'radio') { if (inp.checked) data[inp.name] = inp.value; }
-        else data[inp.id] = inp.value;
+      form.querySelectorAll("input, textarea, select").forEach(input => {
+        if (input.type === "radio") { if (input.checked) data[input.name] = input.value; }
+        else data[input.id] = input.value;
       });
-      localStorage.setItem(key, JSON.stringify(data));
+      localStorage.setItem(storageKey, JSON.stringify(data));
     }
-
-    function loadFormData(formId, key) {
+    
+    function loadFormData(formId, storageKey) {
       const form = document.getElementById(formId);
       if (!form) return;
-      const data = JSON.parse(localStorage.getItem(key) || '{}');
-      form.querySelectorAll('input,textarea,select').forEach(inp => {
-        if (inp.type === 'radio') { if (data[inp.name] === inp.value) inp.checked = true; }
-        else if (data[inp.id])   inp.value = data[inp.id];
+      const data = JSON.parse(localStorage.getItem(storageKey) || "{}");
+      form.querySelectorAll("input, textarea, select").forEach(input => {
+        if (input.type === "radio") { if (data[input.name] === input.value) input.checked = true; }
+        else if (data[input.id]) input.value = data[input.id];
       });
     }
-
-    ['form-pt','form-en'].forEach((fid, i) => {
-      const key = i === 0 ? 'formDataPT' : 'formDataEN';
-      const form = document.getElementById(fid);
-      if (form) {
-        form.querySelectorAll('input,textarea,select').forEach(inp =>
-          inp.addEventListener('input', () => saveFormData(fid, key))
-        );
-      }
-    });
-
-    function handleFormSubmit(formId, responseId, msgs) {
+    
+    const formPT = document.getElementById('form-pt');
+    if (formPT) {
+      formPT.querySelectorAll("input, textarea, select").forEach(input => {
+        input.addEventListener('input', () => saveFormData('form-pt', 'formDataPT'));
+      });
+    }
+    const formEN = document.getElementById('form-en');
+    if (formEN) {
+      formEN.querySelectorAll("input, textarea, select").forEach(input => {
+        input.addEventListener('input', () => saveFormData('form-en', 'formDataEN'));
+      });
+    }
+    
+    function handleFormSubmit(formId, responseId, messages) {
       const form = document.getElementById(formId);
-      const box  = document.getElementById(responseId);
-      if (!form || !box) return;
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        box.innerHTML = '<p style="color:#555;">Enviando...</p>';
+      const responseContainer = document.getElementById(responseId);
+      if (!form || !responseContainer) return;
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        responseContainer.innerHTML = '<p style="color: #555;">Enviando...</p>';
         const data = {};
-        form.querySelectorAll('input,textarea,select').forEach(inp => {
-          if (inp.type === 'file') return;
-          if (inp.type === 'radio') { if (inp.checked) data[inp.name] = inp.value; }
-          else data[inp.name] = inp.value;
+        form.querySelectorAll("input, textarea, select").forEach(input => {
+          if (input.type === "file") return;
+          if (input.type === "radio") { if (input.checked) data[input.name] = input.value; }
+          else data[input.name] = input.value;
         });
-        emailjs.send('we.ro___', 'template_en4517r', data)
+        emailjs.send("we.ro___", "template_en4517r", data)
           .then(() => {
-            box.innerHTML = `<p style="color:green;">&#10003; ${msgs.success}</p>`;
+            responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
             form.reset();
             localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
           })
           .catch(() => {
-            box.innerHTML = `<p style="color:red;">&#10007; ${msgs.error}</p>`;
+            responseContainer.innerHTML = `<p style="color: red; font-size: 16px;">&#10007; ${messages.error}</p>`;
           });
       });
     }
-
+    
     handleFormSubmit('form-pt', 'form-response-pt', {
-      success: 'Obrigado! Inscrição enviada. Em breve entrarei em contato.',
-      error:   'Erro ao enviar. Por favor, tente novamente.'
+      success: "Obrigado! Sua inscrição foi enviada com sucesso. Em breve entrarei em contato.",
+      error:   "Houve um problema ao enviar sua inscrição. Por favor, tente novamente."
     });
     handleFormSubmit('form-en', 'form-response-en', {
-      success: 'Thank you! Your submission was received. I will be in touch shortly.',
-      error:   'Error submitting. Please try again.'
+      success: "Thank you! Your submission was successfully received. I will be in touch shortly.",
+      error:   "There was an error submitting your form. Please try again."
     });
-
-    // ════════════════════════════════════════════
-    // INIT — sempre começa na landing
-    // ════════════════════════════════════════════
-    function init() {
-      const lang = getCurrentLanguage();
-      document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
-      applyLanguage(lang);
-      updateLandingText(lang);
-      // Sempre inicia na landing — vídeo novo a cada visita
-      showSection('landing');
-      loadFormData(lang === 'pt' ? 'form-pt' : 'form-en',
-                   lang === 'pt' ? 'formDataPT' : 'formDataEN');
-    }
-
-    init();
-
-    // Remove fbclid da URL se presente
-    if (window.location.search.includes('fbclid')) {
-      const url = new URL(window.location);
-      url.searchParams.delete('fbclid');
-      history.replaceState(null, '', url.pathname + url.search);
-    }
   </script>
 </body>
 </html>
