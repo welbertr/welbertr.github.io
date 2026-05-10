@@ -5,18 +5,14 @@
   <meta name='viewport' content='width=device-width, initial-scale=1'/>
   <title>Welbert Rodrigues</title>
   
-  <!-- Meta Tags para SEO -->
   <meta name="description" content="Site minimalista e intuitivo de Welbert Rodrigues com galeria de desenhos e informações para agendamento de tatuagens." />
   <meta name="keywords" content="Welbert Rodrigues, tatuagens, portfólio, agendamento, minimalista" />
-  
-  <!-- Meta Tags Open Graph -->
   <meta property="og:title" content="Welbert Rodrigues" />
   <meta property="og:description" content="Conheça o trabalho de Welbert Rodrigues e agende sua tatuagem." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://welbertr.github.io" />
   <meta property="og:image" content="https://welbertr.github.io/images/preview.jpg" />
   
-  <!-- Pré-conexão para fontes -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -218,7 +214,121 @@
     .prev-btn { left: 20px; }
     .next-btn { right: 20px; }
 
+    .flash-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.75);
+      z-index: 1500;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    .flash-modal-content {
+      background: #fafafa;
+      border-radius: 12px;
+      max-width: 560px;
+      width: 100%;
+      margin: 40px auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .flash-modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(0,0,0,0.5);
+      z-index: 10;
+      transition: color 0.2s;
+    }
+    .flash-modal-close:hover { color: rgba(0,0,0,0.9); }
+    .flash-main-img {
+      width: 100%;
+      display: block;
+      border-radius: 12px 12px 0 0;
+      background: #f0f0f0;
+    }
+    .flash-info { padding: 24px 28px; }
+    .flash-title {
+      font-size: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #222;
+      margin-bottom: 16px;
+    }
+    .flash-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .flash-detail-item { display: flex; flex-direction: column; gap: 3px; }
+    .flash-detail-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; }
+    .flash-detail-value { font-size: 14px; color: #333; font-weight: 500; }
+    .flash-status {
+      display: inline-block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .flash-status.available { background: #e8f5e9; color: #2e7d32; }
+    .flash-status.reserved  { background: #fce4ec; color: #c62828; }
+    .flash-mockups {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .flash-mockups img {
+      width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; background: #eee;
+    }
+    .flash-mockups:empty { display: none; }
+    .flash-cta {
+      display: block; width: 100%; padding: 12px;
+      background: #000; color: #fff; border: none; border-radius: 6px;
+      font-size: 13px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.08em; cursor: pointer; text-align: center;
+      text-decoration: none; transition: background 0.2s; box-sizing: border-box;
+    }
+    .flash-cta:hover { background: #333; }
+    .flash-cta.reserved {
+      background: transparent; color: #c62828;
+      border: 1px solid #c62828; cursor: default; pointer-events: none;
+    }
+    .flash-badge {
+      position: absolute; top: 8px; left: 8px;
+      background: #fff; color: #000;
+      font-size: 9px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.1em; padding: 3px 7px; border-radius: 20px;
+      pointer-events: none; box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
     .gallery-item { position: relative; }
+
+    @media (prefers-color-scheme: dark) {
+      .flash-modal-content { background: #1a1a1a; }
+      .flash-title { color: #e0e0e0; }
+      .flash-detail-value { color: #ccc; }
+      .flash-modal-close {
+        background: rgba(30,30,30,0.9);
+        border-color: rgba(255,255,255,0.15);
+        color: rgba(255,255,255,0.5);
+      }
+      .flash-modal-close:hover { color: #fff; }
+      .flash-badge { background: #222; color: #e0e0e0; }
+    }
 
     .instagram-btn {
       background-color: transparent;
@@ -389,7 +499,6 @@
     }
     .top-name:hover { opacity: 0.6; }
 
-    /* Nome flutuante — só na landing */
     #landing-name {
       display: none;
       text-align: center;
@@ -403,7 +512,6 @@
     body.on-landing #landing-name { display: block; }
     body.on-landing .top-name { display: none; }
 
-    /* LANDING */
     #landing-section { padding-top: 8px; }
     .header-landing { position: relative; }
 
@@ -507,7 +615,7 @@
   <main id="main-content">
     <section id="landing-section" class="section hidden">
       <div class="landing-video-container" onclick="enterSite()" title="Ver desenhos">
-        <video id="landing-video" muted loop playsinline></video>
+        <video id="landing-video" autoplay muted loop playsinline></video>
         <div class="landing-video-fallback" id="landing-video-fallback">
           <span id="landing-fallback-text">DESENHOS</span>
         </div>
@@ -518,86 +626,88 @@
       </div>
     </section>
 
-    <section id="gallery-section" class="section hidden">
+    <section id="gallery-section" class="section">
       <div class="gallery" aria-label="Galeria de desenhos"></div>
     </section>
     
     <section id="info" class="section hidden" aria-label="Informações para agendamento">
       <div id="content-pt">
-        <p>Para facilitar o atendimento, siga as orientações abaixo:</p>
+        <p>Informações para agendamento</p>
         <div class="accordion-section">
           <h2 id="btn-orcamento-pt" role="button" aria-expanded="false" aria-controls="orcamento-pt" onclick="toggleAccordion('orcamento-pt', 'btn-orcamento-pt')">Orçamento</h2>
           <div id="orcamento-pt" class="accordion-content" role="region" aria-labelledby="btn-orcamento-pt">
-            <p>Envie um direct com:</p>
+            <p>Para orçamento, envie:</p>
             <ul>
               <li>Imagem de referência ou flash</li>
               <li>Local do corpo</li>
-              <li>Tamanho aproximado (em cm)</li>
+              <li>Tamanho aproximado em cm</li>
             </ul>
-            <p>Com esses dados, poderei fornecer os valores.</p>
+            <p>Com isso, consigo desenvolver uma estimativa para o projeto.</p>
           </div>
         </div>
         <div class="accordion-section">
-          <h2 id="btn-agendamento-pt" role="button" aria-expanded="false" aria-controls="agendamento-pt" onclick="toggleAccordion('agendamento-pt', 'btn-agendamento-pt')">Agendamento e Sinal</h2>
+          <h2 id="btn-agendamento-pt" role="button" aria-expanded="false" aria-controls="agendamento-pt" onclick="toggleAccordion('agendamento-pt', 'btn-agendamento-pt')">Agendamento e sinal</h2>
           <div id="agendamento-pt" class="accordion-content" role="region" aria-labelledby="btn-agendamento-pt">
-            <p>Peço um sinal de R$100,00 para confirmar seu horário. Esse valor será descontado do total da tatuagem. O sinal não é reembolsável e, em caso de desistência ou não comparecimento no dia da sessão, será cobrada uma multa de R$50,00 no reagendamento.</p>
+            <p>Para confirmar o agendamento, é solicitado um sinal de R$100, descontado do valor final da tatuagem.</p>
+            <p>O valor garante a reserva do horário e não é reembolsável em caso de cancelamento ou ausência.</p>
           </div>
         </div>
         <div class="accordion-section">
-          <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt', 'btn-lista-espera-pt')">Lista de Espera</h2>
+          <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt', 'btn-lista-espera-pt')">Lista de espera</h2>
           <div id="lista-espera-pt" class="accordion-content" role="region" aria-labelledby="btn-lista-espera-pt">
-            <p>Ao abrir minha agenda para outros estados, inicio os orçamentos e agendamentos para essas localidades. Assim que confirmo as datas, aviso os clientes da lista com antecedência, garantindo prioridade na escolha de horário.</p>
-            <p><a href="#" class="waitlist-link" data-action="open-waitlist">Entrar para lista</a></p>
+            <p>Inscreva-se para receber avisos sobre futuras datas em outras cidades.</p>
+            <p><a href="#" class="waitlist-link" data-action="open-waitlist">Entrar na lista</a></p>
           </div>
         </div>
         <div class="accordion-section">
-          <h2 id="btn-dia-sessao-pt" role="button" aria-expanded="false" aria-controls="dia-sessao-pt" onclick="toggleAccordion('dia-sessao-pt', 'btn-dia-sessao-pt')">No Dia da Sessão</h2>
+          <h2 id="btn-dia-sessao-pt" role="button" aria-expanded="false" aria-controls="dia-sessao-pt" onclick="toggleAccordion('dia-sessao-pt', 'btn-dia-sessao-pt')">No dia da sessão</h2>
           <div id="dia-sessao-pt" class="accordion-content" role="region" aria-labelledby="btn-dia-sessao-pt">
             <ul>
-              <li>Alimente-se bem e hidrate-se</li>
+              <li>Alimente-se bem e mantenha-se hidratado</li>
               <li>Evite álcool na véspera</li>
-              <li>Use roupas que facilitem o acesso à área</li>
-              <li>Para um melhor atendimento, evite atrasos</li>
+              <li>Use roupas que facilitem o acesso à área tatuada</li>
+              <li>Procure chegar no horário combinado</li>
             </ul>
           </div>
         </div>
       </div>
       
       <div id="content-en" class="hidden">
-        <p>To help me better serve you, please follow the guidelines below:</p>
+        <p>Booking Information</p>
         <div class="accordion-section">
           <h2 id="btn-pricing-en" role="button" aria-expanded="false" aria-controls="pricing-en" onclick="toggleAccordion('pricing-en', 'btn-pricing-en')">Pricing</h2>
           <div id="pricing-en" class="accordion-content" role="region" aria-labelledby="btn-pricing-en">
-            <p>Send me a direct message with the following details:</p>
+            <p>For booking inquiries, please send:</p>
             <ul>
-              <li>Reference image or flash design</li>
+              <li>Reference image or flash</li>
               <li>Body placement</li>
-              <li>Approximate size (in cm)</li>
+              <li>Approximate size in cm</li>
             </ul>
-            <p>With this information, I can provide a price estimate.</p>
+            <p>With this information, I'll be able to provide an estimate for the project.</p>
           </div>
         </div>
         <div class="accordion-section">
           <h2 id="btn-booking-en" role="button" aria-expanded="false" aria-controls="booking-en" onclick="toggleAccordion('booking-en', 'btn-booking-en')">Booking and Deposit</h2>
           <div id="booking-en" class="accordion-content" role="region" aria-labelledby="btn-booking-en">
-            <p>A 20% deposit is required to secure your appointment. This amount will be deducted from the total cost of your tattoo. The deposit is non-refundable. If you cancel or miss your session, a 5% rescheduling fee will be applied.</p>
+            <p>To confirm the appointment, a R$100 deposit is required and will be deducted from the final price of the tattoo.</p>
+            <p>The deposit secures your appointment and is non-refundable in case of cancellation or no-show.</p>
           </div>
         </div>
         <div class="accordion-section">
           <h2 id="btn-waitlist-en" role="button" aria-expanded="false" aria-controls="waitlist-en" onclick="toggleAccordion('waitlist-en', 'btn-waitlist-en')">Waitlist</h2>
           <div id="waitlist-en" class="accordion-content" role="region" aria-labelledby="btn-waitlist-en">
-            <p>If your city is not currently scheduled on my calendar, sign up for the waitlist! Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.</p>
+            <p>Join the waitlist to receive updates about future dates in other cities.</p>
             <p><a href="#" class="waitlist-link" data-action="open-waitlist">Join the Waitlist</a></p>
           </div>
         </div>
         <div class="accordion-section">
-          <h2 id="btn-session-day-en" role="button" aria-expanded="false" aria-controls="session-day-en" onclick="toggleAccordion('session-day-en', 'btn-session-day-en')">On the Day of Your Session</h2>
+          <h2 id="btn-session-day-en" role="button" aria-expanded="false" aria-controls="session-day-en" onclick="toggleAccordion('session-day-en', 'btn-session-day-en')">On the Day of Your Appointment</h2>
           <div id="session-day-en" class="accordion-content" role="region" aria-labelledby="btn-session-day-en">
             <ul>
               <li>Eat well and stay hydrated</li>
               <li>Avoid alcohol the day before</li>
-              <li>Wear comfortable clothing that allows easy access to the tattoo area</li>
-              <li>For better service, avoid delays</li>
+              <li>Wear clothing that allows easy access to the tattoo area</li>
+              <li>Please arrive on time</li>
             </ul>
           </div>
         </div>
@@ -608,31 +718,18 @@
       <div id="waitlist-form-pt">
         <h2>Inscrição na Lista de Espera</h2>
         <p>
-          Se a sua cidade ainda não está na minha agenda, inscreva-se na lista de espera!
-          Assim que confirmar uma data para viajar até a sua região, avisarei os inscritos com antecedência – garantindo prioridade na escolha do horário.
-          <br><em>Obs.: Entrarei em contato somente quando a data estiver confirmada.</em>
+          Se a sua cidade ainda não está na minha agenda, inscreva-se na lista de espera.
+          Assim que eu confirmar uma data na sua região, entrarei em contato com antecedência para o agendamento.
         </p>
         <form id="form-pt">
           <label for="nome">Nome *</label>
           <input type="text" id="nome" name="nome" required>
-          <label for="idade">Idade *</label>
-          <input type="number" id="idade" name="idade" required>
           <label for="cidade">Cidade *</label>
           <input type="text" id="cidade" name="cidade" required>
-          <label for="estado">Estado *</label>
-          <input type="text" id="estado" name="estado" required>
-          <label for="telefone">Celular com DDD</label>
-          <input type="tel" id="telefone" name="telefone">
-          <label for="email">E-mail *</label>
-          <input type="email" id="email" name="email" required>
           <label for="instagram">Instagram *</label>
           <input type="text" id="instagram" name="instagram" required>
-          <label for="tattoo">O que gostaria de tatuar? *</label>
-          <input type="text" id="tattoo" name="tattoo" required>
-          <label for="tamanho">Tamanho aproximado (em cm) *</label>
-          <input type="number" id="tamanho" name="tamanho" required>
-          <label for="local">Local do corpo *</label>
-          <input type="text" id="local" name="local" required>
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" required>
           <fieldset>
             <legend>Já tatuou comigo anteriormente? *</legend>
             <div class="radio-inline">
@@ -644,6 +741,21 @@
               <label for="nao">Não</label>
             </div>
           </fieldset>
+          <fieldset>
+            <legend>Como prefere conversar?</legend>
+            <div class="radio-inline">
+              <input type="radio" id="contato-ig" name="contato" value="Instagram" onchange="togglePhone('pt')">
+              <label for="contato-ig">Instagram</label>
+            </div>
+            <div class="radio-inline">
+              <input type="radio" id="contato-wa" name="contato" value="WhatsApp" onchange="togglePhone('pt')">
+              <label for="contato-wa">WhatsApp</label>
+            </div>
+          </fieldset>
+          <div id="phone-field-pt" class="hidden">
+            <label for="telefone">Telefone com DDD</label>
+            <input type="tel" id="telefone" name="telefone">
+          </div>
           <button type="submit">Inscrever-se</button>
         </form>
         <div id="form-response-pt" style="margin-top: 20px;"></div>
@@ -652,33 +764,18 @@
       <div id="waitlist-form-en" class="hidden">
         <h2>Waitlist Registration</h2>
         <p>
-          If your city is not currently scheduled on my calendar, sign up for the waitlist!
-          Once I confirm a date to travel to your area, I will notify those registered – ensuring you have priority when booking your appointment.
-          <br><em>Note: I will contact you only when the date is confirmed.</em>
+          If I'm not currently tattooing in your city, feel free to join the waitlist.
+          Once I confirm a date in your area, I'll reach out in advance to schedule your appointment.
         </p>
         <form id="form-en">
           <label for="name">Name *</label>
           <input type="text" id="name" name="nome" required>
-          <label for="age">Age *</label>
-          <input type="number" id="age" name="idade" required>
           <label for="city">City *</label>
           <input type="text" id="city" name="cidade" required>
-          <label for="state">State *</label>
-          <input type="text" id="state" name="estado" required>
-          <label for="country">Country *</label>
-          <input type="text" id="country" name="pais" required>
-          <label for="phone">Phone with area code</label>
-          <input type="tel" id="phone" name="telefone">
-          <label for="emailEn">E-mail *</label>
-          <input type="email" id="emailEn" name="email" required>
           <label for="instagramEn">Instagram *</label>
           <input type="text" id="instagramEn" name="instagram" required>
-          <label for="tattooEn">What tattoo would you like? *</label>
-          <input type="text" id="tattooEn" name="tattoo" required>
-          <label for="size">Approximate size (in cm) *</label>
-          <input type="number" id="size" name="tamanho" required>
-          <label for="bodyLocation">Body location *</label>
-          <input type="text" id="bodyLocation" name="local" required>
+          <label for="emailEn">E-mail *</label>
+          <input type="email" id="emailEn" name="email" required>
           <fieldset>
             <legend>Have you been tattooed by me before? *</legend>
             <div class="radio-inline">
@@ -690,6 +787,21 @@
               <label for="no">No</label>
             </div>
           </fieldset>
+          <fieldset>
+            <legend>How do you prefer to be contacted?</legend>
+            <div class="radio-inline">
+              <input type="radio" id="contact-ig-en" name="contato" value="Instagram" onchange="togglePhone('en')">
+              <label for="contact-ig-en">Instagram</label>
+            </div>
+            <div class="radio-inline">
+              <input type="radio" id="contact-wa-en" name="contato" value="WhatsApp" onchange="togglePhone('en')">
+              <label for="contact-wa-en">WhatsApp</label>
+            </div>
+          </fieldset>
+          <div id="phone-field-en" class="hidden">
+            <label for="phone">Phone with area code</label>
+            <input type="tel" id="phone" name="telefone">
+          </div>
           <button type="submit">Submit</button>
         </form>
         <div id="form-response-en" style="margin-top: 20px;"></div>
@@ -706,6 +818,34 @@
     </section>
   </main>
   
+  <div class="flash-modal" id="flash-modal" onclick="handleFlashOverlayClick(event)">
+    <div class="flash-modal-content">
+      <button class="flash-modal-close" onclick="closeFlash()" aria-label="Fechar">&times;</button>
+      <img id="flash-main-img" src="" alt="" class="flash-main-img">
+      <div class="flash-info">
+        <div class="flash-title" id="flash-title"></div>
+        <div class="flash-details">
+          <div class="flash-detail-item">
+            <span class="flash-detail-label">Tamanho sugerido</span>
+            <span class="flash-detail-value" id="flash-size"></span>
+          </div>
+          <div class="flash-detail-item">
+            <span class="flash-detail-label">Valor</span>
+            <span class="flash-detail-value" id="flash-price"></span>
+          </div>
+          <div class="flash-detail-item">
+            <span class="flash-detail-label">Disponibilidade</span>
+            <span class="flash-status" id="flash-status"></span>
+          </div>
+        </div>
+        <div class="flash-mockups" id="flash-mockups"></div>
+        <a id="flash-cta" href="https://wa.me/5531920022832" target="_blank" rel="noopener noreferrer" class="flash-cta">
+          Reservar este flash
+        </a>
+      </div>
+    </div>
+  </div>
+
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada">
     <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
     <button class="prev-btn" onclick="changeImage(-1)" aria-label="Imagem anterior">&lt;</button>
@@ -804,6 +944,7 @@
     document.addEventListener("keydown", function(e) {
       if (e.key === "Escape") {
         closeBio();
+        closeFlash();
         closeLightbox();
       }
       if (document.getElementById("lightbox").style.display === "flex") {
@@ -818,7 +959,49 @@
       history.replaceState(null, '', url.pathname + url.search);
     }
 
-    // Galeria — todas as imagens abrem o lightbox
+    const flashData = {};
+
+    function openFlash(num) {
+      const data = flashData[num];
+      if (!data) { openLightbox(num); return; }
+      document.getElementById("flash-main-img").src = `images/desenho${num}.jpg`;
+      document.getElementById("flash-main-img").alt = data.nome;
+      document.getElementById("flash-title").textContent = data.nome;
+      document.getElementById("flash-size").textContent = data.tamanho;
+      document.getElementById("flash-price").textContent = data.valor;
+      const status = document.getElementById("flash-status");
+      status.textContent = data.disponivel ? "Disponível" : "Reservado";
+      status.className = "flash-status " + (data.disponivel ? "available" : "reserved");
+      const mockupsEl = document.getElementById("flash-mockups");
+      mockupsEl.innerHTML = "";
+      (data.mockups || []).slice(0, 2).forEach(src => {
+        const img = document.createElement("img");
+        img.src = src; img.alt = "Referência";
+        img.onerror = function() { this.remove(); };
+        mockupsEl.appendChild(img);
+      });
+      const cta = document.getElementById("flash-cta");
+      if (data.disponivel) {
+        const msg = encodeURIComponent(`Olá! Tenho interesse no flash "${data.nome}" (${data.tamanho}).`);
+        cta.href = `https://wa.me/5531920022832?text=${msg}`;
+        cta.className = "flash-cta";
+        cta.textContent = "Reservar este flash";
+      } else {
+        cta.removeAttribute("href");
+        cta.className = "flash-cta reserved";
+        cta.textContent = "Reservado";
+      }
+      document.getElementById("flash-modal").style.display = "flex";
+      document.documentElement.style.overflow = "hidden";
+    }
+
+    function closeFlash() {
+      document.getElementById("flash-modal").style.display = "none";
+      document.documentElement.style.overflow = "";
+    }
+    function handleFlashOverlayClick(e) {
+      if (e.target === document.getElementById("flash-modal")) closeFlash();
+    }
 
     const imagensValidas = [
       1,2,4,5,6,7,8,9,10,12,13,
@@ -854,15 +1037,17 @@
       : null;
 
     imagensOrdenadas.forEach(num => {
+      const isFlash = flashData.hasOwnProperty(num);
       const wrapper = document.createElement('div');
       wrapper.className = 'gallery-item';
       const img = document.createElement('img');
-      img.alt = `Desenho ${num}`;
+      const src = `images/desenho${num}.jpg`;
+      img.alt = isFlash ? (flashData[num].nome || `Flash ${num}`) : `Desenho ${num}`;
       if (lazyImageObserver) {
-        img.setAttribute('data-src', `images/desenho${num}.jpg`);
+        img.setAttribute('data-src', src);
         img.setAttribute('loading', 'lazy');
       } else {
-        img.src = `images/desenho${num}.jpg`;
+        img.src = src;
         img.classList.add('lazy-loaded');
       }
       img.onerror = function() {
@@ -871,8 +1056,14 @@
         if (this.src !== placeholder) { this.src = 'images/placeholder.jpg'; }
         else { this.style.display = 'none'; }
       };
-      img.onclick = () => openLightbox(num);
+      img.onclick = () => isFlash ? openFlash(num) : openLightbox(num);
       wrapper.appendChild(img);
+      if (isFlash) {
+        const badge = document.createElement('span');
+        badge.className = 'flash-badge';
+        badge.textContent = 'Flash';
+        wrapper.appendChild(badge);
+      }
       galleryFragment.appendChild(wrapper);
       if (lazyImageObserver) lazyImageObserver.observe(img);
     });
@@ -1064,12 +1255,21 @@
       }
     }
     
+    function togglePhone(lang) {
+      const fieldId = lang === 'pt' ? 'phone-field-pt' : 'phone-field-en';
+      const waId    = lang === 'pt' ? 'contato-wa'     : 'contact-wa-en';
+      const phoneInput = document.querySelector(`#${fieldId} input`);
+      const isWA = document.getElementById(waId).checked;
+      document.getElementById(fieldId).classList.toggle('hidden', !isWA);
+      phoneInput.required = isWA;
+    }
+
     function loadState() {
       const lang = getCurrentLanguage();
       applyLanguage(lang);
       updateLandingText(lang);
-      // Sempre inicia na landing — cada carregamento de página começa do zero
-      showSection('landing');
+      const sessionSection = sessionStorage.getItem("section");
+      showSection(sessionSection || 'landing');
       const formKey    = lang === "pt" ? "form-pt"    : "form-en";
       const storageKey = lang === "pt" ? "formDataPT" : "formDataEN";
       loadFormData(formKey, storageKey);
@@ -1144,11 +1344,11 @@
     }
     
     handleFormSubmit('form-pt', 'form-response-pt', {
-      success: "Obrigado! Sua inscrição foi enviada com sucesso. Em breve entrarei em contato.",
+      success: "Inscrição recebida. Entrarei em contato assim que houver datas na sua região.",
       error:   "Houve um problema ao enviar sua inscrição. Por favor, tente novamente."
     });
     handleFormSubmit('form-en', 'form-response-en', {
-      success: "Thank you! Your submission was successfully received. I will be in touch shortly.",
+      success: "You're on the list. I'll reach out as soon as dates are available in your area.",
       error:   "There was an error submitting your form. Please try again."
     });
   </script>
