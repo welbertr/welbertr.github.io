@@ -670,26 +670,14 @@
     }
     .top-name:hover { opacity: 0.6; }
 
-    /* Nome flutuante acima do header, visível só na landing */
-    #landing-name {
-      display: none;
-      text-align: center;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 500;
-      font-size: 14px;
-      text-transform: uppercase;
-      color: #666;
-      letter-spacing: 0.02em;
-      padding: 20px 20px 0;
-      cursor: default;
-      user-select: none;
-    }
-    body.on-landing #landing-name { display: block; }
-    body.on-landing .top-name { display: none; }
-
     /* ========== LANDING ========== */
     #landing-section {
       padding-top: 8px;
+    }
+    .header-landing .top-name {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
     .header-landing {
       position: relative;
@@ -818,10 +806,8 @@
     </p>
   </noscript>
   
-  <div id="landing-name">WELBERT RODRIGUES</div>
-
   <header class="sticky-header" role="banner">
-    <button class="top-name" aria-label="Página inicial" onclick="handleNameClick()">WELBERT RODRIGUES</button>
+    <button class="top-name" aria-label="Sobre Welbert Rodrigues" onclick="openBio()">WELBERT RODRIGUES</button>
     <div class="top-controls">
       <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()" aria-label="Alternar entre galeria e informações">INFO</button>
       <button id="lang-btn" onclick="toggleLanguage()" aria-label="Alternar idioma">EN</button>
@@ -842,8 +828,8 @@
       </div>
 
       <div class="landing-actions">
-        <button class="landing-action-btn" id="landing-sobre-btn" onclick="openBio()">SOBRE</button>
         <button class="landing-action-btn" id="landing-desenhos-btn" onclick="enterSite()">DESENHOS</button>
+        <button class="landing-action-btn" id="landing-sobre-btn" onclick="openBio()">SOBRE</button>
       </div>
     </section>
 
@@ -1086,13 +1072,13 @@
         <p>Minha pesquisa parte de padrões orgânicos, fragmentos de uma arquitetura maior.</p>
         <p>Não busco representar formas, mas reorganizar estruturas.</p>
         <p>Trabalho com repetição e contraste, explorando como essas formas evocam sensações e constroem estados.</p>
-        <p>Tatuo desde 2019 e atualmente atuo em Belo Horizonte.</p>
+        <p>Tatuo desde 2019. Incorporo imagens à experiência individual.</p>
       </div>
       <div class="bio-text" id="bio-text-en">
-        <p>My practice draws from organic patterns, fragments of a larger architecture.</p>
-        <p>I'm not interested in representing forms, but in reorganizing structures.</p>
-        <p>I work with repetition and contrast, exploring how these forms evoke sensations and construct states.</p>
-        <p>Tattooing since 2019, I am currently based in Belo Horizonte.</p>
+        <p>My work explores organic patterns as fragments of a larger underlying structure.</p>
+        <p>Rather than representing forms, I focus on reorganizing structures.</p>
+        <p>I work with repetition and contrast, exploring how these forms evoke sensations and shape states of perception.</p>
+        <p>Tattooing since 2019, I incorporate images into individual experience.</p>
       </div>
     </div>
   </div>
@@ -1109,7 +1095,7 @@
       const nextIndex = (lastIndex + 1) % TOTAL;
       localStorage.setItem('lastVideoIndex', nextIndex);
 
-      video.src = `video/video${nextIndex + 1}.mp4`;
+      video.src = `videos/video${nextIndex + 1}.mp4`;
       video.loop = true;
       video.muted = true;
       video.playsInline = true;
@@ -1132,14 +1118,6 @@
       document.getElementById('landing-sobre-btn').textContent    = isPt ? 'SOBRE'    : 'ABOUT';
       const fallbackText = document.getElementById('landing-fallback-text');
       if (fallbackText) fallbackText.textContent = isPt ? 'DESENHOS' : 'DESIGNS';
-    }
-
-    function handleNameClick() {
-      const currentSection = sessionStorage.getItem("section") || "landing";
-      if (currentSection !== "landing") {
-        showSection("landing");
-      }
-      // Na landing não faz nada
     }
 
     function enterSite() {
@@ -1186,8 +1164,30 @@
       history.replaceState(null, '', url.pathname + url.search);
     }
 
-    // ─── FLASH DATA (vazio — todas as imagens se comportam como galeria normal) ───
-    const flashData = {};
+    // ─── FLASH DATA ───────────────────────────────────────────────
+    const flashData = {
+      93: {
+        nome: "Serpente I",
+        tamanho: "10 × 6 cm",
+        valor: "R$ 350",
+        disponivel: true,
+        mockups: [
+          "images/desenho91.jpg",
+          "images/desenho92.jpg",
+          "images/desenho90.jpg"
+        ]
+      },
+      92: {
+        nome: "Botânico II",
+        tamanho: "8 × 8 cm",
+        valor: "R$ 300",
+        disponivel: false,
+        mockups: [
+          "images/desenho89.jpg",
+          "images/desenho88.jpg"
+        ]
+      }
+    };
 
     function openFlash(num) {
       const data = flashData[num];
@@ -1444,25 +1444,21 @@
       galleryToggleBtn.style.display  = "";
 
       if (section === "landing") {
-        document.body.classList.add("on-landing");
         landingSection.classList.remove("hidden");
         galleryToggleBtn.style.display = "none";
         document.querySelector('.sticky-header').classList.add('header-landing');
         updateLandingText(lang);
         initLandingVideo();
       } else if (section === "gallery") {
-        document.body.classList.remove("on-landing");
         document.querySelector('.sticky-header').classList.remove('header-landing');
         gallerySection.classList.remove("hidden");
         availabilityText.style.display = "block";
         customLine.style.display       = "block";
         galleryToggleBtn.textContent   = "INFO";
       } else if (section === "info") {
-        document.body.classList.remove("on-landing");
         infoSection.classList.remove("hidden");
         galleryToggleBtn.textContent = lang === "en" ? "DESIGNS" : "DESENHOS";
       } else if (section === "waitlist") {
-        document.body.classList.remove("on-landing");
         waitlistSection.classList.remove("hidden");
         galleryToggleBtn.textContent = "INFO";
       }
