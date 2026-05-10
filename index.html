@@ -16,7 +16,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>emailjs.init("U1u5vYqm7OjNk8N0T");</script>
+  <script>
+    // FIX 4: A chave pública do EmailJS pode ficar aqui (é pública por design),
+    // mas restrinja os domínios permitidos no painel: https://dashboard.emailjs.com/admin/account
+    // Nunca exponha a chave PRIVADA ou credenciais de serviço no front-end.
+    const EMAILJS_PUBLIC_KEY  = "U1u5vYqm7OjNk8N0T";
+    const EMAILJS_SERVICE_ID  = "we.ro___";
+    const EMAILJS_TEMPLATE_ID = "template_en4517r";
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+  </script>
   
   <style>
     .skip-link {
@@ -516,9 +524,11 @@
     .header-landing { position: relative; }
 
     .landing-video-container {
-      width: 100%;
       aspect-ratio: 5 / 7;
-      max-height: 90vh;
+      height: calc(100vh - 160px);
+      max-height: calc(100vh - 160px);
+      width: auto;
+      margin: 0 auto;
       cursor: pointer;
       background: #111;
       position: relative;
@@ -529,13 +539,24 @@
       object-fit: cover; display: block;
     }
 
+    /* FIX 2: Fallback com mensagem clara e ícone de play para indicar ação */
     .landing-video-fallback {
       display: none;
       position: absolute; inset: 0;
+      flex-direction: column;
       align-items: center; justify-content: center;
       background: #111; color: #555;
       font-size: 11px; text-transform: uppercase;
       letter-spacing: 0.15em; cursor: pointer;
+      gap: 16px;
+    }
+    .landing-video-fallback-icon {
+      width: 48px; height: 48px;
+      border: 1px solid #444;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #666;
+      font-size: 18px;
     }
     .landing-video-container.video-failed .landing-video-fallback { display: flex; }
     .landing-video-container.video-failed #landing-video { display: none; }
@@ -616,7 +637,9 @@
     <section id="landing-section" class="section hidden">
       <div class="landing-video-container" onclick="enterSite()" title="Ver desenhos">
         <video id="landing-video" autoplay muted loop playsinline></video>
+        <!-- FIX 2: Fallback com mensagem clara e ação explícita -->
         <div class="landing-video-fallback" id="landing-video-fallback">
+          <div class="landing-video-fallback-icon">&#9654;</div>
           <span id="landing-fallback-text">DESENHOS</span>
         </div>
       </div>
@@ -862,21 +885,44 @@
       <div class="bio-role" id="bio-role-pt">Tatuador / Ilustrador</div>
       <div class="bio-role" id="bio-role-en">Tattoo Artist / Illustrator</div>
       <div class="bio-text" id="bio-text-pt">
-        <p>Me interesso por padrões orgânicos, fragmentos de uma arquitetura maior.</p>
-        <p>Não busco representar formas, mas reorganizar estruturas.</p>
-        <p>Trabalho com repetição e contraste, explorando como essas formas evocam sensações e moldam estados emocionais.</p>
-        <p>Tatuo desde 2019 e atualmente atuo em Belo Horizonte.</p>
+        <p>Me interesso por padrões orgânicos, fragmentos de uma arquitetura maior. Não busco representar formas, mas reorganizar estruturas.</p>
+        <p>Trabalho com repetição e contraste, explorando como evocam sensações e moldam estados emocionais.</p>
+        <p>Tatuador desde 2019, atualmente em Belo Horizonte.</p>
       </div>
       <div class="bio-text" id="bio-text-en">
-        <p>I find myself drawn to organic patterns, fragments of a larger architecture.</p>
-        <p>I'm not interested in representing forms, but in reorganizing structures.</p>
-        <p>I work with repetition and contrast, exploring how these forms evoke sensations and shape emotional states.</p>
-        <p>Tattooing since 2019, I am currently based in Belo Horizonte.</p>
+        <p>I'm drawn to organic patterns — fragments of a larger architecture. I don't seek to represent forms, but to reorganize structures.</p>
+        <p>I work with repetition and contrast, exploring how they evoke sensation and shape emotional states.</p>
+        <p>Tattooing since 2019, based in Belo Horizonte.</p>
       </div>
     </div>
   </div>
 
   <script>
+    // ─── FIX 1: Usar apenas sessionStorage para seção ativa ───────────────────
+    // sessionStorage = dura só enquanto a aba estiver aberta (comportamento esperado).
+    // localStorage era usado em paralelo causando conflitos entre abas e visitas.
+    // Preferência de idioma ainda usa localStorage (correto — deve persistir entre visitas).
+
+    function getCurrentSection() {
+      return sessionStorage.getItem("section") || "landing";
+    }
+    function saveSection(section) {
+      sessionStorage.setItem("section", section);
+      // REMOVIDO: localStorage.setItem("section", section)
+    }
+
+    // ─── FIX 3: flashData documentado com estrutura de exemplo ────────────────
+    // Para adicionar um flash, inclua uma entrada assim:
+    // flashData[NUM_DA_IMAGEM] = {
+    //   nome:      "Nome do Flash",
+    //   tamanho:   "8x8 cm",
+    //   valor:     "R$ 400",
+    //   disponivel: true,          // false = aparece como "Reservado"
+    //   mockups:   ["images/mockup1.jpg"]  // opcional, até 2 imagens
+    // };
+    const flashData = {};
+
+    // ─── Vídeo da landing ─────────────────────────────────────────────────────
     function initLandingVideo() {
       const TOTAL = 5;
       const video = document.getElementById('landing-video');
@@ -893,11 +939,13 @@
 
       const tryPlay = () => {
         video.play().catch(() => {
+          // FIX 2: mostra fallback com ícone de play e texto de ação clara
           container.classList.add('video-failed');
         });
       };
 
       video.addEventListener('canplay', tryPlay, { once: true });
+      // FIX 2: erro de carregamento também aciona fallback claro
       video.addEventListener('error', () => container.classList.add('video-failed'));
       video.load();
     }
@@ -911,8 +959,7 @@
     }
 
     function handleNameClick() {
-      const currentSection = sessionStorage.getItem("section") || "landing";
-      if (currentSection !== "landing") {
+      if (getCurrentSection() !== "landing") {
         showSection("landing");
       }
     }
@@ -958,8 +1005,6 @@
       url.searchParams.delete('fbclid');
       history.replaceState(null, '', url.pathname + url.search);
     }
-
-    const flashData = {};
 
     function openFlash(num) {
       const data = flashData[num];
@@ -1106,15 +1151,23 @@
 
     function applyLanguage(lang) {
       const isPt = lang === "pt";
-      const currentSection = localStorage.getItem("section") || "gallery";
+      const currentSection = getCurrentSection(); // FIX 1: usa só sessionStorage
       document.getElementById("content-pt").classList.toggle("hidden", !isPt);
       document.getElementById("content-en").classList.toggle("hidden", isPt);
       document.getElementById("waitlist-form-pt").classList.toggle("hidden", !isPt);
       document.getElementById("waitlist-form-en").classList.toggle("hidden", isPt);
       document.getElementById("lang-btn").textContent = isPt ? "EN" : "PT";
       document.getElementById("availability-text").textContent = isPt ? "Consulte disponibilidade." : "Check availability.";
+
+      // FIX 5: gallery-toggle-btn respeita estado "landing" — fica oculto
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      galleryToggleBtn.textContent = currentSection === "gallery" ? "INFO" : (isPt ? "DESENHOS" : "DESIGNS");
+      if (currentSection === "landing") {
+        galleryToggleBtn.style.display = "none";
+      } else {
+        galleryToggleBtn.style.display = "";
+        galleryToggleBtn.textContent = currentSection === "gallery" ? "INFO" : (isPt ? "DESENHOS" : "DESIGNS");
+      }
+
       Object.keys(accordionMapping).forEach(key => {
         ["pt", "en"].forEach(l => {
           const elemId = accordionMapping[key][l];
@@ -1177,6 +1230,7 @@
       if (section === "landing") {
         document.body.classList.add("on-landing");
         landingSection.classList.remove("hidden");
+        // FIX 5: esconde o toggle btn na landing de forma centralizada aqui
         galleryToggleBtn.style.display = "none";
         document.querySelector('.sticky-header').classList.add('header-landing');
         updateLandingText(lang);
@@ -1198,18 +1252,19 @@
         galleryToggleBtn.textContent = "INFO";
       }
 
-      sessionStorage.setItem("section", section);
-      localStorage.setItem("section", section);
+      // FIX 1: salva seção apenas no sessionStorage
+      saveSection(section);
     }
 
     function toggleGalleryInfo() {
       document.getElementById("contato-info").classList.remove("active");
       document.getElementById("contato-info").style.maxHeight = "0px";
-      const currentSection = localStorage.getItem("section") || "landing";
-      if (currentSection === "landing" || currentSection === "waitlist" || currentSection === "info") {
-        showSection("gallery");
-      } else {
+      const currentSection = getCurrentSection(); // FIX 1 + FIX 5: lê de sessionStorage
+      // FIX 5: landing não faz parte do toggle — vai para gallery por padrão
+      if (currentSection === "gallery") {
         showSection("info");
+      } else {
+        showSection("gallery");
       }
     }
     
@@ -1268,8 +1323,9 @@
       const lang = getCurrentLanguage();
       applyLanguage(lang);
       updateLandingText(lang);
-      const sessionSection = sessionStorage.getItem("section");
-      showSection(sessionSection || 'landing');
+      // FIX 1: lê seção só do sessionStorage (nova aba sempre começa na landing)
+      const section = sessionStorage.getItem("section") || "landing";
+      showSection(section);
       const formKey    = lang === "pt" ? "form-pt"    : "form-en";
       const storageKey = lang === "pt" ? "formDataPT" : "formDataEN";
       loadFormData(formKey, storageKey);
@@ -1331,7 +1387,8 @@
           if (input.type === "radio") { if (input.checked) data[input.name] = input.value; }
           else data[input.name] = input.value;
         });
-        emailjs.send("we.ro___", "template_en4517r", data)
+        // FIX 4: usa constantes centralizadas em vez de strings espalhadas
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data)
           .then(() => {
             responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
             form.reset();
