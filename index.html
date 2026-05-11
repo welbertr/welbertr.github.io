@@ -895,7 +895,7 @@
     <img id="lightbox-img" src="" alt="Imagem ampliada">
 
     <!-- Botão reservar — direto pro WhatsApp -->
-    <a class="lightbox-contact-btn" id="lightbox-reserve-btn" href="https://wa.me/5531920022832?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20agendar%20uma%20tatuagem." target="_blank" rel="noopener noreferrer" data-pt="RESERVAR" data-en="BOOK">RESERVAR</a>
+    <a class="lightbox-contact-btn" id="lightbox-reserve-btn" href="#" target="_blank" rel="noopener noreferrer">RESERVAR</a>
 
     <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
   </div>
@@ -1139,10 +1139,22 @@
     
     let currentIndex = 0;
 
+    function updateReserveLink() {
+      const num = imagensOrdenadas[currentIndex];
+      const imageUrl = `${window.location.origin}${window.location.pathname.replace(/\/[^/]*$/, '')}/images/desenho${num}.jpg`;
+      const isPt = getCurrentLanguage() === "pt";
+      const msg = isPt
+        ? `Olá, tenho interesse em agendar uma tatuagem. Segue o desenho: ${imageUrl}`
+        : `Hi, I'm interested in booking a tattoo. Here's the design: ${imageUrl}`;
+      document.getElementById("lightbox-reserve-btn").href =
+        `https://wa.me/5531920022832?text=${encodeURIComponent(msg)}`;
+    }
+
     function openLightbox(num) {
       currentIndex = imagensOrdenadas.indexOf(num);
       document.getElementById("lightbox").style.display = "flex";
       updateLightboxImage();
+      updateReserveLink();
     }
     function closeLightbox() {
       document.getElementById("lightbox").style.display = "none";
@@ -1152,6 +1164,7 @@
       if (currentIndex < 0) currentIndex = imagensOrdenadas.length - 1;
       if (currentIndex >= imagensOrdenadas.length) currentIndex = 0;
       updateLightboxImage();
+      updateReserveLink();
     }
     function updateLightboxImage() {
       document.getElementById("lightbox-img").src = `images/desenho${imagensOrdenadas[currentIndex]}.jpg`;
