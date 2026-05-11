@@ -172,13 +172,35 @@
       justify-content: center;
       align-items: center;
       z-index: 1000;
+      flex-direction: column;
+      gap: 16px;
     }
     
     .lightbox img {
       max-width: 90%;
-      max-height: 90%;
+      max-height: 80%;
       border-radius: 8px;
     }
+
+    .lightbox-contact-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.7);
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .lightbox-contact-btn:hover {
+      border-color: rgba(255,255,255,0.8);
+      color: #fff;
+    }
+
     
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
@@ -871,6 +893,10 @@
     <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
     <button class="prev-btn" onclick="changeImage(-1)" aria-label="Imagem anterior">&lt;</button>
     <img id="lightbox-img" src="" alt="Imagem ampliada">
+
+    <!-- Botão reservar — direto pro WhatsApp -->
+    <a class="lightbox-contact-btn" id="lightbox-reserve-btn" href="https://wa.me/5531920022832?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20agendar%20uma%20tatuagem." target="_blank" rel="noopener noreferrer" data-pt="RESERVAR" data-en="BOOK">RESERVAR</a>
+
     <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
   </div>
   
@@ -1095,9 +1121,8 @@
       }
       img.onerror = function() {
         this.onerror = null;
-        const placeholder = new URL('images/placeholder.jpg', window.location.href).href;
-        if (this.src !== placeholder) { this.src = 'images/placeholder.jpg'; }
-        else { this.style.display = 'none'; }
+        this.src = 'images/placeholder.jpg';
+        this.addEventListener('error', () => { this.style.display = 'none'; }, { once: true });
       };
       img.onclick = () => isFlash ? openFlash(num) : openLightbox(num);
       wrapper.appendChild(img);
@@ -1156,6 +1181,8 @@
       document.getElementById("waitlist-form-en").classList.toggle("hidden", isPt);
       document.getElementById("lang-btn").textContent = isPt ? "EN" : "PT";
       document.getElementById("availability-text").textContent = isPt ? "Consulte disponibilidade." : "Check availability.";
+      const reserveBtn = document.getElementById("lightbox-reserve-btn");
+      if (reserveBtn) reserveBtn.textContent = isPt ? "RESERVAR" : "BOOK";
 
       // FIX 5: gallery-toggle-btn respeita estado "landing" — fica oculto
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
