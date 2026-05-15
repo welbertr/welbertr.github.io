@@ -17,9 +17,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
-    // FIX 4: A chave pública do EmailJS pode ficar aqui (é pública por design),
-    // mas restrinja os domínios permitidos no painel: https://dashboard.emailjs.com/admin/account
-    // Nunca exponha a chave PRIVADA ou credenciais de serviço no front-end.
     const EMAILJS_PUBLIC_KEY  = "U1u5vYqm7OjNk8N0T";
     const EMAILJS_SERVICE_ID  = "we.ro___";
     const EMAILJS_TEMPLATE_ID = "template_en4517r";
@@ -559,7 +556,6 @@
       object-fit: cover; display: block;
     }
 
-    /* FIX 2: Fallback com mensagem clara e ícone de play para indicar ação */
     .landing-video-fallback {
       display: none;
       position: absolute; inset: 0;
@@ -657,7 +653,6 @@
     <section id="landing-section" class="section hidden">
       <div class="landing-video-container" onclick="enterSite()" title="Ver desenhos">
         <video id="landing-video" autoplay muted loop playsinline></video>
-        <!-- FIX 2: Fallback com mensagem clara e ação explícita -->
         <div class="landing-video-fallback" id="landing-video-fallback">
           <div class="landing-video-fallback-icon">&#9654;</div>
           <span id="landing-fallback-text">DESENHOS</span>
@@ -894,7 +889,6 @@
     <button class="prev-btn" onclick="changeImage(-1)" aria-label="Imagem anterior">&lt;</button>
     <img id="lightbox-img" src="" alt="Imagem ampliada">
 
-    <!-- Botão reservar — direto pro WhatsApp -->
     <a class="lightbox-contact-btn" id="lightbox-reserve-btn" href="#" target="_blank" rel="noopener noreferrer">RESERVAR</a>
 
     <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
@@ -909,44 +903,28 @@
       <div class="bio-role" id="bio-role-pt">Tatuador / Ilustrador</div>
       <div class="bio-role" id="bio-role-en">Tattoo Artist / Illustrator</div>
       <div class="bio-text" id="bio-text-pt">
-        <p>Me interesso por padrões orgânicos, fragmentos de uma arquitetura maior. Não busco representar formas, mas reorganizar estruturas.</p>
-        <p>Trabalho com repetição e contraste, explorando como essas composições evocam sensações e moldam estados emocionais.</p>
-        <p>Tatuador desde 2019, atualmente em Belo Horizonte.</p>
+        <p>Não procuro representar a natureza. Aproximo-me desses elementos por carregarem algo que reconheço, mesmo sem conseguir definir completamente.</p>
+        <p>Busco criar imagens a partir de estados internos e percepções difíceis de definir. Os símbolos surgem como tentativa de tradução.</p>
+        <p>Tatuador desde 2019, atualmente em Belo Horizonte. Agenda aberta para outras cidades.</p>
       </div>
       <div class="bio-text" id="bio-text-en">
-        <p>I'm drawn to organic patterns, fragments of a larger architecture. I don't seek to represent forms, but to reorganize structures.</p>
-        <p>I work with repetition and contrast, exploring how these compositions evoke sensations and shape emotional states.</p>
-        <p>Tattooing since 2019, currently based in Belo Horizonte.</p>
+        <p>I'm not interested in representing nature literally. I'm drawn to these elements because they carry something familiar, even if I can't fully define it.</p>
+        <p>My work explores inner states and perceptions that are difficult to put into words. Symbols emerge as a way of giving these states a visible form.</p>
+        <p>Tattoo artist since 2019, currently based in Belo Horizonte. Open to projects in other cities.</p>
       </div>
     </div>
   </div>
 
   <script>
-    // ─── FIX 1: Usar apenas sessionStorage para seção ativa ───────────────────
-    // sessionStorage = dura só enquanto a aba estiver aberta (comportamento esperado).
-    // localStorage era usado em paralelo causando conflitos entre abas e visitas.
-    // Preferência de idioma ainda usa localStorage (correto — deve persistir entre visitas).
-
     function getCurrentSection() {
       return sessionStorage.getItem("section") || "landing";
     }
     function saveSection(section) {
       sessionStorage.setItem("section", section);
-      // REMOVIDO: localStorage.setItem("section", section)
     }
 
-    // ─── FIX 3: flashData documentado com estrutura de exemplo ────────────────
-    // Para adicionar um flash, inclua uma entrada assim:
-    // flashData[NUM_DA_IMAGEM] = {
-    //   nome:      "Nome do Flash",
-    //   tamanho:   "8x8 cm",
-    //   valor:     "R$ 400",
-    //   disponivel: true,          // false = aparece como "Reservado"
-    //   mockups:   ["images/mockup1.jpg"]  // opcional, até 2 imagens
-    // };
     const flashData = {};
 
-    // ─── Vídeo da landing ─────────────────────────────────────────────────────
     function initLandingVideo() {
       const TOTAL = 5;
       const video = document.getElementById('landing-video');
@@ -963,13 +941,11 @@
 
       const tryPlay = () => {
         video.play().catch(() => {
-          // FIX 2: mostra fallback com ícone de play e texto de ação clara
           container.classList.add('video-failed');
         });
       };
 
       video.addEventListener('canplay', tryPlay, { once: true });
-      // FIX 2: erro de carregamento também aciona fallback claro
       video.addEventListener('error', () => container.classList.add('video-failed'));
       video.load();
     }
@@ -1187,7 +1163,7 @@
 
     function applyLanguage(lang) {
       const isPt = lang === "pt";
-      const currentSection = getCurrentSection(); // FIX 1: usa só sessionStorage
+      const currentSection = getCurrentSection();
       document.getElementById("content-pt").classList.toggle("hidden", !isPt);
       document.getElementById("content-en").classList.toggle("hidden", isPt);
       document.getElementById("waitlist-form-pt").classList.toggle("hidden", !isPt);
@@ -1197,7 +1173,6 @@
       const reserveBtn = document.getElementById("lightbox-reserve-btn");
       if (reserveBtn) reserveBtn.textContent = isPt ? "RESERVAR" : "BOOK";
 
-      // FIX 5: gallery-toggle-btn respeita estado "landing" — fica oculto
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       if (currentSection === "landing") {
         galleryToggleBtn.style.display = "none";
@@ -1268,7 +1243,6 @@
       if (section === "landing") {
         document.body.classList.add("on-landing");
         landingSection.classList.remove("hidden");
-        // FIX 5: esconde o toggle btn na landing de forma centralizada aqui
         galleryToggleBtn.style.display = "none";
         document.querySelector('.sticky-header').classList.add('header-landing');
         updateLandingText(lang);
@@ -1290,15 +1264,13 @@
         galleryToggleBtn.textContent = "INFO";
       }
 
-      // FIX 1: salva seção apenas no sessionStorage
       saveSection(section);
     }
 
     function toggleGalleryInfo() {
       document.getElementById("contato-info").classList.remove("active");
       document.getElementById("contato-info").style.maxHeight = "0px";
-      const currentSection = getCurrentSection(); // FIX 1 + FIX 5: lê de sessionStorage
-      // FIX 5: landing não faz parte do toggle — vai para gallery por padrão
+      const currentSection = getCurrentSection();
       if (currentSection === "gallery") {
         showSection("info");
       } else {
@@ -1361,7 +1333,6 @@
       const lang = getCurrentLanguage();
       applyLanguage(lang);
       updateLandingText(lang);
-      // FIX 1: lê seção só do sessionStorage (nova aba sempre começa na landing)
       const section = sessionStorage.getItem("section") || "landing";
       showSection(section);
       const formKey    = lang === "pt" ? "form-pt"    : "form-en";
@@ -1425,7 +1396,6 @@
           if (input.type === "radio") { if (input.checked) data[input.name] = input.value; }
           else data[input.name] = input.value;
         });
-        // FIX 4: usa constantes centralizadas em vez de strings espalhadas
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data)
           .then(() => {
             responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
