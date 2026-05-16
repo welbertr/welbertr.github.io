@@ -756,7 +756,7 @@
       </div>
     </section>
 
-    <section id="gallery-section" class="section">
+    <section id="gallery-section" class="section hidden">
       <div class="gallery" aria-label="Galeria de desenhos"></div>
       <div id="gallery-cta" style="text-align:center; margin: 32px 0 8px;">
         <a href="https://wa.me/5531920022832" target="_blank" rel="noopener noreferrer"
@@ -1009,15 +1009,14 @@
        sessionStorage/localStorage só são lidos na inicialização.
     ── */
     const state = {
-      section:      sessionStorage.getItem('section')  || 'landing',
-      language:     localStorage.getItem('language')   || 'pt',
+      section:      'landing',
+      language:     localStorage.getItem('language') || 'pt',
       currentImage: 0,
     };
 
     function setState(patch) {
       Object.assign(state, patch);
-      if ('section'  in patch) sessionStorage.setItem('section',  state.section);
-      if ('language' in patch) localStorage.setItem('language',   state.language);
+      if ('language' in patch) localStorage.setItem('language', state.language);
     }
 
     /* ── NAVIGATION ── */
@@ -1026,7 +1025,7 @@
     function getCurrentLanguage() { return state.language; }
 
     function handleNameClick() {
-      if (state.section !== 'landing') showSection('landing');
+      if (state.section !== 'landing') history.back();
     }
 
     function enterSite() { showSection('gallery'); }
@@ -1035,7 +1034,8 @@
       showSection(state.section === 'gallery' ? 'info' : 'gallery');
     }
 
-    function showSection(section) {
+    // Renderiza a seção sem mexer no histórico (usado pelo popstate e pelo boot)
+    function _renderSection(section) {
       const ids = ['landing-section', 'gallery-section', 'info', 'waitlist-section'];
       ids.forEach(id => document.getElementById(id).classList.add('hidden'));
 
@@ -1043,12 +1043,11 @@
       const customLine       = document.querySelector('.custom-line');
       const galleryToggleBtn = document.getElementById('gallery-toggle-btn');
       const lang             = state.language;
+      const header           = document.querySelector('.sticky-header');
 
       availabilityText.style.display = 'none';
       customLine.style.display       = 'none';
       galleryToggleBtn.style.display = '';
-
-      const header = document.querySelector('.sticky-header');
 
       if (section === 'landing') {
         document.body.classList.add('on-landing');
@@ -1082,6 +1081,20 @@
 
       setState({ section });
     }
+
+    // Navega para uma seção empurrando entrada no histórico do browser
+    function showSection(section) {
+      // Não duplica entrada se já estiver na mesma seção
+      if (state.section === section) return;
+      history.pushState({ section }, '', window.location.pathname);
+      _renderSection(section);
+    }
+
+    // Botão nativo de voltar (e seta do site)
+    window.addEventListener('popstate', function(e) {
+      const section = e.state?.section || 'landing';
+      _renderSection(section);
+    });
 
     function setSectionLabel(text) {
       const el = document.getElementById('section-label');
@@ -1566,10 +1579,12 @@
       error:   'There was an error submitting your form. Please try again.'
     });
 
-    // Bootstrap: apply language + restore section
+    // Bootstrap
     applyLanguage(state.language);
     updateLandingText(state.language);
-    showSection(state.section);
+    // Planta landing como base do histórico — o botão nativo de voltar não sai do site
+    history.replaceState({ section: 'landing' }, '', window.location.pathname);
+    _renderSection('landing');
 
     const formKey    = state.language === 'pt' ? 'form-pt'    : 'form-en';
     const storageKey = state.language === 'pt' ? 'formDataPT' : 'formDataEN';
