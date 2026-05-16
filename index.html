@@ -609,7 +609,9 @@
       font-size: 11px; font-family: 'Outfit', sans-serif;
       font-weight: 500; text-transform: uppercase;
       letter-spacing: 0.12em; color: #aaa;
-      cursor: pointer; padding: 4px; transition: color 0.2s;
+      cursor: pointer; padding: 8px 4px;
+      transition: color 0.2s;
+      z-index: 3001; /* acima do overlay (3000) e do texto */
     }
     .sobre-close:hover { color: #333; }
     .sobre-text {
@@ -1345,19 +1347,27 @@
 
     /* ── MEDIA — LANDING VIDEO ── */
 
+    let _videoInited = false;
+
     function initLandingVideo() {
-      const TOTAL = 5;
+      // Carrega o vídeo uma única vez — voltar pra landing não reinicia o download
+      if (_videoInited) {
+        document.getElementById('landing-video').play().catch(() => {});
+        return;
+      }
+      _videoInited = true;
+
+      const TOTAL     = 5;
       const video     = document.getElementById('landing-video');
       const container = document.getElementById('landing-video-container');
 
-      // Cycle videos sequentially across page loads
       const lastIndex = parseInt(localStorage.getItem('lastVideoIndex') ?? '-1', 10);
       const nextIndex = (lastIndex + 1) % TOTAL;
       localStorage.setItem('lastVideoIndex', nextIndex);
 
-      video.src        = `video/video${nextIndex + 1}.mp4`;
-      video.loop       = true;
-      video.muted      = true;
+      video.src         = `video/video${nextIndex + 1}.mp4`;
+      video.loop        = true;
+      video.muted       = true;
       video.playsInline = true;
 
       const tryPlay = () => {
@@ -1367,7 +1377,7 @@
       video.addEventListener('error',   () => container.classList.add('video-failed'));
       video.load();
 
-      // Video click → opens "Sobre" overlay
+      // Vídeo → abre Sobre
       container.onclick = openSobre;
       const fallback = document.getElementById('landing-video-fallback');
       if (fallback) fallback.onclick = openSobre;
