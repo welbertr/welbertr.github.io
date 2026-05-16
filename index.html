@@ -14,7 +14,7 @@
   <meta property="og:image" content="https://welbertr.github.io/images/preview.jpg" />
   
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     const EMAILJS_PUBLIC_KEY  = "U1u5vYqm7OjNk8N0T";
@@ -24,6 +24,9 @@
   </script>
   
   <style>
+    /* ─────────────────────────────────────────
+       BASE
+    ───────────────────────────────────────── */
     .skip-link {
       position: absolute;
       left: -9999px;
@@ -42,20 +45,16 @@
       z-index: 100;
       text-decoration: none;
     }
-    
-    .hidden {
-      display: none !important;
-    }
-    
-    html {
-      overflow-x: hidden;
-    }
+
+    .hidden { display: none !important; }
+
+    html { overflow-x: hidden; }
 
     body {
       font-family: 'Outfit', sans-serif;
       font-weight: 300;
       max-width: 600px;
-      margin: 40px auto;
+      margin: 0 auto;
       padding: 20px;
       line-height: 1.6;
       color: #333;
@@ -64,7 +63,10 @@
       font-size: 14px;
       position: relative;
     }
-    
+
+    /* ─────────────────────────────────────────
+       LAYOUT
+    ───────────────────────────────────────── */
     header.sticky-header {
       position: sticky;
       top: 0;
@@ -75,13 +77,109 @@
       padding-left: 20px;
       padding-right: 20px;
     }
-    
+
     .custom-line {
       border: 0;
       border-bottom: 1px solid #ddd;
       margin: 10px 0;
     }
-    
+
+    #landing-name {
+      display: none;
+      text-align: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500; font-size: 14px;
+      text-transform: uppercase; color: #666;
+      letter-spacing: 0.02em;
+      padding: 20px 0 0;
+      cursor: default; user-select: none;
+    }
+    body.on-landing #landing-name { display: block; }
+    body.on-landing .top-name { display: none; }
+
+    #landing-section { padding-top: 8px; }
+    .header-landing { position: relative; }
+
+    @media (min-width: 768px) {
+      body { padding: 30px; }
+      header.sticky-header { margin: 0 -30px; padding-left: 30px; padding-right: 30px; }
+    }
+    @media (min-width: 1024px) {
+      body { max-width: 1200px; padding: 0 48px; font-size: 15px; }
+
+      /* Header: remover o hack de margin negativa, usar padding direto */
+      header.sticky-header {
+        margin: 0;
+        padding: 20px 0 10px;
+      }
+
+      /* Gallery: 3 colunas com gap generoso */
+      .gallery { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+      h2 { font-size: 20px; }
+
+      /* Texto de info/waitlist: coluna legível centralizada */
+      #info > div,
+      #waitlist-section > div {
+        max-width: 680px; margin-left: auto; margin-right: auto;
+      }
+
+      /* Landing: vídeo maior, centralizado, com max-width mais contido */
+      #landing-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 24px;
+      }
+      .landing-video-container {
+        /* Aumenta o vídeo no desktop mas mantém proporção */
+        max-width: 520px;
+        width: 100%;
+        max-height: 88vh;
+      }
+      .landing-actions {
+        max-width: 520px;
+        width: 100%;
+      }
+
+      /* Gallery CTA: alinha com a galeria */
+      #gallery-cta { max-width: none; }
+
+      /* Contact: limitar largura igual ao texto */
+      #contact-section {
+        max-width: 680px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    @media (min-width: 1280px) {
+      body { padding: 0 64px; }
+
+      .landing-video-container {
+        max-width: 560px;
+      }
+      .landing-actions {
+        max-width: 560px;
+      }
+    }
+    @media (min-width: 1440px) {
+      body { font-size: 16px; padding: 0 80px; }
+      .gallery { grid-template-columns: repeat(4, 1fr); gap: 18px; }
+
+      .landing-video-container {
+        max-width: 600px;
+        max-height: 90vh;
+      }
+      .landing-actions {
+        max-width: 600px;
+      }
+    }
+
+    /* ─────────────────────────────────────────
+       COMPONENTS
+    ───────────────────────────────────────── */
+
+    /* — Typography — */
     h2 {
       border-bottom: 1px solid #ddd;
       padding-bottom: 8px;
@@ -93,7 +191,58 @@
       width: 100%;
       box-sizing: border-box;
     }
-    
+
+    p, ul, li {
+      font-size: inherit;
+      text-align: justify;
+      margin-bottom: 8px;
+    }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 8px; }
+
+    /* — Header controls — */
+    .top-controls {
+      text-align: right;
+      margin-bottom: 10px;
+    }
+    .top-controls button {
+      background-color: transparent;
+      color: #000;
+      border: none;
+      padding: 8px 2px;
+      font-size: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    .top-controls button#lang-btn::before {
+      content: "|";
+      display: inline-block;
+      margin: 0 7px 0 2px;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .top-controls button:hover { opacity: 0.8; }
+
+    .top-name {
+      cursor: pointer; transition: opacity 0.2s;
+      background: none; border: none; padding: 0; display: flex;
+      align-items: baseline; gap: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500; font-size: 14px;
+      text-transform: uppercase; color: #666;
+      margin-bottom: 4px; text-align: left;
+    }
+    .top-name:hover { opacity: 0.6; }
+    .top-name-arrow {
+      font-size: 16px; font-weight: 300;
+      color: #bbb; line-height: 1;
+      display: none;
+    }
+    body:not(.on-landing) .top-name-arrow { display: inline; }
+    .top-name-label { display: none !important; }
+
     .contact-title {
       display: block;
       width: 100%;
@@ -107,27 +256,91 @@
       color: #000;
       background-color: transparent;
     }
-    
-    p, ul, li {
+
+    /* — Accordion — */
+    .accordion-content {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .accordion-content.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .accordion-section { margin-bottom: 30px; }
+
+    /* — Contact — */
+    #contato-info {
+      text-align: center;
+      margin: 0 auto;
+    }
+    #contato-info p {
+      margin: 4px 0;
       font-size: inherit;
-      text-align: justify;
-      margin-bottom: 8px;
+      text-align: center;
     }
-    
-    ul {
-      padding-left: 20px;
+    #contato-info .contato-label { font-weight: normal; color: #666; }
+    #contato-info a.email,
+    #contato-info a.whatsapp {
+      font-weight: 500; color: #000; text-decoration: none;
     }
-    li {
-      margin-bottom: 8px;
+    #contato-info a.email:hover,
+    #contato-info a.whatsapp:hover { text-decoration: underline; }
+
+    .instagram-btn {
+      background-color: transparent;
+      color: #000;
+      border: 1px solid #000;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 10px;
+      display: inline-block;
+      text-decoration: none;
+      text-transform: uppercase;
     }
-    
+    .instagram-btn:hover { text-decoration: underline; }
+
+    #contact-section { margin-top: 40px; transition: margin-top 0.3s ease; }
+
+    /* — Waitlist — */
+    .waitlist-link { color: #007BFF; text-decoration: none; font-weight: 500; }
+    .waitlist-link:hover { text-decoration: underline; }
+
+    #waitlist-section {
+      margin: 40px 0; padding: 20px;
+      border: 1px solid #ddd; border-radius: 8px; background-color: #fff;
+    }
+    #waitlist-section h2 { margin-bottom: 20px; font-size: 20px; }
+    #waitlist-section p  { margin-bottom: 20px; }
+    #waitlist-section form { display: grid; grid-gap: 15px; }
+    #waitlist-section label { font-weight: 500; margin-bottom: 5px; display: block; }
+    #waitlist-section input,
+    #waitlist-section button,
+    #waitlist-section fieldset {
+      font-size: inherit; padding: 8px; width: 100%;
+      box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;
+    }
+    #waitlist-section button {
+      background-color: #000; color: #fff; border: none;
+      cursor: pointer; transition: background-color 0.3s ease;
+    }
+    #waitlist-section button:hover { background-color: #333; }
+    #waitlist-section fieldset { border: none; padding: 0; display: block; }
+    #waitlist-section fieldset legend { font-weight: 500; margin: 10px 0; display: block; }
+
+    .radio-inline { display: inline-flex; align-items: center; margin-right: 20px; }
+    .radio-inline input[type="radio"] { margin-right: 5px; }
+
+    /* — Gallery — */
     .gallery {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       margin: 20px 0;
     }
-    
     .gallery img {
       width: 100%;
       border-radius: 8px;
@@ -137,34 +350,28 @@
       background-color: #fffff2;
       opacity: 0;
     }
-    .gallery img.lazy-loaded {
-      animation: fadeIn 0.5s ease forwards;
-    }
-    .gallery img:not([data-src]) {
-      opacity: 1;
-    }
-    
+    .gallery img.lazy-loaded { animation: fadeIn 0.5s ease forwards; }
+    .gallery img:not([data-src]) { opacity: 1; }
     .gallery img:hover {
       transform: scale(1.02);
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
-    
+    .gallery-item { position: relative; }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    
     @media (prefers-reduced-motion: reduce) {
       .gallery img { animation: none; transition: none; opacity: 1; }
     }
-    
+
+    /* — Lightbox — */
     .lightbox {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
@@ -172,13 +379,11 @@
       flex-direction: column;
       gap: 16px;
     }
-    
     .lightbox img {
       max-width: 90%;
       max-height: 80%;
       border-radius: 8px;
     }
-
     .lightbox-contact-btn {
       background: transparent;
       border: 1px solid rgba(255,255,255,0.4);
@@ -197,8 +402,6 @@
       border-color: rgba(255,255,255,0.8);
       color: #fff;
     }
-
-    
     .close-btn, .prev-btn, .next-btn {
       position: absolute;
       background: rgba(0,0,0,0.1);
@@ -208,39 +411,29 @@
       cursor: pointer;
       transition: opacity 0.3s ease, background 0.3s ease;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
     }
-    
     .close-btn:hover, .prev-btn:hover, .next-btn:hover {
       background: rgba(0,0,0,0.2);
       box-shadow: 0 6px 12px rgba(0,0,0,0.3);
     }
-    
     .close-btn {
-      top: 20px;
-      right: 20px;
-      font-size: 22px;
-      font-weight: 700;
+      top: 20px; right: 20px;
+      font-size: 22px; font-weight: 700;
       z-index: 9999;
       background: rgba(255,255,255,0.9);
       border: 1px solid rgba(0,0,0,0.6);
       color: rgba(0,0,0,0.8);
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-    
     .prev-btn, .next-btn {
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 24px;
+      top: 50%; transform: translateY(-50%); font-size: 24px;
     }
-    
     .prev-btn { left: 20px; }
     .next-btn { right: 20px; }
 
+    /* — Flash modal — */
     .flash-modal {
       display: none;
       position: fixed;
@@ -279,45 +472,32 @@
     }
     .flash-modal-close:hover { color: rgba(0,0,0,0.9); }
     .flash-main-img {
-      width: 100%;
-      display: block;
-      border-radius: 12px 12px 0 0;
-      background: #f0f0f0;
+      width: 100%; display: block;
+      border-radius: 12px 12px 0 0; background: #f0f0f0;
     }
     .flash-info { padding: 24px 28px; }
     .flash-title {
-      font-size: 16px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #222;
-      margin-bottom: 16px;
+      font-size: 16px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: #222; margin-bottom: 16px;
     }
     .flash-details {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 20px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-bottom: 20px;
     }
     .flash-detail-item { display: flex; flex-direction: column; gap: 3px; }
     .flash-detail-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #999; }
     .flash-detail-value { font-size: 14px; color: #333; font-weight: 500; }
     .flash-status {
-      display: inline-block;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 3px 8px;
-      border-radius: 20px;
-      font-weight: 500;
+      display: inline-block; font-size: 10px;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 3px 8px; border-radius: 20px; font-weight: 500;
     }
     .flash-status.available { background: #e8f5e9; color: #2e7d32; }
     .flash-status.reserved  { background: #fce4ec; color: #c62828; }
     .flash-mockups {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-bottom: 24px;
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 8px; margin-bottom: 24px;
     }
     .flash-mockups img {
       width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; background: #eee;
@@ -342,237 +522,26 @@
       letter-spacing: 0.1em; padding: 3px 7px; border-radius: 20px;
       pointer-events: none; box-shadow: 0 1px 4px rgba(0,0,0,0.15);
     }
-    .gallery-item { position: relative; }
 
-    @media (prefers-color-scheme: dark) {
-      .flash-modal-content { background: #1a1a1a; }
-      .flash-title { color: #e0e0e0; }
-      .flash-detail-value { color: #ccc; }
-      .flash-modal-close {
-        background: rgba(30,30,30,0.9);
-        border-color: rgba(255,255,255,0.15);
-        color: rgba(255,255,255,0.5);
-      }
-      .flash-modal-close:hover { color: #fff; }
-      .flash-badge { background: #222; color: #e0e0e0; }
-    }
-
-    .instagram-btn {
-      background-color: transparent;
-      color: #000;
-      border: 1px solid #000;
-      padding: 4px 8px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 10px;
-      display: inline-block;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-    .instagram-btn:hover { text-decoration: underline; }
-    
-    .top-controls {
-      text-align: right;
-      margin-bottom: 10px;
-    }
-    .top-controls button {
-      background-color: transparent;
-      color: #000;
-      border: none;
-      padding: 8px 2px;
-      font-size: inherit;
-      font-weight: 500;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
-    }
-    .top-controls button#lang-btn::before {
-      content: "|";
-      display: inline-block;
-      margin: 0 7px 0 2px;
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1;
-    }
-    .top-controls button:hover { opacity: 0.8; }
-    
-    .accordion-content {
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.4s ease, opacity 0.4s ease;
-      pointer-events: none;
-    }
-    .accordion-content.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .accordion-section { margin-bottom: 30px; }
-    
-    #contato-info {
-      text-align: center;
-      margin: 0 auto;
-    }
-    #contato-info p {
-      margin: 4px 0;
-      font-size: inherit;
-      text-align: center;
-    }
-    #contato-info .contato-label { font-weight: normal; color: #666; }
-    #contato-info a.email,
-    #contato-info a.whatsapp {
-      font-weight: 500; color: #000; text-decoration: none;
-    }
-    #contato-info a.email:hover,
-    #contato-info a.whatsapp:hover { text-decoration: underline; }
-    
-    .waitlist-link { color: #007BFF; text-decoration: none; font-weight: 500; }
-    .waitlist-link:hover { text-decoration: underline; }
-    
-    #waitlist-section {
-      margin: 40px 0; padding: 20px;
-      border: 1px solid #ddd; border-radius: 8px; background-color: #fff;
-    }
-    #waitlist-section h2 { margin-bottom: 20px; font-size: 20px; }
-    #waitlist-section p  { margin-bottom: 20px; }
-    #waitlist-section form { display: grid; grid-gap: 15px; }
-    #waitlist-section label { font-weight: 500; margin-bottom: 5px; display: block; }
-    #waitlist-section input,
-    #waitlist-section button,
-    #waitlist-section fieldset {
-      font-size: inherit; padding: 8px; width: 100%;
-      box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;
-    }
-    #waitlist-section button {
-      background-color: #000; color: #fff; border: none;
-      cursor: pointer; transition: background-color 0.3s ease;
-    }
-    #waitlist-section button:hover { background-color: #333; }
-    #waitlist-section fieldset { border: none; padding: 0; display: block; }
-    #waitlist-section fieldset legend { font-weight: 500; margin: 10px 0; display: block; }
-    
-    .radio-inline { display: inline-flex; align-items: center; margin-right: 20px; }
-    .radio-inline input[type="radio"] { margin-right: 5px; }
-    
-    section.section { animation: sectionFadeIn 0.25s ease; }
-    @keyframes sectionFadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @media (prefers-reduced-motion: reduce) { section.section { animation: none; } }
-    
-    #contact-section { margin-top: 40px; transition: margin-top 0.3s ease; }
-    
-    @media (min-width: 768px) {
-      body { padding: 30px; }
-      header.sticky-header { margin: 0 -30px; padding-left: 30px; padding-right: 30px; }
-    }
-    @media (min-width: 1024px) {
-      html { background-color: #fafafa; }
-      body { max-width: 1200px; font-size: 15px; }
-      .gallery { grid-template-columns: repeat(3, 1fr); gap: 14px; }
-      h2 { font-size: 20px; }
-      #info > div, #waitlist-section > div {
-        max-width: 680px; margin-left: auto; margin-right: auto;
-      }
-    }
-    @media (min-width: 1440px) {
-      body { font-size: 16px; }
-      .gallery { grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    }
-    
-    .bio-modal {
-      display: none;
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 2000;
-      justify-content: center; align-items: center;
-      padding: 20px; box-sizing: border-box;
-    }
-    .bio-modal-content {
-      background: #fafafa; border-radius: 12px;
-      max-width: 520px; width: 100%;
-      padding: 48px 48px 40px;
-      position: relative; text-align: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      max-height: 90vh; overflow-y: auto;
-    }
-    .bio-modal-close {
-      position: absolute; top: 20px; right: 24px;
-      background: transparent; border: none;
-      font-size: 18px; cursor: pointer;
-      color: rgba(0,0,0,0.2); line-height: 1; padding: 4px;
-      transition: color 0.2s ease;
-    }
-    .bio-modal-close:hover { color: rgba(0,0,0,0.6); }
-    .bio-photo {
-      width: 120px; height: 120px;
-      border-radius: 50%; object-fit: cover;
-      filter: grayscale(100%);
-      margin-bottom: 20px; display: block;
-      margin-left: auto; margin-right: auto;
-    }
-    .bio-name { font-weight: 500; font-size: 16px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; color: #333; }
-    .bio-role { font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; }
-    .bio-text { font-size: 14px; color: #555; line-height: 1.9; text-align: left; margin-bottom: 0; }
-    .bio-text p { margin-bottom: 20px; text-align: left; font-size: inherit; }
-    .bio-text p:last-child { margin-bottom: 0; }
-
-    .top-name {
-      cursor: pointer; transition: opacity 0.2s;
-      background: none; border: none; padding: 0; display: block;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 500; font-size: 14px;
-      text-transform: uppercase; color: #666;
-      margin-bottom: 20px; text-align: left;
-    }
-    .top-name:hover { opacity: 0.6; }
-
-    #landing-name {
-      display: none;
-      text-align: center;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 500; font-size: 14px;
-      text-transform: uppercase; color: #666;
-      letter-spacing: 0.02em;
-      padding: 20px 20px 0;
-      cursor: default; user-select: none;
-    }
-    body.on-landing #landing-name { display: block; }
-    body.on-landing .top-name { display: none; }
-
-    #landing-section { padding-top: 8px; }
-    .header-landing { position: relative; }
-
+    /* — Landing video — */
     .landing-video-container {
-      width: 100%;
-      aspect-ratio: 5 / 7;
-      max-height: 75vh;
-      cursor: pointer;
-      background: #111;
-      position: relative;
-      overflow: hidden;
+      width: 100%; aspect-ratio: 5 / 7;
+      max-height: 75vh; cursor: pointer;
+      background: #111; position: relative; overflow: hidden;
     }
     #landing-video {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
+      width: 100%; height: 100%; object-fit: cover; display: block;
     }
-
     .landing-video-fallback {
-      display: none;
-      position: absolute; inset: 0;
-      flex-direction: column;
-      align-items: center; justify-content: center;
-      background: #111; color: #555;
-      font-size: 11px; text-transform: uppercase;
-      letter-spacing: 0.15em; cursor: pointer;
-      gap: 16px;
+      display: none; position: absolute; inset: 0;
+      flex-direction: column; align-items: center; justify-content: center;
+      background: #111; color: #555; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.15em; cursor: pointer; gap: 16px;
     }
     .landing-video-fallback-icon {
-      width: 48px; height: 48px;
-      border: 1px solid #444;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: #666;
-      font-size: 18px;
+      width: 48px; height: 48px; border: 1px solid #444;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      color: #666; font-size: 18px;
     }
     .landing-video-container.video-failed .landing-video-fallback { display: flex; }
     .landing-video-container.video-failed #landing-video { display: none; }
@@ -591,6 +560,109 @@
     }
     .landing-action-btn:hover { color: #555; }
 
+    /* — Sobre teaser — */
+    .sobre-teaser {
+      margin: 0 0 16px; cursor: pointer;
+      padding: 0; border: none; background: none;
+      font-family: 'Outfit', sans-serif;
+      text-align: left; width: 100%;
+    }
+    .sobre-teaser-label {
+      font-size: 18px; font-weight: 500; color: #333;
+      border-bottom: 1px solid #ddd; padding-bottom: 8px;
+      margin-bottom: 20px; display: block;
+    }
+    .sobre-teaser-quote {
+      font-size: 15px; font-weight: 300; color: #888;
+      line-height: 1.9; font-style: italic; display: block;
+      transition: color 0.3s;
+    }
+    .sobre-teaser:hover .sobre-teaser-quote { color: #444; }
+    .sobre-teaser-cta {
+      display: inline-block; margin-top: 14px;
+      font-size: 10px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.14em; color: #bbb; transition: color 0.3s;
+    }
+    .sobre-teaser:hover .sobre-teaser-cta { color: #555; }
+
+    /* — Sobre overlay — */
+    .sobre-overlay {
+      display: none; position: fixed; inset: 0;
+      background: #fafafa; z-index: 3000;
+      overflow-y: auto; animation: sobreFadeIn 0.5s ease forwards;
+    }
+    @keyframes sobreFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sobre-overlay { animation: none; }
+    }
+    .sobre-overlay-inner {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; padding: 80px 40px 100px;
+      max-width: 460px; margin: 0 auto;
+    }
+    .sobre-close {
+      position: fixed; top: 20px; right: 24px;
+      background: none; border: none;
+      font-size: 11px; font-family: 'Outfit', sans-serif;
+      font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.12em; color: #aaa;
+      cursor: pointer; padding: 4px; transition: color 0.2s;
+    }
+    .sobre-close:hover { color: #333; }
+    .sobre-text {
+      font-size: 13px; line-height: 2; color: #444; font-weight: 300;
+    }
+    .sobre-text p {
+      margin-bottom: 24px; text-align: left; font-size: inherit;
+    }
+    .sobre-text p:last-child { margin-bottom: 0; }
+    .sobre-overlay-inner .sobre-text {
+      font-size: 18px; line-height: 2.6; color: #222;
+      font-weight: 300; text-align: center;
+    }
+    .sobre-overlay-inner .sobre-text p {
+      text-align: center; font-size: inherit; margin-bottom: 36px;
+      opacity: 0; transform: translateY(16px);
+      animation: sobreParaFade 0.7s ease forwards;
+    }
+    .sobre-overlay-inner .sobre-text p:last-child { margin-bottom: 0; }
+    .sobre-overlay-inner .sobre-text p:nth-child(1) { animation-delay: 0.1s; }
+    .sobre-overlay-inner .sobre-text p:nth-child(2) { animation-delay: 0.4s; }
+    .sobre-overlay-inner .sobre-text p:nth-child(3) { animation-delay: 0.7s; }
+    .sobre-overlay-inner .sobre-text p:nth-child(4) { animation-delay: 1.0s; }
+    .sobre-overlay-inner .sobre-text p:nth-child(5) { animation-delay: 1.3s; }
+    @keyframes sobreParaFade {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sobre-overlay-inner .sobre-text p { animation: none; opacity: 1; transform: none; }
+    }
+    .sobre-footer {
+      margin-top: 52px; border-top: 1px solid #e8e8e8; padding-top: 24px;
+    }
+    .sobre-name {
+      font-size: 12px; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #222; margin-bottom: 4px;
+    }
+    .sobre-role {
+      font-size: 11px; color: #aaa; text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 2px;
+    }
+    .sobre-location {
+      font-size: 11px; color: #bbb; text-transform: uppercase; letter-spacing: 0.1em;
+    }
+
+    /* — Section animation — */
+    section.section { animation: sectionFadeIn 0.25s ease; }
+    @keyframes sectionFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { section.section { animation: none; } }
+
+    /* ─────────────────────────────────────────
+       THEMES (dark mode)
+    ───────────────────────────────────────── */
     @media (prefers-color-scheme: dark) {
       html { background-color: #121212; }
       body { color: #e0e0e0; background-color: #121212; }
@@ -617,14 +689,29 @@
       }
       #waitlist-section button { background-color: #000; }
       #waitlist-section button:hover { background-color: #333; }
-      .bio-modal-content { background: #1e1e1e; }
-      .bio-name { color: #e0e0e0; }
-      .bio-role { color: #666; }
-      .bio-text p { color: #aaa; }
-      .bio-modal-close { color: rgba(255,255,255,0.2); }
-      .bio-modal-close:hover { color: rgba(255,255,255,0.6); }
       .landing-video-fallback { background: #1a1a1a; }
       #landing-name { color: #999; }
+      .flash-modal-content { background: #1a1a1a; }
+      .flash-title { color: #e0e0e0; }
+      .flash-detail-value { color: #ccc; }
+      .flash-modal-close {
+        background: rgba(30,30,30,0.9); border-color: rgba(255,255,255,0.15);
+        color: rgba(255,255,255,0.5);
+      }
+      .flash-modal-close:hover { color: #fff; }
+      .flash-badge { background: #222; color: #e0e0e0; }
+      .sobre-overlay { background: #121212; }
+      .sobre-text { color: #aaa; }
+      .sobre-close { color: #555; }
+      .sobre-close:hover { color: #ccc; }
+      .sobre-name { color: #ddd; }
+      .sobre-role { color: #555; }
+      .sobre-location { color: #444; }
+      .sobre-footer { border-top-color: #2a2a2a; }
+      .sobre-teaser-label { color: #ccc; border-bottom-color: #444; }
+      .sobre-teaser-quote { color: #666; }
+      .sobre-teaser:hover .sobre-teaser-quote { color: #aaa; }
+      .sobre-overlay-inner .sobre-text { color: #ccc; }
     }
   </style>
 </head>
@@ -640,7 +727,10 @@
   <div id="landing-name">WELBERT RODRIGUES</div>
 
   <header class="sticky-header" role="banner">
-    <button class="top-name" aria-label="Página inicial" onclick="handleNameClick()">WELBERT RODRIGUES</button>
+    <button class="top-name" aria-label="Página inicial" onclick="handleNameClick()">
+      <span class="top-name-arrow">←</span>
+    </button>
+    <div class="top-name-label" id="section-label"></div>
     <div class="top-controls">
       <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()" aria-label="Alternar entre galeria e informações">INFO</button>
       <button id="lang-btn" onclick="toggleLanguage()" aria-label="Alternar idioma">EN</button>
@@ -651,7 +741,7 @@
   
   <main id="main-content">
     <section id="landing-section" class="section hidden">
-      <div class="landing-video-container" onclick="enterSite()" title="Ver desenhos">
+      <div class="landing-video-container" id="landing-video-container" title="Sobre o trabalho">
         <video id="landing-video" autoplay muted loop playsinline></video>
         <div class="landing-video-fallback" id="landing-video-fallback">
           <div class="landing-video-fallback-icon">&#9654;</div>
@@ -659,95 +749,81 @@
         </div>
       </div>
       <div class="landing-actions">
-        <button class="landing-action-btn" id="landing-sobre-btn" onclick="openBio()">SOBRE</button>
+        <button class="landing-action-btn" id="landing-info-btn" onclick="showSection('info')">INFO</button>
         <button class="landing-action-btn" id="landing-desenhos-btn" onclick="enterSite()">DESENHOS</button>
       </div>
     </section>
 
     <section id="gallery-section" class="section">
       <div class="gallery" aria-label="Galeria de desenhos"></div>
+      <div id="gallery-cta" style="text-align:center; margin: 32px 0 8px;">
+        <a href="https://wa.me/5531920022832" target="_blank" rel="noopener noreferrer"
+          style="display:inline-block; border:1px solid #000; color:#000; background:transparent;
+          font-family:'Outfit',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase;
+          letter-spacing:0.1em; padding:10px 28px; border-radius:4px; text-decoration:none;
+          transition:background 0.2s, color 0.2s;"
+          onmouseover="this.style.background='#000';this.style.color='#fff'"
+          onmouseout="this.style.background='transparent';this.style.color='#000'"
+          id="gallery-cta-btn">AGENDAR</a>
+      </div>
     </section>
     
-    <section id="info" class="section hidden" aria-label="Informações para agendamento">
+    <section id="info" class="section hidden" aria-label="Informações">
       <div id="content-pt">
-        <p>Informações para agendamento</p>
         <div class="accordion-section">
-          <h2 id="btn-orcamento-pt" role="button" aria-expanded="false" aria-controls="orcamento-pt" onclick="toggleAccordion('orcamento-pt', 'btn-orcamento-pt')">Orçamento</h2>
-          <div id="orcamento-pt" class="accordion-content" role="region" aria-labelledby="btn-orcamento-pt">
-            <p>Para orçamento, envie:</p>
+          <h2 id="btn-agendar-pt" role="button" aria-expanded="false" aria-controls="agendar-pt"
+            onclick="toggleAccordion('agendar-pt', 'btn-agendar-pt')">Como Agendar</h2>
+          <div id="agendar-pt" class="accordion-content" role="region" aria-labelledby="btn-agendar-pt">
+            <p style="font-weight:500; margin-top:8px;">Orçamento</p>
+            <p>Me manda a imagem de referência ou o flash escolhido, o local do corpo e o tamanho aproximado em cm. Com essas informações consigo te passar uma estimativa.</p>
+            <p style="font-weight:500; margin-top:16px;">Agendamento e sinal</p>
+            <p>Solicito um sinal de R$100 para confirmar o agendamento, descontado do valor final. O sinal garante a reserva do horário e não é reembolsável em caso de cancelamento ou ausência.</p>
+            <p style="font-weight:500; margin-top:16px;">No dia da sessão</p>
             <ul>
-              <li>Imagem de referência ou flash</li>
-              <li>Local do corpo</li>
-              <li>Tamanho aproximado em cm</li>
-            </ul>
-            <p>Com isso, consigo desenvolver uma estimativa para o projeto.</p>
-          </div>
-        </div>
-        <div class="accordion-section">
-          <h2 id="btn-agendamento-pt" role="button" aria-expanded="false" aria-controls="agendamento-pt" onclick="toggleAccordion('agendamento-pt', 'btn-agendamento-pt')">Agendamento e sinal</h2>
-          <div id="agendamento-pt" class="accordion-content" role="region" aria-labelledby="btn-agendamento-pt">
-            <p>Para confirmar o agendamento, é solicitado um sinal de R$100, descontado do valor final da tatuagem.</p>
-            <p>O valor garante a reserva do horário e não é reembolsável em caso de cancelamento ou ausência.</p>
-          </div>
-        </div>
-        <div class="accordion-section">
-          <h2 id="btn-lista-espera-pt" role="button" aria-expanded="false" aria-controls="lista-espera-pt" onclick="toggleAccordion('lista-espera-pt', 'btn-lista-espera-pt')">Lista de espera</h2>
-          <div id="lista-espera-pt" class="accordion-content" role="region" aria-labelledby="btn-lista-espera-pt">
-            <p>Inscreva-se para receber avisos sobre futuras datas em outras cidades.</p>
-            <p><a href="#" class="waitlist-link" data-action="open-waitlist">Entrar na lista</a></p>
-          </div>
-        </div>
-        <div class="accordion-section">
-          <h2 id="btn-dia-sessao-pt" role="button" aria-expanded="false" aria-controls="dia-sessao-pt" onclick="toggleAccordion('dia-sessao-pt', 'btn-dia-sessao-pt')">No dia da sessão</h2>
-          <div id="dia-sessao-pt" class="accordion-content" role="region" aria-labelledby="btn-dia-sessao-pt">
-            <ul>
-              <li>Alimente-se bem e mantenha-se hidratado</li>
+              <li>Faça uma refeição antes de vir</li>
               <li>Evite álcool na véspera</li>
               <li>Use roupas que facilitem o acesso à área tatuada</li>
-              <li>Procure chegar no horário combinado</li>
+              <li>Chegue no horário combinado</li>
             </ul>
+            <p style="font-weight:500; margin-top:16px;">Lista de espera</p>
+            <p>Não está na minha cidade? Entra na lista e te aviso quando tiver datas na sua região. <a href="#" class="waitlist-link" data-action="open-waitlist">Entrar na lista</a></p>
           </div>
+        </div>
+        <div class="accordion-section">
+          <button class="sobre-teaser" onclick="openSobre()" aria-label="Ler sobre o trabalho">
+            <span class="sobre-teaser-label">Sobre o Trabalho</span>
+            <span class="sobre-teaser-quote">Não procuro representar a natureza.<br>Me aproximo de seus elementos porque carregam algo que reconheço, mesmo sem conseguir definir completamente.</span>
+            <span class="sobre-teaser-cta">Ler mais →</span>
+          </button>
         </div>
       </div>
-      
+
       <div id="content-en" class="hidden">
-        <p>Booking Information</p>
         <div class="accordion-section">
-          <h2 id="btn-pricing-en" role="button" aria-expanded="false" aria-controls="pricing-en" onclick="toggleAccordion('pricing-en', 'btn-pricing-en')">Pricing</h2>
-          <div id="pricing-en" class="accordion-content" role="region" aria-labelledby="btn-pricing-en">
-            <p>For booking inquiries, please send:</p>
+          <h2 id="btn-agendar-en" role="button" aria-expanded="false" aria-controls="agendar-en"
+            onclick="toggleAccordion('agendar-en', 'btn-agendar-en')">How to Book</h2>
+          <div id="agendar-en" class="accordion-content" role="region" aria-labelledby="btn-agendar-en">
+            <p style="font-weight:500; margin-top:8px;">Getting a Quote</p>
+            <p>Send over a reference image or the flash you're interested in, along with the placement and approximate size in cm. From there I can put together an estimate for you.</p>
+            <p style="font-weight:500; margin-top:16px;">Booking & Deposit</p>
+            <p>To lock in your appointment, I ask for a deposit of 20% of the total price, which comes off the final amount. The deposit is non-refundable in the event of a cancellation or no-show.</p>
+            <p style="font-weight:500; margin-top:16px;">Day of Your Session</p>
             <ul>
-              <li>Reference image or flash</li>
-              <li>Body placement</li>
-              <li>Approximate size in cm</li>
+              <li>Eat a proper meal before coming in</li>
+              <li>Skip alcohol the night before</li>
+              <li>Wear something that gives easy access to the area being tattooed</li>
+              <li>Show up on time</li>
             </ul>
-            <p>With this information, I'll be able to provide an estimate for the project.</p>
+            <p style="font-weight:500; margin-top:16px;">Waitlist</p>
+            <p>Not in my current city? Join the waitlist and I'll get in touch when I have dates near you. <a href="#" class="waitlist-link" data-action="open-waitlist">Join the list</a></p>
           </div>
         </div>
         <div class="accordion-section">
-          <h2 id="btn-booking-en" role="button" aria-expanded="false" aria-controls="booking-en" onclick="toggleAccordion('booking-en', 'btn-booking-en')">Booking and Deposit</h2>
-          <div id="booking-en" class="accordion-content" role="region" aria-labelledby="btn-booking-en">
-            <p>To confirm the appointment, a R$100 deposit is required and will be deducted from the final price of the tattoo.</p>
-            <p>The deposit secures your appointment and is non-refundable in case of cancellation or no-show.</p>
-          </div>
-        </div>
-        <div class="accordion-section">
-          <h2 id="btn-waitlist-en" role="button" aria-expanded="false" aria-controls="waitlist-en" onclick="toggleAccordion('waitlist-en', 'btn-waitlist-en')">Waitlist</h2>
-          <div id="waitlist-en" class="accordion-content" role="region" aria-labelledby="btn-waitlist-en">
-            <p>Join the waitlist to receive updates about future dates in other cities.</p>
-            <p><a href="#" class="waitlist-link" data-action="open-waitlist">Join the Waitlist</a></p>
-          </div>
-        </div>
-        <div class="accordion-section">
-          <h2 id="btn-session-day-en" role="button" aria-expanded="false" aria-controls="session-day-en" onclick="toggleAccordion('session-day-en', 'btn-session-day-en')">On the Day of Your Appointment</h2>
-          <div id="session-day-en" class="accordion-content" role="region" aria-labelledby="btn-session-day-en">
-            <ul>
-              <li>Eat well and stay hydrated</li>
-              <li>Avoid alcohol the day before</li>
-              <li>Wear clothing that allows easy access to the tattoo area</li>
-              <li>Please arrive on time</li>
-            </ul>
-          </div>
+          <button class="sobre-teaser" onclick="openSobre()" aria-label="Read about the work">
+            <span class="sobre-teaser-label">About the Work</span>
+            <span class="sobre-teaser-quote">I do not seek to represent nature.<br>I'm drawn to its elements because they carry something I recognize, even if I can't fully define it.</span>
+            <span class="sobre-teaser-cta">Read more →</span>
+          </button>
         </div>
       </div>
     </section>
@@ -800,10 +876,10 @@
       </div>
       
       <div id="waitlist-form-en" class="hidden">
-        <h2>Waitlist Registration</h2>
+        <h2>Join the Waitlist</h2>
         <p>
-          If I'm not currently tattooing in your city, feel free to join the waitlist.
-          Once I confirm a date in your area, I'll reach out in advance to schedule your appointment.
+          If your city isn't on my schedule yet, sign up for the waitlist.
+          Once I confirm a date in your area, I'll reach out in advance to arrange your appointment.
         </p>
         <form id="form-en">
           <label for="name">Name *</label>
@@ -815,7 +891,7 @@
           <label for="emailEn">E-mail *</label>
           <input type="email" id="emailEn" name="email" required>
           <fieldset>
-            <legend>Have you been tattooed by me before? *</legend>
+            <legend>Have you gotten tattooed by me before? *</legend>
             <div class="radio-inline">
               <input type="radio" id="yes" name="tatuagem" value="Yes" required>
               <label for="yes">Yes</label>
@@ -826,7 +902,7 @@
             </div>
           </fieldset>
           <fieldset>
-            <legend>How do you prefer to be contacted?</legend>
+            <legend>Best way to reach you?</legend>
             <div class="radio-inline">
               <input type="radio" id="contact-ig-en" name="contato" value="Instagram" onchange="togglePhone('en')">
               <label for="contact-ig-en">Instagram</label>
@@ -847,7 +923,8 @@
     </section>
     
     <section id="contact-section">
-      <h2 class="contact-title" onclick="toggleContato()" role="button" aria-expanded="false" aria-controls="contato-info">CONTATO | CONTACT</h2>
+      <h2 class="contact-title" onclick="toggleAccordion('contato-info', '.contact-title')"
+        role="button" aria-expanded="false" aria-controls="contato-info">CONTATO | CONTACT</h2>
       <div id="contato-info" class="accordion-content" role="region">
         <p><span class="contato-label">E-mail:</span> <a href="mailto:welbertc.rodriguess@gmail.com" class="email">welbertc.rodriguess@gmail.com</a></p>
         <p><span class="contato-label">WhatsApp:</span> <a href="https://wa.me/5531920022832" target="_blank" rel="noopener noreferrer" class="whatsapp">+55 31 92002 - 2832</a></p>
@@ -856,6 +933,34 @@
     </section>
   </main>
   
+  <!-- Sobre overlay -->
+  <div class="sobre-overlay" id="sobre-overlay" role="dialog" aria-modal="true">
+    <button class="sobre-close" onclick="closeSobre()" aria-label="Fechar" id="sobre-close-btn">FECHAR</button>
+    <div class="sobre-overlay-inner">
+      <div class="sobre-text" id="sobre-overlay-text-pt">
+        <p>Não procuro representar a natureza.<br>Me aproximo de seus elementos porque carregam algo que reconheço, mesmo sem conseguir definir completamente.</p>
+        <p>Certos padrões se repetem, como se existisse uma arquitetura silenciosa atravessando todas as coisas.</p>
+        <p>As flores sempre me pareceram honestas.<br>Existem de maneira frágil, se abrem por inteiro e desaparecem sem resistência. Há algo ao mesmo tempo perturbador e belo nisso.</p>
+        <p>Talvez os desenhos surjam dessa sensação,<br>a tentativa de ilustrar o interno das coisas, estados que nos atravessam sem encontrar uma forma estável antes do fim.</p>
+        <p>Como uma despedida suave.</p>
+      </div>
+      <div class="sobre-text" id="sobre-overlay-text-en" style="display:none;">
+        <p>I'm not trying to represent nature.<br>I'm drawn to its elements because they hold something I recognize — something I can't quite name.</p>
+        <p>Certain patterns keep coming back, as if a quiet architecture runs through everything.</p>
+        <p>Flowers have always struck me as honest.<br>They exist so briefly, open completely, then disappear without a fight. There's something unsettling and beautiful about that.</p>
+        <p>Maybe the drawings come from that feeling —<br>an attempt to picture the inside of things. States that move through us before they ever settle.</p>
+        <p>Like a soft goodbye.</p>
+      </div>
+      <div class="sobre-footer">
+        <div class="sobre-name">Welbert Rodrigues</div>
+        <div class="sobre-role" id="sobre-footer-role-pt">Tatuador &amp; Ilustrador · desde 2019</div>
+        <div class="sobre-role" id="sobre-footer-role-en" style="display:none;">Tattoo Artist &amp; Illustrator · since 2019</div>
+        <div class="sobre-location">Belo Horizonte, Brasil</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flash modal -->
   <div class="flash-modal" id="flash-modal" onclick="handleFlashOverlayClick(event)">
     <div class="flash-modal-content">
       <button class="flash-modal-close" onclick="closeFlash()" aria-label="Fechar">&times;</button>
@@ -884,169 +989,312 @@
     </div>
   </div>
 
+  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada">
     <button class="close-btn" onclick="closeLightbox()" aria-label="Fechar">&times;</button>
     <button class="prev-btn" onclick="changeImage(-1)" aria-label="Imagem anterior">&lt;</button>
     <img id="lightbox-img" src="" alt="Imagem ampliada">
-
     <a class="lightbox-contact-btn" id="lightbox-reserve-btn" href="#" target="_blank" rel="noopener noreferrer">RESERVAR</a>
-
     <button class="next-btn" onclick="changeImage(1)" aria-label="Próxima imagem">&gt;</button>
-  </div>
-  
-  <div class="bio-modal" id="bio-modal" role="dialog" aria-modal="true" aria-label="Sobre Welbert Rodrigues" onclick="handleBioOverlayClick(event)">
-    <div class="bio-modal-content">
-      <button class="bio-modal-close" onclick="closeBio()" aria-label="Fechar">&times;</button>
-      <img src="images/profile.jpg" alt="Welbert Rodrigues" class="bio-photo"
-        onerror="this.onerror=null;this.style.display='none'">
-      <div class="bio-name">Welbert Rodrigues</div>
-      <div class="bio-role" id="bio-role-pt">Tatuador / Ilustrador</div>
-      <div class="bio-role" id="bio-role-en">Tattoo Artist / Illustrator</div>
-      <div class="bio-text" id="bio-text-pt">
-        <p>Não procuro representar a natureza. Aproximo-me desses elementos por carregarem algo que reconheço, mesmo sem conseguir definir completamente.</p>
-        <p>Busco criar imagens a partir de estados internos e percepções difíceis de definir. Os símbolos surgem como tentativa de tradução.</p>
-        <p>Tatuador desde 2019, atualmente em Belo Horizonte. Agenda aberta para outras cidades.</p>
-      </div>
-      <div class="bio-text" id="bio-text-en">
-        <p>I'm not interested in representing nature literally. I'm drawn to these elements because they carry something familiar, even if I can't fully define it.</p>
-        <p>My work explores inner states and perceptions that are difficult to put into words. Symbols emerge as a way of giving these states a visible form.</p>
-        <p>Tattoo artist since 2019, currently based in Belo Horizonte. Open to projects in other cities.</p>
-      </div>
-    </div>
   </div>
 
   <script>
-    function getCurrentSection() {
-      return sessionStorage.getItem("section") || "landing";
-    }
-    function saveSection(section) {
-      sessionStorage.setItem("section", section);
-    }
-
+    /* ── FLASH DATA ── */
     const flashData = {};
 
-    function initLandingVideo() {
-      const TOTAL = 5;
-      const video = document.getElementById('landing-video');
-      const container = video.closest('.landing-video-container');
+    /* ── STATE CENTRAL ──
+       Fonte única de verdade. Toda mudança passa por setState().
+       sessionStorage/localStorage só são lidos na inicialização.
+    ── */
+    const state = {
+      section:      sessionStorage.getItem('section')  || 'landing',
+      language:     localStorage.getItem('language')   || 'pt',
+      currentImage: 0,
+    };
 
-      const lastIndex = parseInt(localStorage.getItem('lastVideoIndex') ?? '-1', 10);
-      const nextIndex = (lastIndex + 1) % TOTAL;
-      localStorage.setItem('lastVideoIndex', nextIndex);
+    function setState(patch) {
+      Object.assign(state, patch);
+      if ('section'  in patch) sessionStorage.setItem('section',  state.section);
+      if ('language' in patch) localStorage.setItem('language',   state.language);
+    }
 
-      video.src = `video/video${nextIndex + 1}.mp4`;
-      video.loop = true;
-      video.muted = true;
-      video.playsInline = true;
+    /* ── NAVIGATION ── */
 
-      const tryPlay = () => {
-        video.play().catch(() => {
-          container.classList.add('video-failed');
+    function getCurrentSection() { return state.section; }
+    function getCurrentLanguage() { return state.language; }
+
+    function handleNameClick() {
+      if (state.section !== 'landing') showSection('landing');
+    }
+
+    function enterSite() { showSection('gallery'); }
+
+    function toggleGalleryInfo() {
+      showSection(state.section === 'gallery' ? 'info' : 'gallery');
+    }
+
+    function showSection(section) {
+      const ids = ['landing-section', 'gallery-section', 'info', 'waitlist-section'];
+      ids.forEach(id => document.getElementById(id).classList.add('hidden'));
+
+      const availabilityText = document.getElementById('availability-text');
+      const customLine       = document.querySelector('.custom-line');
+      const galleryToggleBtn = document.getElementById('gallery-toggle-btn');
+      const lang             = state.language;
+
+      availabilityText.style.display = 'none';
+      customLine.style.display       = 'none';
+      galleryToggleBtn.style.display = '';
+
+      const header = document.querySelector('.sticky-header');
+
+      if (section === 'landing') {
+        document.body.classList.add('on-landing');
+        header.classList.add('header-landing');
+        document.getElementById('landing-section').classList.remove('hidden');
+        galleryToggleBtn.style.display = 'none';
+        updateLandingText(lang);
+        initLandingVideo();
+        setSectionLabel('');
+      } else if (section === 'gallery') {
+        document.body.classList.remove('on-landing');
+        header.classList.remove('header-landing');
+        document.getElementById('gallery-section').classList.remove('hidden');
+        availabilityText.style.display = 'block';
+        customLine.style.display       = 'block';
+        galleryToggleBtn.textContent   = 'INFO';
+        setSectionLabel(lang === 'en' ? 'Designs' : 'Desenhos');
+      } else if (section === 'info') {
+        document.body.classList.remove('on-landing');
+        header.classList.remove('header-landing');
+        document.getElementById('info').classList.remove('hidden');
+        galleryToggleBtn.textContent = lang === 'en' ? 'DESIGNS' : 'DESENHOS';
+        setSectionLabel('Info');
+      } else if (section === 'waitlist') {
+        document.body.classList.remove('on-landing');
+        header.classList.remove('header-landing');
+        document.getElementById('waitlist-section').classList.remove('hidden');
+        galleryToggleBtn.textContent = lang === 'en' ? 'DESIGNS' : 'DESENHOS';
+        setSectionLabel(lang === 'en' ? 'Waitlist' : 'Lista de Espera');
+      }
+
+      setState({ section });
+    }
+
+    function setSectionLabel(text) {
+      const el = document.getElementById('section-label');
+      if (el) el.textContent = text;
+    }
+
+    /* ── I18N ── */
+
+    const accordionMapping = {
+      agendar: { pt: 'agendar-pt', en: 'agendar-en', btnPt: 'btn-agendar-pt', btnEn: 'btn-agendar-en' }
+    };
+
+    function applyLanguage(lang) {
+      const isPt = lang === 'pt';
+      document.getElementById('content-pt').classList.toggle('hidden', !isPt);
+      document.getElementById('content-en').classList.toggle('hidden', isPt);
+      document.getElementById('waitlist-form-pt').classList.toggle('hidden', !isPt);
+      document.getElementById('waitlist-form-en').classList.toggle('hidden', isPt);
+      document.getElementById('lang-btn').textContent = isPt ? 'EN' : 'PT';
+      document.getElementById('availability-text').textContent =
+        isPt ? 'Consulte disponibilidade.' : 'Check availability.';
+
+      const galleryCta = document.getElementById('gallery-cta-btn');
+      if (galleryCta) galleryCta.textContent = isPt ? 'AGENDAR' : 'BOOK';
+
+      const reserveBtn = document.getElementById('lightbox-reserve-btn');
+      if (reserveBtn) reserveBtn.textContent = isPt ? 'RESERVAR' : 'BOOK';
+
+      const galleryToggleBtn = document.getElementById('gallery-toggle-btn');
+      if (state.section === 'landing') {
+        galleryToggleBtn.style.display = 'none';
+      } else {
+        galleryToggleBtn.style.display = '';
+        galleryToggleBtn.textContent =
+          state.section === 'gallery' ? 'INFO' : (isPt ? 'DESENHOS' : 'DESIGNS');
+      }
+
+      // Reset all accordions on language change
+      Object.keys(accordionMapping).forEach(key => {
+        ['pt', 'en'].forEach(l => {
+          const elemId = accordionMapping[key][l];
+          const btnKey = l === 'pt' ? 'btnPt' : 'btnEn';
+          const btnId  = accordionMapping[key][btnKey];
+          const elem   = document.getElementById(elemId);
+          const btn    = document.getElementById(btnId);
+          if (elem) { elem.classList.remove('active'); elem.style.maxHeight = '0px'; }
+          if (btn)  btn.setAttribute('aria-expanded', 'false');
         });
-      };
+      });
+    }
 
-      video.addEventListener('canplay', tryPlay, { once: true });
-      video.addEventListener('error', () => container.classList.add('video-failed'));
-      video.load();
+    function toggleLanguage() {
+      // Remember which accordions were open before switching
+      const activeAccordions = [];
+      Object.keys(accordionMapping).forEach(key => {
+        const id = state.language === 'pt' ? accordionMapping[key].pt : accordionMapping[key].en;
+        if (document.getElementById(id)?.classList.contains('active')) activeAccordions.push(key);
+      });
+
+      const newLang = state.language === 'en' ? 'pt' : 'en';
+      setState({ language: newLang });
+      document.documentElement.lang = newLang === 'pt' ? 'pt-BR' : 'en';
+      applyLanguage(newLang);
+      updateLandingText(newLang);
+
+      // Reopen equivalent accordions in new language
+      activeAccordions.forEach(key => {
+        const id    = newLang === 'pt' ? accordionMapping[key].pt    : accordionMapping[key].en;
+        const btnId = newLang === 'pt' ? accordionMapping[key].btnPt : accordionMapping[key].btnEn;
+        const elem  = document.getElementById(id);
+        const btn   = document.getElementById(btnId);
+        if (elem && btn) {
+          elem.classList.add('active');
+          elem.style.maxHeight = elem.scrollHeight + 'px';
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+
+      const formKey    = newLang === 'pt' ? 'form-pt'    : 'form-en';
+      const storageKey = newLang === 'pt' ? 'formDataPT' : 'formDataEN';
+      loadFormData(formKey, storageKey);
     }
 
     function updateLandingText(lang) {
       const isPt = lang === 'pt';
       document.getElementById('landing-desenhos-btn').textContent = isPt ? 'DESENHOS' : 'DESIGNS';
-      document.getElementById('landing-sobre-btn').textContent    = isPt ? 'SOBRE'    : 'ABOUT';
+      document.getElementById('landing-info-btn').textContent     = 'INFO';
       const fallbackText = document.getElementById('landing-fallback-text');
       if (fallbackText) fallbackText.textContent = isPt ? 'DESENHOS' : 'DESIGNS';
     }
 
-    function handleNameClick() {
-      if (getCurrentSection() !== "landing") {
-        showSection("landing");
+    /* ── UI — ACCORDION (genérico) ──
+       Funciona com qualquer trigger: ID de elemento, seletor CSS ou elemento DOM.
+    ── */
+    function toggleAccordion(contentId, triggerRef) {
+      const content = document.getElementById(contentId);
+      if (!content) return;
+
+      // Resolve o botão/trigger
+      const btn = typeof triggerRef === 'string'
+        ? (triggerRef.startsWith('.') || triggerRef.startsWith('#')
+            ? document.querySelector(triggerRef)
+            : document.getElementById(triggerRef))
+        : triggerRef;
+
+      const isOpen = content.classList.contains('active');
+
+      if (isOpen) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        content.getBoundingClientRect(); // force reflow
+        content.style.maxHeight = '0px';
+        content.classList.remove('active');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      } else {
+        content.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+        content.addEventListener('transitionend', () => {
+          if (content.classList.contains('active')) content.style.maxHeight = 'none';
+        }, { once: true });
+
+        // Scroll suave só para o contato
+        if (contentId === 'contato-info') {
+          const section = document.getElementById('contact-section');
+          const y = section.getBoundingClientRect().top + window.pageYOffset - 150;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
       }
     }
 
-    function enterSite() {
-      showSection('gallery');
+    // Alias mantido para o toggleContato original (ainda chamado pelo HTML)
+    function toggleContato() {
+      toggleAccordion('contato-info', '.contact-title');
     }
 
-    function getCurrentLanguage() {
-      return localStorage.getItem("language") || "pt";
+    /* ── UI — SOBRE OVERLAY ── */
+
+    function openSobre() {
+      const isPt = state.language === 'pt';
+      document.getElementById('sobre-overlay-text-pt').style.display = isPt ? '' : 'none';
+      document.getElementById('sobre-overlay-text-en').style.display = isPt ? 'none' : '';
+      document.getElementById('sobre-footer-role-pt').style.display  = isPt ? '' : 'none';
+      document.getElementById('sobre-footer-role-en').style.display  = isPt ? 'none' : '';
+      document.getElementById('sobre-close-btn').textContent = isPt ? 'FECHAR' : 'CLOSE';
+
+      // Reset paragraph animations
+      const activeText = document.getElementById(
+        isPt ? 'sobre-overlay-text-pt' : 'sobre-overlay-text-en'
+      );
+      activeText.querySelectorAll('p').forEach(p => {
+        p.style.animation = 'none';
+        p.offsetHeight; // reflow
+        p.style.animation = '';
+      });
+
+      document.getElementById('sobre-overlay').style.display = 'block';
+      document.documentElement.style.overflow = 'hidden';
     }
 
-    function openBio() {
-      const isPt = getCurrentLanguage() === "pt";
-      document.getElementById("bio-role-pt").style.display = isPt ? "" : "none";
-      document.getElementById("bio-role-en").style.display = isPt ? "none" : "";
-      document.getElementById("bio-text-pt").style.display = isPt ? "" : "none";
-      document.getElementById("bio-text-en").style.display = isPt ? "none" : "";
-      document.getElementById("bio-modal").style.display = "flex";
-      document.documentElement.style.overflow = "hidden";
+    function closeSobre() {
+      document.getElementById('sobre-overlay').style.display = 'none';
+      document.documentElement.style.overflow = '';
     }
-    function closeBio() {
-      document.getElementById("bio-modal").style.display = "none";
-      document.documentElement.style.overflow = "";
-    }
-    function handleBioOverlayClick(e) {
-      if (e.target === document.getElementById("bio-modal")) closeBio();
-    }
-    document.addEventListener("keydown", function(e) {
-      if (e.key === "Escape") {
-        closeBio();
-        closeFlash();
-        closeLightbox();
-      }
-      if (document.getElementById("lightbox").style.display === "flex") {
-        if (e.key === "ArrowLeft")  changeImage(-1);
-        if (e.key === "ArrowRight") changeImage(1);
-      }
-    });
 
-    if (window.location.search.includes('fbclid')) {
-      const url = new URL(window.location);
-      url.searchParams.delete('fbclid');
-      history.replaceState(null, '', url.pathname + url.search);
-    }
+    /* ── UI — FLASH MODAL ── */
 
     function openFlash(num) {
       const data = flashData[num];
       if (!data) { openLightbox(num); return; }
-      document.getElementById("flash-main-img").src = `images/desenho${num}.jpg`;
-      document.getElementById("flash-main-img").alt = data.nome;
-      document.getElementById("flash-title").textContent = data.nome;
-      document.getElementById("flash-size").textContent = data.tamanho;
-      document.getElementById("flash-price").textContent = data.valor;
-      const status = document.getElementById("flash-status");
-      status.textContent = data.disponivel ? "Disponível" : "Reservado";
-      status.className = "flash-status " + (data.disponivel ? "available" : "reserved");
-      const mockupsEl = document.getElementById("flash-mockups");
-      mockupsEl.innerHTML = "";
+
+      document.getElementById('flash-main-img').src = `images/desenho${num}.jpg`;
+      document.getElementById('flash-main-img').alt = data.nome;
+      document.getElementById('flash-title').textContent = data.nome;
+      document.getElementById('flash-size').textContent  = data.tamanho;
+      document.getElementById('flash-price').textContent = data.valor;
+
+      const status = document.getElementById('flash-status');
+      status.textContent = data.disponivel ? 'Disponível' : 'Reservado';
+      status.className   = 'flash-status ' + (data.disponivel ? 'available' : 'reserved');
+
+      const mockupsEl = document.getElementById('flash-mockups');
+      mockupsEl.innerHTML = '';
       (data.mockups || []).slice(0, 2).forEach(src => {
-        const img = document.createElement("img");
-        img.src = src; img.alt = "Referência";
+        const img = document.createElement('img');
+        img.src = src; img.alt = 'Referência';
         img.onerror = function() { this.remove(); };
         mockupsEl.appendChild(img);
       });
-      const cta = document.getElementById("flash-cta");
+
+      const cta = document.getElementById('flash-cta');
       if (data.disponivel) {
         const msg = encodeURIComponent(`Olá! Tenho interesse no flash "${data.nome}" (${data.tamanho}).`);
-        cta.href = `https://wa.me/5531920022832?text=${msg}`;
-        cta.className = "flash-cta";
-        cta.textContent = "Reservar este flash";
+        cta.href      = `https://wa.me/5531920022832?text=${msg}`;
+        cta.className = 'flash-cta';
+        cta.textContent = 'Reservar este flash';
       } else {
-        cta.removeAttribute("href");
-        cta.className = "flash-cta reserved";
-        cta.textContent = "Reservado";
+        cta.removeAttribute('href');
+        cta.className   = 'flash-cta reserved';
+        cta.textContent = 'Reservado';
       }
-      document.getElementById("flash-modal").style.display = "flex";
-      document.documentElement.style.overflow = "hidden";
+
+      document.getElementById('flash-modal').style.display = 'flex';
+      document.documentElement.style.overflow = 'hidden';
     }
 
     function closeFlash() {
-      document.getElementById("flash-modal").style.display = "none";
-      document.documentElement.style.overflow = "";
+      document.getElementById('flash-modal').style.display = 'none';
+      document.documentElement.style.overflow = '';
     }
+
     function handleFlashOverlayClick(e) {
-      if (e.target === document.getElementById("flash-modal")) closeFlash();
+      if (e.target === document.getElementById('flash-modal')) closeFlash();
     }
+
+    /* ── UI — LIGHTBOX ── */
 
     const imagensValidas = [
       1,2,4,5,6,7,8,9,10,12,13,
@@ -1060,9 +1308,75 @@
       90,91,92,93,
     ];
     const imagensOrdenadas = [...imagensValidas].reverse();
-    
+
+    function updateReserveLink() {
+      const num      = imagensOrdenadas[state.currentImage];
+      const imageUrl = `${window.location.origin}${window.location.pathname.replace(/\/[^/]*$/, '')}/images/desenho${num}.jpg`;
+      const isPt     = state.language === 'pt';
+      const msg      = isPt
+        ? `Olá, tenho interesse em agendar uma tatuagem. Segue o desenho: ${imageUrl}`
+        : `Hi, I'm interested in booking a tattoo. Here's the design: ${imageUrl}`;
+      document.getElementById('lightbox-reserve-btn').href =
+        `https://wa.me/5531920022832?text=${encodeURIComponent(msg)}`;
+    }
+
+    function openLightbox(num) {
+      setState({ currentImage: imagensOrdenadas.indexOf(num) });
+      document.getElementById('lightbox').style.display = 'flex';
+      updateLightboxImage();
+      updateReserveLink();
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    function changeImage(direction) {
+      const next = (state.currentImage + direction + imagensOrdenadas.length) % imagensOrdenadas.length;
+      setState({ currentImage: next });
+      updateLightboxImage();
+      updateReserveLink();
+    }
+
+    function updateLightboxImage() {
+      document.getElementById('lightbox-img').src =
+        `images/desenho${imagensOrdenadas[state.currentImage]}.jpg`;
+    }
+
+    /* ── MEDIA — LANDING VIDEO ── */
+
+    function initLandingVideo() {
+      const TOTAL = 5;
+      const video     = document.getElementById('landing-video');
+      const container = document.getElementById('landing-video-container');
+
+      // Cycle videos sequentially across page loads
+      const lastIndex = parseInt(localStorage.getItem('lastVideoIndex') ?? '-1', 10);
+      const nextIndex = (lastIndex + 1) % TOTAL;
+      localStorage.setItem('lastVideoIndex', nextIndex);
+
+      video.src        = `video/video${nextIndex + 1}.mp4`;
+      video.loop       = true;
+      video.muted      = true;
+      video.playsInline = true;
+
+      const tryPlay = () => {
+        video.play().catch(() => container.classList.add('video-failed'));
+      };
+      video.addEventListener('canplay', tryPlay, { once: true });
+      video.addEventListener('error',   () => container.classList.add('video-failed'));
+      video.load();
+
+      // Video click → opens "Sobre" overlay
+      container.onclick = openSobre;
+      const fallback = document.getElementById('landing-video-fallback');
+      if (fallback) fallback.onclick = openSobre;
+    }
+
+    /* ── GALLERY — LAZY LOADING & RENDER ── */
+
     const galleryContainer = document.querySelector('.gallery');
-    const galleryFragment = document.createDocumentFragment();
+    const galleryFragment  = document.createDocumentFragment();
 
     const lazyImageObserver = ('IntersectionObserver' in window)
       ? new IntersectionObserver((entries, observer) => {
@@ -1085,9 +1399,11 @@
       const isFlash = flashData.hasOwnProperty(num);
       const wrapper = document.createElement('div');
       wrapper.className = 'gallery-item';
+
       const img = document.createElement('img');
       const src = `images/desenho${num}.jpg`;
       img.alt = isFlash ? (flashData[num].nome || `Flash ${num}`) : `Desenho ${num}`;
+
       if (lazyImageObserver) {
         img.setAttribute('data-src', src);
         img.setAttribute('loading', 'lazy');
@@ -1095,327 +1411,159 @@
         img.src = src;
         img.classList.add('lazy-loaded');
       }
+
       img.onerror = function() {
         this.onerror = null;
         this.src = 'images/placeholder.jpg';
         this.addEventListener('error', () => { this.style.display = 'none'; }, { once: true });
       };
       img.onclick = () => isFlash ? openFlash(num) : openLightbox(num);
+
       wrapper.appendChild(img);
+
       if (isFlash) {
         const badge = document.createElement('span');
-        badge.className = 'flash-badge';
+        badge.className   = 'flash-badge';
         badge.textContent = 'Flash';
         wrapper.appendChild(badge);
       }
+
       galleryFragment.appendChild(wrapper);
       if (lazyImageObserver) lazyImageObserver.observe(img);
     });
+
     galleryContainer.appendChild(galleryFragment);
-    
-    let currentIndex = 0;
 
-    function updateReserveLink() {
-      const num = imagensOrdenadas[currentIndex];
-      const imageUrl = `${window.location.origin}${window.location.pathname.replace(/\/[^/]*$/, '')}/images/desenho${num}.jpg`;
-      const isPt = getCurrentLanguage() === "pt";
-      const msg = isPt
-        ? `Olá, tenho interesse em agendar uma tatuagem. Segue o desenho: ${imageUrl}`
-        : `Hi, I'm interested in booking a tattoo. Here's the design: ${imageUrl}`;
-      document.getElementById("lightbox-reserve-btn").href =
-        `https://wa.me/5531920022832?text=${encodeURIComponent(msg)}`;
-    }
+    /* ── FORMS — EMAILJS + STORAGE ── */
 
-    function openLightbox(num) {
-      currentIndex = imagensOrdenadas.indexOf(num);
-      document.getElementById("lightbox").style.display = "flex";
-      updateLightboxImage();
-      updateReserveLink();
-    }
-    function closeLightbox() {
-      document.getElementById("lightbox").style.display = "none";
-    }
-    function changeImage(direction) {
-      currentIndex += direction;
-      if (currentIndex < 0) currentIndex = imagensOrdenadas.length - 1;
-      if (currentIndex >= imagensOrdenadas.length) currentIndex = 0;
-      updateLightboxImage();
-      updateReserveLink();
-    }
-    function updateLightboxImage() {
-      document.getElementById("lightbox-img").src = `images/desenho${imagensOrdenadas[currentIndex]}.jpg`;
-    }
-    
-    document.querySelectorAll('.waitlist-link[data-action="open-waitlist"]').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        showSection('waitlist');
-        document.getElementById("waitlist-section").scrollIntoView({ behavior: "smooth" });
+    function saveFormData(formId, storageKey) {
+      const form = document.getElementById(formId);
+      if (!form) return;
+      const data = {};
+      form.querySelectorAll('input, textarea, select').forEach(input => {
+        if (input.type === 'radio') { if (input.checked) data[input.name] = input.value; }
+        else data[input.id] = input.value;
       });
-    });
+      localStorage.setItem(storageKey, JSON.stringify(data));
+    }
 
-    const accordionMapping = {
-      "orcamento":    { pt: "orcamento-pt",    en: "pricing-en",     btnPt: "btn-orcamento-pt",    btnEn: "btn-pricing-en" },
-      "agendamento":  { pt: "agendamento-pt",  en: "booking-en",     btnPt: "btn-agendamento-pt",  btnEn: "btn-booking-en" },
-      "lista-espera": { pt: "lista-espera-pt", en: "waitlist-en",    btnPt: "btn-lista-espera-pt", btnEn: "btn-waitlist-en" },
-      "dia-sessao":   { pt: "dia-sessao-pt",   en: "session-day-en", btnPt: "btn-dia-sessao-pt",   btnEn: "btn-session-day-en" }
-    };
+    function loadFormData(formId, storageKey) {
+      const form = document.getElementById(formId);
+      if (!form) return;
+      const data = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      form.querySelectorAll('input, textarea, select').forEach(input => {
+        if (input.type === 'radio') { if (data[input.name] === input.value) input.checked = true; }
+        else if (data[input.id]) input.value = data[input.id];
+      });
+    }
 
-    function applyLanguage(lang) {
-      const isPt = lang === "pt";
-      const currentSection = getCurrentSection();
-      document.getElementById("content-pt").classList.toggle("hidden", !isPt);
-      document.getElementById("content-en").classList.toggle("hidden", isPt);
-      document.getElementById("waitlist-form-pt").classList.toggle("hidden", !isPt);
-      document.getElementById("waitlist-form-en").classList.toggle("hidden", isPt);
-      document.getElementById("lang-btn").textContent = isPt ? "EN" : "PT";
-      document.getElementById("availability-text").textContent = isPt ? "Consulte disponibilidade." : "Check availability.";
-      const reserveBtn = document.getElementById("lightbox-reserve-btn");
-      if (reserveBtn) reserveBtn.textContent = isPt ? "RESERVAR" : "BOOK";
+    function attachFormAutosave(formId, storageKey) {
+      const form = document.getElementById(formId);
+      if (!form) return;
+      form.querySelectorAll('input, textarea, select').forEach(input => {
+        input.addEventListener('input', () => saveFormData(formId, storageKey));
+      });
+    }
 
-      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      if (currentSection === "landing") {
-        galleryToggleBtn.style.display = "none";
-      } else {
-        galleryToggleBtn.style.display = "";
-        galleryToggleBtn.textContent = currentSection === "gallery" ? "INFO" : (isPt ? "DESENHOS" : "DESIGNS");
-      }
+    function handleFormSubmit(formId, responseId, messages) {
+      const form              = document.getElementById(formId);
+      const responseContainer = document.getElementById(responseId);
+      if (!form || !responseContainer) return;
 
-      Object.keys(accordionMapping).forEach(key => {
-        ["pt", "en"].forEach(l => {
-          const elemId = accordionMapping[key][l];
-          const btnKey = l === "pt" ? "btnPt" : "btnEn";
-          const btnId  = accordionMapping[key][btnKey];
-          const elem = document.getElementById(elemId);
-          const btn  = document.getElementById(btnId);
-          if (elem) { elem.classList.remove("active"); elem.style.maxHeight = "0px"; }
-          if (btn)  btn.setAttribute("aria-expanded", "false");
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        responseContainer.innerHTML = '<p style="color: #555;">Enviando...</p>';
+
+        const data = {};
+        form.querySelectorAll('input, textarea, select').forEach(input => {
+          if (input.type === 'file') return;
+          if (input.type === 'radio') { if (input.checked) data[input.name] = input.value; }
+          else data[input.name] = input.value;
         });
+
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data)
+          .then(() => {
+            responseContainer.innerHTML =
+              `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
+            form.reset();
+            localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
+          })
+          .catch(() => {
+            responseContainer.innerHTML =
+              `<p style="color: red; font-size: 16px;">&#10007; ${messages.error}</p>`;
+          });
       });
     }
 
-    function toggleLanguage() {
-      const currentLanguage = getCurrentLanguage();
-      const activeAccordions = [];
-      Object.keys(accordionMapping).forEach(key => {
-        const id = currentLanguage === "pt" ? accordionMapping[key].pt : accordionMapping[key].en;
-        if (document.getElementById(id)?.classList.contains("active")) activeAccordions.push(key);
-      });
-      const newLanguage = currentLanguage === "en" ? "pt" : "en";
-      localStorage.setItem("language", newLanguage);
-      document.documentElement.lang = newLanguage === "pt" ? "pt-BR" : "en";
-      applyLanguage(newLanguage);
-      updateLandingText(newLanguage);
-      activeAccordions.forEach(key => {
-        const id    = newLanguage === "pt" ? accordionMapping[key].pt    : accordionMapping[key].en;
-        const btnId = newLanguage === "pt" ? accordionMapping[key].btnPt : accordionMapping[key].btnEn;
-        const elem  = document.getElementById(id);
-        const btn   = document.getElementById(btnId);
-        if (elem && btn) {
-          elem.classList.add("active");
-          elem.style.maxHeight = elem.scrollHeight + "px";
-          btn.setAttribute("aria-expanded", "true");
-        }
-      });
-      const formKey    = newLanguage === "pt" ? "form-pt"    : "form-en";
-      const storageKey = newLanguage === "pt" ? "formDataPT" : "formDataEN";
-      loadFormData(formKey, storageKey);
-    }
-    
-    function showSection(section) {
-      const landingSection   = document.getElementById("landing-section");
-      const gallerySection   = document.getElementById("gallery-section");
-      const infoSection      = document.getElementById("info");
-      const waitlistSection  = document.getElementById("waitlist-section");
-      const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      const availabilityText = document.getElementById("availability-text");
-      const customLine       = document.querySelector('.custom-line');
-      const lang             = getCurrentLanguage();
-
-      landingSection.classList.add("hidden");
-      gallerySection.classList.add("hidden");
-      infoSection.classList.add("hidden");
-      waitlistSection.classList.add("hidden");
-      availabilityText.style.display  = "none";
-      customLine.style.display        = "none";
-      galleryToggleBtn.style.display  = "";
-
-      if (section === "landing") {
-        document.body.classList.add("on-landing");
-        landingSection.classList.remove("hidden");
-        galleryToggleBtn.style.display = "none";
-        document.querySelector('.sticky-header').classList.add('header-landing');
-        updateLandingText(lang);
-        initLandingVideo();
-      } else if (section === "gallery") {
-        document.body.classList.remove("on-landing");
-        document.querySelector('.sticky-header').classList.remove('header-landing');
-        gallerySection.classList.remove("hidden");
-        availabilityText.style.display = "block";
-        customLine.style.display       = "block";
-        galleryToggleBtn.textContent   = "INFO";
-      } else if (section === "info") {
-        document.body.classList.remove("on-landing");
-        infoSection.classList.remove("hidden");
-        galleryToggleBtn.textContent = lang === "en" ? "DESIGNS" : "DESENHOS";
-      } else if (section === "waitlist") {
-        document.body.classList.remove("on-landing");
-        waitlistSection.classList.remove("hidden");
-        galleryToggleBtn.textContent = "INFO";
-      }
-
-      saveSection(section);
-    }
-
-    function toggleGalleryInfo() {
-      document.getElementById("contato-info").classList.remove("active");
-      document.getElementById("contato-info").style.maxHeight = "0px";
-      const currentSection = getCurrentSection();
-      if (currentSection === "gallery") {
-        showSection("info");
-      } else {
-        showSection("gallery");
-      }
-    }
-    
-    function toggleAccordion(id, btnId) {
-      const content = document.getElementById(id);
-      const button  = document.getElementById(btnId);
-      const isOpen  = content.classList.contains("active");
-      if (isOpen) {
-        content.style.maxHeight = content.scrollHeight + "px";
-        content.getBoundingClientRect();
-        content.style.maxHeight = "0px";
-        content.classList.remove("active");
-        button.setAttribute("aria-expanded", "false");
-      } else {
-        content.classList.add("active");
-        content.style.maxHeight = content.scrollHeight + "px";
-        button.setAttribute("aria-expanded", "true");
-        content.addEventListener('transitionend', () => {
-          if (content.classList.contains('active')) content.style.maxHeight = 'none';
-        }, { once: true });
-      }
-    }
-    
-    function toggleContato() {
-      const contatoInfo    = document.getElementById("contato-info");
-      const contactSection = document.getElementById("contact-section");
-      const isOpen = contatoInfo.classList.contains("active");
-      if (isOpen) {
-        contatoInfo.style.maxHeight = contatoInfo.scrollHeight + "px";
-        contatoInfo.getBoundingClientRect();
-        contatoInfo.style.maxHeight = "0px";
-        contatoInfo.classList.remove("active");
-        document.querySelector('.contact-title').setAttribute("aria-expanded", "false");
-      } else {
-        contatoInfo.classList.add("active");
-        contatoInfo.style.maxHeight = contatoInfo.scrollHeight + "px";
-        document.querySelector('.contact-title').setAttribute("aria-expanded", "true");
-        contatoInfo.addEventListener('transitionend', () => {
-          if (contatoInfo.classList.contains('active')) contatoInfo.style.maxHeight = 'none';
-        }, { once: true });
-        const y = contactSection.getBoundingClientRect().top + window.pageYOffset - 150;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
-    }
-    
     function togglePhone(lang) {
-      const fieldId = lang === 'pt' ? 'phone-field-pt' : 'phone-field-en';
-      const waId    = lang === 'pt' ? 'contato-wa'     : 'contact-wa-en';
+      const fieldId    = lang === 'pt' ? 'phone-field-pt' : 'phone-field-en';
+      const waId       = lang === 'pt' ? 'contato-wa'     : 'contact-wa-en';
       const phoneInput = document.querySelector(`#${fieldId} input`);
-      const isWA = document.getElementById(waId).checked;
+      const isWA       = document.getElementById(waId).checked;
       document.getElementById(fieldId).classList.toggle('hidden', !isWA);
       phoneInput.required = isWA;
     }
 
-    function loadState() {
-      const lang = getCurrentLanguage();
-      applyLanguage(lang);
-      updateLandingText(lang);
-      const section = sessionStorage.getItem("section") || "landing";
-      showSection(section);
-      const formKey    = lang === "pt" ? "form-pt"    : "form-en";
-      const storageKey = lang === "pt" ? "formDataPT" : "formDataEN";
-      loadFormData(formKey, storageKey);
+    /* ── INIT ── */
+
+    // Clean fbclid from URL
+    if (window.location.search.includes('fbclid')) {
+      const url = new URL(window.location);
+      url.searchParams.delete('fbclid');
+      history.replaceState(null, '', url.pathname + url.search);
     }
-    
-    loadState();
-    
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeSobre();
+        closeFlash();
+        closeLightbox();
+      }
+      if (document.getElementById('lightbox').style.display === 'flex') {
+        if (e.key === 'ArrowLeft')  changeImage(-1);
+        if (e.key === 'ArrowRight') changeImage(1);
+      }
+    });
+
+    // Waitlist links
+    document.querySelectorAll('.waitlist-link[data-action="open-waitlist"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        showSection('waitlist');
+        document.getElementById('waitlist-section').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Accessibility: keyboard activation for role="button" non-buttons
     document.querySelectorAll('[role="button"]:not(button)').forEach(elem => {
       if (!elem.hasAttribute('tabindex')) elem.setAttribute('tabindex', '0');
       elem.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); elem.click(); }
       });
     });
-    
-    function saveFormData(formId, storageKey) {
-      const form = document.getElementById(formId);
-      if (!form) return;
-      const data = {};
-      form.querySelectorAll("input, textarea, select").forEach(input => {
-        if (input.type === "radio") { if (input.checked) data[input.name] = input.value; }
-        else data[input.id] = input.value;
-      });
-      localStorage.setItem(storageKey, JSON.stringify(data));
-    }
-    
-    function loadFormData(formId, storageKey) {
-      const form = document.getElementById(formId);
-      if (!form) return;
-      const data = JSON.parse(localStorage.getItem(storageKey) || "{}");
-      form.querySelectorAll("input, textarea, select").forEach(input => {
-        if (input.type === "radio") { if (data[input.name] === input.value) input.checked = true; }
-        else if (data[input.id]) input.value = data[input.id];
-      });
-    }
-    
-    const formPT = document.getElementById('form-pt');
-    if (formPT) {
-      formPT.querySelectorAll("input, textarea, select").forEach(input => {
-        input.addEventListener('input', () => saveFormData('form-pt', 'formDataPT'));
-      });
-    }
-    const formEN = document.getElementById('form-en');
-    if (formEN) {
-      formEN.querySelectorAll("input, textarea, select").forEach(input => {
-        input.addEventListener('input', () => saveFormData('form-en', 'formDataEN'));
-      });
-    }
-    
-    function handleFormSubmit(formId, responseId, messages) {
-      const form = document.getElementById(formId);
-      const responseContainer = document.getElementById(responseId);
-      if (!form || !responseContainer) return;
-      form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        responseContainer.innerHTML = '<p style="color: #555;">Enviando...</p>';
-        const data = {};
-        form.querySelectorAll("input, textarea, select").forEach(input => {
-          if (input.type === "file") return;
-          if (input.type === "radio") { if (input.checked) data[input.name] = input.value; }
-          else data[input.name] = input.value;
-        });
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data)
-          .then(() => {
-            responseContainer.innerHTML = `<p style="color: green; font-size: 16px;">&#10003; ${messages.success}</p>`;
-            form.reset();
-            localStorage.removeItem(formId === 'form-pt' ? 'formDataPT' : 'formDataEN');
-          })
-          .catch(() => {
-            responseContainer.innerHTML = `<p style="color: red; font-size: 16px;">&#10007; ${messages.error}</p>`;
-          });
-      });
-    }
-    
+
+    // Forms
+    attachFormAutosave('form-pt', 'formDataPT');
+    attachFormAutosave('form-en', 'formDataEN');
+
     handleFormSubmit('form-pt', 'form-response-pt', {
-      success: "Inscrição recebida. Entrarei em contato assim que houver datas na sua região.",
-      error:   "Houve um problema ao enviar sua inscrição. Por favor, tente novamente."
+      success: 'Inscrição recebida. Entrarei em contato assim que houver datas na sua região.',
+      error:   'Houve um problema ao enviar sua inscrição. Por favor, tente novamente.'
     });
     handleFormSubmit('form-en', 'form-response-en', {
       success: "You're on the list. I'll reach out as soon as dates are available in your area.",
-      error:   "There was an error submitting your form. Please try again."
+      error:   'There was an error submitting your form. Please try again.'
     });
+
+    // Bootstrap: apply language + restore section
+    applyLanguage(state.language);
+    updateLandingText(state.language);
+    showSection(state.section);
+
+    const formKey    = state.language === 'pt' ? 'form-pt'    : 'form-en';
+    const storageKey = state.language === 'pt' ? 'formDataPT' : 'formDataEN';
+    loadFormData(formKey, storageKey);
   </script>
 </body>
 </html>
