@@ -93,19 +93,31 @@
       width: 100%;
       box-sizing: border-box;
     }
-    
+
+    /* ── ALTERAÇÃO 2: Contact title menor e proporcional aos botões ── */
     .contact-title {
-      display: block;
-      width: 100%;
+      display: inline-block;
+      width: auto;
       text-align: center;
-      border: none;
-      padding: 8px 16px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 4px 8px;
       margin: 20px 0 8px;
-      font-size: 14px;
+      font-size: 11px;
       font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       cursor: pointer;
-      color: #000;
+      color: #555;
       background-color: transparent;
+      font-family: 'Outfit', sans-serif;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-title:hover { border-color: #999; color: #222; }
+
+    /* Centraliza o botão de contato dentro da section */
+    #contact-section {
+      text-align: center;
     }
     
     p, ul, li {
@@ -371,29 +383,58 @@
     }
     .instagram-btn:hover { text-decoration: underline; }
     
+    /* ── ALTERAÇÃO 1: Header com nome ACIMA dos botões ── */
+    .sticky-header-inner {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 4px;
+    }
+    .sticky-header-top {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .sticky-header-bottom {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .top-back {
+      background: none; border: none; padding: 0;
+      font-size: 16px; color: #bbb; cursor: pointer;
+      transition: color 0.2s; line-height: 1;
+      display: none; margin-right: 8px;
+    }
+    .top-back:hover { color: #555; }
+    body.show-back .top-back  { display: block; }
+    body.show-back .top-name  { visibility: hidden; width: 0; overflow: hidden; padding: 0; }
+    .top-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500; font-size: 13px;
+      text-transform: uppercase; color: #666;
+      letter-spacing: 0.04em;
+      background: none; border: none; padding: 0;
+    }
+    .top-name-label { display: none !important; }
     .top-controls {
-      text-align: right;
-      margin-bottom: 10px;
+      display: flex; gap: 6px; align-items: center;
     }
     .top-controls button {
-      background-color: transparent;
-      color: #000;
-      border: none;
-      padding: 8px 2px;
-      font-size: inherit;
+      background: transparent;
+      color: #555;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 4px 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
       font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
       cursor: pointer;
-      transition: opacity 0.3s ease;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .top-controls button#lang-btn::before {
-      content: "|";
-      display: inline-block;
-      margin: 0 7px 0 2px;
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1;
-    }
-    .top-controls button:hover { opacity: 0.8; }
+    .top-controls button:hover { border-color: #999; color: #222; }
+    .top-controls button#lang-btn::before { content: none; }
     
     .accordion-content {
       overflow: hidden;
@@ -478,23 +519,12 @@
       .gallery { grid-template-columns: repeat(4, 1fr); gap: 16px; }
     }
     
-    /* ── Header ─────────────────────────────────────────── */
-    .top-name {
-      cursor: pointer; transition: opacity 0.2s;
-      background: none; border: none; padding: 0;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 500; font-size: 14px;
-      text-transform: uppercase; color: #666;
-      margin-bottom: 4px; text-align: left;
-    }
-    .top-name:hover { opacity: 0.6; }
-    .top-name-label { display: none !important; }
-
     @media (prefers-color-scheme: dark) {
       html { background-color: #121212; }
       body { color: #e0e0e0; background-color: #121212; }
       h2 { border-bottom: 1px solid #444; }
-      .top-controls button { color: #e0e0e0; }
+      .top-controls button { color: #aaa; border-color: #444; }
+      .top-controls button:hover { border-color: #888; color: #eee; }
       .gallery img { background-color: #1e1e1e; }
       .lightbox { background: rgba(0,0,0,0.9); }
       .close-btn, .prev-btn, .next-btn {
@@ -505,7 +535,8 @@
         background: rgba(0,0,0,0.7); box-shadow: 0 6px 12px rgba(0,0,0,0.6);
       }
       .instagram-btn { color: #e0e0e0; border-color: #e0e0e0; }
-      .contact-title { color: #666; }
+      .contact-title { color: #aaa; border-color: #444; }
+      .contact-title:hover { border-color: #888; color: #eee; }
       #contato-info .contato-label { color: #666; }
       #contato-info a.email, #contato-info a.whatsapp { color: #fff; }
       header.sticky-header { background-color: #121212; }
@@ -538,7 +569,7 @@
       display: block;
     }
     .sobre-teaser-quote {
-      font-size: 15px;
+      font-size: 12px;
       font-weight: 300;
       color: #888;
       line-height: 1.9;
@@ -632,6 +663,7 @@
       letter-spacing: 0.12em; color: #aaa;
       cursor: pointer; padding: 4px;
       transition: color 0.2s;
+      z-index: 9999;
     }
     .sobre-close:hover { color: #333; }
     .sobre-text {
@@ -686,11 +718,19 @@
     </p>
   </noscript>
   
+  <!-- ALTERAÇÃO 1: nome acima dos botões — estrutura dividida em duas linhas -->
   <header class="sticky-header" role="banner">
-    <button class="top-name" aria-label="Página inicial" onclick="handleNameClick()">WELBERT RODRIGUES</button>
-    <div class="top-controls">
-      <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()" aria-label="Alternar entre galeria e informações">INFO</button>
-      <button id="lang-btn" onclick="toggleLanguage()" aria-label="Alternar idioma">EN</button>
+    <div class="sticky-header-inner">
+      <div class="sticky-header-top">
+        <button class="top-back" onclick="handleBack()" aria-label="Voltar">←</button>
+        <span class="top-name">WELBERT RODRIGUES</span>
+      </div>
+      <div class="sticky-header-bottom">
+        <div class="top-controls">
+          <button id="gallery-toggle-btn" onclick="toggleGalleryInfo()" aria-label="Alternar entre galeria e informações">INFO</button>
+          <button id="lang-btn" onclick="toggleLanguage()" aria-label="Alternar idioma">EN</button>
+        </div>
+      </div>
     </div>
     <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
     <hr class="custom-line">
@@ -700,16 +740,6 @@
 
     <section id="gallery-section" class="section">
       <div class="gallery" aria-label="Galeria de desenhos"></div>
-      <div id="gallery-cta" style="text-align:center; margin: 32px 0 8px;">
-        <a href="https://wa.me/5531920022832" target="_blank" rel="noopener noreferrer"
-          style="display:inline-block; border:1px solid #000; color:#000; background:transparent;
-          font-family:'Outfit',sans-serif; font-size:11px; font-weight:500; text-transform:uppercase;
-          letter-spacing:0.1em; padding:10px 28px; border-radius:4px; text-decoration:none;
-          transition:background 0.2s, color 0.2s;"
-          onmouseover="this.style.background='#000';this.style.color='#fff'"
-          onmouseout="this.style.background='transparent';this.style.color='#000'"
-          id="gallery-cta-btn">AGENDAR</a>
-      </div>
     </section>
     
     <section id="info" class="section hidden" aria-label="Informações">
@@ -864,6 +894,7 @@
       </div>
     </section>
     
+    <!-- ALTERAÇÃO 2: botão de contato menor — CSS já cuida, section com text-align:center -->
     <section id="contact-section">
       <h2 class="contact-title" onclick="toggleContato()" role="button" aria-expanded="false" aria-controls="contato-info">CONTATO | CONTACT</h2>
       <div id="contato-info" class="accordion-content" role="region">
@@ -892,7 +923,6 @@
         <p>Maybe the drawings come from that feeling —<br>an attempt to picture the inside of things. States that move through us before they ever settle.</p>
         <p>Like a soft goodbye.</p>
       </div>
-      <!-- MUDANÇA 3: nome + "Tatuador desde 2019" no footer do sobre -->
       <div class="sobre-footer">
         <div class="sobre-name">Welbert Rodrigues</div>
         <div class="sobre-role" id="sobre-footer-role-pt">Tatuador &amp; Ilustrador · desde 2019</div>
@@ -940,27 +970,24 @@
   
 
   <script>
-    function getCurrentSection() {
-      return sessionStorage.getItem("section") || "landing";
-    }
-    function saveSection(section) {
-      sessionStorage.setItem("section", section);
-    }
-
     const flashData = {};
 
     // ── State central ─────────────────────────────────────
     const state = {
-      section:      sessionStorage.getItem("section") || "landing",
+      section:      sessionStorage.getItem("section") || "gallery",
       language:     localStorage.getItem("language")  || "pt",
-      currentImage: 0
+      currentImage: 0,
+      history:      []
     };
     function getCurrentSection()  { return state.section; }
     function getCurrentLanguage() { return state.language; }
     function saveSection(s)       { state.section = s; sessionStorage.setItem("section", s); }
 
-    function handleNameClick() {
-      if (getCurrentSection() !== "gallery") showSection("gallery");
+    function handleBack() {
+      if (state.history.length > 0) {
+        const prev = state.history.pop();
+        showSection(prev, true);
+      }
     }
 
     function openSobre(lang) {
@@ -1164,18 +1191,11 @@
       document.getElementById("waitlist-form-en").classList.toggle("hidden", isPt);
       document.getElementById("lang-btn").textContent = isPt ? "EN" : "PT";
       document.getElementById("availability-text").textContent = isPt ? "Consulte disponibilidade." : "Check availability.";
-      const galleryCta = document.getElementById("gallery-cta-btn");
-      if (galleryCta) galleryCta.textContent = isPt ? "AGENDAR" : "BOOK";
       const reserveBtn = document.getElementById("lightbox-reserve-btn");
       if (reserveBtn) reserveBtn.textContent = isPt ? "RESERVAR" : "BOOK";
 
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
-      if (currentSection === "landing") {
-        galleryToggleBtn.style.display = "none";
-      } else {
-        galleryToggleBtn.style.display = "";
-        galleryToggleBtn.textContent = currentSection === "gallery" ? "INFO" : (isPt ? "DESENHOS" : "DESIGNS");
-      }
+      galleryToggleBtn.textContent = currentSection === "gallery" ? "INFO" : (isPt ? "DESENHOS" : "DESIGNS");
 
       Object.keys(accordionMapping).forEach(key => {
         ["pt", "en"].forEach(l => {
@@ -1198,10 +1218,10 @@
         if (document.getElementById(id)?.classList.contains("active")) activeAccordions.push(key);
       });
       const newLanguage = currentLanguage === "en" ? "pt" : "en";
+      state.language = newLanguage;
       localStorage.setItem("language", newLanguage);
       document.documentElement.lang = newLanguage === "pt" ? "pt-BR" : "en";
       applyLanguage(newLanguage);
-      updateLandingText && null; // removed
       activeAccordions.forEach(key => {
         const id    = newLanguage === "pt" ? accordionMapping[key].pt    : accordionMapping[key].en;
         const btnId = newLanguage === "pt" ? accordionMapping[key].btnPt : accordionMapping[key].btnEn;
@@ -1218,14 +1238,20 @@
       loadFormData(formKey, storageKey);
     }
     
-    function showSection(section) {
+    function showSection(section, isBack = false) {
       const gallerySection   = document.getElementById("gallery-section");
       const infoSection      = document.getElementById("info");
       const waitlistSection  = document.getElementById("waitlist-section");
       const galleryToggleBtn = document.getElementById("gallery-toggle-btn");
       const availabilityText = document.getElementById("availability-text");
       const customLine       = document.querySelector('.custom-line');
+      const topName          = document.querySelector('.top-name');
       const lang             = getCurrentLanguage();
+
+      // push history unless going back
+      if (!isBack && state.section !== section) {
+        state.history.push(state.section);
+      }
 
       gallerySection.classList.add("hidden");
       infoSection.classList.add("hidden");
@@ -1238,12 +1264,15 @@
         availabilityText.style.display = "block";
         customLine.style.display       = "block";
         galleryToggleBtn.textContent   = "INFO";
+        document.body.classList.remove("show-back");
       } else if (section === "info") {
         infoSection.classList.remove("hidden");
         galleryToggleBtn.textContent = lang === "en" ? "DESIGNS" : "DESENHOS";
+        document.body.classList.add("show-back");
       } else if (section === "waitlist") {
         waitlistSection.classList.remove("hidden");
         galleryToggleBtn.textContent = lang === "en" ? "DESIGNS" : "DESENHOS";
+        document.body.classList.add("show-back");
       }
 
       saveSection(section);
