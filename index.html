@@ -388,7 +388,7 @@
     }
     .instagram-btn:hover { color: #222; }
     
-    /* ── ALTERAÇÃO 1: Header com nome ACIMA dos botões ── */
+    /* ── Header: nome acima, botões abaixo à direita ── */
     .sticky-header-inner {
       display: flex;
       flex-direction: column;
@@ -397,7 +397,7 @@
     .sticky-header-top {
       display: flex;
       align-items: center;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .sticky-header-bottom {
       display: flex;
@@ -416,7 +416,7 @@
     .top-name {
       font-family: 'Outfit', sans-serif;
       font-weight: 500; font-size: 13px;
-      text-transform: uppercase; color: #666;
+      text-transform: uppercase; color: #333;
       letter-spacing: 0.04em;
       background: none; border: none; padding: 0;
     }
@@ -465,13 +465,13 @@
       font-size: inherit;
       text-align: center;
     }
-    #contato-info .contato-label { font-weight: normal; color: #666; }
+    #contato-info .contato-label { font-weight: normal; color: #aaa; }
     #contato-info a.email,
     #contato-info a.whatsapp {
-      font-weight: 500; color: #000; text-decoration: none;
+      font-weight: 300; color: #555; text-decoration: none;
     }
     #contato-info a.email:hover,
-    #contato-info a.whatsapp:hover { text-decoration: underline; }
+    #contato-info a.whatsapp:hover { color: #000; text-decoration: none; }
     
     .waitlist-link { color: #007BFF; text-decoration: none; font-weight: 500; }
     .waitlist-link:hover { text-decoration: underline; }
@@ -505,7 +505,7 @@
     @keyframes sectionFadeIn { from { opacity: 0; } to { opacity: 1; } }
     @media (prefers-reduced-motion: reduce) { section.section { animation: none; } }
     
-    #contact-section { margin-top: 40px; transition: margin-top 0.3s ease; }
+    #contact-section { margin-top: 60px; padding-top: 32px; border-top: 1px solid #eee; transition: margin-top 0.3s ease; }
     
     @media (min-width: 768px) {
       body { padding: 30px; }
@@ -530,8 +530,7 @@
       body { color: #e0e0e0; background-color: #121212; }
       h2 { border-bottom: 1px solid #444; }
       .top-controls button { color: #555; }
-      .top-controls button:hover { color: #eee; }
-      .gallery img { background-color: #1e1e1e; }
+      .top-controls button:hover { color: #eee; }      .gallery img { background-color: #1e1e1e; }
       .lightbox { background: rgba(0,0,0,0.9); }
       .close-btn, .prev-btn, .next-btn {
         background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.3);
@@ -544,8 +543,10 @@
       .instagram-btn:hover { color: #ccc; }
       .contact-title { color: #555; }
       .contact-title:hover { color: #eee; }
-      #contato-info .contato-label { color: #666; }
-      #contato-info a.email, #contato-info a.whatsapp { color: #fff; }
+      #contato-info .contato-label { color: #555; }
+      #contato-info a.email, #contato-info a.whatsapp { color: #888; }
+      #contato-info a.email:hover, #contato-info a.whatsapp:hover { color: #ddd; }
+      #contact-section { border-top-color: #2a2a2a; }
       header.sticky-header { background-color: #121212; }
       .custom-line { border-bottom: 1px solid #444; }
       #waitlist-section { background-color: #1e1e1e; border: 1px solid #444; }
@@ -738,7 +739,7 @@
         </div>
       </div>
     </div>
-    <p id="availability-text" style="text-align: center;">Consulte disponibilidade.</p>
+    <p id="availability-text" style="text-align: center; font-size: 10px; color: #bbb; letter-spacing: 0.08em; text-transform: uppercase; margin: 6px 0 0;">Consulte disponibilidade.</p>
     <hr class="custom-line">
   </header>
   
