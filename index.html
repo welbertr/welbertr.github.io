@@ -94,26 +94,27 @@
       box-sizing: border-box;
     }
 
-    /* ── ALTERAÇÃO 2: Contact title menor e proporcional aos botões ── */
+    /* ── Contact title: sem borda, só texto ── */
     .contact-title {
       display: inline-block;
       width: auto;
       text-align: center;
-      border: 1px solid #ddd;
-      border-radius: 3px;
-      padding: 4px 8px;
+      border: none;
+      border-radius: 0;
+      padding: 4px 0;
       margin: 20px 0 8px;
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       cursor: pointer;
-      color: #555;
+      color: #aaa;
       background-color: transparent;
       font-family: 'Outfit', sans-serif;
-      transition: border-color 0.2s, color 0.2s;
+      transition: color 0.2s;
+      text-decoration: none;
     }
-    .contact-title:hover { border-color: #999; color: #222; }
+    .contact-title:hover { color: #222; }
 
     /* Centraliza o botão de contato dentro da section */
     #contact-section {
@@ -191,22 +192,22 @@
       border-radius: 8px;
     }
 
+    /* ── Lightbox reserve btn: sem borda, só texto ── */
     .lightbox-contact-btn {
       background: transparent;
-      border: 1px solid rgba(255,255,255,0.4);
-      color: rgba(255,255,255,0.7);
-      padding: 8px 20px;
-      border-radius: 4px;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      padding: 8px 0;
       font-family: 'Outfit', sans-serif;
       font-size: 11px;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
+      transition: color 0.2s;
+      text-decoration: none;
     }
     .lightbox-contact-btn:hover {
-      border-color: rgba(255,255,255,0.8);
       color: #fff;
     }
 
@@ -369,19 +370,23 @@
       .flash-badge { background: #222; color: #e0e0e0; }
     }
 
+    /* ── Instagram btn: sem borda, só texto ── */
     .instagram-btn {
       background-color: transparent;
-      color: #000;
-      border: 1px solid #000;
-      padding: 4px 8px;
-      border-radius: 4px;
+      color: #aaa;
+      border: none;
+      padding: 4px 0;
       cursor: pointer;
       font-size: 10px;
       display: inline-block;
       text-decoration: none;
       text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      transition: color 0.2s;
     }
-    .instagram-btn:hover { text-decoration: underline; }
+    .instagram-btn:hover { color: #222; }
     
     /* ── ALTERAÇÃO 1: Header com nome ACIMA dos botões ── */
     .sticky-header-inner {
@@ -416,24 +421,25 @@
       background: none; border: none; padding: 0;
     }
     .top-name-label { display: none !important; }
+
+    /* ── Top controls: sem borda, só texto ── */
     .top-controls {
-      display: flex; gap: 6px; align-items: center;
+      display: flex; gap: 16px; align-items: center;
     }
     .top-controls button {
       background: transparent;
-      color: #555;
-      border: 1px solid #ddd;
-      border-radius: 3px;
-      padding: 4px 8px;
+      color: #aaa;
+      border: none;
+      padding: 4px 0;
       font-family: 'Outfit', sans-serif;
       font-size: 11px;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
+      transition: color 0.2s;
     }
-    .top-controls button:hover { border-color: #999; color: #222; }
+    .top-controls button:hover { color: #222; }
     .top-controls button#lang-btn::before { content: none; }
     
     .accordion-content {
@@ -523,8 +529,8 @@
       html { background-color: #121212; }
       body { color: #e0e0e0; background-color: #121212; }
       h2 { border-bottom: 1px solid #444; }
-      .top-controls button { color: #aaa; border-color: #444; }
-      .top-controls button:hover { border-color: #888; color: #eee; }
+      .top-controls button { color: #555; }
+      .top-controls button:hover { color: #eee; }
       .gallery img { background-color: #1e1e1e; }
       .lightbox { background: rgba(0,0,0,0.9); }
       .close-btn, .prev-btn, .next-btn {
@@ -534,9 +540,10 @@
       .close-btn:hover, .prev-btn:hover, .next-btn:hover {
         background: rgba(0,0,0,0.7); box-shadow: 0 6px 12px rgba(0,0,0,0.6);
       }
-      .instagram-btn { color: #e0e0e0; border-color: #e0e0e0; }
-      .contact-title { color: #aaa; border-color: #444; }
-      .contact-title:hover { border-color: #888; color: #eee; }
+      .instagram-btn { color: #555; }
+      .instagram-btn:hover { color: #ccc; }
+      .contact-title { color: #555; }
+      .contact-title:hover { color: #eee; }
       #contato-info .contato-label { color: #666; }
       #contato-info a.email, #contato-info a.whatsapp { color: #fff; }
       header.sticky-header { background-color: #121212; }
@@ -718,7 +725,6 @@
     </p>
   </noscript>
   
-  <!-- ALTERAÇÃO 1: nome acima dos botões — estrutura dividida em duas linhas -->
   <header class="sticky-header" role="banner">
     <div class="sticky-header-inner">
       <div class="sticky-header-top">
@@ -894,7 +900,6 @@
       </div>
     </section>
     
-    <!-- ALTERAÇÃO 2: botão de contato menor — CSS já cuida, section com text-align:center -->
     <section id="contact-section">
       <h2 class="contact-title" onclick="toggleContato()" role="button" aria-expanded="false" aria-controls="contato-info">CONTATO | CONTACT</h2>
       <div id="contato-info" class="accordion-content" role="region">
